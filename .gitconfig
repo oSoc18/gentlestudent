@@ -1,0 +1,46 @@
+[commit]
+#	gpgsign = true
+[push]
+	default = simple
+[core]
+	excludesfile = /home/user/.gitignore
+[merge]
+	ff = false
+[alias]
+	# make adjustments to the last commit without creating a new one
+	amend = commit --amend --no-edit
+
+	# override content on github, but only if you've synced first
+	puff = push --force-with-lease
+
+	# initialize a new git repo with a first commit and a develop branch
+	it = "!git init && git commit -m \"start the repo\" --allow-empty && git checkout -b develop #"
+
+	# show the current git status, but without all the default cruft
+	stats = status --short --branch
+
+	# show a graphical representation of your repo
+	grog = log --color --graph --abbrev-commit --decorate --all --format=format:\"%C(bold blue)%h%C(reset) %C(bold cyan)%s%C(reset) %C(bold yellow)%d%C(reset)%n  %C(dim white)%aD %C(cyan)(%ar)%n%C(dim white)  %an %C(cyan)[ %G? %GS]%C(reset)\"
+
+	# do a fast-forward merge
+	ff = merge --ff
+
+	# pull everything from the remote
+	fall = fetch --all
+
+	# compare your own local branch with the corresponding remote
+	check = !git diff $(git rev-parse --abbrev-ref --symbolic-full-name @{u})
+
+	# push your new branch to the remote for the first time
+	publish = !git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)
+
+	# rebase your changes on develop
+	sync = rebase --interactive develop
+
+	# do git-flow operations
+    start-feature = "!git branch \"feature/$1\" develop && git checkout \"feature/$1\" #"
+    finish-feature = "!git checkout develop && git merge --no-ff \"feature/$1\" -m \"close #$1\" && git branch -d \"feature/$1\" #"
+    start-release = "!git branch \"release/$1\" develop && git checkout \"release/$1\" #"
+	finish-release = "!git checkout master && git merge --no-ff \"release/$1\" -m \"finish release $1\" && git tag -m \"$1\" \"$1\" && git checkout develop && git merge --no-ff \"release/$1\" -m \"finish release $1\" && git branch -d \"release/$1\" #"
+    start-hotfix = "!git branch \"hotfix/$1\" master && git checkout \"hotfix/$1\" #"
+	finish-hotfix = "!git checkout master && git merge --no-ff \"hotfix/$1\" -m \"finish release $1\" && git tag -m \"$1\" \"$1\" && git checkout develop && git merge --no-ff \"hotfix/$1\" -m \"finish release $1\" && git branch -d \"hotfix/$1\" #"

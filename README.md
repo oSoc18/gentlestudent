@@ -1,2 +1,2 @@
-# gentlestudent-webapp
+# Gentlestudent Webapplicatie
 Webapplication for Gentlestudent
