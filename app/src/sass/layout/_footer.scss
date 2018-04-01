@@ -13,6 +13,7 @@ footer {
         &.bottom {
             position: absolute;
             right: 15px;
+            padding: 0;
             li {
                 width: inherit;
                 a {
@@ -39,6 +40,9 @@ footer {
     .footer_bottom {
         display: flex;
         flex-direction: row;
+        img {
+            width: 200px; 
+        }
         div {
             width: 100%;
         }

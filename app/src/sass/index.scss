@@ -3,17 +3,17 @@
 
 // 7-1 Pattern: https://gist.github.com/rveitch/84cea9650092119527bc
 
-@import "base/base";
 @import "base/colors";
+@import "base/base";
 
 @import "components/buttons";
+@import "components/cards";
 
 @import "layout/nav";
 @import "layout/grid";
 @import "layout/footer";
-// @import "footer";
 
-// @import "page/home";
+@import "pages/home";
 
 // @import "themes/";
 
