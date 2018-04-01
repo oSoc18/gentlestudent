@@ -1,0 +1,15 @@
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    // border: 1px solid rgba(0, 0, 0, .05); //temporary
+    &.full-height {
+        height: calc(100vh - 100px);
+    }
+}
+
+.content {
+    position: relative;
+    padding: 15px;
+}

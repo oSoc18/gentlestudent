@@ -1,0 +1,47 @@
+// NAV
+nav {
+	display: flex;
+	flex-direction: row;
+	height: 100px;
+	box-shadow: 0 5px 20px rgba(0, 0, 0, .16);
+	.logo {
+		height: 100%;
+		width: 270px;
+		padding-left: 30px;
+		img#gs-logo {
+			height: 30px;
+			padding: 35px 0;
+		}
+	}
+	.nav {
+		width: 100%;
+		ul#gs-nav {
+			display: flex;
+			flex-direction: row;
+			position: absolute;
+			right: 30px;
+			padding: 22px 0;
+			li {
+				list-style: none;
+				&.nav_item {
+					&.language {
+						font-size: 14px;
+					}
+				}
+				a {
+					display: block;
+					font-weight: 700;
+					color: $gray;
+					padding: 5px 10px;
+					margin: 0 5px;
+					line-height: 22px;
+					height: 22px;
+					&:hover {
+						transition: all 258ms ease-in-out;
+						color: $dark-gray;
+					}
+				}
+			}
+		}
+	}
+}

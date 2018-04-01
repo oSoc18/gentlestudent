@@ -1,0 +1,46 @@
+footer {
+    width: 100%;
+    background-color: $light-gray;
+    ul {
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+        padding-bottom: 30px;
+        padding-left: 0;
+        &.first {
+            border-bottom: 2px solid $gray;
+        }
+        &.bottom {
+            position: absolute;
+            right: 15px;
+            li {
+                width: inherit;
+                a {
+                    padding: 3px 8px;
+                    font-weight: normal;
+                    font-size: 12px;
+                }
+            }
+        }
+        li {
+            // width: 10%;
+            padding: 0 30px 0 0;
+            a {
+                color: $gray;
+                font-weight: bold;
+                font-size: 14px;
+                &:hover {
+                    transition: all 258ms ease-in-out;
+                    color: $dark-gray;
+                }
+            }
+        }
+    }
+    .footer_bottom {
+        display: flex;
+        flex-direction: row;
+        div {
+            width: 100%;
+        }
+    }
+}

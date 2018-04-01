@@ -1,0 +1,14 @@
+a {
+    text-decoration: none;
+    &.primary {
+        border-radius: 8px;
+        color: $white !important;
+        border: 1px solid $primary;
+        background-color: $primary;
+        &:hover {
+            transition: $transition;
+            color: $primary !important;
+            background-color: transparent;
+        }
+    }
+}
