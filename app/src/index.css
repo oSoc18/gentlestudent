@@ -35,10 +35,31 @@ a {
   grid-column-gap: 15px;
   grid-row-gap: 15px; }
   .card-container .card-item {
-    background-color: #F2F0ED;
-    border: 1px solid #707070;
+    position: relative;
+    background-color: transparent;
+    border: 1px solid #F2F0ED;
     padding: 15px;
-    text-align: center; }
+    overflow: hidden; }
+    .card-container .card-item.leerkans {
+      border-radius: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+      .card-container .card-item.leerkans:hover {
+        transition: all 258ms ease-in-out;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.16); }
+      .card-container .card-item.leerkans > img.photo {
+        margin: -15px -15px 0 -15px;
+        width: calc(100% + 30px); }
+      .card-container .card-item.leerkans img.badge {
+        position: absolute;
+        width: 100px;
+        top: -70px;
+        right: 0; }
+      .card-container .card-item.leerkans .meta-data small {
+        display: block;
+        color: #707070; }
+      .card-container .card-item.leerkans p {
+        color: #707070;
+        font-size: 14px; }
 
 nav {
   display: flex;
