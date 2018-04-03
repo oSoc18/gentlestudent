@@ -9,11 +9,11 @@ h1, h2 {
   color: #707070; }
 
 h1 {
-  font-size: 36px;
+  font-size: 32px;
   line-height: 1.6em; }
 
 h2 {
-  font-size: 24px;
+  font-size: 20px;
   line-height: 1.3em; }
 
 a {
@@ -30,17 +30,27 @@ a {
 
 .card-container {
   display: grid;
-  grid-template-columns: auto auto auto;
-  padding: 10px;
+  padding: 10px 0;
   grid-column-gap: 15px;
   grid-row-gap: 15px; }
   .card-container .card-item {
-    background-color: #F2F0ED;
-    border: 1px solid #707070;
+    position: relative;
+    background-color: transparent;
+    border: 1px solid #F2F0ED;
     padding: 15px;
-    text-align: center; }
-    .card-container .card-item.leerkans {
-      border-radius: 15px; }
+    overflow: hidden; }
+
+@media screen and (min-width: 415px) {
+  .card-container {
+    grid-template-columns: auto; } }
+
+@media screen and (min-width: 550px) {
+  .card-container {
+    grid-template-columns: auto auto; } }
+
+@media screen and (min-width: 960px) {
+  .card-container {
+    grid-template-columns: auto auto auto; } }
 
 nav {
   display: flex;
@@ -81,7 +91,7 @@ nav {
 .container {
   position: relative;
   width: 100%;
-  max-width: 1440px;
+  max-width: 1140px;
   margin: 0 auto; }
   .container.full-height {
     height: calc(100vh - 100px); }
@@ -174,7 +184,7 @@ footer {
       margin: 0 auto;
       position: relative; }
       #startpage .content form .search-wrapper input {
-        width: 100%;
+        width: calc(100% - 40px);
         max-width: 800px;
         padding: 10px 20px;
         border-radius: 8px;
@@ -189,7 +199,7 @@ footer {
       #startpage .content form .search-wrapper button {
         position: absolute;
         top: 10px;
-        right: -30px;
+        right: 10px;
         height: 38px;
         min-width: 100px;
         border-radius: 6px;
@@ -201,6 +211,3 @@ footer {
         cursor: pointer; }
         #startpage .content form .search-wrapper button:hover {
           background-color: #0095b3; }
-
-#leerkansen h1 {
-  text-align: center; }

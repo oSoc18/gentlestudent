@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import Nav from './../Components/Nav';
-import Leerkansen from './../Components/Leerkansen';
+import Leerkansen from './../Components/Frontpage/Leerkansen';
+import Steps from './../Components/Frontpage/Steps';
 import Footer from './../Components/Footer';
 
 import eyecather from './../assets/eyecatcher.jpg';
 
-class StartPage extends Component {
+class FrontPage extends Component {
     render() {
         return (
             <div>
@@ -20,6 +21,7 @@ class StartPage extends Component {
                             <h2>“Slagzin die aanzet tot actie en Gentlestudent voorstelt.”</h2>
                             <form action="">
                                 <div className="search-wrapper">
+                                    <i className="fas fa-search"></i>
                                     <input type="text" placeholder="Probeer “Gent Korenmarkt”"/>
                                     <button type="submit">Zoeken</button>
                                 </div>
@@ -28,10 +30,11 @@ class StartPage extends Component {
                     </div>
                 </div>
                 <Leerkansen />
+                <Steps />
                 <Footer />
             </div>
         );
     }
 }
   
-export default StartPage;
+export default FrontPage;

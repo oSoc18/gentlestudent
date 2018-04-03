@@ -1,5 +1,5 @@
-$transition: all 258ms ease-in-out;
-$shadow: 0 5px 20px rgba(0, 0, 0, .16);
+$transition: all 368ms ease-in-out;
+$shadow: 0 5px 20px rgba(0, 0, 0, .26);
 $shadow-light: 0 2px 5px rgba(0, 0, 0, .1);
 
 body {
@@ -13,10 +13,16 @@ h1, h2 {
 	color: $gray;
 }
 h1 {
-	font-size: 36px;
+	// font-size: 36px;
+	font-size: 32px;
 	line-height: 1.6em;
 }
 h2 {
-	font-size: 24px;
+	// font-size: 24px;
+	font-size: 20px;
 	line-height: 1.3em;
+}
+
+input, textarea {
+	font-family: 'Open Sans', Arial, 'Helvetica Neue', sans-serif;
 }

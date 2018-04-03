@@ -27,7 +27,7 @@ class Footer extends Component {
                                     <li><a href="#">Cookiebeleid</a></li>
                                     <li><a href="#">Voorwaarden</a></li>
                                     <li><a href="#">Privacy</a></li>
-                                    <li><a href="#">NL <i class="fas fa-caret-down"></i></a></li>
+                                    <li><a href="#">NL <i className="fas fa-caret-down"></i></a></li>
                                 </ul>
                             </div>
                         </div>

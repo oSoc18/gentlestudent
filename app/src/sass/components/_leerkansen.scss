@@ -1,0 +1,45 @@
+#leerkansen {
+	h1 {
+		text-align: center;
+	}
+	.card-item {
+		&.leerkans {
+			border-radius: 8px;
+			box-shadow: $shadow-light;
+			border: 2px solid $light-gray;
+			transition: $transition;
+			&:hover {
+				box-shadow: $shadow;
+			}
+			&.dg:hover { border-color: $primary }
+			&.dzh:hover { border-color: $green }
+			&.ons:hover { border-color: $gray3 }
+			&.wbs:hover { border-color: $orange }
+			&.ond:hover { border-color: $sub }
+			> img.photo {
+				margin: -15px -15px 0 -15px;
+				width: calc(100% + 30px);
+			}
+			img.badge {
+				position: absolute;
+				width: 70px;
+				height: auto;
+				top: -60px;
+				right: 0;
+			}
+			h2 { 
+				color: $primary;
+			}
+			.meta-data {
+				small {
+					display: block;
+					color: $gray2;
+				}
+			}
+			p {
+				color: $gray;
+				// font-size: 14px;
+			}
+		}
+	}
+}
