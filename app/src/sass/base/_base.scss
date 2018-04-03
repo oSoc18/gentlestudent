@@ -1,6 +1,6 @@
 $transition: all 200ms ease-in-out;
 $shadow: 0 5px 20px rgba(0, 0, 0, .26);
-$shadow-light: 0 2px 5px rgba(0, 0, 0, .1);
+$shadow-light: 1px 1px 2px rgba(0, 0, 0, .1);
 
 body {
 	margin: 0;
@@ -25,4 +25,20 @@ h2 {
 
 input, textarea {
 	font-family: 'Open Sans', Arial, 'Helvetica Neue', sans-serif;
+}
+
+.meer {
+	display: block;
+	margin: 5px auto 30px;
+	padding: 5px 0;
+	text-align: center;
+	width: 170px;
+	border-bottom: 2px solid $primary;
+	color: $gray;
+	font-size: 20px;
+	font-weight: bold;
+	transition: $transition;
+	&:hover {
+		color: $primary;
+	}
 }

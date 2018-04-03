@@ -19,6 +19,20 @@ h2 {
 input, textarea {
   font-family: 'Open Sans', Arial, 'Helvetica Neue', sans-serif; }
 
+.meer {
+  display: block;
+  margin: 5px auto 30px;
+  padding: 5px 0;
+  text-align: center;
+  width: 170px;
+  border-bottom: 2px solid #00AACC;
+  color: #707070;
+  font-size: 20px;
+  font-weight: bold;
+  transition: all 200ms ease-in-out; }
+  .meer:hover {
+    color: #00AACC; }
+
 a {
   text-decoration: none; }
   a.primary {
@@ -59,8 +73,8 @@ a {
   text-align: center; }
 
 #leerkansen .card-item.leerkans {
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
   border: 2px solid #F2F0ED;
   transition: all 200ms ease-in-out; }
   #leerkansen .card-item.leerkans:hover {
@@ -94,6 +108,29 @@ a {
 
 #recente-ervaringen h1 {
   text-align: center; }
+
+#recente-ervaringen .ervaring {
+  background-size: cover;
+  border-radius: 15px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  height: 400px;
+  border: none;
+  transition: all 200ms ease-in-out; }
+  #recente-ervaringen .ervaring .data {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    padding: 5px 10px;
+    background: rgba(0, 0, 0, 0.35);
+    transition: all 200ms ease-in-out; }
+    #recente-ervaringen .ervaring .data h2 {
+      color: #FFFFFF; }
+    #recente-ervaringen .ervaring .data small {
+      color: #FFFFFF; }
+  #recente-ervaringen .ervaring:hover {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.26); }
+    #recente-ervaringen .ervaring:hover .data {
+      transform: translateY(-120px); }
 
 nav {
   display: flex;
@@ -283,5 +320,26 @@ footer {
       border-color: #00AACC;
       color: #00AACC; }
 
-#download h1 {
-  text-align: center; }
+#download {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  background: #00AACC;
+  padding: 15px 30px;
+  margin-top: 80px; }
+  #download .left {
+    width: 30%;
+    overflow: hidden; }
+    #download .left img {
+      position: absolute;
+      width: 250px;
+      bottom: 0;
+      left: 30px; }
+  #download .right {
+    width: 70%; }
+    #download .right h1 {
+      color: #FFFFFF; }
+    #download .right p {
+      color: white; }
+    #download .right img {
+      width: 150px; }

@@ -92,6 +92,11 @@ a {
   #leerkansen .card-item.leerkans p {
     color: #707070; }
 
+#recente-ervaringen .ervaring {
+  border-radius: 8px; }
+  #recente-ervaringen .ervaring h1 {
+    text-align: center; }
+
 nav {
   display: flex;
   flex-direction: row;
@@ -279,3 +284,6 @@ footer {
       transition: all 200ms ease-in-out;
       border-color: #00AACC;
       color: #00AACC; }
+
+#download h1 {
+  text-align: center; }
