@@ -93,3 +93,33 @@
 		}
 	}
 }
+#new {
+	> div > div {
+		position: absolute;
+		top: 80px;
+		left: 15px;
+		h2 {
+			color: $white;
+			text-shadow: $shadow;
+		}
+		a {
+			display: inline-block;
+			background: white;
+			color: $gray;
+			font-weight: bold;
+			padding: 10px 15px;
+			border: 1px solid $white;
+			border-radius: 8px;
+			&:hover {
+				transition: $transition;
+				border-color: $primary;
+				color: $primary;
+			}
+		}
+	}
+}
+#download {
+	h1 {
+		text-align: center;
+	}
+}
