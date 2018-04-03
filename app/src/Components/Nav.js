@@ -34,7 +34,7 @@ class Nav extends Component {
                             <a href="#" className="primary">Register</a>
                         </li>
                         <li className="nav_item language dropdown">
-                            <a href="#">NL <i class="fas fa-caret-down"></i></a>
+                            <a href="#">NL <i className="fas fa-caret-down"></i></a>
                         </li>
                     </ul>
                 </div>

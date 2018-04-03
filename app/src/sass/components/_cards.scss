@@ -1,43 +1,29 @@
 .card-container {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    padding: 10px;
-    grid-column-gap: 15px;
-    grid-row-gap: 15px;
-    .card-item {
-        position: relative;
-        background-color: transparent;
-        border: 1px solid $light-gray;
-        padding: 15px;
-        overflow: hidden;
-        &.leerkans {
-            border-radius: 15px;
-            box-shadow: $shadow-light;
-            &:hover {
-                transition: $transition;
-                box-shadow: $shadow;
-            }
-            > img.photo {
-                margin: -15px -15px 0 -15px;
-                width: calc(100% + 30px);
-            }
-            img.badge {
-                position: absolute;
-                width: 100px;
-                top: -70px;
-                right: 0;
-            }
-            h2 {}
-            .meta-data {
-                small {
-                    display: block;
-                    color: $gray;
-                }
-            }
-            p {
-                color: $gray;
-                font-size: 14px;
-            }
-        }
-    }
+	display: grid;
+	// grid-template-columns: auto auto;
+	padding: 10px 0;
+	grid-column-gap: 30px;
+	grid-row-gap: 30px;
+	.card-item {
+		position: relative;
+		background-color: transparent;
+		border: 1px solid $light-gray;
+		padding: 15px;
+		overflow: hidden;
+	}
+}
+@media screen and (min-width: 415px) {
+	.card-container {
+		grid-template-columns: auto;
+	}
+}
+@media screen and (min-width: 550px) {
+	.card-container {
+		grid-template-columns: auto auto;
+	}
+}
+@media screen and (min-width: 960px) {
+	.card-container {
+		grid-template-columns: auto auto auto;
+	}
 }
