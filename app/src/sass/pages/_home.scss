@@ -119,28 +119,30 @@
 	}
 }
 #download {
-	display: flex;
 	position: relative;
-	flex-direction: row;
 	background: $primary;
 	padding: 15px 30px;
 	margin-top: 80px;
-	.left { 
-		width: 30%;
-		overflow: hidden;
-		img {
-			position: absolute;
-			width: 250px;
-			bottom: 0;
-			left: 30px;
+	.content {
+		display: flex;
+		flex-direction: row;
+		.left { 
+			width: 30%;
+			overflow: hidden;
+			img {
+				position: absolute;
+				width: 250px;
+				bottom: -15px;
+				left: 0;
+			}
 		}
-	}
-	.right {
-		width: 70%;
-		h1 {
-			color: $white;
+		.right {
+			width: 70%;
+			h1 {
+				color: $white;
+			}
+			p { color: white; }
+			img { width: 150px; }
 		}
-		p { color: white; }
-		img { width: 150px; }
 	}
 }
