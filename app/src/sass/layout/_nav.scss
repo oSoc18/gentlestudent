@@ -1,9 +1,16 @@
 // NAV
 nav {
-	display: flex;
-	flex-direction: row;
 	height: 100px;
-	box-shadow: $shadow;
+	.nav-wrapper {
+		position: fixed;
+		width: 100%;
+		height: 100px;
+		display: flex;
+		flex-direction: row;
+		box-shadow: $shadow;
+		background-color: $white;
+		z-index: 999;
+	}
 	.logo {
 		height: 100%;
 		width: 270px;
