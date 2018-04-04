@@ -321,25 +321,26 @@ footer {
       color: #00AACC; }
 
 #download {
-  display: flex;
   position: relative;
-  flex-direction: row;
   background: #00AACC;
   padding: 15px 30px;
   margin-top: 80px; }
-  #download .left {
-    width: 30%;
-    overflow: hidden; }
-    #download .left img {
-      position: absolute;
-      width: 250px;
-      bottom: 0;
-      left: 30px; }
-  #download .right {
-    width: 70%; }
-    #download .right h1 {
-      color: #FFFFFF; }
-    #download .right p {
-      color: white; }
-    #download .right img {
-      width: 150px; }
+  #download .content {
+    display: flex;
+    flex-direction: row; }
+    #download .content .left {
+      width: 30%;
+      overflow: hidden; }
+      #download .content .left img {
+        position: absolute;
+        width: 250px;
+        bottom: -15px;
+        left: 0; }
+    #download .content .right {
+      width: 70%; }
+      #download .content .right h1 {
+        color: #FFFFFF; }
+      #download .content .right p {
+        color: white; }
+      #download .content .right img {
+        width: 150px; }

@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { NavLink } from "react-router-dom";
+
+
 import logo from './../assets/logo.svg';
 
 class Nav extends Component {
@@ -6,35 +9,35 @@ class Nav extends Component {
         return (
             <nav>
                 <div className="logo">
-                    <a href="#">
+                    <NavLink to="/">
                         <img src={logo} id="gs-logo" alt="logo" />
-                    </a>
+                    </NavLink>
                 </div>
                 <div className="nav">
                     <ul id="gs-nav">
                         <li className="nav_item">
-                            <a href="#">Leerkansen</a>
+                            <NavLink to="/leerkansen" activeClassName="active">Leerkansen</NavLink>
                         </li>
                         <li className="nav_item">
-                        <a href="#">Word Issuer</a>
+                            <NavLink to="/wordissuer" activeClassName="active">Word Issuer</NavLink>
                         </li>
                         <li className="nav_item">
-                            <a href="#">Ervaringen</a>
+                            <NavLink to="/ervaringen">Ervaringen</NavLink>
                         </li>
                         <li className="nav_item">
-                            <a href="#">Nieuws</a>
+                            <NavLink to="/nieuws">Nieuws</NavLink>
                         </li>
                         <li className="nav_item">
-                            <a href="#">Over ons</a>
+                            <NavLink to="/overons">Over ons</NavLink>
                         </li>
                         <li className="nav_item">
-                            <a href="#" className="primary">Login</a>
+                            <NavLink to="/login" className="primary">Login</NavLink>
                         </li>
                         <li className="nav_item primary">
-                            <a href="#" className="primary">Register</a>
+                            <NavLink to="/registreer" className="primary">Registreer</NavLink>
                         </li>
                         <li className="nav_item language dropdown">
-                            <a href="#">NL <i className="fas fa-caret-down"></i></a>
+                            <NavLink to="#">NL <i className="fas fa-caret-down"></i></NavLink>
                         </li>
                     </ul>
                 </div>
