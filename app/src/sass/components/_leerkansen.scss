@@ -1,11 +1,19 @@
 #leerkansen {
+	display: flex;
+	flex-direction: row;
 	h1.uitgelicht {
 		text-align: center;
+	}
+	.content-left { width: 60%; }
+	.content-right {
+		height: calc(100vh - 209px);
+		width: 40%;
+		margin-right: -15px;
+		width: calc(40% + 15px);
 	}
 	.card-item {
 		&.leerkans {
 			border-radius: 15px;
-			box-shadow: $shadow-light;
 			border: 2px solid $light-gray;
 			transition: $transition;
 			&:hover {
