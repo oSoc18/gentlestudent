@@ -69,7 +69,7 @@ a {
   .card-container {
     grid-template-columns: auto auto auto; } }
 
-#leerkansen h1 {
+#leerkansen h1.uitgelicht {
   text-align: center; }
 
 #leerkansen .card-item.leerkans {
@@ -154,6 +154,8 @@ nav {
       padding: 22px 0; }
       nav .nav ul#gs-nav li {
         list-style: none; }
+        nav .nav ul#gs-nav li.nav_item .active {
+          border-bottom: 2px solid #00AACC; }
         nav .nav ul#gs-nav li.nav_item.language {
           font-size: 14px; }
         nav .nav ul#gs-nav li a {

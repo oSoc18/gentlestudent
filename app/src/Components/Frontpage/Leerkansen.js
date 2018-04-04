@@ -36,7 +36,7 @@ class Leerkansen extends Component {
             <div id="leerkansen">
                 <div className="container">
                     <div className="content">
-                        <h1>Leerkansen</h1>
+                        <h1 className="uitgelicht">Leerkansen</h1>
                         
                         <div className="card-container">
                             { this.renderLeerkans (
