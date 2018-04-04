@@ -24,6 +24,9 @@ nav {
 			li {
 				list-style: none;
 				&.nav_item {
+					.active {
+						border-bottom: 2px solid $primary;
+					}
 					&.language {
 						font-size: 14px;
 					}
