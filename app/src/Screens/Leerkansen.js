@@ -14,7 +14,7 @@ class Leerkansen extends Component {
         leerkansen: []
     }
     componentDidMount() {
-        axios.get('http://localhost:8080/api/v1/leerkans')
+        axios.get('https://gentlestudent-api.herokuapp.com/api/v1/leerkans')
           .then(res => {
             const leerkansen = res.data;
             this.setState({ leerkansen: leerkansen });
