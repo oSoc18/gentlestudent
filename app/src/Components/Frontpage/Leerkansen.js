@@ -18,9 +18,9 @@ class Leerkansen extends Component {
         }
         return(
             <a href="#" className={`card-item leerkans ${ type }`}>
-                <img src={id} class="photo" alt="photo" />
+                <img src={id} className="photo" alt="photo" />
                 <div style={{position: "relative"}}>
-                    <img src={badge} class="badge" alt={badge} />
+                    <img src={badge} className="badge" alt={badge} />
                     <h2>{title}</h2>
                     <div className="meta-data">
                         <small>{startDate + ' - ' + endDate + ' ' + year}</small>
@@ -60,7 +60,7 @@ class Leerkansen extends Component {
                                 'Sint-pietersplein 1, 9000 Gent')
                             }
                         </div>
-                        <a class="meer" href="#">Meer leerkansen</a>
+                        <a className="meer" href="#">Meer leerkansen</a>
                     </div>
                 </div>
             </div>
