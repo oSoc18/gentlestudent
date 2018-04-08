@@ -1,0 +1,2 @@
+export const FETCH_LEERKANSEN = 'FETCH_LEERKANSEN';
+export const NEW_LEERKANS = 'NEW_LEERKANS';
