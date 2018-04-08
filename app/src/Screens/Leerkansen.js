@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Nav from './../Components/Nav';
-import Footer from './../Components/Footer';
 import Maps from './../Components/Maps';
 
 import LK12345 from './../assets/leerkansen/LK12345.png';
@@ -10,18 +8,34 @@ import dg2 from './../assets/dg2.svg';
 // Google APi key: AIzaSyALLWUxYAWdEzUoSuWD8j2gVGRR05SWpe8
 
 class Leerkansen extends Component {
-    state = {
-        leerkansen: []
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            leerkansen: []
+        }
     }
-    componentDidMount() {
-        axios.get('https://gentlestudent-api.herokuapp.com/api/v1/leerkans')
-          .then(res => {
-            const leerkansen = res.data;
-            this.setState({ leerkansen: leerkansen });
-          })
+    componentWillMount() {
+        fetch('https://gentlestudent-api.herokuapp.com/api/v1/leerkans')
+          .then(res => res.json())
+          .then(data => this.setState({ leerkansen: data }));
     }
     
     render() {
+        const renderLeerkansen = this.state.leerkansen.map(lk => 
+            <a href="#" className={`card-item leerkans ${ lk.type }`}>
+                <img src={LK12345} class="photo" alt="photo" />
+                <div style={{position: "relative"}}>
+                    <img src={dg2} class="badge" alt={lk.badge} />
+                    <h2>{lk.title}</h2>
+                    <div className="meta-data">
+                        <small>{lk.start_date + ' - ' + lk.end_date}</small>
+                        <small>{lk.street + ' ' + lk.house_number + ', ' + lk.postal_code + ' ' + lk.city}</small>
+                    </div>
+                    <p>{lk.synopsis}</p>
+                </div>
+            </a>
+        )
         return (
             <div>
                 <Nav/>
@@ -30,20 +44,7 @@ class Leerkansen extends Component {
                     <div id="leerkansen">
                         <div className="content-left">
                             <div className="card-container">
-                                { this.state.leerkansen.map(lk => 
-                                    <a href="#" className={`card-item leerkans ${ lk.type }`}>
-                                        <img src={LK12345} class="photo" alt="photo" />
-                                        <div style={{position: "relative"}}>
-                                            <img src={dg2} class="badge" alt={lk.badge} />
-                                            <h2>{lk.title}</h2>
-                                            <div className="meta-data">
-                                                <small>{lk.start_date + ' - ' + lk.end_date}</small>
-                                                <small>{lk.street + ' ' + lk.house_number + ', ' + lk.postal_code + ' ' + lk.city}</small>
-                                            </div>
-                                            <p>{lk.synopsis}</p>
-                                        </div>
-                                    </a>
-                                )}
+                                { renderLeerkansen }
                             </div>
                         </div>
 
@@ -54,7 +55,6 @@ class Leerkansen extends Component {
                         </div>
                     </div>
                 </div>
-                <Footer/>
             </div>
         )
     }
