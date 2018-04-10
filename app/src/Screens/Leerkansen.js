@@ -1,41 +1,36 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchLeerkansen } from '../actions/leerkansActions';
+
 import Nav from './../Components/Nav';
-import Maps from './../Components/Maps';
+import Maps from './../Components/Leerkansen/Maps';
 
 import LK12345 from './../assets/leerkansen/LK12345.png';
 import dg2 from './../assets/dg2.svg';
 
-// Google APi key: AIzaSyALLWUxYAWdEzUoSuWD8j2gVGRR05SWpe8
-
 class Leerkansen extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            leerkansen: []
-        }
-    }
     componentWillMount() {
-        fetch('https://gentlestudent-api.herokuapp.com/api/v1/leerkans')
-          .then(res => res.json())
-          .then(data => this.setState({ leerkansen: data }));
+        this.props.fetchLeerkansen();
     }
     
     render() {
-        const renderLeerkansen = this.state.leerkansen.map(lk => 
-            <a href="#" className={`card-item leerkans ${ lk.type }`}>
-                <img src={LK12345} class="photo" alt="photo" />
-                <div style={{position: "relative"}}>
-                    <img src={dg2} class="badge" alt={lk.badge} />
-                    <h2>{lk.title}</h2>
-                    <div className="meta-data">
-                        <small>{lk.start_date + ' - ' + lk.end_date}</small>
-                        <small>{lk.street + ' ' + lk.house_number + ', ' + lk.postal_code + ' ' + lk.city}</small>
+        const renderLeerkansen = this.props.leerkansen.map(lk => {
+            return(
+                <a href="#" className={`card-item leerkans ${ lk.type }`} key={lk._id}>
+                    <img src={LK12345} className="photo" alt="photo" />
+                    <div style={{position: "relative"}}>
+                        <img src={dg2} className="badge" alt={lk.badge} />
+                        <h2>{lk.title}</h2>
+                        <div className="meta-data">
+                            <small>{lk.start_date + ' - ' + lk.end_date}</small>
+                            <small>{lk.street + ' ' + lk.house_number + ', ' + lk.postal_code + ' ' + lk.city}</small>
+                        </div>
+                        <p>{lk.synopsis}</p>
                     </div>
-                    <p>{lk.synopsis}</p>
-                </div>
-            </a>
-        )
+                </a>
+            )
+        });
         return (
             <div>
                 <Nav/>
@@ -60,4 +55,13 @@ class Leerkansen extends Component {
     }
 }
 
-export default Leerkansen;
+Leerkansen.propTypes = {
+	fetchLeerkansen: PropTypes.func.isRequired,
+	leerkansen: PropTypes.array.isRequired
+}
+
+const mapStateToProps = state => ({
+	leerkansen: state.leerkansen.items
+})
+
+export default connect(mapStateToProps, { fetchLeerkansen })(Leerkansen);
