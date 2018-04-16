@@ -38,7 +38,7 @@ class Nav extends Component {
                                 <NavLink to="/registreer" className="primary">Registreer</NavLink>
                             </li>
                             <li className="nav_item language dropdown">
-                                <NavLink to="#">NL <i className="fas fa-caret-down"></i></NavLink>
+                                <NavLink to="/">NL <i className="fas fa-caret-down"></i></NavLink>
                             </li>
                         </ul>
                     </div>

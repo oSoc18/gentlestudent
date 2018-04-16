@@ -8,16 +8,16 @@ import ons1 from './../../assets/ons1.svg';
 
 class Leerkansen extends Component {
     renderLeerkans (id, badge, type, level, title, synopsis, startDate, endDate, year, address) {
-        function slugify(str) {
-            return str.toString().toLowerCase()
-                .replace(/\s+/g, '-')            // Replace spaces with -
-                .replace(/[^\w\-]+/g, '')        // Remove all non-word chars
-                .replace(/\-\-+/g, '')           // Replace multiple - with single -
-                .replace(/^-+/, '')              // Trim - from start of text
-                .replace(/-+$/, '');             // Trim - from end of text
-        }
+        // function slugify(str) {
+        //     return str.toString().toLowerCase()
+        //         .replace(/\s+/g, '-')            // Replace spaces with -
+        //         .replace(/[^\w\-]+/g, '')        // Remove all non-word chars
+        //         .replace(/\-\-+/g, '')           // Replace multiple - with single -
+        //         .replace(/^-+/, '')              // Trim - from start of text
+        //         .replace(/-+$/, '');             // Trim - from end of text
+        // }
         return(
-            <a href="#" className={`card-item leerkans ${ type }`}>
+            <a href="/" className={`card-item leerkans ${ type }`}>
                 <img src={id} className="photo" alt="photo" />
                 <div style={{position: "relative"}}>
                     <img src={badge} className="badge" alt={badge} />
@@ -60,7 +60,7 @@ class Leerkansen extends Component {
                                 'Sint-pietersplein 1, 9000 Gent')
                             }
                         </div>
-                        <a className="meer" href="#">Meer leerkansen</a>
+                        <a className="meer" href="/">Meer leerkansen</a>
                     </div>
                 </div>
             </div>
