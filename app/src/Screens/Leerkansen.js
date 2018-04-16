@@ -15,7 +15,6 @@ class Leerkansen extends Component {
     }
     
     render() {
-        console.log(this.props.leerkansen);
         const renderLeerkansen = 
             this.props.leerkansen.items.map(lk => {
                 return(

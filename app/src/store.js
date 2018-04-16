@@ -5,7 +5,9 @@ import {
     compose 
 } from 'redux';
 import thunkMiddleware from 'redux-thunk';
+import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
+
 import reducers from './reducers/';
 import sagas from './sagas/';
 
@@ -15,7 +17,10 @@ const devTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && window.__REDUX_D
 
 let middleware = applyMiddleware(
     sagaMiddleware,
-    thunkMiddleware
+    thunkMiddleware,
+    createLogger({
+        collapsed: true
+    })
 );
 let store = createStore(
     combineReducers({ ...reducers }),
