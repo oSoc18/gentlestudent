@@ -6,9 +6,6 @@ import LK12345 from './../../assets/leerkansen/LK12345.png';
 import dg2 from './../../assets/dg2.svg';
 
 class ListLeerkansen extends Component {
-    constructor() {
-      super()
-    }
     componentDidMount() {
       this.props.fetchLeerkansen();
     }
