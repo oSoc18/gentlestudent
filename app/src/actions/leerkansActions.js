@@ -1,11 +1,9 @@
-import { FETCH_LEERKANSEN } from './types';
+export const LEERKANSEN_FETCH_LIST = 'LEERKANSEN_FETCH_LIST';
+export const LEERKANSEN_FETCH_LIST_SUCCESS = 'LEERKANSEN_FETCH_LIST_SUCCESS';
+export const LEERKANSEN_FETCH_LIST_FAILED = 'LEERKANSEN_FETCH_LIST_FAILED';
 
-export const fetchLeerkansen = () => (dispatch) => {
-	console.log('fetching data...');
-	fetch('https://gentlestudent-api.herokuapp.com/api/v1/leerkans')
-		.then(res => res.json())
-		.then(leerkansen => dispatch({
-			type: FETCH_LEERKANSEN,
-			payload: leerkansen
-		}));
+export function LeerkansenFetch() {
+	return {
+		type: LEERKANSEN_FETCH_LIST
+	}
 }

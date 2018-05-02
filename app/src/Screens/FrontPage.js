@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import Nav from './../Components/Nav';
-import Leerkansen from './../Components/Frontpage/Leerkansen';
-import RecenteErvaringen from './../Components/Frontpage/RecenteErvaringen';
-import Download from './../Components/Frontpage/Download';
-import Footer from './../Components/Footer';
+
+import Nav from './../Components/Nav.jsx';
+import Leerkansen from './../Components/Frontpage/Leerkansen.jsx';
+import RecenteErvaringen from './../Components/Frontpage/RecenteErvaringen.jsx';
+import Download from './../Components/Frontpage/Download.jsx';
+import Footer from './../Components/Footer.jsx';
 
 import eyecather from './../assets/eyecatcher.jpg';
 import newImage from './../assets/wat-is-er-nieuw.png';
@@ -45,7 +46,7 @@ class FrontPage extends Component {
 					<div className="container">
 						<div>
 							<h2>Zie wat Gentlestudent heeft te bieden en wat je mag verwachten in de toekomst</h2>
-							<a href="#">Wat is er nieuw?</a>
+							<a href="/">Wat is er nieuw?</a>
 						</div>
 					</div>
 				</div>

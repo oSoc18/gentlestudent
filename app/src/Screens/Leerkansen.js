@@ -1,36 +1,14 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { fetchLeerkansen } from '../actions/leerkansActions';
 
-import Nav from './../Components/Nav';
-import Maps from './../Components/Leerkansen/Maps';
-
-import LK12345 from './../assets/leerkansen/LK12345.png';
-import dg2 from './../assets/dg2.svg';
+import Nav from './../Components/Nav.jsx';
+import ListLeerkansen from './../Components/Leerkansen/ListLeerkansen.jsx';
+import Maps from './../Components/Leerkansen/Maps.jsx';
 
 class Leerkansen extends Component {
-    componentWillMount() {
-        this.props.fetchLeerkansen();
+    constructor() {
+        super();
     }
-    
     render() {
-        const renderLeerkansen = this.props.leerkansen.map(lk => {
-            return(
-                <a href="#" className={`card-item leerkans ${ lk.type }`} key={lk._id}>
-                    <img src={LK12345} className="photo" alt="photo" />
-                    <div style={{position: "relative"}}>
-                        <img src={dg2} className="badge" alt={lk.badge} />
-                        <h2>{lk.title}</h2>
-                        <div className="meta-data">
-                            <small>{lk.start_date + ' - ' + lk.end_date}</small>
-                            <small>{lk.street + ' ' + lk.house_number + ', ' + lk.postal_code + ' ' + lk.city}</small>
-                        </div>
-                        <p>{lk.synopsis}</p>
-                    </div>
-                </a>
-            )
-        });
         return (
             <div>
                 <Nav/>
@@ -39,7 +17,7 @@ class Leerkansen extends Component {
                     <div id="leerkansen">
                         <div className="content-left">
                             <div className="card-container">
-                                { renderLeerkansen }
+                                <ListLeerkansen />
                             </div>
                         </div>
 
@@ -55,13 +33,4 @@ class Leerkansen extends Component {
     }
 }
 
-Leerkansen.propTypes = {
-	fetchLeerkansen: PropTypes.func.isRequired,
-	leerkansen: PropTypes.array.isRequired
-}
-
-const mapStateToProps = state => ({
-	leerkansen: state.leerkansen.items
-})
-
-export default connect(mapStateToProps, { fetchLeerkansen })(Leerkansen);
+export default Leerkansen;

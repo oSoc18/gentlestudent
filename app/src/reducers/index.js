@@ -1,6 +1,7 @@
-import { combineReducers } from 'redux';
-import leerkansReducer from './leerkansReducer';
+import { leerkansReducer } from './leerkansReducer';
 
-export default combineReducers({
-    leerkansen: leerkansReducer
-})
+const reducer = {
+  leerkansen: leerkansReducer,
+};
+
+export default reducer;
