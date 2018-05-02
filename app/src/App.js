@@ -11,6 +11,7 @@ import store from './store';
 
 import FrontPage from './Screens/FrontPage';
 import Leerkansen from './Screens/Leerkansen';
+import CreateLeerkansen from './Screens/CreateLeerkans';
 import WordIssuer from './Screens/WordIssuer';
 import Ervaringen from './Screens/Ervaringen';
 import Nieuws from './Screens/Nieuws';
@@ -24,6 +25,7 @@ class App extends Component {
 					<Switch>
 						<Route path="/" exact render={() => <FrontPage/>} />
 						<Route path="/leerkansen" exact render={() => <Leerkansen/>} />
+						<Route path="/create-leerkansen" exact render={() => <CreateLeerkansen/>} />
 						<Route path="/wordissuer" exact render={() => <WordIssuer/>} />
 						<Route path="/ervaringen" exact render={() => <Ervaringen/>} />
 						<Route path="/nieuws" exact render={() => <Nieuws/>} />

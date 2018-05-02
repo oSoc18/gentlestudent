@@ -9,6 +9,7 @@ import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 
 import reducers from './reducers/';
+import { reducer as formReducer } from 'redux-form';
 import sagas from './sagas/';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -22,7 +23,10 @@ let middleware = applyMiddleware(
     })
 );
 let store = createStore(
-    combineReducers({ ...reducers }),
+    combineReducers({
+        ...reducers,
+        form: formReducer
+    }),
     compose( devTools ),
     middleware,
 );
