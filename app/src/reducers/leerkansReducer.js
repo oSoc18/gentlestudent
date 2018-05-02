@@ -1,7 +1,10 @@
 import {
     LEERKANSEN_FETCH_LIST,
-    LEERKANSEN_FETCH_LIST_SUCCESS,
-    LEERKANSEN_FETCH_LIST_FAILED
+    LEERKANSEN_FETCH_LIST_SUCCES,
+    LEERKANSEN_FETCH_LIST_FAILED,
+    LEERKANSEN_CREATE_ITEM,
+    LEERKANSEN_CREATE_ITEM_SUCCES,
+    LEERKANSEN_CREATE_ITEM_FAILED
 } from '../actions/leerkansActions';
 
 const initialState = {
@@ -17,7 +20,7 @@ export function leerkansReducer(state = initialState, action) {
                 ...state,
                 loading: true
             }
-        case LEERKANSEN_FETCH_LIST_SUCCESS:
+        case LEERKANSEN_FETCH_LIST_SUCCES:
             return {
                 ...state,
                 items: action.data,
@@ -27,6 +30,21 @@ export function leerkansReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false
+            };
+        case LEERKANSEN_CREATE_ITEM:
+            return {
+              ...state,
+              loading: true
+            };
+          case LEERKANSEN_CREATE_ITEM_FAILED:
+            return {
+              ...state,
+              loading: false
+            };
+          case LEERKANSEN_CREATE_ITEM_SUCCES:
+            return {
+              ...state,
+              loading: false
             };
         default:
             return state
