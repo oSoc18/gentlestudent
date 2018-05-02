@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Nav from './../Components/Nav';
-import Footer from './../Components/Footer';
+
+import Nav from './../Components/Nav.jsx';
+import Footer from './../Components/Footer.jsx';
 
 class WordIssuer extends Component {
     render() {

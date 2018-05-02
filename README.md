@@ -6,3 +6,6 @@ Webapplication for Gentlestudent
 1. Install yarn or npm `yarn` or `npm i` (Don't have yarn? Click [here](https://yarnpkg.com/en/docs/install))
 1. Run scss watcher `yarn watch-css` or `npm run watch-css`
 1. Open new tab and run `yarn start` or `npm run start`
+
+## Known errors
+- If you get an error similar to: `Cannot read property 'apply' of undefined` => remove the line `compose( devTools )` from the variable store in store.js

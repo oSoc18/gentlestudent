@@ -1,18 +1,33 @@
-import { FETCH_LEERKANSEN } from '../actions/types';
+import {
+    LEERKANSEN_FETCH_LIST,
+    LEERKANSEN_FETCH_LIST_SUCCESS,
+    LEERKANSEN_FETCH_LIST_FAILED
+} from '../actions/leerkansActions';
 
 const initialState = {
     items: [],
-    item: {}
+    item: {},
+    loading: false
 }
 
-export default (state = initialState, action) => {
+export function leerkansReducer(state = initialState, action) {
     switch(action.type) {
-        case FETCH_LEERKANSEN:
-        console.log('action FETCH_LEERKANSEN called');
+        case LEERKANSEN_FETCH_LIST:
             return {
                 ...state,
-                items: action.payload
+                loading: true
             }
+        case LEERKANSEN_FETCH_LIST_SUCCESS:
+            return {
+                ...state,
+                items: action.data,
+                loading: false
+            };
+        case LEERKANSEN_FETCH_LIST_FAILED:
+            return {
+                ...state,
+                loading: false
+            };
         default:
             return state
     }
