@@ -1,8 +1,8 @@
-import { spawn } from 'redux-saga/effects';
+import { all, spawn } from 'redux-saga/effects';
 import LeerkansSagas from './LeerkansSagas';
 
 export default function* rootSaga() {
-  yield [
+  yield all([
     spawn(LeerkansSagas),
-  ];
+  ]);
 }

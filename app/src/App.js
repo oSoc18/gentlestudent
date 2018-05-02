@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
 
+import { Provider } from 'react-redux';
 import {
 	BrowserRouter as Router,
 	Route,
@@ -9,7 +9,6 @@ import {
 
 import store from './store';
 
-// import Routes from './routes/router';
 import FrontPage from './Screens/FrontPage';
 import Leerkansen from './Screens/Leerkansen';
 import WordIssuer from './Screens/WordIssuer';
@@ -17,11 +16,10 @@ import Ervaringen from './Screens/Ervaringen';
 import Nieuws from './Screens/Nieuws';
 import OverOns from './Screens/OverOns';
 
-
 class App extends Component {
 	render() {
 		return (
-			<Provider store = {store}>
+			<Provider store={store}>
 				<Router>
 					<Switch>
 						<Route path="/" exact render={() => <FrontPage/>} />

@@ -1,4 +1,4 @@
-import { put, takeEvery } from 'redux-saga/effects';
+import { all, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 import {
@@ -20,7 +20,9 @@ function* leerkansenFetch(action) {
 }
 
 function* leerkansSagas() {
-	yield takeEvery(LEERKANSEN_FETCH_LIST, leerkansenFetch);
+	yield all([
+		takeEvery(LEERKANSEN_FETCH_LIST, leerkansenFetch)
+	]);
 }
 
 export default leerkansSagas;

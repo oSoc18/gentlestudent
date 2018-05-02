@@ -11,7 +11,6 @@ import createSagaMiddleware from 'redux-saga';
 import reducers from './reducers/';
 import sagas from './sagas/';
 
-// const initialState = {};
 const sagaMiddleware = createSagaMiddleware();
 const devTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__();
 

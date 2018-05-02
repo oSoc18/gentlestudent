@@ -77,13 +77,16 @@ a {
   #leerkansen .content-left {
     width: 60%; }
   #leerkansen .content-right {
-    width: 40%; }
+    height: calc(100vh - 209px);
+    width: 40%;
+    margin-right: -15px;
+    width: calc(40% + 15px); }
   #leerkansen .card-item.leerkans {
     border-radius: 15px;
     border: 2px solid #F2F0ED;
     transition: all 200ms ease-in-out; }
     #leerkansen .card-item.leerkans:hover {
-      box-shadow: 8px 8px 6px rgba(0, 0, 0, 0.26); }
+      box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26); }
     #leerkansen .card-item.leerkans.dg:hover {
       border-color: #00AACC; }
     #leerkansen .card-item.leerkans.dzh:hover {
@@ -133,15 +136,21 @@ a {
     #recente-ervaringen .ervaring .data small {
       color: #FFFFFF; }
   #recente-ervaringen .ervaring:hover {
-    box-shadow: 8px 8px 6px rgba(0, 0, 0, 0.26); }
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26); }
     #recente-ervaringen .ervaring:hover .data {
       transform: translateY(-120px); }
 
 nav {
-  display: flex;
-  flex-direction: row;
-  height: 100px;
-  box-shadow: 8px 8px 6px rgba(0, 0, 0, 0.26); }
+  height: 100px; }
+  nav .nav-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26);
+    background-color: #FFFFFF;
+    z-index: 999; }
   nav .logo {
     height: 100%;
     width: 270px;
@@ -258,7 +267,7 @@ footer {
     contain: strict !important; }
     #startpage .content h1, #startpage .content h2 {
       color: #FFFFFF;
-      text-shadow: 8px 8px 6px rgba(0, 0, 0, 0.26); }
+      text-shadow: 0 0px 10px rgba(0, 0, 0, 0.26); }
     #startpage .content h1 {
       margin: 0; }
     #startpage .content h2 {
@@ -287,7 +296,7 @@ footer {
         transition: all 200ms ease-in-out; }
         #startpage .content form .search-wrapper input:focus, #startpage .content form .search-wrapper input:active {
           border-color: #00AACC;
-          box-shadow: 8px 8px 6px rgba(0, 0, 0, 0.26); }
+          box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26); }
         #startpage .content form .search-wrapper input::-webkit-input-placeholder {
           /* Chrome/Opera/Safari */
           color: #aeaeae; }
@@ -313,7 +322,7 @@ footer {
   left: 15px; }
   #new > div > div h2 {
     color: #FFFFFF;
-    text-shadow: 8px 8px 6px rgba(0, 0, 0, 0.26); }
+    text-shadow: 0 0px 10px rgba(0, 0, 0, 0.26); }
   #new > div > div a {
     display: inline-block;
     background: white;

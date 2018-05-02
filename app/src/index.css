@@ -110,9 +110,11 @@ a {
       color: #00AACC; }
     #leerkansen .card-item.leerkans .meta-data small {
       display: block;
-      color: #aeaeae; }
+      color: #aeaeae;
+      font-size: 12px; }
     #leerkansen .card-item.leerkans p {
-      color: #707070; }
+      color: #707070;
+      font-size: 14px; }
 
 #recente-ervaringen h1 {
   text-align: center; }
