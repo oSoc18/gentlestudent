@@ -1,4 +1,4 @@
-# Gentlestudent Webapplicatie
+# Gentlestudent Webapplication
 Webapplication for Gentlestudent
 
 ## How to run project
@@ -8,4 +8,4 @@ Webapplication for Gentlestudent
 1. Open new tab and run `yarn start` or `npm run start`
 
 ## Known errors
-- If you get an error similar to: `Cannot read property 'apply' of undefined` => remove the line `compose( devTools )` from the variable store in store.js
+- If you get an error similar to: `Cannot read property 'apply' of undefined in createStore` => remove the line `compose( devTools )` from the variable `let store` in `store.js`.
