@@ -17,9 +17,7 @@ class Leerkansen extends Component {
                     </h1>
                     <div id="leerkansen">
                         <div className="content-left">
-                            <div className="card-container">
-                                <ListLeerkansen />
-                            </div>
+                            <ListLeerkansen />
                         </div>
 
                         <div className="content-right">

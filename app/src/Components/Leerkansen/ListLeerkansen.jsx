@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { LeerkansenFetch } from './../../actions/leerkansActions';
 
+import Spinner from './../../Components/Spinner';
 import LK12345 from './../../assets/leerkansen/LK12345.png';
 import dg2 from './../../assets/dg2.svg';
 
@@ -12,6 +13,11 @@ class ListLeerkansen extends Component {
     render() {
         return (
             <React.Fragment>
+                {
+                    this.props.leerkansen.loading ?
+                    <Spinner /> : null
+                }
+                <div className="card-container">
                 {
                     this.props.leerkansen.items.map((lk, key) => {
                         return(
@@ -30,6 +36,7 @@ class ListLeerkansen extends Component {
                         )
                     })
                 }
+                </div>
             </React.Fragment>
         )
     }
