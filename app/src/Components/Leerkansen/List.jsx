@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Route, Switch } from "react-router-dom";
+
 import { LeerkansenFetch } from './../../actions/leerkansActions';
 
 import Spinner from './../../Components/Spinner';
+import Detail from './Detail';
 import LK12345 from './../../assets/leerkansen/LK12345.png';
 import dg2 from './../../assets/dg2.svg';
 
-class ListLeerkansen extends Component {
+class List extends Component {
     componentDidMount() {
       this.props.fetchLeerkansen();
     }
     render() {
         return (
             <React.Fragment>
+                <Switch>
+                    <Route path="/leerkansen/:_id" component={Detail} />
+                </Switch>
                 {
                     this.props.leerkansen.loading ?
                     <Spinner /> : null
@@ -21,7 +27,7 @@ class ListLeerkansen extends Component {
                 {
                     this.props.leerkansen.items.map((lk, key) => {
                         return(
-                            <a href="/" className={`card-item leerkans ${ lk.type }`} key={lk._id}>
+                            <a href={`/leerkansen/${lk._id}`} className={`card-item leerkans ${ lk.type }`} key={lk._id}>
                                 <img src={LK12345} className="photo" alt={lk.title} />
                                 <div style={{position: "relative"}}>
                                     <img src={dg2} className="badge" alt={lk.badge} />
@@ -55,4 +61,4 @@ export default connect(
             }
         }
     }
-)(ListLeerkansen);
+)(List);

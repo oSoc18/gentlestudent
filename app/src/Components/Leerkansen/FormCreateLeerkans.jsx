@@ -1,57 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import { Field, reduxForm } from 'redux-form';
 
 import { LeerkansCreateItem } from './../../actions/leerkansActions';
 
-const renderInput = ({
-  label,
-  input,
-  type,
-  id,
-  placeholder,
-  defaultValue,
-  value
-}) => {
-  return (
-    <React.Fragment>
-        <label htmlFor={label}>{label}</label>
-        <input
-          {...input}
-          type={type}
-          id={id}
-          value={value}
-          defaultValue={defaultValue}
-          placeholder={placeholder}
-        />
-    </React.Fragment>
-  );
-};
-const renderTextarea = ({
-  label,
-  input,
-  type,
-  id,
-  placeholder,
-  defaultValue,
-  value
-}) => {
-  return (
-    <React.Fragment>
-        <label htmlFor={label}>{label}</label>
-        <textarea
-          {...input}
-          type={type}
-          id={id}
-          rows="5"
-          value={value}
-          defaultValue={defaultValue}
-          placeholder={placeholder}
-        />
-    </React.Fragment>
-  );
-};
+import { renderInput, renderTextarea } from './../Utils';
 
 let FormCreateLeerkans = (props) => {
   const { 

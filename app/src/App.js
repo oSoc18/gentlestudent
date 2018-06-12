@@ -16,6 +16,7 @@ import WordIssuer from './Screens/WordIssuer';
 import Ervaringen from './Screens/Ervaringen';
 import Nieuws from './Screens/Nieuws';
 import OverOns from './Screens/OverOns';
+import IssueBadgeRecipient from './Screens/Issuers/IssueBadgeRecipient';
 
 class App extends Component {
 	render() {
@@ -23,13 +24,17 @@ class App extends Component {
 			<Provider store={store}>
 				<Router>
 					<Switch>
-						<Route path="/" exact render={() => <FrontPage/>} />
-						<Route path="/leerkansen" exact render={() => <Leerkansen/>} />
-						<Route path="/create-leerkansen" exact render={() => <CreateLeerkansen/>} />
-						<Route path="/wordissuer" exact render={() => <WordIssuer/>} />
-						<Route path="/ervaringen" exact render={() => <Ervaringen/>} />
-						<Route path="/nieuws" exact render={() => <Nieuws/>} />
-						<Route path="/overons" exact render={() => <OverOns/>} />
+						<Route path="/" exact render={() => <FrontPage />} />
+						<Route path="/leerkansen" render={() => <Leerkansen />} />
+						<Route path="/create-leerkansen" exact render={() => <CreateLeerkansen />} />
+						<Route path="/wordissuer" exact render={() => <WordIssuer />} />
+						<Route path="/ervaringen" exact render={() => <Ervaringen />} />
+						<Route path="/nieuws" exact render={() => <Nieuws />} />
+						<Route path="/overons" exact render={() => <OverOns />} />
+						{/* ISSUERS */}
+						{/* <Auth> */}
+							<Route path="/issue-badge-recipient" exact render={() => <IssueBadgeRecipient />} />
+						{/* </Auth> */}
 					</Switch>
 				</Router>
 			</Provider>

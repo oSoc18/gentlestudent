@@ -1,8 +1,12 @@
 import { all, spawn } from 'redux-saga/effects';
-import LeerkansSagas from './LeerkansSagas';
+import leerkansSagas from './LeerkansSagas';
+import badgesSagas from './BadgesSagas';
+import authSagas from './AuthSagas';
 
 export default function* rootSaga() {
   yield all([
-    spawn(LeerkansSagas),
+    spawn(leerkansSagas),
+    spawn(badgesSagas),
+    spawn(authSagas)
   ]);
 }

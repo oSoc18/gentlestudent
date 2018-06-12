@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { authenticatedCheck } from './../actions/authActions';
 
 import Nav from './../Components/Nav.jsx';
 import Leerkansen from './../Components/Frontpage/Leerkansen.jsx';
@@ -19,6 +22,9 @@ const newStyle = {
 };
 
 class FrontPage extends Component {
+	componentDidMount() {
+    this.props.check();
+  }
 	render() {
 		return (
 			<div>
@@ -58,4 +64,15 @@ class FrontPage extends Component {
 	}
 }
   
-export default FrontPage;
+export default (FrontPage = connect(
+  (state) => {
+    return {
+      auth: state.auth
+    };
+  },
+  (dispatch) => {
+    return {
+      check: () => dispatch(authenticatedCheck())
+    };
+  }
+)(FrontPage));

@@ -15,6 +15,7 @@ function* leerkansenFetch(action) {
 		const result = yield axios({
 			method: 'get',
 			url: 'https://gentlestudent-api.herokuapp.com/api/v1/leerkans'
+			// url: 'http://localhost:8080/api/v1/leerkans'
 		});
 		yield put({ type: LEERKANSEN_FETCH_LIST_SUCCES, data: result.data });
 	} catch (e) {

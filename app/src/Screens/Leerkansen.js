@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 import Nav from './../Components/Nav.jsx';
-import ListLeerkansen from './../Components/Leerkansen/ListLeerkansen.jsx';
+import List from './../Components/Leerkansen/List.jsx';
 import Maps from './../Components/Leerkansen/Maps.jsx';
 
 class Leerkansen extends Component {
@@ -17,7 +17,7 @@ class Leerkansen extends Component {
                     </h1>
                     <div id="leerkansen">
                         <div className="content-left">
-                            <ListLeerkansen />
+                            <List />
                         </div>
 
                         <div className="content-right">

@@ -3,16 +3,15 @@ import { connect } from 'react-redux';
 
 import { LeerkansCreateItem } from './../actions/leerkansActions';
 
-import Nav from './../Components/Nav.jsx';
-import Footer from './../Components/Footer.jsx';
-import FormCreateLeerkans from './../Components/Leerkansen/FormCreateLeerkans.jsx';
+import Nav from './../Components/Nav';
+import Footer from './../Components/Footer';
+import FormCreateLeerkans from './../Components/Leerkansen/FormCreateLeerkans';
 
 class CreateLeerkans extends Component {
   constructor() {
     super();
     this.submit = this.submit.bind(this);
   };
-  componentDidMount() {}
   submit() {
     this.props.createLeerkans(
       {...this.props.form.createLeerkansForm.values}

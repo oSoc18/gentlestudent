@@ -19,7 +19,8 @@ let middleware = applyMiddleware(
     sagaMiddleware,
     thunkMiddleware,
     createLogger({
-        collapsed: true
+        collapsed: true,
+        predicate: (getState, action) => !action.type.includes('@@redux-form')
     })
 );
 let store = createStore(
