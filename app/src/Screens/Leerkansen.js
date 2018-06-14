@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-import Nav from './../Components/Nav.jsx';
-import List from './../Components/Leerkansen/List.jsx';
-import Maps from './../Components/Leerkansen/Maps.jsx';
+import Nav from './../Components/Nav';
+import List from './../Components/Leerkansen/List';
+import Maps from './../Components/Leerkansen/Maps';
 
 class Leerkansen extends Component {
     render() {

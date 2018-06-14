@@ -20,7 +20,7 @@ class Nav extends Component {
                                 <NavLink to="/leerkansen" activeClassName="active">Leerkansen</NavLink>
                             </li>
                             <li className="nav_item">
-                                <NavLink to="/wordissuer" activeClassName="active">Word Issuer</NavLink>
+                                <NavLink to="/word-issuer" activeClassName="active">Word Issuer</NavLink>
                             </li>
                             <li className="nav_item">
                                 <NavLink to="/ervaringen">Ervaringen</NavLink>

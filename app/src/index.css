@@ -38,7 +38,7 @@ a {
   a.primary {
     border-radius: 8px;
     color: #FFFFFF !important;
-    border: 1px solid #00AACC;
+    border: 2px solid #00AACC;
     background-color: #00AACC; }
     a.primary:hover {
       transition: all 200ms ease-in-out;
@@ -53,7 +53,6 @@ a {
   .card-container .card-item {
     position: relative;
     background-color: transparent;
-    border: 1px solid #F2F0ED;
     padding: 15px;
     overflow: hidden; }
 
@@ -189,10 +188,15 @@ nav {
     width: 100%; }
     nav .nav ul#gs-nav {
       display: flex;
-      flex-direction: row;
       position: absolute;
       right: 30px;
       padding: 22px 0; }
+      @media screen and (min-width: 320px) {
+        nav .nav ul#gs-nav {
+          flex-direction: column; } }
+      @media screen and (min-width: 960px) {
+        nav .nav ul#gs-nav {
+          flex-direction: row; } }
       nav .nav ul#gs-nav li {
         list-style: none; }
         nav .nav ul#gs-nav li.nav_item .active {
@@ -228,16 +232,27 @@ footer {
   background-color: #F2F0ED; }
   footer ul {
     display: flex;
-    flex-direction: row;
     list-style: none;
     padding-bottom: 30px;
-    padding-left: 0; }
+    padding-left: 0;
+    line-height: 2em; }
+    @media screen and (min-width: 320px) {
+      footer ul {
+        flex-direction: column; } }
+    @media screen and (min-width: 960px) {
+      footer ul {
+        flex-direction: row; } }
     footer ul.first {
-      border-bottom: 2px solid #707070; }
+      border-bottom: 1px solid #aeaeae; }
     footer ul.bottom {
-      position: absolute;
-      right: 15px;
       padding: 0; }
+      @media screen and (min-width: 320px) {
+        footer ul.bottom {
+          position: relative; } }
+      @media screen and (min-width: 960px) {
+        footer ul.bottom {
+          position: absolute;
+          right: 15px; } }
       footer ul.bottom li {
         width: inherit; }
         footer ul.bottom li a {
@@ -254,8 +269,13 @@ footer {
           transition: all 258ms ease-in-out;
           color: #252525; }
   footer .footer_bottom {
-    display: flex;
-    flex-direction: row; }
+    display: flex; }
+    @media screen and (min-width: 320px) {
+      footer .footer_bottom {
+        flex-direction: column; } }
+    @media screen and (min-width: 960px) {
+      footer .footer_bottom {
+        flex-direction: row; } }
     footer .footer_bottom img {
       width: 200px; }
     footer .footer_bottom div {

@@ -100,9 +100,25 @@ a {
   #create_leerkans form .form-group {
     width: 100%; }
     #create_leerkans form .form-group label {
-      width: 100%; }
-    #create_leerkans form .form-group input {
-      width: 100%; }
+      display: block;
+      width: 100%;
+      padding: 8px 0 0;
+      font-size: 14px;
+      text-transform: uppercase;
+      font-weight: bold;
+      color: #666; }
+    #create_leerkans form .form-group input,
+    #create_leerkans form .form-group textarea {
+      display: block;
+      padding: 8px 16px;
+      margin-bottom: 8px;
+      width: calc(100% - 32px - 2px);
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      outline: none; }
+      #create_leerkans form .form-group input:focus,
+      #create_leerkans form .form-group textarea:focus {
+        border: 1px solid turquoise; }
 
 #leerkansen {
   display: flex;

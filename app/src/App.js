@@ -27,7 +27,7 @@ class App extends Component {
 						<Route path="/" exact render={() => <FrontPage />} />
 						<Route path="/leerkansen" render={() => <Leerkansen />} />
 						<Route path="/create-leerkansen" exact render={() => <CreateLeerkansen />} />
-						<Route path="/wordissuer" exact render={() => <WordIssuer />} />
+						<Route path="/word-issuer" exact render={() => <WordIssuer />} />
 						<Route path="/ervaringen" exact render={() => <Ervaringen />} />
 						<Route path="/nieuws" exact render={() => <Nieuws />} />
 						<Route path="/overons" exact render={() => <OverOns />} />
