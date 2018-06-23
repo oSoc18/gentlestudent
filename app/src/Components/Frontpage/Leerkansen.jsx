@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import LK12345 from './../../assets/leerkansen/LK12345.png';
 import LK12346 from './../../assets/leerkansen/LK12346.png';
 import LK12347 from './../../assets/leerkansen/LK12347.png';
@@ -52,7 +53,7 @@ class Leerkansen extends Component {
                                 'Sint-pietersplein 1, 9000 Gent')
                             }
                         </div>
-                        <a className="meer" href="/">Meer leerkansen</a>
+                        <a className="meer" href="/leerkansen">Meer leerkansen</a>
                     </div>
                 </div>
             </div>
