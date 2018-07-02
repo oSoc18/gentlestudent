@@ -1,25 +1,26 @@
-@charset "utf-8";
+@charset 'utf-8';
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
 
 // 7-1 Pattern: https://gist.github.com/rveitch/84cea9650092119527bc
 
-@import "base/colors";
-@import "base/base";
+@import 'base/colors';
+@import 'base/base';
 
-@import "components/buttons";
-@import "components/cards";
-@import "components/ervaringen";
-@import "components/forms";
-@import "components/leerkansen";
+@import 'components/buttons';
+@import 'components/cards';
+@import 'components/ervaringen';
+@import 'components/forms';
+@import 'components/leerkansen';
+@import 'components/search';
 
-@import "layout/nav";
-@import "layout/grid";
-@import "layout/footer";
+@import 'layout/nav';
+@import 'layout/grid';
+@import 'layout/footer';
 
-@import "pages/home";
+@import 'pages/home';
 
-// @import "themes/";
+// @import 'themes/';
 
-// @import "utils/";
+// @import 'utils/';
 
-// @import "vendors/";
+// @import 'vendors/';

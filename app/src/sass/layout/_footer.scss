@@ -3,16 +3,27 @@ footer {
     background-color: $light-gray;
     ul {
         display: flex;
-        flex-direction: row;
         list-style: none;
         padding-bottom: 30px;
-        padding-left: 0;
+		padding-left: 0;
+		line-height: 2em;
+		@media screen and (min-width: 320px) {
+			flex-direction: column;
+		}
+		@media screen and (min-width: 960px) {
+			flex-direction: row;
+		}
         &.first {
-            border-bottom: 2px solid $gray;
+            border-bottom: 1px solid $gray2;
         }
         &.bottom {
-            position: absolute;
-            right: 15px;
+			@media screen and (min-width: 320px) {
+				position: relative;
+			}
+			@media screen and (min-width: 960px) {
+				position: absolute;
+            	right: 15px;
+			}
             padding: 0;
             li {
                 width: inherit;
@@ -39,7 +50,12 @@ footer {
     }
     .footer_bottom {
         display: flex;
-        flex-direction: row;
+        @media screen and (min-width: 320px) {
+			flex-direction: column;
+		}
+		@media screen and (min-width: 960px) {
+			flex-direction: row;
+		}
         img {
             width: 200px; 
         }

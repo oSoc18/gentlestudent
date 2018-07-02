@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 
 import { authenticatedCheck } from './../actions/authActions';
 
-import Nav from './../Components/Nav.jsx';
-import Leerkansen from './../Components/Frontpage/Leerkansen.jsx';
-import RecenteErvaringen from './../Components/Frontpage/RecenteErvaringen.jsx';
-import Download from './../Components/Frontpage/Download.jsx';
-import Footer from './../Components/Footer.jsx';
+import Nav from './../Components/Nav';
+import Leerkansen from './../Components/Frontpage/Leerkansen';
+import RecenteErvaringen from './../Components/Frontpage/RecenteErvaringen';
+import Download from './../Components/Frontpage/Download';
+import Footer from './../Components/Footer';
 
 import eyecather from './../assets/eyecatcher.jpg';
 import newImage from './../assets/wat-is-er-nieuw.png';
@@ -38,7 +38,7 @@ class FrontPage extends Component {
 							<h1>Aan de slag met Gentlestudent</h1>
 							<h2>“Slagzin die aanzet tot actie en Gentlestudent voorstelt.”</h2>
 							<form action="">
-								<div className="search-wrapper">
+								<div className="search-wrapper frontpage">
 									<i className="fas fa-search"></i>
 									<input type="text" placeholder="Probeer “Gent Korenmarkt”"/>
 									<button type="submit">Zoeken</button>
