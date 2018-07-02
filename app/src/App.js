@@ -16,6 +16,8 @@ import WordIssuer from './Screens/WordIssuer';
 import Ervaringen from './Screens/Ervaringen';
 import Nieuws from './Screens/Nieuws';
 import OverOns from './Screens/OverOns';
+
+import Register from './Screens/Register';
 import IssueBadgeRecipient from './Screens/Issuers/IssueBadgeRecipient';
 
 class App extends Component {
@@ -33,6 +35,7 @@ class App extends Component {
 						<Route path="/overons" exact render={() => <OverOns />} />
 						{/* ISSUERS */}
 						{/* <Auth> */}
+							<Route path="/register" render={() => <Register />} />
 							<Route path="/issue-badge-recipient" exact render={() => <IssueBadgeRecipient />} />
 						{/* </Auth> */}
 					</Switch>

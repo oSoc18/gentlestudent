@@ -33,6 +33,17 @@ input, textarea {
   .meer:hover {
     color: #00AACC; }
 
+.relative {
+  position: relative; }
+  .relative.searchfilters {
+    height: 200px; }
+    .relative.searchfilters .fixed {
+      position: fixed;
+      top: 100px;
+      width: calc(100% - 30px);
+      z-index: 998;
+      background-color: #FFFFFF; }
+
 a {
   text-decoration: none; }
   a.primary {
@@ -60,13 +71,17 @@ a {
   .card-container {
     grid-template-columns: auto; } }
 
-@media screen and (min-width: 550px) {
+@media screen and (min-width: 650px) {
   .card-container {
-    grid-template-columns: auto auto; } }
+    grid-template-columns: auto auto; }
+    .card-container.leerkansen {
+      grid-template-columns: auto; } }
 
 @media screen and (min-width: 960px) {
   .card-container {
-    grid-template-columns: auto auto auto; } }
+    grid-template-columns: auto auto auto; }
+    .card-container.leerkansen {
+      grid-template-columns: auto auto; } }
 
 #recente-ervaringen h1 {
   text-align: center; }
@@ -165,6 +180,87 @@ a {
     #leerkansen .card-item.leerkans p {
       color: #707070;
       font-size: 14px; }
+
+form .search-wrapper {
+  width: 100%;
+  min-height: 50px;
+  margin: 0 auto;
+  position: relative; }
+  form .search-wrapper.frontpage {
+    max-width: 800px; }
+    form .search-wrapper.frontpage i {
+      top: 28px;
+      left: 30px; }
+    form .search-wrapper.frontpage input {
+      width: calc(100% - 80px);
+      border-radius: 8px;
+      max-width: 800px;
+      padding: 15px 20px 15px 60px; }
+    form .search-wrapper.frontpage > button {
+      top: 10px;
+      right: 10px;
+      height: 48px; }
+  form .search-wrapper.leerkansen i {
+    font-size: 14px;
+    top: 22px;
+    left: 22px; }
+  form .search-wrapper.leerkansen input {
+    width: calc(100% - 71px);
+    border-radius: 8px 8px 0 0;
+    font-size: 16px;
+    border: 1px solid #E8E8E8;
+    padding: 10px 20px 10px 50px; }
+  form .search-wrapper.leerkansen > .filters {
+    border: 1px solid #E8E8E8;
+    margin-top: -1px;
+    border-radius: 0 0 6px 6px; }
+    form .search-wrapper.leerkansen > .filters > button {
+      padding: 0;
+      height: 40px;
+      width: 25%;
+      border: none;
+      color: #707070;
+      border-right: 1px solid #E8E8E8;
+      outline: none;
+      transition: all 200ms ease-in-out; }
+      form .search-wrapper.leerkansen > .filters > button:first-child {
+        margin-left: 1px;
+        width: calc(25% - 1px);
+        border-radius: 0 0 0 6px; }
+      form .search-wrapper.leerkansen > .filters > button:last-child {
+        border-right: none;
+        border-radius: 0 0 6px 0; }
+      form .search-wrapper.leerkansen > .filters > button:hover {
+        background-color: #E8E8E8;
+        cursor: pointer; }
+  form .search-wrapper i {
+    position: absolute;
+    color: #aeaeae; }
+  form .search-wrapper input {
+    font-size: 18px;
+    line-height: 2em;
+    color: #252525;
+    border: 1px solid #FFFFFF;
+    outline: none;
+    transition: all 200ms ease-in-out; }
+    form .search-wrapper input:focus, form .search-wrapper input:active {
+      border-color: #00AACC;
+      box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26); }
+    form .search-wrapper input::-webkit-input-placeholder {
+      /* Chrome/Opera/Safari */
+      color: #aeaeae; }
+  form .search-wrapper > button {
+    position: absolute;
+    min-width: 100px;
+    border-radius: 6px;
+    border: 0;
+    background-color: #00AACC;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer; }
+    form .search-wrapper > button:hover {
+      background-color: #0095b3; }
 
 nav {
   height: 100px; }
@@ -319,49 +415,6 @@ footer {
       margin: 0; }
     #startpage .content h2 {
       margin-top: 0; }
-    #startpage .content form .search-wrapper {
-      width: 100%;
-      max-width: 800px;
-      min-height: 50px;
-      margin: 0 auto;
-      position: relative; }
-      #startpage .content form .search-wrapper i {
-        position: absolute;
-        top: 28px;
-        left: 30px;
-        color: #aeaeae; }
-      #startpage .content form .search-wrapper input {
-        width: calc(100% - 80px);
-        max-width: 800px;
-        padding: 15px 20px 15px 60px;
-        border-radius: 8px;
-        font-size: 18px;
-        line-height: 2em;
-        color: #252525;
-        border: 1px solid #FFFFFF;
-        outline: none;
-        transition: all 200ms ease-in-out; }
-        #startpage .content form .search-wrapper input:focus, #startpage .content form .search-wrapper input:active {
-          border-color: #00AACC;
-          box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26); }
-        #startpage .content form .search-wrapper input::-webkit-input-placeholder {
-          /* Chrome/Opera/Safari */
-          color: #aeaeae; }
-      #startpage .content form .search-wrapper button {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        height: 48px;
-        min-width: 100px;
-        border-radius: 6px;
-        border: 0;
-        background-color: #00AACC;
-        color: #FFFFFF;
-        font-size: 18px;
-        font-weight: bold;
-        cursor: pointer; }
-        #startpage .content form .search-wrapper button:hover {
-          background-color: #0095b3; }
 
 #new > div > div {
   position: absolute;

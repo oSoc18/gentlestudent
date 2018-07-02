@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Nav from './../Components/Nav';
 import LeerkansenApp from './../Components/Leerkansen/LeerkansenApp';
 import Maps from './../Components/Leerkansen/Maps';
+import SearchFilter from './../Components/Leerkansen/SearchFilters';
 
 class Leerkansen extends Component {
 	render() {
@@ -10,6 +11,7 @@ class Leerkansen extends Component {
 			<div>
 				<Nav/>
 				<div className="content">
+					<SearchFilter />
 					<div id="leerkansen">
 						<div className="content-left">
 							<LeerkansenApp />

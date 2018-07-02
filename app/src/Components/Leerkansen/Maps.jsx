@@ -12,7 +12,7 @@ const MapComponent = compose(
         "https://maps.googleapis.com/maps/api/js?key=AIzaSyALLWUxYAWdEzUoSuWD8j2gVGRR05SWpe8&v=3.exp&libraries=geometry,drawing,places",
       loadingElement: <div style={{ height: `100%` }} />,
       containerElement: <div style={{ 
-          height: `calc(100vh - 224px)`,
+          height: `calc(100vh - 346px)`,
           width: `calc(40% - 30px)`,
           position: `fixed`,
     }} />,

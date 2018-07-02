@@ -38,7 +38,7 @@ class FrontPage extends Component {
 							<h1>Aan de slag met Gentlestudent</h1>
 							<h2>“Slagzin die aanzet tot actie en Gentlestudent voorstelt.”</h2>
 							<form action="">
-								<div className="search-wrapper">
+								<div className="search-wrapper frontpage">
 									<i className="fas fa-search"></i>
 									<input type="text" placeholder="Probeer “Gent Korenmarkt”"/>
 									<button type="submit">Zoeken</button>

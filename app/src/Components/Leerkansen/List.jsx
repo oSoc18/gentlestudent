@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import { LeerkansenFetch } from './../../actions/leerkansActions';
 
@@ -15,12 +14,8 @@ class List extends Component {
 	render() {
 		return (
 			<React.Fragment>
-				<h1>
-					Leerkansen - 
-					<small><Link to="/create-leerkansen"> Create leerkans</Link></small>
-				</h1>
 				{ this.props.leerkansen.loading ? <Spinner /> : null }
-				<div className="card-container">
+				<div className="card-container leerkansen">
 				{
 					this.props.leerkansen.items.map((lk, key) => {
 						return(

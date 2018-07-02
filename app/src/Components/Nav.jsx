@@ -35,7 +35,7 @@ class Nav extends Component {
                                 <NavLink to="/login" className="primary">Login</NavLink>
                             </li>
                             <li className="nav_item primary">
-                                <NavLink to="/registreer" className="primary">Registreer</NavLink>
+                                <NavLink to="/register" className="primary">Registreer</NavLink>
                             </li>
                             <li className="nav_item language dropdown">
                                 <NavLink to="/">NL <i className="fas fa-caret-down"></i></NavLink>
