@@ -189,17 +189,13 @@ export const renderSelect = ({
           className="select"
         >
           <option>— Select an option —</option>
-          <option value="rDDaRFR1TIuy5k9rtk2geA">Duurzaamheid #1</option>
-          <option value="C9W4vlkfRtOS4Ni9hhT-Pw">Ondernemerschap #2</option>
-          {/* {data ?
-            data.list.map((index, key) => {
-              return (
-                <option key={key} value={index.value}>
-                  {index.display}
-                </option>
-              );
-            }) : null
-          } */}
+          {data.list.map((index, key) => {
+            return (
+              <option key={key} value={index.value}>
+                {index.display}
+              </option>
+            );
+          })}
         </select>
         {touched && error ? <span className="error">{error}</span> : null}
       </div>

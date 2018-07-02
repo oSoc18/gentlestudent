@@ -3,7 +3,7 @@ import { badgesReducer } from './badgesReducer';
 
 const reducer = {
   leerkansen: leerkansReducer,
-  badgeIssued: badgesReducer
+  badge: badgesReducer
 };
 
 export default reducer;

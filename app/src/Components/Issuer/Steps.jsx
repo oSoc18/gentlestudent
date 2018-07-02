@@ -19,12 +19,12 @@ class Steps extends Component {
 		this.handleWaypointLeave = this.handleWaypointLeave.bind(this);
 	}
 	handleWaypointEnter() {
-		if (this.state.ctaFixed == 'fixed') {
+		if (this.state.ctaFixed === 'fixed') {
 			this.setState({ ctaFixed: '' });
 		};
 	}
 	handleWaypointLeave() {
-		if (this.state.ctaFixed == '') {
+		if (this.state.ctaFixed === '') {
 			this.setState({ ctaFixed: 'fixed' });
 		};
 	}
@@ -51,7 +51,7 @@ class Steps extends Component {
 										Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. 
 									</p>
 								</div>
-								<img src={step1} height={150} width={270} />
+								<img src={step1} alt="step1" height={150} width={270} />
 							</div>
 						</div>
 
@@ -65,7 +65,7 @@ class Steps extends Component {
 										Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus suscipit tortor eget felis porttitor volutpat.
 									</p>
 								</div>
-								<img src={step2} height={150} width={270} />
+								<img src={step2} alt="step2" height={150} width={270} />
 							</div>
 						</div>
 
@@ -79,7 +79,7 @@ class Steps extends Component {
 									Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Cras ultricies ligula sed magna dictum porta.
 									</p>
 								</div>
-								<img src={step3} height={150} width={270} />
+								<img src={step3} alt="step3" height={150} width={270} />
 							</div>
 						</div>
 
@@ -91,7 +91,7 @@ class Steps extends Component {
 							/>
 						</div>
 						<div className={`cta ${this.state.ctaFixed}`} {...cta}>
-								<a href="#" className="primary">Word Issuer</a>
+								<a href="" className="primary">Word Issuer</a>
 						</div>
 					</div>
 				</div>

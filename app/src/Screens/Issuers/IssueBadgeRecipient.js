@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { BadgeIssueRecipient } from './../../actions/badgesActions';
+import {
+	BadgeFetchList,
+	BadgeIssueRecipient
+} from './../../actions/badgesActions';
 
 import Nav from './../../Components/Nav';
 import Footer from './../../Components/Footer';
@@ -12,6 +15,9 @@ class IssueBadgeRecipient extends Component {
     super();
 		this.submit = this.submit.bind(this);
 	};
+	componentDidMount() {
+		this.props.badgeFetchList();
+	}
 	submit() {
 		console.log('submitting...', this.props.form.issueBadgeForm.values);
     this.props.issueBadge(
@@ -44,7 +50,7 @@ class IssueBadgeRecipient extends Component {
 export default (IssueBadgeRecipient = connect(
   (state) => {
     return {
-			badgeIssued: state.badgeIssued,
+			badge: state.badge,
 			form: state.form
 		};
   },
@@ -52,6 +58,9 @@ export default (IssueBadgeRecipient = connect(
     return {
       issueBadge: (data) => {
         dispatch(BadgeIssueRecipient(data));
+			},
+			badgeFetchList: () => {
+        dispatch(BadgeFetchList());
       }
     };
   }

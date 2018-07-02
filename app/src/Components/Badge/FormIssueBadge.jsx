@@ -2,7 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
-import { BadgeIssueRecipient } from './../../actions/badgesActions';
+import {
+  BadgeIssueRecipient
+} from './../../actions/badgesActions';
 
 import { renderInput, renderSelect, renderCheckbox } from './../Utils';
 
@@ -10,7 +12,8 @@ let FormIssueBadge = (props) => {
   const { 
     handleSubmit,
     submitting,
-  } = props
+    badge
+  } = props;
   return(
     <form onSubmit={handleSubmit}>
       <div className="form-group">
@@ -18,14 +21,14 @@ let FormIssueBadge = (props) => {
           id="badge"
           name="badge"
           label="Badge"
-          // data={{
-          //   list: badges.map((index, key) => {
-          //     return {
-          //       value: 'text with value for the request',
-          //       display: 'text to be displayed'
-          //     };
-          //   })
-          // }}
+          data={{
+            list: badge.list.map((index, key) => {
+              return {
+                value: index.slug,
+                display: index.name
+              };
+            })
+          }}
           component={renderSelect}
         />
         <Field
@@ -57,7 +60,9 @@ FormIssueBadge = reduxForm({
 
 export default (FormIssueBadge = connect(
   (state) => {
-    return {};
+    return {
+      badge: state.badge,
+    };
   },
   (dispatch) => {
     return {

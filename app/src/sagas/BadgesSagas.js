@@ -2,9 +2,12 @@ import { all, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 import {
+	BADGE_FETCH_LIST,
+	BADGE_FETCH_LIST_FAILED,
+	BADGE_FETCH_LIST_SUCCES,
 	BADGE_ISSUE_RECIPIENT,
 	BADGE_ISSUE_RECIPIENT_SUCCES,
-	BADGE_ISSUE_RECIPIENT_FAILED
+	BADGE_ISSUE_RECIPIENT_FAILED,
 } from './../actions/badgesActions';
 
 function* badgeIssueRecipient(action) {
@@ -25,9 +28,9 @@ function* badgeIssueRecipient(action) {
 				method: 'post',
 				url: `https://api.badgr.io/v1/issuer/issuers/${issuer.data[1].slug}/badges/${action.data.badge_class}/assertions`,
 				data: {
+					...action.data,
 					issuer: issuer.data[1].slug
 				},
-				data: action.data,
 				// Auth
 				headers: {
 					'Content-Type': 'application/json',
@@ -41,6 +44,24 @@ function* badgeIssueRecipient(action) {
   }
 }
 
+function* badgeFetchList() {
+	try {
+		console.log("getting all badges");
+		const result = yield axios({
+			method: 'get',
+			url: 'https://api.badgr.io/v1/issuer/all-badges',
+			// Auth
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': `Token ${localStorage.token_badgr}`
+			}
+		});
+		yield put({ type: BADGE_FETCH_LIST_SUCCES, data: result.data });
+  } catch (e) {
+    yield put({ type: BADGE_FETCH_LIST_FAILED, message: e.message });
+  }
+}
+
 // TO DO: show modal
 function* failed() {
 	yield alert('Error\nError sending the request.');
@@ -49,7 +70,8 @@ function* failed() {
 function* badgesSagas() {
 	yield all([
 		takeEvery(BADGE_ISSUE_RECIPIENT, badgeIssueRecipient),
-		takeEvery(BADGE_ISSUE_RECIPIENT_FAILED, failed)
+		takeEvery(BADGE_ISSUE_RECIPIENT_FAILED, failed),
+		takeEvery(BADGE_FETCH_LIST, badgeFetchList)
 	]);
 }
 

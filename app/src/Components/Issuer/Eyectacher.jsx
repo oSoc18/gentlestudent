@@ -10,7 +10,7 @@ class Eyecatcher extends Component {
       <React.Fragment>
         <div id="word-issuer" {...section}>
           <div {...eyecatcherWrapper}>
-            <img src={Image} className="eyecatcher-word-issuer" />
+            <img src={Image} alt="eyecatcher-word-issuer" className="eyecatcher-word-issuer" />
           </div>
           <div className="container">
             <div className="content">
