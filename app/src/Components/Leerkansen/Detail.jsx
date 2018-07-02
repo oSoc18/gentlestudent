@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { LeerkansenFetchById } from './../../actions/leerkansActions';
+
 class Detail extends Component {
+  componentDidMount() {
+    this.props.fetchLeerkansenById(this.props.match.params._id);
+  }
   render() {
     return (
       <div>
-        <h1>{this.props.match.params._id}</h1>
+        <a href="/leerkansen">Back</a>
+        <h1>{this.props.leerkansen.item.title}</h1>
+        <p>{this.props.leerkansen.item.description}</p>
       </div>
     )
   }
@@ -13,9 +20,15 @@ class Detail extends Component {
 
 export default connect(
   (state) => {
-    return {};
+    return {
+      leerkansen: state.leerkansen
+    };
   },
   (dispatch) => {
-    return {};
+    return {
+      fetchLeerkansenById: (id) => {
+        dispatch(LeerkansenFetchById(id));
+      }
+    };
   }
 )(Detail);

@@ -42,3 +42,16 @@ input, textarea {
 		color: $primary;
 	}
 }
+.relative {
+	position: relative;
+	&.searchfilters {
+		height: 200px;
+		.fixed {
+			position: fixed;
+			top: 100px;
+			width: calc(100% - 30px);
+			z-index: 998;
+			background-color: $white;
+		}
+	}
+}

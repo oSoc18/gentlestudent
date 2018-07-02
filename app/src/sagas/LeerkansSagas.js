@@ -8,6 +8,9 @@ import {
 	LEERKANSEN_CREATE_ITEM,
 	LEERKANSEN_CREATE_ITEM_SUCCES,
 	LEERKANSEN_CREATE_ITEM_FAILED,
+	LEERKANSEN_FETCH_BY_ID_SUCCES,
+	LEERKANSEN_FETCH_BY_ID_FAILED,
+	LEERKANSEN_FETCH_BY_ID,
 } from './../actions/leerkansActions';
 
 function* leerkansenFetch(action) {
@@ -22,11 +25,25 @@ function* leerkansenFetch(action) {
 		yield put({ type: LEERKANSEN_FETCH_LIST_FAILED, message: e.message });
 	}
 }
+function* leerkansenFetchById(action) {
+	try {
+		const id = action.id;
+		const result = yield axios({
+			method: 'get',
+			// url: `https://gentlestudent-api.herokuapp.com/api/v1/leerkans/${id}`
+			url: `http://localhost:8080/api/v1/leerkans/${id}`
+		})
+		yield put({ type: LEERKANSEN_FETCH_BY_ID_SUCCES, data: result.data });
+	} catch (e) {
+		yield put({ type: LEERKANSEN_FETCH_BY_ID_FAILED, message: e.message });
+	}
+}
 function* leerkansCreateItem(action) {
   try {
     const result = yield axios({
       method: 'post',
-      url: 'https://gentlestudent-api.herokuapp.com/api/v1/leerkans',
+			url: 'https://gentlestudent-api.herokuapp.com/api/v1/leerkans',
+			// url: 'http://localhost:8080/api/v1/leerkans',
 			data: action.data,
 			// Auth
       // headers: { Authorization: `Bearer ${action.headers}` }
@@ -40,7 +57,8 @@ function* leerkansCreateItem(action) {
 function* leerkansSagas() {
 	yield all([
 		takeEvery(LEERKANSEN_FETCH_LIST, leerkansenFetch),
-		takeEvery(LEERKANSEN_CREATE_ITEM, leerkansCreateItem)
+		takeEvery(LEERKANSEN_CREATE_ITEM, leerkansCreateItem),
+		takeEvery(LEERKANSEN_FETCH_BY_ID, leerkansenFetchById)
 	]);
 }
 

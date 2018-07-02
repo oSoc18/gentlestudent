@@ -1,22 +1,28 @@
 import React, { Component } from 'react';
 
-import Nav from './../Components/Nav.jsx';
-import Footer from './../Components/Footer.jsx';
+// import { columns, row } from 'glamor/ous';
+
+import Nav from './../Components/Nav';
+import Eyecatcher from './../Components/Issuer/Eyectacher';
+import Info from './../Components/Issuer/Info';
+import StepsIssuer from './../Components/Issuer/Steps';
+import Footer from './../Components/Footer';
+
+import { Breadcrumbs } from './../Components/Utils';
 
 class WordIssuer extends Component {
-    render() {
-        return (
-            <div>
-                <Nav/>
-                    <div className="container">
-                        <div className="content">
-                            <h1>Word Issuer</h1>
-                        </div>
-                    </div>
-                <Footer/>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <Nav />
+        <Eyecatcher />
+        <Breadcrumbs />
+        <Info />
+        <StepsIssuer />
+        <Footer />
+      </div>
+    )
+  }
 }
 
 export default WordIssuer;

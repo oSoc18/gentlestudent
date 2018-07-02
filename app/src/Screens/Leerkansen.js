@@ -1,35 +1,31 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 
-import Nav from './../Components/Nav.jsx';
-import List from './../Components/Leerkansen/List.jsx';
-import Maps from './../Components/Leerkansen/Maps.jsx';
+import Nav from './../Components/Nav';
+import LeerkansenApp from './../Components/Leerkansen/LeerkansenApp';
+import Maps from './../Components/Leerkansen/Maps';
+import SearchFilter from './../Components/Leerkansen/SearchFilters';
 
 class Leerkansen extends Component {
-    render() {
-        return (
-            <div>
-                <Nav/>
-                <div className="content">
-                    <h1>
-                        Leerkansen - 
-                        <small><Link to="/create-leerkansen"> Create leerkans</Link></small>
-                    </h1>
-                    <div id="leerkansen">
-                        <div className="content-left">
-                            <List />
-                        </div>
-
-                        <div className="content-right">
-                            <div className="content">
-                                <Maps />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        )
-    }
+	render() {
+		return (
+			<div>
+				<Nav/>
+				<div className="content">
+					<SearchFilter />
+					<div id="leerkansen">
+						<div className="content-left">
+							<LeerkansenApp />
+						</div>
+						<div className="content-right">
+							<div className="content">
+								<Maps />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		)
+	}
 }
 
 export default Leerkansen;

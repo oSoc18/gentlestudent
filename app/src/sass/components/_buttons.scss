@@ -3,7 +3,7 @@ a {
     &.primary {
         border-radius: 8px;
         color: $white !important;
-        border: 1px solid $primary;
+        border: 2px solid $primary;
         background-color: $primary;
         &:hover {
             transition: $transition;

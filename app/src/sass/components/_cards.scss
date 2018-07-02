@@ -7,7 +7,6 @@
 	.card-item {
 		position: relative;
 		background-color: transparent;
-		border: 1px solid $light-gray;
 		padding: 15px;
 		overflow: hidden;
 	}
@@ -17,13 +16,19 @@
 		grid-template-columns: auto;
 	}
 }
-@media screen and (min-width: 550px) {
+@media screen and (min-width: 650px) {
 	.card-container {
 		grid-template-columns: auto auto;
+		&.leerkansen {
+			grid-template-columns: auto;
+		}
 	}
 }
 @media screen and (min-width: 960px) {
 	.card-container {
 		grid-template-columns: auto auto auto;
+		&.leerkansen {
+			grid-template-columns: auto auto;
+		}
 	}
 }
