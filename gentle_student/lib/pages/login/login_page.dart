@@ -1,3 +1,5 @@
+import 'package:Gentle_Student/pages/home/home_page.dart';
+import 'package:Gentle_Student/pages/register/register_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -66,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
           minWidth: 200.0,
           height: 42.0,
           onPressed: () {
-            
+            Navigator.of(context).pushNamed(HomePage.tag);
           },
           color: Colors.lightBlueAccent,
           child: Text('Log in', style: TextStyle(color: Colors.white)),
@@ -78,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
       child:
           Text('Geen account? Registreer hier!', style: TextStyle(color: Colors.black54)),
       onPressed: () {
-        
+        Navigator.of(context).pushNamed(RegisterPage.tag);
       },
     );
 
