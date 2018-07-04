@@ -1,4 +1,4 @@
-name: Gentle Student
+name: Gentle_Student
 description: An application that makes students engage more in their community.
 
 dependencies:
@@ -6,8 +6,6 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^0.1.2
-  flutter_blue: "^0.3.3"
-  map_view: "^0.0.12"
 
 dev_dependencies:
   flutter_test:
