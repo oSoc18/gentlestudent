@@ -1,0 +1,61 @@
+{
+  "name": "gentlestudent-app",
+  "version": "1.0.0",
+  "description": "Gentlestudent. Wijk en studenten vinden elkaar in duurzame initiatieven.",
+  "engines": {
+    "node": "8.9.1"
+  },
+  "main": "server.js",
+  "scripts": {
+    "build:server": "babel server.js server/* --out-dir build",
+    "heroku-prebuild": "echo \"This runs before Heroku installs the dependencies.\"",
+    "heroku-postbuild": "echo \"This runs afterwards.\"",
+    "start": "NODE_ENV=development nodemon server.js --exec babel-node",
+    "start:dev": "NODE_ENV=development PORT=8080 nodemon server.js --exec babel-node",
+    "start:build": "npm run build:server && NODE_ENV=production PORT=8080 node build/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drdynscript/gentlestudent-app.git"
+  },
+  "author": "Artevelde University College Ghent",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/drdynscript/gentlestudent-app/issues"
+  },
+  "homepage": "https://github.com/drdynscript/gentlestudent-app#readme",
+  "keywords": [
+    "gentlestudent",
+    "node",
+    "heroku",
+    "express"
+  ],
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "dotenv": "^5.0.1",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "joi": "^13.0.2",
+    "mongoose": "^4.13.4",
+    "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-azure-ad-oauth2": "0.0.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "nodemon": "^1.12.1",
+    "request": "^2.83.0",
+    "rimraf": "^2.6.2",
+    "tape": "^4.8.0",
+    "webpack": "^3.8.1"
+  }
+}
