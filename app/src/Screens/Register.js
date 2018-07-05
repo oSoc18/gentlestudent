@@ -15,7 +15,7 @@ class Register extends Component {
       body: {
         "email": "ismail.kutlu94@gmail.com",
         "localProvider": {
-          "password": "delikadir94"
+          "password": "test123"
         }
       }
     })

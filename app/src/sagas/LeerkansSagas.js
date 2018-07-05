@@ -8,12 +8,15 @@ import {
 	LEERKANSEN_CREATE_ITEM,
 	LEERKANSEN_CREATE_ITEM_SUCCES,
 	LEERKANSEN_CREATE_ITEM_FAILED,
+	LEERKANSEN_FETCH_BY_ID,
 	LEERKANSEN_FETCH_BY_ID_SUCCES,
 	LEERKANSEN_FETCH_BY_ID_FAILED,
-	LEERKANSEN_FETCH_BY_ID,
+	LEERKANSEN_DELETE_ITEM,
+	LEERKANSEN_DELETE_ITEM_SUCCES,
+	LEERKANSEN_DELETE_ITEM_FAILED
 } from './../actions/leerkansActions';
 
-function* leerkansenFetch(action) {
+function* leerkansenFetch() {
 	try {
 		const result = yield axios({
 			method: 'get',
@@ -30,8 +33,7 @@ function* leerkansenFetchById(action) {
 		const id = action.id;
 		const result = yield axios({
 			method: 'get',
-			// url: `https://gentlestudent-api.herokuapp.com/api/v1/leerkans/${id}`
-			url: `http://localhost:8080/api/v1/leerkans/${id}`
+			url: `https://gentlestudent-api.herokuapp.com/api/v1/leerkans/${id}`
 		})
 		yield put({ type: LEERKANSEN_FETCH_BY_ID_SUCCES, data: result.data });
 	} catch (e) {
@@ -43,10 +45,10 @@ function* leerkansCreateItem(action) {
     const result = yield axios({
       method: 'post',
 			url: 'https://gentlestudent-api.herokuapp.com/api/v1/leerkans',
-			// url: 'http://localhost:8080/api/v1/leerkans',
-			data: action.data,
-			// Auth
-      // headers: { Authorization: `Bearer ${action.headers}` }
+			headers : {
+				'Content-Type': 'multipart/form-data'
+			},
+			data: action.data
     });
     yield put({ type: LEERKANSEN_CREATE_ITEM_SUCCES, data: result.data });
   } catch (e) {
@@ -54,11 +56,28 @@ function* leerkansCreateItem(action) {
   }
 }
 
+function* leerkansDeleteItem(action) {
+  try {
+		console.log('trying...')
+		const id = action.data;
+    axios({
+      method: 'delete',
+			// url: 'https://gentlestudent-api.herokuapp.com/api/v1/leerkans',
+			url: `http://localhost:8080/api/v1/leerkans/${id}`
+		});
+    yield put({ type: LEERKANSEN_DELETE_ITEM_SUCCES, data: action.data });
+  } catch (e) {
+    yield put({ type: LEERKANSEN_DELETE_ITEM_FAILED, message: e.message });
+  }
+}
+
 function* leerkansSagas() {
 	yield all([
 		takeEvery(LEERKANSEN_FETCH_LIST, leerkansenFetch),
 		takeEvery(LEERKANSEN_CREATE_ITEM, leerkansCreateItem),
-		takeEvery(LEERKANSEN_FETCH_BY_ID, leerkansenFetchById)
+		takeEvery(LEERKANSEN_FETCH_BY_ID, leerkansenFetchById),
+		takeEvery(LEERKANSEN_DELETE_ITEM, leerkansDeleteItem),
+		takeEvery(LEERKANSEN_DELETE_ITEM_SUCCES, leerkansenFetch),
 	]);
 }
 

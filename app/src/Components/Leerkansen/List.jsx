@@ -20,7 +20,7 @@ class List extends Component {
 					this.props.leerkansen.items.map((lk, key) => {
 						return(
 							<a href={`/leerkansen/${lk._id}`} className={`card-item leerkans ${ lk.type }`} key={lk._id}>
-								<img src={LK12345} className="photo" alt={lk.title} />
+								<img src={lk.image ? `https://gentlestudent-api.herokuapp.com/leerkansen/${lk.image}` : LK12345} className="photo" alt={lk.title} />
 								<div style={{position: "relative"}}>
 									<img src={dg2} className="badge" alt={lk.badge} />
 									<h2>{lk.title}</h2>

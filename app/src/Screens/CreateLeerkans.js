@@ -14,8 +14,12 @@ class CreateLeerkans extends Component {
   };
   submit() {
     this.props.createLeerkans(
-      {...this.props.form.createLeerkansForm.values}
+      {
+        ...this.props.form.createLeerkansForm.values,
+        image: this.props.form.createLeerkansForm.values.files[0]
+      }
     )
+    console.log(this.props.form.createLeerkansForm.values.files[0]);
   }
   showResults = (values) =>
     new Promise(resolve => {

@@ -7,7 +7,10 @@ import {
 	LEERKANSEN_CREATE_ITEM_FAILED,
 	LEERKANSEN_FETCH_BY_ID,
 	LEERKANSEN_FETCH_BY_ID_SUCCES,
-	LEERKANSEN_FETCH_BY_ID_FAILED
+	LEERKANSEN_FETCH_BY_ID_FAILED,
+	LEERKANSEN_DELETE_ITEM,
+	LEERKANSEN_DELETE_ITEM_FAILED,
+	LEERKANSEN_DELETE_ITEM_SUCCES
 } from '../actions/leerkansActions';
 
 const initialState = {
@@ -65,6 +68,21 @@ export function leerkansReducer(state = initialState, action) {
 				...state,
 				loading: false
 			};
+		case LEERKANSEN_DELETE_ITEM:
+      return {
+        ...state,
+        loading: true
+      };
+    case LEERKANSEN_DELETE_ITEM_FAILED:
+      return {
+        ...state,
+        loading: false
+      };
+    case LEERKANSEN_DELETE_ITEM_SUCCES:
+      return {
+				...state,
+        loading: false
+      };
 		default:
 			return state
 	}

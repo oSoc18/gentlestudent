@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, Route} from 'react-router-dom';
-import { css } from 'glamor';
+import Dropzone from 'react-dropzone';
 
+import { css } from 'glamor';
 import { $primary, $sub, $orange, $green, $white, $gray, $grayL, $transition } from './../variables';
 
 // Call To Action (CTA)
@@ -120,6 +121,7 @@ export const renderInput = ({
   input,
   type,
   id,
+  defaultValue,
   placeholder,
   meta: { asyncValidating, touched, error }
 }) => {
@@ -142,6 +144,7 @@ export const renderInput = ({
           id={id}
           label={label}
           placeholder={placeholder}
+          value={defaultValue}
         />
         {touched && error && <span className="error">{error}</span>}
         {touched && !error && <span className="succes">✓</span>}
@@ -238,3 +241,21 @@ export const renderTextarea = ({
     </React.Fragment>
   );
 };
+
+export const ReduxFormDropzone = (field) => {
+    let {
+      input,
+      meta,
+      dropzoneOnDrop,
+      ...props
+    } = field;
+    return (
+      <Dropzone
+        onDrop={(acceptedFiles, rejectedFiles, e) => {
+            field.input.onChange(acceptedFiles);
+            field.dropzoneOnDrop && field.dropzoneOnDrop(acceptedFiles, rejectedFiles, e);
+        }}
+        {...props}
+      />
+    );
+}

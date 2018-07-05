@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 
 import { LeerkansCreateItem } from './../../actions/leerkansActions';
 
-import { renderInput, renderTextarea } from './../Utils';
+import { renderInput, renderTextarea, ReduxFormDropzone } from './../Utils';
 
 let FormCreateLeerkans = (props) => {
   const { 
@@ -12,7 +12,7 @@ let FormCreateLeerkans = (props) => {
     submitting,
   } = props
   return(
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} encType="multipart/form-data">
       <h2>(Loop all the fields before submitting -- will be fixed soon!)</h2>
       <div className="form-group">
         <Field
@@ -146,6 +146,14 @@ let FormCreateLeerkans = (props) => {
           defaultValue="Belgie"
           component={renderInput}
         />
+      </div>
+      <div className="form-group">
+      <Field
+        name={"files"}
+        component={ReduxFormDropzone}
+        multiple={false}
+        dropzoneOnDrop={this.handleDrop}
+      />
       </div>
       <div className="form-group">
         <button type="submit" disabled={submitting}>
