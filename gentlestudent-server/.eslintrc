@@ -1,0 +1,14 @@
+{
+    "extends": "standard",
+    "rules": {
+      "semi": [
+        2,
+        "always"
+      ]
+    },
+    "globals": {
+      "window": true,
+      "HTMLElement": true,
+      "HTMLCanvasElement": true
+    }
+}

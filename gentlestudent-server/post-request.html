@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Gentlestudent POST Leerkans</title>
+    <style>
+        body { font-family: sans-serif; }
+        h1 { text-align: center;}
+        form {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        input, textarea {
+            display: block;
+            padding: 5px 10px;
+            width: calc(100% - 22px) !important;
+            margin: 10px 0;
+            border: 1px solid #eee;
+            outline: none;
+        }
+        input:focus, textarea:focus {
+            border: 1px solid turquoise;
+        }
+        input[type="submit"] {
+            background-color: turquoise;
+            border: none;
+            border-radius: 8px;
+            padding: 15px 0;
+            color: white;
+            width: 100% !important;
+            font-size: 16px;
+        }
+    </style>
+    </head>
+
+    <body>
+        <h1>POST Leerkans</h1>
+        <form method="post" action="https://gentlestudent-api.herokuapp.com/api/v1/leerkans">
+            <label>Nieuw leerkans</label><br>
+            <input type="text" name="title" placeholder="Enter title" value="Nulla quis" required>
+            <textarea type="text" name="synopsis" placeholder="Enter synopsis" value="" required></textarea>
+            <textarea type="text" name="description" placeholder="Enter description" value="" required></textarea>
+            <input type="text" name="badge" placeholder="Enter badge" value="dg2" required>
+            <input type="text" name="type" placeholder="Enter type" value="dg" required>
+            <input type="text" name="level" placeholder="Enter level" value="2" required>
+            <input type="text" name="start_date" placeholder="Enter start_date" value="01/03/2018" required>
+            <input type="text" name="end_date" placeholder="Enter end_date" value="01/06/2018" required>
+            <input type="text" name="latitude" placeholder="Enter latitude" value="51.086793" required>
+            <input type="text" name="longitude" placeholder="Enter longitude" value="3.6661196" required>
+            <input type="text" name="street" placeholder="Enter street" value="Rooigemlaan" required>
+            <input type="text" name="house_number" placeholder="Enter house number" value="84" required>
+            <input type="text" name="postal_code" placeholder="Enter postal code" value="9000" required>
+            <input type="text" name="city" placeholder="Enter city" value="Gent" required>
+            <input type="text" name="country" placeholder="Enter country" value="Belgie" required>
+            <input type="submit" value="Add leerkans">
+        </form>
+    </body>
+</html>
+
