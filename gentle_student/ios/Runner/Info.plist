@@ -41,5 +41,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>Geef "Gentlestudent" toegang tot jouw locatie.</string>
 </dict>
 </plist>

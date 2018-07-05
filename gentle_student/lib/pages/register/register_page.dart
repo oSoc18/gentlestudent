@@ -119,6 +119,7 @@ class _RegisterPageState extends State<RegisterPage> {
           shrinkWrap: true,
           padding: EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
+            SizedBox(height: 8.0),
             voornaam,
             SizedBox(height: 8.0),
             achternaam,

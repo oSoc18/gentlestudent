@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:map_view/map_view.dart';
 
 import 'pages/login/login_page.dart';
 import 'pages/register/register_page.dart';
 import 'pages/home/home_page.dart';
 
-void main() => runApp(new MyApp());
+const API_KEY = "AIzaSyDl5W6GeM02xFCyASmGvKtoP3fJ_xhvUvM";
+
+void main() {
+  MapView.setApiKey(API_KEY);
+  runApp(new MyApp());
+}
 
 class MyApp extends StatelessWidget {
   final routes = <String, WidgetBuilder>{
