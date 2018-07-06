@@ -1,4 +1,3 @@
-import 'package:Gentle_Student/pages/home/home_page.dart';
 import 'package:Gentle_Student/pages/opportunity_list/opportunity_list_page.dart';
 import 'package:Gentle_Student/pages/register/register_page.dart';
 import 'package:flutter/material.dart';

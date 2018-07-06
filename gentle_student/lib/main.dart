@@ -5,6 +5,9 @@ import 'pages/login/login_page.dart';
 import 'pages/register/register_page.dart';
 import 'pages/home/home_page.dart';
 import 'pages/opportunity_list/opportunity_list_page.dart';
+import 'pages/information/information_page.dart';
+import 'pages/information/privacy_policy/privacy_policy_page.dart';
+import 'pages/information/about_us/about_us_page.dart';
 
 const API_KEY = "AIzaSyDl5W6GeM02xFCyASmGvKtoP3fJ_xhvUvM";
 
@@ -19,6 +22,9 @@ class MyApp extends StatelessWidget {
     RegisterPage.tag: (context)=>RegisterPage(),
     HomePage.tag: (context)=>HomePage(),
     OpportunityListPage.tag: (context)=>OpportunityListPage(),
+    InformationPage.tag: (context)=>InformationPage(),
+    PrivacyPolicyPage.tag: (context)=>PrivacyPolicyPage(),
+    AboutUsPage.tag: (context)=>AboutUsPage(),
   };
 
   @override

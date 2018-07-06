@@ -1,14 +1,18 @@
+import 'package:Gentle_Student/pages/information/information_page.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
+  //This tag is used for navigation
   static String tag = 'register-page';
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  //Creating the widgets and building the scaffold
   @override
   Widget build(BuildContext context) {
+    //Voornaam widget
     final voornaam = TextField(
       keyboardType: TextInputType.text,
       autofocus: false,
@@ -19,6 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
               OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
     );
 
+    //Achternaam widget
     final achternaam = TextField(
       keyboardType: TextInputType.text,
       autofocus: false,
@@ -29,6 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
               OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
     );
 
+    //Geboortedatum widget
     final geboortedatum = TextField(
       keyboardType: TextInputType.datetime,
       autofocus: false,
@@ -39,6 +45,7 @@ class _RegisterPageState extends State<RegisterPage> {
               OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
     );
 
+    //Onderwijsinstelling widget
     final onderwijsinstelling = TextField(
       keyboardType: TextInputType.text,
       autofocus: false,
@@ -49,6 +56,7 @@ class _RegisterPageState extends State<RegisterPage> {
               OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
     );
 
+    //E-mail widget
     final email = TextField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
@@ -60,6 +68,7 @@ class _RegisterPageState extends State<RegisterPage> {
               OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
     );
 
+    //Wachtwoord widget
     final wachtwoord = TextField(
       autofocus: false,
       obscureText: true,
@@ -71,6 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
               OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
     );
 
+    //HerhaalWachtwoord widget
     final herhaalWachtwoord = TextField(
       autofocus: false,
       obscureText: true,
@@ -82,6 +92,7 @@ class _RegisterPageState extends State<RegisterPage> {
               OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
     );
 
+    //RegisterButton widget
     final registerButton = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Material(
@@ -92,7 +103,8 @@ class _RegisterPageState extends State<RegisterPage> {
           minWidth: 200.0,
           height: 42.0,
           onPressed: () {
-
+            //Testing
+            Navigator.of(context).pushNamed(InformationPage.tag);
           },
           color: Colors.lightBlueAccent,
           child: Text('Registreer', style: TextStyle(color: Colors.white)),
@@ -100,6 +112,7 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
 
+    //LoginLabel widget
     final loginLabel = FlatButton(
       child:
           Text('Al een account? Log hier in!', style: TextStyle(color: Colors.black54)),
@@ -108,6 +121,7 @@ class _RegisterPageState extends State<RegisterPage> {
       },
     );
 
+    //Using all the widgets and create an AppBar to build a scaffold
     return Scaffold(
       appBar: new AppBar(
         title: new Text("Registreren", style: TextStyle(color: Colors.white)),
@@ -119,6 +133,7 @@ class _RegisterPageState extends State<RegisterPage> {
           shrinkWrap: true,
           padding: EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
+            //SizedBox leaves blank space to make the UI look cleaner
             SizedBox(height: 8.0),
             voornaam,
             SizedBox(height: 8.0),
