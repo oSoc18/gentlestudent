@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 
 import { LeerkansCreateItem } from './../../actions/leerkansActions';
 
-import { renderInput, renderTextarea, renderSelect, ReduxFormDropzone } from './../Utils';
+import { renderInput, renderTextarea, renderSelect, RenderDropzoneInput } from './../Utils';
 
 let FormCreateLeerkans = (props) => {
   const { 
@@ -141,8 +141,7 @@ let FormCreateLeerkans = (props) => {
       <div className="form-group">
         <Field
           name="image"
-          multiple={false}
-          component={ReduxFormDropzone}
+          component={RenderDropzoneInput}
         />
       </div>
       <div className="form-group">

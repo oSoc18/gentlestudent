@@ -61,10 +61,6 @@ function* badgeFetchList() {
   }
 }
 
-function* badgeFetchSingleMeta() {
-	const badge = this.props.form.createLeerkansForm.values.badge;
-}
-
 // TO DO: show modal
 function* failed() {
 	yield alert('Error\nError sending the request.');

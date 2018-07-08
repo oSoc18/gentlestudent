@@ -243,28 +243,24 @@ export const renderTextarea = ({
   );
 };
 
-export const ReduxFormDropzone = (field) => {
-    let {
-      input,
-      meta,
-      dropzoneOnDrop,
-      dropzoneRef,
-      value,
-      ...props
-    } = field;
-    return (
+export const RenderDropzoneInput = (field) => {
+  const files = field.input.value;
+  return (
+    <div>
       <Dropzone
-        {...input}
-        accept="image/jpeg, image/png"
-        // ref={(node) => { dropzoneRef = node; }}
-        {...props}
-        onDrop={(acceptedFiles, rejectedFiles, e) => {
-            alert(JSON.stringify(acceptedFiles));
-            field.input.onChange(acceptedFiles);
-            field.dropzoneOnDrop && field.dropzoneOnDrop(acceptedFiles, rejectedFiles, e);
-        }}
+        name={field.name}
+        onDrop={( filesToUpload, e ) => field.input.onChange(filesToUpload)}
       >
-        <p>Drop your image here.</p>
+        <div>Try dropping some files here, or click to select files to upload.</div>
       </Dropzone>
-    );
-}
+      {field.meta.touched &&
+        field.meta.error &&
+        <span className="error">{field.meta.error}</span>}
+      {files && Array.isArray(files) && (
+        <ul>
+          { files.map((file, i) => <li key={i}>{file.name}</li>) }
+        </ul>
+      )}
+    </div>
+  );
+};

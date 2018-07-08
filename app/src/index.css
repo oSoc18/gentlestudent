@@ -152,9 +152,9 @@ a {
     transition: all 200ms ease-in-out; }
     #leerkansen .card-item.leerkans:hover {
       box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26); }
-    #leerkansen .card-item.leerkans.dg:hover {
+    #leerkansen .card-item.leerkans.digitale-geletterdheid:hover {
       border-color: #00AACC; }
-    #leerkansen .card-item.leerkans.dzh:hover {
+    #leerkansen .card-item.leerkans.duurzaamheid:hover {
       border-color: #BBCC00; }
     #leerkansen .card-item.leerkans.ons:hover {
       border-color: #A8A8A8; }

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { BadgeFetchList } from './../actions/badgesActions';
-import { LeerkansCreateItem } from './../actions/leerkansActions';
+import { BadgeFetchList } from './../../actions/badgesActions';
+import { LeerkansCreateItem } from './../../actions/leerkansActions';
 
-import Nav from './../Components/Nav';
-import Footer from './../Components/Footer';
-import FormCreateLeerkans from './../Components/Leerkansen/FormCreateLeerkans';
+import Nav from './../../Components/Nav';
+import Footer from './../../Components/Footer';
+import FormCreateLeerkans from './../../Components/Leerkansen/FormCreateLeerkans';
 
 class CreateLeerkans extends Component {
   constructor() {
@@ -29,11 +30,11 @@ class CreateLeerkans extends Component {
     this.props.createLeerkans(
       {
         ...this.props.form.createLeerkansForm.values,
-        type: nameBadge[0].toLowerCase(),
+        type: nameBadge[0].replace(' ', '-').toLowerCase(),
         level: nameBadge[1]
       }
     );
-    // console.log(this.props.form.createLeerkansForm.values.image);
+    console.log(this.props.form.createLeerkansForm.values.image);
     console.log(this.props.form.createLeerkansForm.values);
   }
   showResults = (values) =>
@@ -47,6 +48,7 @@ class CreateLeerkans extends Component {
         <Nav/>
           <div className="container">
             <div className="content">
+              <Link to="/backoffice/leerkansen">Back</Link>
               <h1>Create Leerkans</h1>
               <div className="form" id="create_leerkans">
                 <FormCreateLeerkans onSubmit={this.submit}/>

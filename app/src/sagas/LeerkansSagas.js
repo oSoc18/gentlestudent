@@ -47,7 +47,8 @@ function* leerkansCreateItem(action) {
 			// url: 'https://gentlestudent-api.herokuapp.com/api/v1/leerkans',
 			url: 'http://localhost:8080/api/v1/leerkans',
 			headers : {
-				'Content-Type': 'application/x-www-form-urlencoded'
+				// 'Content-Type': 'application/x-www-form-urlencoded'
+				// 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary'
 			},
 			data: action.data
     });

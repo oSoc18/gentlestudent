@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 class SearchFilters extends Component {
   render() {
@@ -7,10 +6,7 @@ class SearchFilters extends Component {
       <React.Fragment>
         <div className="relative searchfilters">
           <div className="fixed">
-            <h1>
-              Leerkansen - 
-              <small><Link to="/create-leerkansen"> Create leerkans</Link></small>
-            </h1>
+            <h1>Leerkansen</h1>
             <form action="">
               <div className="search-wrapper leerkansen">
                 <i className="fas fa-search"></i>

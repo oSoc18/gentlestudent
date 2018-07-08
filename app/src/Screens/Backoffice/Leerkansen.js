@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Nav from './../../Components/Nav';
 import Footer from './../../Components/Footer';
@@ -25,18 +26,24 @@ class BOLeerkansen extends Component {
     return (
       <React.Fragment>
         <Nav />
-        {
-          this.props.leerkansen.items.map((lk, key) => {
-            return(
-              <div key={key}>
-                <p>
-                  {lk.title}
-                </p>
-                <a onClick={() => this.delete(lk._id)}>Delete</a>
-              </div>
-            )
-          })
-        }
+        <div className="container">
+          <div className="content">
+            <h1>Manage Leerkansen</h1>
+            <button><Link to="/backoffice/create-leerkansen"> + Create leerkans</Link></button><hr />
+            {
+              this.props.leerkansen.items.map((lk, key) => {
+                return(
+                  <div key={key}>
+                    <p>
+                      {lk.title}
+                    </p>
+                    <button onClick={() => this.delete(lk._id)}>Delete</button><hr />
+                  </div>
+                )
+              })
+            }
+          </div>
+        </div>
         <Footer />
       </React.Fragment>
     )
