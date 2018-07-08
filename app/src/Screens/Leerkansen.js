@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
+
+import { LeerkansenFetch } from './../actions/leerkansActions';
 
 import Nav from './../Components/Nav';
-import LeerkansenApp from './../Components/Leerkansen/LeerkansenApp';
 import Maps from './../Components/Leerkansen/Maps';
 import SearchFilter from './../Components/Leerkansen/SearchFilters';
 
+import Detail from './../Components/Leerkansen/Detail';
+import List from './../Components/Leerkansen/List';
+
 class Leerkansen extends Component {
+	componentDidMount() {
+	  this.props.fetchLeerkansen();
+	}
 	render() {
 		return (
 			<div>
@@ -14,7 +23,10 @@ class Leerkansen extends Component {
 					<SearchFilter />
 					<div id="leerkansen">
 						<div className="content-left">
-							<LeerkansenApp />
+							<Switch>
+								<Route path={'/leerkansen/:_id'} component={Detail} />
+								<Route path={'/leerkansen'} component={List} />
+							</Switch>
 						</div>
 						<div className="content-right">
 							<div className="content">
@@ -28,4 +40,17 @@ class Leerkansen extends Component {
 	}
 }
 
-export default Leerkansen;
+export default connect(
+	(state) => {
+		return {
+			leerkansen: state.leerkansen
+		};
+	},
+	(dispatch) => {
+		return {
+			fetchLeerkansen: () => {
+				dispatch(LeerkansenFetch());
+			}
+		}
+	}
+)(Leerkansen);

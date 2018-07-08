@@ -2,9 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
-import {
-  BadgeIssueRecipient
-} from './../../actions/badgesActions';
+import { BadgeIssueRecipient } from './../../actions/badgesActions';
 
 import { renderInput, renderSelect, renderCheckbox } from './../Utils';
 

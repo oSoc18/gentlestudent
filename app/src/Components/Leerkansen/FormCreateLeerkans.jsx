@@ -4,12 +4,13 @@ import { Field, reduxForm } from 'redux-form';
 
 import { LeerkansCreateItem } from './../../actions/leerkansActions';
 
-import { renderInput, renderTextarea, ReduxFormDropzone } from './../Utils';
+import { renderInput, renderTextarea, renderSelect, ReduxFormDropzone } from './../Utils';
 
 let FormCreateLeerkans = (props) => {
   const { 
     handleSubmit,
     submitting,
+    badge
   } = props
   return(
     <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -20,14 +21,15 @@ let FormCreateLeerkans = (props) => {
           type="text"
           name="title"
           component={renderInput}
-          defaultValue="test"
+          defaultValue="Test title"
         />
       </div>
       <div className="form-group">
         <Field
           label="Synopsis"
-          id="synopsis"
+          type="text"
           name="synopsis"
+          id="synopsis"
           component={renderTextarea}
         />
       </div>
@@ -41,11 +43,18 @@ let FormCreateLeerkans = (props) => {
       </div>
       <div className="form-group">
         <Field
-          label="Badge"
           id="badge"
           name="badge"
-          defaultValue="dg2"
-          component={renderInput}
+          label="Badge"
+          data={{
+            list: badge.list.map((index, key) => {
+              return {
+                value: index.slug,
+                display: index.name
+              };
+            })
+          }}
+          component={renderSelect}
         />
       </div>
       <div className="form-group">
@@ -148,12 +157,11 @@ let FormCreateLeerkans = (props) => {
         />
       </div>
       <div className="form-group">
-      <Field
-        name={"files"}
-        component={ReduxFormDropzone}
-        multiple={false}
-        dropzoneOnDrop={this.handleDrop}
-      />
+        <Field
+          name="image"
+          multiple={false}
+          component={ReduxFormDropzone}
+        />
       </div>
       <div className="form-group">
         <button type="submit" disabled={submitting}>
@@ -171,7 +179,9 @@ FormCreateLeerkans = reduxForm({
 
 export default (FormCreateLeerkans = connect(
   (state) => {
-    return {};
+    return {
+      badge: state.badge,
+    };
   },
   (dispatch) => {
     return {

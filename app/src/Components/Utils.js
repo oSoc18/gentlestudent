@@ -228,6 +228,7 @@ export const renderTextarea = ({
         </label>
         <textarea
           className="textarea"
+          {...input}
           type={type}
           id={id}
           label={label}
@@ -247,15 +248,23 @@ export const ReduxFormDropzone = (field) => {
       input,
       meta,
       dropzoneOnDrop,
+      dropzoneRef,
+      value,
       ...props
     } = field;
     return (
       <Dropzone
+        {...input}
+        accept="image/jpeg, image/png"
+        // ref={(node) => { dropzoneRef = node; }}
+        {...props}
         onDrop={(acceptedFiles, rejectedFiles, e) => {
+            alert(JSON.stringify(acceptedFiles));
             field.input.onChange(acceptedFiles);
             field.dropzoneOnDrop && field.dropzoneOnDrop(acceptedFiles, rejectedFiles, e);
         }}
-        {...props}
-      />
+      >
+        <p>Drop your image here.</p>
+      </Dropzone>
     );
 }

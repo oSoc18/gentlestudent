@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { BadgeFetchList } from './../actions/badgesActions';
 import { LeerkansCreateItem } from './../actions/leerkansActions';
 
 import Nav from './../Components/Nav';
@@ -12,34 +13,35 @@ class CreateLeerkans extends Component {
     super();
     this.submit = this.submit.bind(this);
   };
+  componentDidMount() {
+		this.props.badgeFetchList();
+	}
   submit() {
     this.props.createLeerkans(
       {
-        ...this.props.form.createLeerkansForm.values,
-        image: this.props.form.createLeerkansForm.values.files[0]
+        ...this.props.form.createLeerkansForm.values
       }
-    )
-    console.log(this.props.form.createLeerkansForm.values.files[0]);
+    );
+    console.log(this.props.form.createLeerkansForm.values.image);
+    console.log(this.props.form.createLeerkansForm.values);
   }
   showResults = (values) =>
     new Promise(resolve => {
-      setTimeout(() => {
-        window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
-        resolve()
-      }, 500)
+      window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
+      resolve()
     })
   render() {
     return (
       <div>
         <Nav/>
-            <div className="container">
-                <div className="content">
-                    <h1>Create Leerkans</h1>
-                    <div className="form" id="create_leerkans">
-                      <FormCreateLeerkans onSubmit={this.submit}/>
-                    </div>
-                </div>
+          <div className="container">
+            <div className="content">
+              <h1>Create Leerkans</h1>
+              <div className="form" id="create_leerkans">
+                <FormCreateLeerkans onSubmit={this.submit}/>
+              </div>
             </div>
+          </div>
         <Footer/>
     </div>
     );
@@ -56,6 +58,9 @@ export default (CreateLeerkans = connect(
     return {
       createLeerkans: (data) => {
         dispatch(LeerkansCreateItem(data));
+      },
+      badgeFetchList: () => {
+        dispatch(BadgeFetchList());
       }
     };
   }

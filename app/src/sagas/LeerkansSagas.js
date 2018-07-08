@@ -44,9 +44,10 @@ function* leerkansCreateItem(action) {
   try {
     const result = yield axios({
       method: 'post',
-			url: 'https://gentlestudent-api.herokuapp.com/api/v1/leerkans',
+			// url: 'https://gentlestudent-api.herokuapp.com/api/v1/leerkans',
+			url: 'http://localhost:8080/api/v1/leerkans',
 			headers : {
-				'Content-Type': 'multipart/form-data'
+				'Content-Type': 'application/x-www-form-urlencoded'
 			},
 			data: action.data
     });

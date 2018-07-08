@@ -16,7 +16,7 @@ import {
 const initialState = {
 	items: [],
 	item: {},
-	loading: false
+	loading: true
 }
 
 export function leerkansReducer(state = initialState, action) {
