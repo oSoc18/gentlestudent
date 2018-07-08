@@ -59,24 +59,6 @@ let FormCreateLeerkans = (props) => {
       </div>
       <div className="form-group">
         <Field
-          label="Type (dg, dzh, ...)"
-          id="type"
-          name="type"
-          defaultValue="dg"
-          component={renderInput}
-        />
-      </div>
-      <div className="form-group">
-        <Field
-          label="Level (1, 2, 3)"
-          id="level"
-          name="level"
-          defaultValue="2"
-          component={renderInput}
-        />
-      </div>
-      <div className="form-group">
-        <Field
           label="Start Date (DD/MM/JJJJ)"
           id="start_date"
           name="start_date"

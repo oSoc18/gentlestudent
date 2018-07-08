@@ -46,7 +46,6 @@ function* badgeIssueRecipient(action) {
 
 function* badgeFetchList() {
 	try {
-		console.log("getting all badges");
 		const result = yield axios({
 			method: 'get',
 			url: 'https://api.badgr.io/v1/issuer/all-badges',
@@ -60,6 +59,10 @@ function* badgeFetchList() {
   } catch (e) {
     yield put({ type: BADGE_FETCH_LIST_FAILED, message: e.message });
   }
+}
+
+function* badgeFetchSingleMeta() {
+	const badge = this.props.form.createLeerkansForm.values.badge;
 }
 
 // TO DO: show modal

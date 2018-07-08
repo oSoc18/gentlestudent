@@ -17,12 +17,23 @@ class CreateLeerkans extends Component {
 		this.props.badgeFetchList();
 	}
   submit() {
+    /* 
+    * Get the badge from state
+    * Findindex in the state and get the name
+    * Split the name in 2 and automatically assign level and type to the database without inputs
+    */
+     const index = this.props.badge.list.findIndex(b => {
+      return b.slug === this.props.form.createLeerkansForm.values.badge
+    });
+    const nameBadge = this.props.badge.list[index].name.split(' #');
     this.props.createLeerkans(
       {
-        ...this.props.form.createLeerkansForm.values
+        ...this.props.form.createLeerkansForm.values,
+        type: nameBadge[0].toLowerCase(),
+        level: nameBadge[1]
       }
     );
-    console.log(this.props.form.createLeerkansForm.values.image);
+    // console.log(this.props.form.createLeerkansForm.values.image);
     console.log(this.props.form.createLeerkansForm.values);
   }
   showResults = (values) =>
@@ -51,7 +62,8 @@ class CreateLeerkans extends Component {
 export default (CreateLeerkans = connect(
   (state) => {
     return {
-      form: state.form
+      form: state.form,
+      badge: state.badge
     };
   },
   (dispatch) => {
