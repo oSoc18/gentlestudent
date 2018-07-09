@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:map_view/map_view.dart';
 
-class HomePage extends StatefulWidget {
-  static String tag = 'home-page';
+class MapPage extends StatefulWidget {
+  static String tag = 'map-page';
   @override
-  _HomePageState createState() => _HomePageState();
+  _MapPageState createState() => _MapPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MapPageState extends State<MapPage> {
   var _mapView = new MapView();
 
   void showMap() {
@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-        title: new Text("Home", style: TextStyle(color: Colors.white)),
+        title: new Text("Map", style: TextStyle(color: Colors.white)),
         iconTheme: new IconThemeData(color: Colors.white),
       ),
       backgroundColor: Colors.white,

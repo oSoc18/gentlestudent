@@ -103,8 +103,7 @@ class _RegisterPageState extends State<RegisterPage> {
           minWidth: 200.0,
           height: 42.0,
           onPressed: () {
-            //Testing
-            Navigator.of(context).pushNamed(InformationPage.tag);
+
           },
           color: Colors.lightBlueAccent,
           child: Text('Registreer', style: TextStyle(color: Colors.white)),
