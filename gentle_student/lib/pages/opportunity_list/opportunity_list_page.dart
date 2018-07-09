@@ -1,4 +1,3 @@
-import 'package:Gentle_Student/pages/information/information_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
@@ -30,10 +29,6 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     return null;
   }
 
-  void onTabTapped(int index) {
-    Navigator.of(context).pushNamed(InformationPage.tag);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,24 +45,6 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
               ),
         ),
         onRefresh: refreshList,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: onTabTapped,
-        currentIndex: 1,
-        items: [
-          new BottomNavigationBarItem(
-            icon: Icon(Icons.info),
-            title: Text('Informatie'),
-          ),
-          new BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Leerkansen'),
-          ),
-          new BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            title: Text('Profiel'),
-          )
-        ],
       ),
     );
   }
