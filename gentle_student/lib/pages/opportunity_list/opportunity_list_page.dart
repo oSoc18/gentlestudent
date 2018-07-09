@@ -22,9 +22,8 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
 
   Future<Null> refreshList() async {
     refreshKey.currentState?.show(atTop: false);
-    await Future.delayed(Duration(seconds: 2));
     setState(() {
-      list = List.generate(random.nextInt(10), (i) => "Item $i");
+      list = List.generate(random.nextInt(10) + 1, (i) => "Item $i");
     });
     return null;
   }
