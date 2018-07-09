@@ -58,7 +58,11 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
                     color: Colors.black54,
                     fontSize: 21.0),
               ),
-              subtitle: new Text(_getCategory(opportunity) + " - " + _getDifficulty(opportunity) + "\n" + opportunity.issuerName),
+              subtitle: new Text(_getCategory(opportunity) +
+                  " - " +
+                  _getDifficulty(opportunity) +
+                  "\n" +
+                  opportunity.issuerName),
               isThreeLine: true,
               dense: false,
             ),
@@ -114,14 +118,12 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
   Widget _buildBody() {
     return new Container(
       margin: const EdgeInsets.fromLTRB(
-          5.0, // A left margin of 8.0
-          5.0, // A top margin of 56.0
-          5.0, // A right margin of 8.0
-          0.0 // A bottom margin of 0.0
+          5.0,
+          5.0,
+          5.0,
+          0.0
           ),
       child: new Column(
-        // A column widget can have several
-        // widgets that are placed in a top down fashion
         children: <Widget>[_getListViewWidget()],
       ),
     );
