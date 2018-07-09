@@ -26,11 +26,11 @@ class MyApp extends StatelessWidget {
     LoginPage.tag: (context)=>LoginPage(),
     RegisterPage.tag: (context)=>RegisterPage(),
     MapPage.tag: (context)=>MapPage(),
-    OpportunityListPage.tag: (context)=>OpportunityListPage(),
     InformationPage.tag: (context)=>InformationPage(),
     PrivacyPolicyPage.tag: (context)=>PrivacyPolicyPage(),
     AboutUsPage.tag: (context)=>AboutUsPage(),
     UserPage.tag: (context)=>UserPage(),
+    OpportunityListPage.tag: (context)=>OpportunityListPage(),
   };
 
   @override

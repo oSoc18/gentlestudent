@@ -15,4 +15,12 @@ class Opportunity {
   int postalCode;
   String city;
   String issuerName;
+
+  Opportunity(int _opportunityId, String _name, Difficulty _difficulty, Category _category, String _issuerName) {
+    this.opportunityId = _opportunityId;
+    name = _name;
+    difficulty = _difficulty;
+    category = _category;
+    issuerName = _issuerName;
+  }
 }
