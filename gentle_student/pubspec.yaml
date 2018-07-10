@@ -9,6 +9,7 @@ dependencies:
 
   map_view: "^0.0.12"
   flutter_html_view: "^0.5.2"
+  sqflite: any
 
 dev_dependencies:
   flutter_test:
