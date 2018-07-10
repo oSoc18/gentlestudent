@@ -10,6 +10,7 @@ import 'pages/information/information_page.dart';
 import 'pages/information/privacy_policy/privacy_policy_page.dart';
 import 'pages/information/about_us/about_us_page.dart';
 import 'pages/user/user_page.dart';
+import 'pages/user/backpack/backpack_page.dart';
 
 //API key for Google Maps
 const API_KEY = "AIzaSyDl5W6GeM02xFCyASmGvKtoP3fJ_xhvUvM";
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
     AboutUsPage.tag: (context)=>AboutUsPage(),
     UserPage.tag: (context)=>UserPage(),
     OpportunityListPage.tag: (context)=>OpportunityListPage(),
+    BackPackPage.tag: (context)=>BackPackPage(),
   };
 
   @override
