@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
+import 'package:Gentle_Student/pages/opportunity_details/opportunity_details_page.dart';
 import 'package:flutter/material.dart';
 
 class OpportunityListPage extends StatefulWidget {
@@ -33,6 +34,14 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     });
   }
 
+  _navigateToOpportunityDetails(Opportunity opportunity) {
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (BuildContext context) =>
+                new OpportunityDetailsPage(opportunity)));
+  }
+
   Widget _buildOpportunityItem(BuildContext context, int index) {
     Opportunity opportunity = _opportunities[index];
 
@@ -43,7 +52,9 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             new ListTile(
-              //onTap: //TODO
+              onTap: () {
+                _navigateToOpportunityDetails(opportunity);
+              },
               leading: new Hero(
                 tag: index,
                 child: new CircleAvatar(
@@ -107,22 +118,19 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
 
   Widget _getListViewWidget() {
     return new Flexible(
-        child: new RefreshIndicator(
-            onRefresh: refresh,
-            child: new ListView.builder(
-                physics: const AlwaysScrollableScrollPhysics(),
-                itemCount: _opportunities.length,
-                itemBuilder: _buildOpportunityItem)));
+      child: new RefreshIndicator(
+        onRefresh: refresh,
+        child: new ListView.builder(
+            physics: const AlwaysScrollableScrollPhysics(),
+            itemCount: _opportunities.length,
+            itemBuilder: _buildOpportunityItem),
+      ),
+    );
   }
 
   Widget _buildBody() {
     return new Container(
-      margin: const EdgeInsets.fromLTRB(
-          5.0,
-          5.0,
-          5.0,
-          0.0
-          ),
+      margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
       child: new Column(
         children: <Widget>[_getListViewWidget()],
       ),

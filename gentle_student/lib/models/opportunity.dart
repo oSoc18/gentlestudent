@@ -9,6 +9,7 @@ class Opportunity {
   String name;
   Difficulty difficulty;
   Category category;
+  String description;
   DateTime beginDate;
   DateTime endDate;
   String address;
