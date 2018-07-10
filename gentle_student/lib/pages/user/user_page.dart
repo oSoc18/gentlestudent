@@ -1,4 +1,8 @@
+import 'package:Gentle_Student/pages/user/profile/profile_page.dart';
 import 'package:Gentle_Student/pages/user/backpack/backpack_page.dart';
+import 'package:Gentle_Student/pages/user/my_learning_opportunities/my_learning_opportunities_page.dart';
+import 'package:Gentle_Student/pages/user/favorites/favorites_page.dart';
+import 'package:Gentle_Student/pages/user/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class UserPage extends StatefulWidget {
@@ -9,7 +13,7 @@ class UserPage extends StatefulWidget {
 
 class _UserPageState extends State<UserPage> {
 
-  Column buildButtonColumn(IconData icon, String label) {
+  Column buildButtonColumn(IconData icon, String label, String tag) {
       Color color = Theme.of(context).primaryColor;
 
       return Column(
@@ -19,7 +23,7 @@ class _UserPageState extends State<UserPage> {
           IconButton(
             icon: Icon(icon, color: color, size: 48.0),
             onPressed: () {
-              Navigator.of(context).pushNamed(BackPackPage.tag);
+              Navigator.of(context).pushNamed(tag);
             },
           ),
           Container(
@@ -51,11 +55,11 @@ class _UserPageState extends State<UserPage> {
           crossAxisCount: 3,
           // Generate 100 Widgets that display their index in the List
           children: [
-            buildButtonColumn(Icons.account_circle, "profiel"),
-            buildButtonColumn(Icons.work, "backpack"),
-            buildButtonColumn(Icons.school, "leerkansen"),
-            buildButtonColumn(Icons.favorite, "favorieten"),
-            buildButtonColumn(Icons.settings, "settings"),
+            buildButtonColumn(Icons.account_circle, "profiel", ProfilePage.tag),
+            buildButtonColumn(Icons.work, "backpack", BackPackPage.tag),
+            buildButtonColumn(Icons.school, "leerkansen", MyLearningOpportunitiesPage.tag),
+            buildButtonColumn(Icons.favorite, "favorieten", FavoritesPage.tag),
+            buildButtonColumn(Icons.settings, "instellingen", SettingsPage.tag),
           ],
         ),
     );
