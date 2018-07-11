@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:Gentle_Student/data/api.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
@@ -13,25 +14,31 @@ class OpportunityListPage extends StatefulWidget {
 
 class _OpportunityListPageState extends State<OpportunityListPage> {
   List<Opportunity> _opportunities = [];
+  OpportunityApi _api;
 
   @override
   void initState() {
     super.initState();
-    _loadOpportunities();
+    _loadFromFirebase();
   }
 
-  _loadOpportunities() async {
-    List<Opportunity> opportunities = [
-      new Opportunity(1, "Arteveldehogeschool", Difficulty.BEGINNER,
-          Category.DIGITALEGELETTERDHEID, "Arteveldehogeschool"),
-      new Opportunity(
-          2, "HoGent", Difficulty.EXPERT, Category.DUURZAAMHEID, "HoGent"),
-      new Opportunity(3, "UGent", Difficulty.INTERMEDIATE,
-          Category.ONDERNEMERSSCHAP, "UGent"),
-    ];
+  _loadFromFirebase() async {
+    //final api = await OpportunityApi.signInWithGoogle();
+    final api = new OpportunityApi();
+    final opportunities = await api.getAllOpportunities();
     setState(() {
+      _api = api;
       _opportunities = opportunities;
     });
+  }
+
+  _reloadOpportunities() async {
+    if (_api != null) {
+      final opportunities = await _api.getAllOpportunities();
+      setState(() {
+        _opportunities = opportunities;
+      });
+    }
   }
 
   _navigateToOpportunityDetails(Opportunity opportunity) {
@@ -112,7 +119,7 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
   }
 
   Future<Null> refresh() {
-    _loadOpportunities();
+    _reloadOpportunities();
     return new Future<Null>.value();
   }
 
