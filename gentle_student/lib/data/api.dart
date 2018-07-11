@@ -4,10 +4,8 @@ import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class OpportunityApi {
-FirebaseUser firebaseUser;
 
   Future<List<Opportunity>> getAllOpportunities() async {
     return (await Firestore.instance.collection('Opportunities').getDocuments())
@@ -20,7 +18,7 @@ FirebaseUser firebaseUser;
     return Firestore.instance
         .collection('Opportunities')
         .document(opportunity.opportunityId)
-        .snapshots
+        .snapshots()
         .listen((snapshot) => onChange(_fromDocumentSnapshot(snapshot)));
   }
 
