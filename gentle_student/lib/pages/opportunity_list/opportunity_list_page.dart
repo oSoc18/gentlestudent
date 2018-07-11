@@ -23,7 +23,8 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
   }
 
   _loadFromFirebase() async {
-    final api = await OpportunityApi.signInWithGoogle();
+    //final api = await OpportunityApi.signInWithGoogle();
+    final api = new OpportunityApi();
     final opportunities = await api.getAllOpportunities();
     setState(() {
       _api = api;

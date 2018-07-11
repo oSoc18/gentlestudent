@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:Gentle_Student/models/category.dart';
+import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,9 +13,11 @@ class OpportunityApi {
 
   FirebaseUser firebaseUser;
 
-  OpportunityApi(FirebaseUser user) {
-    this.firebaseUser = user;
-  }
+  OpportunityApi();
+
+  //OpportunityApi(FirebaseUser user) {
+    //this.firebaseUser = user;
+  //}
 
   static Future<OpportunityApi> signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
@@ -30,11 +34,12 @@ class OpportunityApi {
     final FirebaseUser currentUser = await _auth.currentUser();
     assert(user.uid == currentUser.uid);
 
-    return new OpportunityApi(user);
+    return new OpportunityApi();
+    //return new OpportunityApi(user);
   }
 
   Future<List<Opportunity>> getAllOpportunities() async {
-    return (await Firestore.instance.collection('opportunities').getDocuments())
+    return (await Firestore.instance.collection('Opportunities').getDocuments())
         .documents
         .map((snapshot) => _fromDocumentSnapshot(snapshot))
         .toList();
@@ -42,7 +47,7 @@ class OpportunityApi {
 
   StreamSubscription watch(Opportunity opportunity, void onChange(Opportunity opportunity)) {
     return Firestore.instance
-        .collection('opportunities')
+        .collection('Opportunities')
         .document(opportunity.opportunityId)
         .snapshots
         .listen((snapshot) => onChange(_fromDocumentSnapshot(snapshot)));
@@ -54,9 +59,37 @@ class OpportunityApi {
     return new Opportunity(
       opportunityId: snapshot.documentID,
       name: data['name'],
-      difficulty: data['difficulty'],
-      category: data['category'],
+      difficulty: _dataToDifficulty(data['difficulty']),
+      category: _dataToCategory(data['category']),
       issuerName: data['issuerName'],
     );
+  }
+
+  Difficulty _dataToDifficulty(int difficulty) {
+    switch (difficulty) {
+      case 0:
+        return Difficulty.BEGINNER;
+      case 1:
+        return Difficulty.INTERMEDIATE;
+      case 2:
+        return Difficulty.EXPERT;
+    }
+    return Difficulty.BEGINNER;
+  }
+
+  Category _dataToCategory(int category) {
+    switch (category) {
+      case 0:
+        return Category.DUURZAAMHEID;
+      case 1:
+        return Category.DIGITALEGELETTERDHEID;
+      case 2:
+        return Category.ONDERNEMERSSCHAP;
+      case 3:
+        return Category.ONDERZOEK;
+      case 4:
+        return Category.WERELDBURGERSCHAP;
+    }
+    return Category.DUURZAAMHEID;
   }
 }
