@@ -7,6 +7,10 @@ dependencies:
 
   cupertino_icons: ^0.1.2
 
+  firebase_core: "0.1.0"
+  firebase_auth: "0.5.3"
+  google_sign_in: "3.0.0"
+  cloud_firestore: "0.3.0"
   map_view: "^0.0.12"
   flutter_html_view: "^0.5.2"
   intro_views_flutter: "^2.2.2"
