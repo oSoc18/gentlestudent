@@ -23,7 +23,6 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
   }
 
   _loadFromFirebase() async {
-    //final api = await OpportunityApi.signInWithGoogle();
     final api = new OpportunityApi();
     final opportunities = await api.getAllOpportunities();
     setState(() {
@@ -65,9 +64,8 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
               leading: new Hero(
                 tag: index,
                 child: new CircleAvatar(
-                    backgroundColor: Colors.transparent,
-                    radius: 30.0,
-                    child: Image.asset('assets/crest-gentlestudent.png')),
+                  backgroundImage: new NetworkImage(opportunity.badgeImageUrl), radius: 40.0,
+                ),
               ),
               title: new Text(
                 opportunity.name,

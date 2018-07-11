@@ -10,6 +10,7 @@ class Opportunity {
   final String name;
   final Difficulty difficulty;
   final Category category;
+  final String badgeImageUrl;
   String description;
   DateTime beginDate;
   DateTime endDate;
@@ -23,11 +24,8 @@ class Opportunity {
     @required this.name,
     @required this.difficulty,
     @required this.category,
+    @required this.badgeImageUrl,
     @required this.issuerName,
   });
-
-  @override
-  String toString() {
-    return "Opportunity $opportunityId is named $name";
-  }
+  
 }

@@ -18,7 +18,7 @@ class OpportunityApi {
     return Firestore.instance
         .collection('Opportunities')
         .document(opportunity.opportunityId)
-        .snapshots()
+        .snapshots
         .listen((snapshot) => onChange(_fromDocumentSnapshot(snapshot)));
   }
 
@@ -30,6 +30,7 @@ class OpportunityApi {
       name: data['name'],
       difficulty: _dataToDifficulty(data['difficulty']),
       category: _dataToCategory(data['category']),
+      badgeImageUrl: data['badgeImageUrl'],
       issuerName: data['issuerName'],
     );
   }
