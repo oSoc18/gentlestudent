@@ -54,7 +54,7 @@ class OpportunityApi {
       case 1:
         return Category.DIGITALEGELETTERDHEID;
       case 2:
-        return Category.ONDERNEMERSSCHAP;
+        return Category.ONDERNEMINGSZIN;
       case 3:
         return Category.ONDERZOEK;
       case 4:

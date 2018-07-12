@@ -17,8 +17,8 @@ class TutorialPage extends StatelessWidget {
         textStyle: TextStyle(color: Colors.white),
         mainImage: Image.asset(
           'assets/tutorial/bluetooth.png',
-          height: 250.0,
-          width: 250.0,
+          height: 400.0,
+          width: 400.0,
           alignment: Alignment.center,
         )),
     new PageViewModel(
@@ -44,7 +44,7 @@ class TutorialPage extends StatelessWidget {
       iconColor: null,
       bubbleBackgroundColor: null,
       body: Text(
-        'Doe mee en ga de uitdaging aan!',
+        'Ga de uitdaging aan!',
       ),
       title: Text('Uitdaging'),
       mainImage: Image.asset(
