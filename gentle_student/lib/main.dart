@@ -17,6 +17,8 @@ import 'pages/user/favorites/favorites_page.dart';
 import 'pages/user/settings/settings_page.dart';
 import 'pages/information/tutorial/tutorial_page.dart';
 
+import 'package:beacons/beacons.dart';
+
 //API key for Google Maps
 const API_KEY = "AIzaSyDl5W6GeM02xFCyASmGvKtoP3fJ_xhvUvM";
 
@@ -44,6 +46,10 @@ class MyApp extends StatelessWidget {
     SettingsPage.tag: (context)=>SettingsPage(),
     TutorialPage.tag: (context)=>TutorialPage(),
   };
+
+  BeaconRegionIBeacon region = new BeaconRegionIBeacon(identifier: 'region', proximityUUID: 'b9407f30-f5f8-466e-aff9-25556b57fe6d');
+  //Beacons.monitoring(region: region, inBackground: false,).listen(result){}
+  //Beacons.startMonitoring(region: region, inBackground: false)
 
   @override
   Widget build(BuildContext context) {

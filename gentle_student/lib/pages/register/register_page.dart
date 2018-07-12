@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:local_notifications/local_notifications.dart';
 
 class RegisterPage extends StatefulWidget {
+
   //This tag is used for navigation
   static String tag = 'register-page';
   @override
@@ -9,6 +11,12 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   //Creating the widgets and building the scaffold
+  static const AndroidNotificationChannel channel = const AndroidNotificationChannel(
+      id: 'default_notification',
+      name: 'Default',
+      description: 'Grant this app the ability to show notifications',
+      importance: AndroidNotificationChannelImportance.HIGH
+  );
   @override
   Widget build(BuildContext context) {
     //Voornaam widget
@@ -103,6 +111,15 @@ class _RegisterPageState extends State<RegisterPage> {
           height: 42.0,
           onPressed: () {
 
+            LocalNotifications.createAndroidNotificationChannel(channel: channel);
+            LocalNotifications.createNotification(
+            title: "Basic",
+            content: "Notification",
+            id: 0,
+            androidSettings: new AndroidSettings(
+              channel: channel
+            )
+            );
           },
           color: Colors.lightBlueAccent,
           child: Text('Registreer', style: TextStyle(color: Colors.white)),
