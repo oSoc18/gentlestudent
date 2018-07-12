@@ -78,7 +78,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
               left: 20.0,
               right: 20.0,
               top: 16.0,
-              bottom: 16.0,
+              bottom: 8.0,
             ),
             child: new Container(
               padding: EdgeInsets.all(14.0),
@@ -94,7 +94,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                     _getCategory(opportunity),
                     style: new TextStyle(
                       fontStyle: FontStyle.italic,
-                      fontSize: 16.0,
+                      fontSize: 14.0,
                       color: Colors.lightBlue,
                     ),
                   ),
@@ -109,7 +109,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                         "Periode:",
                         style: new TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16.0,
+                          fontSize: 14.0,
                           color: Colors.lightBlue,
                         ),
                       ),
@@ -120,7 +120,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                               " tot " +
                               _makeDate(opportunity.endDate),
                           style: new TextStyle(
-                            fontSize: 16.0,
+                            fontSize: 14.0,
                             color: Colors.lightBlue,
                           ),
                         ),
@@ -138,7 +138,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                         "Plaats:",
                         style: new TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16.0,
+                          fontSize: 14.0,
                           color: Colors.lightBlue,
                         ),
                       ),
@@ -151,7 +151,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                               " " +
                               opportunity.city,
                           style: new TextStyle(
-                            fontSize: 16.0,
+                            fontSize: 14.0,
                             color: Colors.lightBlue,
                           ),
                         ),
@@ -169,7 +169,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                         "Issuer:",
                         style: new TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16.0,
+                          fontSize: 14.0,
                           color: Colors.lightBlue,
                         ),
                       ),
@@ -177,7 +177,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                         child: new Text(
                           " " + opportunity.issuerName,
                           style: new TextStyle(
-                            fontSize: 16.0,
+                            fontSize: 14.0,
                             color: Colors.lightBlue,
                           ),
                         ),
@@ -212,7 +212,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
               left: 20.0,
               right: 20.0,
               top: 8.0,
-              bottom: 16.0,
+              bottom: 10.0,
             ),
             child: new Text(
               opportunity.longDescription,
@@ -227,8 +227,8 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
             padding: EdgeInsets.only(
               left: 20.0,
               right: 20.0,
-              top: 16.0,
-              bottom: 20.0,
+              top: 10.0,
+              bottom: 16.0,
             ),
             child: Material(
               borderRadius: BorderRadius.circular(10.0),
