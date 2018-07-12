@@ -9,11 +9,26 @@ class BackPackPage extends StatefulWidget {
 }
 
 class _BackPackPageState extends State<BackPackPage> {
+  User user;
+  String token;
+
   doLogin(String username, String password) {
     RestDatasource api = new RestDatasource();
-    api.login(username, password).then((User user) {
+    api.login(username, password).then((token) {
       print("login succesfull");
+      print(token);
+      user = 
+      onLoginSuccess(user, token);
     }).catchError((Exception error) => print("login failed"));
+  }
+
+  void onLoginSuccess(User user, String token) async {
+    _showSnackBar(user.toString());
+    setState(() => _isLoading = false);
+    var db = new DatabaseHelper();
+    await db.saveUser(user);
+    var authStateProvider = new AuthStateProvider();
+    authStateProvider.notify(AuthState.LOGGED_IN);
   }
   
   @override
