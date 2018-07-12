@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Spinner from './../../Components/Spinner';
-import LK12345 from './../../assets/leerkansen/LK12345.png';
-import dg2 from './../../assets/dg2.svg';
 
 class List extends Component {
 	render() {
@@ -15,7 +13,7 @@ class List extends Component {
 					this.props.leerkansen.items.map((lk, key) => {
 						return(
 							<a href={`/leerkansen/${lk._id}`} className={`card-item leerkans ${ lk.type }`} key={lk._id}>
-								<img src={lk.image ? `https://gentlestudent-api.herokuapp.com/leerkansen/${lk.image}` : LK12345} className="photo" alt={lk.title} />
+								<img src={lk.image ? `https://gentlestudent-api.herokuapp.com/leerkansen/${lk.image}` : null} className="photo" alt={lk.title} />
 								<div style={{position: "relative"}}>
 									<img src={`https://api.badgr.io/public/badges/${lk.badge}/image",`} className="badge" alt={lk.type + lk.level} />
 									<h2>{lk.title}</h2>
