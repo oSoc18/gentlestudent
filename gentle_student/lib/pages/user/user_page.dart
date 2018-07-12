@@ -33,7 +33,6 @@ class _UserPageState extends State<UserPage> {
               style: TextStyle(
                 fontSize: 16.0,
                 fontWeight: FontWeight.w400,
-                color: color,
               ),
             ),
           ),
@@ -50,16 +49,13 @@ class _UserPageState extends State<UserPage> {
       ),
       backgroundColor: Colors.white,
       body: GridView.count(
-          // Create a grid with 2 columns. If you change the scrollDirection to
-          // horizontal, this would produce 2 rows.
           crossAxisCount: 3,
-          // Generate 100 Widgets that display their index in the List
           children: [
-            buildButtonColumn(Icons.account_circle, "profiel", ProfilePage.tag),
-            buildButtonColumn(Icons.work, "backpack", BackPackPage.tag),
-            buildButtonColumn(Icons.school, "leerkansen", MyLearningOpportunitiesPage.tag),
-            buildButtonColumn(Icons.favorite, "favorieten", FavoritesPage.tag),
-            buildButtonColumn(Icons.settings, "instellingen", SettingsPage.tag),
+            buildButtonColumn(Icons.account_circle, "Profiel", ProfilePage.tag),
+            buildButtonColumn(Icons.work, "Backpack", BackPackPage.tag),
+            buildButtonColumn(Icons.school, "Leerkansen", MyLearningOpportunitiesPage.tag),
+            buildButtonColumn(Icons.favorite, "Favorieten", FavoritesPage.tag),
+            buildButtonColumn(Icons.settings, "Instellingen", SettingsPage.tag),
           ],
         ),
     );

@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'package:Gentle_Student/data/api.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
+import 'package:Gentle_Student/pages/opportunity_details/opportunity_details_page.dart';
 import 'package:flutter/material.dart';
 
 class OpportunityListPage extends StatefulWidget {
@@ -12,25 +14,38 @@ class OpportunityListPage extends StatefulWidget {
 
 class _OpportunityListPageState extends State<OpportunityListPage> {
   List<Opportunity> _opportunities = [];
+  OpportunityApi _api;
 
   @override
   void initState() {
     super.initState();
-    _loadOpportunities();
+    _loadFromFirebase();
   }
 
-  _loadOpportunities() async {
-    List<Opportunity> opportunities = [
-      new Opportunity(1, "Arteveldehogeschool", Difficulty.BEGINNER,
-          Category.DIGITALEGELETTERDHEID, "Arteveldehogeschool"),
-      new Opportunity(
-          2, "HoGent", Difficulty.EXPERT, Category.DUURZAAMHEID, "HoGent"),
-      new Opportunity(3, "UGent", Difficulty.INTERMEDIATE,
-          Category.ONDERNEMERSSCHAP, "UGent"),
-    ];
+  _loadFromFirebase() async {
+    final api = new OpportunityApi();
+    final opportunities = await api.getAllOpportunities();
     setState(() {
+      _api = api;
       _opportunities = opportunities;
     });
+  }
+
+  _reloadOpportunities() async {
+    if (_api != null) {
+      final opportunities = await _api.getAllOpportunities();
+      setState(() {
+        _opportunities = opportunities;
+      });
+    }
+  }
+
+  _navigateToOpportunityDetails(Opportunity opportunity) {
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (BuildContext context) =>
+                new OpportunityDetailsPage(opportunity)));
   }
 
   Widget _buildOpportunityItem(BuildContext context, int index) {
@@ -43,13 +58,14 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             new ListTile(
-              //onTap: //TODO
+              onTap: () {
+                _navigateToOpportunityDetails(opportunity);
+              },
               leading: new Hero(
                 tag: index,
                 child: new CircleAvatar(
-                    backgroundColor: Colors.transparent,
-                    radius: 30.0,
-                    child: Image.asset('assets/crest-gentlestudent.png')),
+                  backgroundImage: new NetworkImage(opportunity.badgeImageUrl), radius: 40.0,
+                ),
               ),
               title: new Text(
                 opportunity.name,
@@ -90,8 +106,8 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
         return "Digitale geletterdheid";
       case Category.DUURZAAMHEID:
         return "Duurzaamheid";
-      case Category.ONDERNEMERSSCHAP:
-        return "Ondernemersschap";
+      case Category.ONDERNEMINGSZIN:
+        return "Ondernemingszin";
       case Category.ONDERZOEK:
         return "Onderzoek";
       case Category.WERELDBURGERSCHAP:
@@ -101,28 +117,25 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
   }
 
   Future<Null> refresh() {
-    _loadOpportunities();
+    _reloadOpportunities();
     return new Future<Null>.value();
   }
 
   Widget _getListViewWidget() {
     return new Flexible(
-        child: new RefreshIndicator(
-            onRefresh: refresh,
-            child: new ListView.builder(
-                physics: const AlwaysScrollableScrollPhysics(),
-                itemCount: _opportunities.length,
-                itemBuilder: _buildOpportunityItem)));
+      child: new RefreshIndicator(
+        onRefresh: refresh,
+        child: new ListView.builder(
+            physics: const AlwaysScrollableScrollPhysics(),
+            itemCount: _opportunities.length,
+            itemBuilder: _buildOpportunityItem),
+      ),
+    );
   }
 
   Widget _buildBody() {
     return new Container(
-      margin: const EdgeInsets.fromLTRB(
-          5.0,
-          5.0,
-          5.0,
-          0.0
-          ),
+      margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
       child: new Column(
         children: <Widget>[_getListViewWidget()],
       ),
