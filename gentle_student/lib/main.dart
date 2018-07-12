@@ -10,6 +10,12 @@ import 'pages/information/information_page.dart';
 import 'pages/information/privacy_policy/privacy_policy_page.dart';
 import 'pages/information/about_us/about_us_page.dart';
 import 'pages/user/user_page.dart';
+import 'pages/user/backpack/backpack_page.dart';
+import 'pages/user/profile/profile_page.dart';
+import 'pages/user/my_learning_opportunities/my_learning_opportunities_page.dart';
+import 'pages/user/favorites/favorites_page.dart';
+import 'pages/user/settings/settings_page.dart';
+import 'pages/information/tutorial/tutorial_page.dart';
 
 //API key for Google Maps
 const API_KEY = "AIzaSyDl5W6GeM02xFCyASmGvKtoP3fJ_xhvUvM";
@@ -26,11 +32,17 @@ class MyApp extends StatelessWidget {
     LoginPage.tag: (context)=>LoginPage(),
     RegisterPage.tag: (context)=>RegisterPage(),
     MapPage.tag: (context)=>MapPage(),
-    OpportunityListPage.tag: (context)=>OpportunityListPage(),
     InformationPage.tag: (context)=>InformationPage(),
     PrivacyPolicyPage.tag: (context)=>PrivacyPolicyPage(),
     AboutUsPage.tag: (context)=>AboutUsPage(),
     UserPage.tag: (context)=>UserPage(),
+    OpportunityListPage.tag: (context)=>OpportunityListPage(),
+    BackPackPage.tag: (context)=>BackPackPage(),
+    ProfilePage.tag: (context)=>ProfilePage(),
+    MyLearningOpportunitiesPage.tag: (context)=>MyLearningOpportunitiesPage(),
+    FavoritesPage.tag: (context)=>FavoritesPage(),
+    SettingsPage.tag: (context)=>SettingsPage(),
+    TutorialPage.tag: (context)=>TutorialPage(),
   };
 
   @override

@@ -1,4 +1,3 @@
-import 'package:Gentle_Student/pages/information/information_page.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
