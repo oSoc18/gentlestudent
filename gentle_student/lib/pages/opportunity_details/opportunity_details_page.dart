@@ -1,26 +1,258 @@
 import 'package:Gentle_Student/models/category.dart';
-import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:flutter/material.dart';
+import 'package:date_format/date_format.dart';
 
-class OpportunityDetailsPage extends StatelessWidget {
-  final Opportunity opportunity;
+class OpportunityDetailsPage extends StatefulWidget {
+  final Opportunity o;
+  OpportunityDetailsPage(this.o);
+  @override
+  _OpportunityDetailsPageState createState() => _OpportunityDetailsPageState(o);
+}
 
-  OpportunityDetailsPage(this.opportunity);
+class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
+  Opportunity opportunity;
 
-  String _getDifficulty(Opportunity opportunity) {
-    switch (opportunity.difficulty) {
-      case Difficulty.BEGINNER:
-        return "Niveau 1";
-      case Difficulty.INTERMEDIATE:
-        return "Niveau 2";
-      case Difficulty.EXPERT:
-        return "Niveau 3";
-    }
-    return "Niveau 0";
+  _OpportunityDetailsPageState(this.opportunity);
+
+  Widget buildStars(BuildContext context, int index) {
+    return new Icon(
+      Icons.star,
+      color: Colors.yellow,
+    );
   }
 
-  String _getCategory(Opportunity opportunity) {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Doe mee!", style: TextStyle(color: Colors.white)),
+        iconTheme: new IconThemeData(color: Colors.white),
+      ),
+      body: ListView(
+        children: <Widget>[
+          //Top row
+          new Padding(
+            padding: EdgeInsets.only(
+              left: 20.0,
+              right: 20.0,
+              top: 8.0,
+              bottom: 8.0,
+            ),
+            child: new Row(
+              children: <Widget>[
+                new Hero(
+                  child: new CircleAvatar(
+                    backgroundImage:
+                        new NetworkImage(opportunity.badgeImageUrl),
+                    radius: 32.0,
+                  ),
+                  tag: "badge image",
+                ),
+                new Expanded(
+                  child: new Padding(
+                    padding: EdgeInsets.only(left: 16.0, right: 24.0),
+                    child: new Text(
+                      opportunity.name,
+                      style: new TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black54,
+                          fontSize: 21.0),
+                    ),
+                  ),
+                ),
+                new Row(
+                  children: new List.generate(opportunity.difficulty.index + 1,
+                      (index) => buildStars(context, index)),
+                ),
+              ],
+            ),
+          ),
+
+          //Big image
+          new Image.network(opportunity.opportunityImageUrl),
+
+          //Blue box
+          new Padding(
+            padding: EdgeInsets.only(
+              left: 20.0,
+              right: 20.0,
+              top: 16.0,
+              bottom: 16.0,
+            ),
+            child: new Container(
+              padding: EdgeInsets.all(14.0),
+              decoration: new BoxDecoration(
+                border: new Border.all(color: Colors.lightBlue),
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+              child: new Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  //Category
+                  new Text(
+                    _getCategory(opportunity),
+                    style: new TextStyle(
+                      fontStyle: FontStyle.italic,
+                      fontSize: 16.0,
+                      color: Colors.lightBlue,
+                    ),
+                  ),
+                  new SizedBox(
+                    height: 6.0,
+                  ),
+
+                  //Period
+                  new Row(
+                    children: <Widget>[
+                      new Text(
+                        "Periode:",
+                        style: new TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0,
+                          color: Colors.lightBlue,
+                        ),
+                      ),
+                      new Expanded(
+                        child: new Text(
+                          " van " +
+                              _makeDate(opportunity.beginDate) +
+                              " tot " +
+                              _makeDate(opportunity.endDate),
+                          style: new TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.lightBlue,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  new SizedBox(
+                    height: 6.0,
+                  ),
+
+                  //Place
+                  new Row(
+                    children: <Widget>[
+                      new Text(
+                        "Plaats:",
+                        style: new TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0,
+                          color: Colors.lightBlue,
+                        ),
+                      ),
+                      new Expanded(
+                        child: new Text(
+                          " " +
+                              opportunity.street +
+                              ", " +
+                              opportunity.postalCode.toString() +
+                              " " +
+                              opportunity.city,
+                          style: new TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.lightBlue,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  new SizedBox(
+                    height: 6.0,
+                  ),
+
+                  //Issuer
+                  new Row(
+                    children: <Widget>[
+                      new Text(
+                        "Issuer:",
+                        style: new TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0,
+                          color: Colors.lightBlue,
+                        ),
+                      ),
+                      new Expanded(
+                        child: new Text(
+                          " " + opportunity.issuerName,
+                          style: new TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.lightBlue,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          //Short description
+          new Padding(
+            padding: EdgeInsets.only(
+              left: 20.0,
+              right: 20.0,
+              top: 16.0,
+              bottom: 8.0,
+            ),
+            child: new Text(
+              opportunity.shortDescription,
+              style: new TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+
+          //Long description
+          new Padding(
+            padding: EdgeInsets.only(
+              left: 20.0,
+              right: 20.0,
+              top: 8.0,
+              bottom: 16.0,
+            ),
+            child: new Text(
+              opportunity.longDescription,
+              style: new TextStyle(
+                fontSize: 14.0,
+              ),
+            ),
+          ),
+
+          //Button
+          new Padding(
+            padding: EdgeInsets.only(
+              left: 20.0,
+              right: 20.0,
+              top: 16.0,
+              bottom: 20.0,
+            ),
+            child: Material(
+              borderRadius: BorderRadius.circular(10.0),
+              shadowColor: Colors.lightBlueAccent.shade100,
+              elevation: 5.0,
+              child: MaterialButton(
+                minWidth: 200.0,
+                height: 42.0,
+                onPressed: () {},
+                color: Colors.lightBlueAccent,
+                child: Text('Doe mee!', style: TextStyle(color: Colors.white)),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static String _makeDate(DateTime date) {
+    return formatDate(date, [dd, '/', mm, '/', yyyy]);
+  }
+
+  static String _getCategory(Opportunity opportunity) {
     switch (opportunity.category) {
       case Category.DIGITALEGELETTERDHEID:
         return "Digitale geletterdheid";
@@ -34,34 +266,5 @@ class OpportunityDetailsPage extends StatelessWidget {
         return "Wereldburgerschap";
     }
     return "Algemeen";
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Doe mee!", style: TextStyle(color: Colors.white)),
-        iconTheme: new IconThemeData(color: Colors.white),
-      ),
-      body: Center(
-        child: ListView(
-          shrinkWrap: true,
-          padding: EdgeInsets.only(left: 24.0, right: 24.0),
-          children: <Widget>[
-            SizedBox(height: 8.0),
-            new Text("LeerkansId: " + opportunity.opportunityId.toString()),
-            SizedBox(height: 8.0),
-            new Text("Naam: " + opportunity.name),
-            SizedBox(height: 8.0),
-            new Text("Moeilijkheid: " + _getDifficulty(opportunity)),
-            SizedBox(height: 8.0),
-            new Text("Categorie: " + _getCategory(opportunity)),
-            SizedBox(height: 8.0),
-            new Text("Issuer: " + opportunity.issuerName),
-            SizedBox(height: 8.0),
-          ],
-        ),
-      ),
-    );
   }
 }
