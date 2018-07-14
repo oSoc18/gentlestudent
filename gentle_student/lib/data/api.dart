@@ -31,6 +31,14 @@ class OpportunityApi {
       difficulty: _dataToDifficulty(data['difficulty']),
       category: _dataToCategory(data['category']),
       badgeImageUrl: data['badgeImageUrl'],
+      opportunityImageUrl: data['oppImageUrl'],
+      shortDescription: data['shortDescription'],
+      longDescription: data['longDescription'],
+      beginDate: DateTime.parse(data['beginDate']),
+      endDate: DateTime.parse(data['endDate']),
+      street: data['street'],
+      postalCode: data['postalCode'],
+      city: data['city'],
       issuerName: data['issuerName'],
     );
   }
