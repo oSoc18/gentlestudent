@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/android.iml" filepath="$PROJECT_DIR$/android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-0.3.0/android/cloud_firestore.iml" filepath="$PROJECT_DIR$/../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-0.3.0/android/cloud_firestore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.1.2/android/firebase_core.iml" filepath="$PROJECT_DIR$/../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.1.2/android/firebase_core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_custom_tabs-0.1.0/android/flutter_custom_tabs.iml" filepath="$PROJECT_DIR$/../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_custom_tabs-0.1.0/android/flutter_custom_tabs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/map_view-0.0.12/android/map_view.iml" filepath="$PROJECT_DIR$/../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/map_view-0.0.12/android/map_view.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-0.4.1/android/path_provider.iml" filepath="$PROJECT_DIR$/../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-0.4.1/android/path_provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.4.2/android/shared_preferences.iml" filepath="$PROJECT_DIR$/../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.4.2/android/shared_preferences.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher-3.0.3/android/url_launcher.iml" filepath="$PROJECT_DIR$/../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher-3.0.3/android/url_launcher.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/video_player-0.5.4/android/video_player.iml" filepath="$PROJECT_DIR$/../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/video_player-0.5.4/android/video_player.iml" />
+    </modules>
+  </component>
+</project>
