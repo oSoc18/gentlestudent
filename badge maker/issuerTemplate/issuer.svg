@@ -1,0 +1,20 @@
+<path
+	id="issuerPath"
+	fill="none"
+	d="m centerX, centerY a -size,-size 1 1,1 sizeDouble,0 a -size,-size 1 1,1 -sizeDouble,0"
+/>
+<text
+	font-family="Ubuntu"
+	font-weight="bold"
+	font-size="0.38em"
+	letter-spacing="-0.2">
+	<textPath
+		xlink:href="#issuerPath"
+		id="issuerText"
+		startOffset="offsetValue%">
+		<tspan
+			style="fill:white;">
+			issuerName
+		</tspan>
+	</textPath>
+</text>

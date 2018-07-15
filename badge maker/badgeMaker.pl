@@ -1,27 +1,55 @@
 #!/usr/bin/perl -w
 
-# (1) quit unless we have the correct number of command-line args
+# quit unless we have the correct number of command-line args
 $num_args = $#ARGV + 1;
-if ($num_args != 2) {
-    print "\nInvalid number of arguments. Usage: badgeMaker.pl badge issuer\n";
+if ($num_args != 2 && $num_args != 3) {
+    print "\nInvalid number of arguments. Usage: badgeMaker.pl badge issuer stars\n";
     exit;
 }
-# (2) we got three command line args
-$badgeName=$ARGV[0];
-$issuerName=$ARGV[1];
+$badgeName = $ARGV[0];
+$issuerName = $ARGV[1];
+$badgeStars = ($num_args == 3) ? $ARGV[2] : 0;
 
-# Test, pls ignore
-# $badgeName="test - Copy";
-# $issuerName="Max";
+#-------------- CONFIG VARIABLES --------------
+$size = 42;
+$defaultCenterX = 64.840622;
+$defaultCenterY = 62.7;
+$defaultOffset = 24.65;
+#----------------------------------------------
 
-$templateFileName=$badgeName . '.svg';
-$badgeFileName=$issuerName . '_' . $badgeName . '.svg';
+$centerX = $defaultCenterX - $size;
+$centerY = $defaultCenterY;
+$offset = $defaultOffset - 0.69*length($issuerName);
+$sizeDouble = $size*2;
+
+# I/O
+$templateFileName = 'badgeTemplates/' . $badgeName . $badgeStars . '.svg';
+print($templateFileName);
+$badgeFileName = $issuerName . '_' . $badgeName . '.svg';
+print($badgeFileName);
 open(my $templateFile, '<', $templateFileName)
-    or die "Unable to open file, $!";
+    or die "Unable to open file $templateFileName, $!";
 open(my $badgeFile, '>', $badgeFileName)
 	or die "Unable to open file, $!";
+open(my $issuerFile, '<', 'issuerTemplate/issuer.svg')
+	or die "Unable to open file, $!";
+
+# Create New Badge
 while (<$templateFile>) { # Read the file line per line
-	s/ISSUER/$issuerName/ee;
+	s/<\/svg>//ee;
 	print $badgeFile $_;
-   # last if $_ eq 'banana'; # Leave the while-loop.
 }
+$issuerName = uc $issuerName;
+print($issuerName);
+while (<$issuerFile>) { # Read the file line per line
+	s/issuerName/$issuerName/g;
+	s/centerX/$centerX/g;
+	s/centerY/$centerY/g;
+	s/offsetValue/$offset/g;
+	if(m/d=/){
+		s/sizeDouble/$sizeDouble/g;
+		s/size/$size/g;
+	}
+	print $badgeFile $_;
+}
+print $badgeFile "<\/svg>";
