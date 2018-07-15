@@ -15,11 +15,12 @@ $size = 42;
 $defaultCenterX = 64.840622;
 $defaultCenterY = 62.7;
 $defaultOffset = 24.65;
+$offsetPerChar = 0.69;
 #----------------------------------------------
 
 $centerX = $defaultCenterX - $size;
 $centerY = $defaultCenterY;
-$offset = $defaultOffset - 0.69*length($issuerName);
+$offset = $defaultOffset - $offsetPerChar*length($issuerName);
 $sizeDouble = $size*2;
 
 # I/O
