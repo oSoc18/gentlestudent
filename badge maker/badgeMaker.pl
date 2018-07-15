@@ -38,7 +38,13 @@ open(my $issuerFile, '<', 'issuerTemplate/issuer.svg')
 # Create New Badge
 while (<$templateFile>) { # Read the file line per line
 	s/<\/svg>//ee;
-	print $badgeFile $_;
+	if (m/<\/style>/){
+		print $badgeFile $_;
+		print $badgeFile "<style type='text/css'>\@import url('http://fonts.googleapis.com/css?family=Ubuntu');</style>\n"
+	}
+	else{
+		print $badgeFile $_;
+	}
 }
 $issuerName = uc $issuerName;
 print($issuerName);
