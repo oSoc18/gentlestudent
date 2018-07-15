@@ -16,6 +16,7 @@ import Ervaringen from './Screens/Ervaringen';
 import Nieuws from './Screens/Nieuws';
 import OverOns from './Screens/OverOns';
 import Register from './Screens/Register';
+import Login from './Screens/Login';
 
 import CreateLeerkansen from './Screens/Backoffice/CreateLeerkans';
 import BOLeerkansen from './Screens/Backoffice/Leerkansen';
@@ -34,6 +35,7 @@ class App extends Component {
 						<Route path="/nieuws" exact render={() => <Nieuws />} />
 						<Route path="/overons" exact render={() => <OverOns />} />
 						<Route path="/register" render={() => <Register />} />
+						<Route path="/login" render={() => <Login />} />
 						{/* <Route path="/login" render={() => <Login />} /> */}
 						{/* BACKOFFICE */}
 						{/* <Auth> */}

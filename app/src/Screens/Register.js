@@ -1,58 +1,58 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { UserRegister } from './../actions/authActions';
 
 import Nav from './../Components/Nav';
 import Footer from './../Components/Footer';
 
+import FormRegisterUser from './../Components/Auth/FormRegisterUser';
+
 class Register extends Component {
   constructor(props) {
     super(props)
-    this.submit = this.submit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-  submit(e) {
-    console.log('submit');
-    fetch('http://localhost:8080/api/v1/auth/register', {
-      method: 'POST',
-      body: {
-        "email": "ismail.kutlu94@gmail.com",
-        "localProvider": {
-          "password": "test123"
+  handleSubmit() {
+    console.log('credentials: ', {...this.props.form.registerUser.values});
+    this.props.registerUser(
+      {
+        email: this.props.form.registerUser.values.email,
+        localProvider: {
+          password: this.props.form.registerUser.values.password
         }
       }
-    })
+    );
   }
   render() {
 		return (
-			<div>
+			<React.Fragment>
 				<Nav/>
 					<div className="container">
 						<div className="content">
-							<h1>Register</h1>
-              <form action="register">
-                <div>
-                  <label>Username:</label>
-                  <input type="text" name="username"/>
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input type="password" name="password"/>
-                </div>
-                <div>
-                  <button type="submit" onSubmit={(e) => {
-                    if (e.keyCode === 13) {
-                      e.preventDefault();
-                    }
-                    this.submit();
-                  }}>
-                    Log In
-                  </button>
-                </div>
-              </form>
-						</div>
+              <h1>Register</h1>
+              <div className="form" id="register_user">
+                <FormRegisterUser onSubmit={this.handleSubmit}/>
+              </div>
+            </div>
 					</div>
 				<Footer/>
-			</div>
+			</React.Fragment>
 		)
 	}
 }
 
-export default Register;
+export default (Register = connect(
+  (state) => {
+    return {
+      form: state.form
+    };
+  },
+  (dispatch) => {
+    return {
+      registerUser: (data) => {
+        dispatch(UserRegister(data));
+      },
+    };
+  }
+)(Register));

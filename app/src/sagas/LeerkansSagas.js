@@ -1,3 +1,4 @@
+import { API_URL, API_URL_LOCAL } from './../config';
 import { all, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
@@ -20,7 +21,7 @@ function* leerkansenFetch() {
 	try {
 		const result = yield axios({
 			method: 'get',
-			url: 'https://gentlestudent-api.herokuapp.com/api/v1/leerkans'
+			url: `${API_URL}/api/v1/leerkans`
 			// url: 'http://localhost:8080/api/v1/leerkans'
 		});
 		yield put({ type: LEERKANSEN_FETCH_LIST_SUCCES, data: result.data });
@@ -33,7 +34,7 @@ function* leerkansenFetchById(action) {
 		const id = action.id;
 		const result = yield axios({
 			method: 'get',
-			url: `https://gentlestudent-api.herokuapp.com/api/v1/leerkans/${id}`
+			url: `${API_URL}/api/v1/leerkans/${id}`
 		})
 		yield put({ type: LEERKANSEN_FETCH_BY_ID_SUCCES, data: result.data });
 	} catch (e) {
@@ -44,8 +45,7 @@ function* leerkansCreateItem(action) {
   try {
     const result = yield axios({
       method: 'post',
-			// url: 'https://gentlestudent-api.herokuapp.com/api/v1/leerkans',
-			url: 'http://localhost:8080/api/v1/leerkans',
+			url: `${API_URL_LOCAL}/api/v1/leerkans`,
 			headers : {
 				// 'Content-Type': 'application/x-www-form-urlencoded'
 				// 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary'
@@ -60,12 +60,11 @@ function* leerkansCreateItem(action) {
 
 function* leerkansDeleteItem(action) {
   try {
-		console.log('trying...')
+		console.log('trying to delete...')
 		const id = action.data;
     axios({
       method: 'delete',
-			// url: 'https://gentlestudent-api.herokuapp.com/api/v1/leerkans',
-			url: `http://localhost:8080/api/v1/leerkans/${id}`
+			url: `${API_URL}/api/v1/leerkans/${id}`
 		});
     yield put({ type: LEERKANSEN_DELETE_ITEM_SUCCES, data: action.data });
   } catch (e) {

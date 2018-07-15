@@ -3,43 +3,31 @@ export const AUTHENTICATED = 'gentlestudent/AUTHENTICATED';
 export const UNAUTHENTICATED = 'gentlestudent/UNAUTHENTICATED';
 export const AUTHENTICATION_ERROR = 'gentlestudent/AUTHENTICATION_ERROR';
 
+export const USER_REGISTER = 'gentlestudent/USER_REGISTER';
+export const USER_REGISTER_SUCCES = 'gentlestudent/USER_REGISTER_SUCCES';
+export const USER_REGISTER_FAILED = 'gentlestudent/USER_REGISTER_FAILED';
+
+export const USER_LOGIN = 'gentlestudent/USER_LOGIN';
+export const USER_LOGIN_SUCCES = 'gentlestudent/USER_LOGIN_SUCCES';
+export const USER_LOGIN_FAILED = 'gentlestudent/USER_LOGIN_FAILED';
+
+// Register
+export function UserRegister(data) {
+  return {
+    type: USER_REGISTER,
+    data
+  };
+}
+// Login
+export function UserLogin(data) {
+  return {
+    type: USER_LOGIN,
+    data
+  };
+}
+
 export const authenticatedCheck = () => {
   return {
     type: AUTH_CHECK
   };
 };
-
-export function signInActionLocalStrategy({ email, password }, history) {
-  return async (dispatch) => {
-    try {
-      const postData = new Blob([JSON.stringify({
-            email: email,
-            password: password
-        }, null, 2)],
-        {
-          type : 'application/json'
-        }
-      );
-      const options = {
-          method: 'POST',
-          body: postData,
-          mode: 'cors',
-          cache: 'default'
-      };
-      const response = await fetch('https://localhost:8080/api/v1/auth/local', options);
-      const responseJson = await response.json();
-
-      dispatch({ 
-        type: AUTHENTICATED,
-        payload: responseJson
-      });
-      localStorage.setItem('', JSON.stringify(responseJson));
-
-    } catch(error) {
-      dispatch({
-        type: AUTHENTICATION_ERROR,
-        payload: 'Invalid email or password'
-      });
-    }
-  };
-}

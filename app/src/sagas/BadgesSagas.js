@@ -1,3 +1,4 @@
+import { BADGR_URL } from './../config';
 import { all, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
@@ -8,14 +9,14 @@ import {
 	BADGE_ISSUE_RECIPIENT,
 	BADGE_ISSUE_RECIPIENT_SUCCES,
 	BADGE_ISSUE_RECIPIENT_FAILED,
-} from './../actions/badgesActions';
+} from '../actions/badgesActions';
 
 function* badgeIssueRecipient(action) {
   try {
 		console.log("getting issuer");
 		const issuer = yield axios({
 			method: 'get',
-			url: 'https://api.badgr.io/v1/issuer/issuers',
+			url: `${BADGR_URL}/v1/issuer/issuers`,
 			// Auth
 			headers: {
 				'Content-Type': 'application/json',
@@ -26,7 +27,7 @@ function* badgeIssueRecipient(action) {
 			console.log('sending badge as reward...');
 			const result = yield axios({
 				method: 'post',
-				url: `https://api.badgr.io/v1/issuer/issuers/${issuer.data[1].slug}/badges/${action.data.badge_class}/assertions`,
+				url: `${BADGR_URL}/v1/issuer/issuers/${issuer.data[1].slug}/badges/${action.data.badge_class}/assertions`,
 				data: {
 					...action.data,
 					issuer: issuer.data[1].slug
@@ -48,7 +49,7 @@ function* badgeFetchList() {
 	try {
 		const result = yield axios({
 			method: 'get',
-			url: 'https://api.badgr.io/v1/issuer/all-badges',
+			url: `${BADGR_URL}/v1/issuer/all-badges`,
 			// Auth
 			headers: {
 				'Content-Type': 'application/json',
