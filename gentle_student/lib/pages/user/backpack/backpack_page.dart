@@ -1,5 +1,7 @@
+import 'package:Gentle_Student/data/database_helper.dart';
 import 'package:Gentle_Student/data/rest_data.dart';
 import 'package:Gentle_Student/models/user.dart';
+import 'package:Gentle_Student/models/user_token.dart';
 import 'package:flutter/material.dart';
 
 class BackPackPage extends StatefulWidget {
@@ -17,19 +19,23 @@ class _BackPackPageState extends State<BackPackPage> {
     api.login(username, password).then((token) {
       print("login succesfull");
       print(token);
-      user = 
+      var user = User(username, password);
       onLoginSuccess(user, token);
     }).catchError((Exception error) => print("login failed"));
   }
 
   void onLoginSuccess(User user, String token) async {
-    _showSnackBar(user.toString());
-    setState(() => _isLoading = false);
     var db = new DatabaseHelper();
-    await db.saveUser(user);
-    var authStateProvider = new AuthStateProvider();
-    authStateProvider.notify(AuthState.LOGGED_IN);
+    await db.deleteUserTokens();
+    var userToken = UserToken(user, token);
+    await db.saveUserToken(userToken);
   }
+
+  @override
+    void initState() {
+      // TODO: implement initState
+      super.initState();
+    }
   
   @override
   Widget build(BuildContext context) {

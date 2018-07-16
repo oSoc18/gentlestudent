@@ -1,20 +1,16 @@
 import 'dart:async';
 
+import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/utils/network_util.dart';
 import 'package:Gentle_Student/models/user.dart';
 
 //This class is a Singleton that handles REST API
-class RestData {
-  //Creating the Singleton
-  static RestData _instance = new RestData.internal();
-  RestData.internal();
-  factory RestData() => _instance;
-
-  //The URL used in every CRUD operation
-  static const String BASE_URL = "";
-}
-
 class RestDatasource {
+  //Creating the Singleton
+  static RestDatasource _instance = new RestDatasource.internal();
+  RestDatasource.internal();
+  factory RestDatasource() => _instance;
+
   NetworkUtil _netUtil = new NetworkUtil();
   static final BASE_URL = "https://api.badgr.io/";
   static final LOGIN_URL = BASE_URL + "api-auth/token";
@@ -29,5 +25,9 @@ class RestDatasource {
       if(res["error"]) throw new Exception(res["error_msg"]);
       return res.toString();
     });
+  }
+
+  Future<List<Badge>> getBadges(){
+    final url = BASE_URL + " ";
   }
 }

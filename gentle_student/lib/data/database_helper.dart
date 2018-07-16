@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io' as io;
 
+import 'package:Gentle_Student/models/user_token.dart';
 import 'package:path/path.dart';
 import 'package:Gentle_Student/models/user.dart';
 import 'package:sqflite/sqflite.dart';
@@ -42,9 +43,21 @@ class DatabaseHelper {
     return res;
   }
 
+  Future<int> saveUserToken(UserToken userToken) async {
+    var dbClient = await db;
+    int res = await dbClient.insert("UserToken", userToken.toMap());
+    return res;
+  }
+
   Future<int> deleteUsers() async {
     var dbClient = await db;
     int res = await dbClient.delete("User");
+    return res;
+  }
+
+  Future<int> deleteUserTokens() async {
+    var dbClient = await db;
+    int res = await dbClient.delete("UserToken");
     return res;
   }
 
