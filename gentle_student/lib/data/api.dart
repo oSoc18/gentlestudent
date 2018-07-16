@@ -85,7 +85,7 @@ class ExperiencesApi{
     return Firestore.instance
         .collection('Experiences')
         .document(experience.experienceId)
-        .snapshots
+        .snapshots()
         .listen((snapshot) => onChange(_fromDocumentSnapshot(snapshot)));
   }
 
