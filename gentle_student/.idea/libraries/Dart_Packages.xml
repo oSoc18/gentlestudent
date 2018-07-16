@@ -23,13 +23,6 @@
             </list>
           </value>
         </entry>
-        <entry key="beacons">
-          <value>
-            <list>
-              <option value="D:/flutter/.pub-cache/hosted/pub.dartlang.org/beacons-0.3.0/lib" />
-            </list>
-          </value>
-        </entry>
         <entry key="boolean_selector">
           <value>
             <list>
@@ -380,13 +373,6 @@
             </list>
           </value>
         </entry>
-        <entry key="streams_channel">
-          <value>
-            <list>
-              <option value="D:/flutter/.pub-cache/hosted/pub.dartlang.org/streams_channel-0.2.2/lib" />
-            </list>
-          </value>
-        </entry>
         <entry key="string_scanner">
           <value>
             <list>
@@ -491,7 +477,6 @@
       <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/analyzer-0.31.2-alpha.2/lib" />
       <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/args-1.4.3/lib" />
       <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.0.7/lib" />
-      <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/beacons-0.3.0/lib" />
       <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/boolean_selector-1.0.3/lib" />
       <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/cached_network_image-0.4.1+1/lib" />
       <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/charcode-1.1.1/lib" />
@@ -539,7 +524,6 @@
       <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/source_span-1.4.0/lib" />
       <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/stack_trace-1.9.2/lib" />
       <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/stream_channel-1.6.6/lib" />
-      <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/streams_channel-0.2.2/lib" />
       <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.0.2/lib" />
       <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/synchronized-1.5.0+1/lib" />
       <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/term_glyph-1.0.0/lib" />
