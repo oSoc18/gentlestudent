@@ -86,7 +86,11 @@
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="profile_page.dart" pinned="false" current-in-tab="true">
+=======
+      <file leaf-file-name="profile_page.dart" pinned="false" current-in-tab="false">
+>>>>>>> ProfilePage
         <entry file="file://$PROJECT_DIR$/lib/pages/user/profile/profile_page.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="439">
@@ -96,6 +100,19 @@
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+=======
+      <file leaf-file-name="framework.dart" pinned="false" current-in-tab="true">
+        <entry file="file://D:/flutter/packages/flutter/lib/src/widgets/framework.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="243">
+              <caret line="1097" column="8" lean-forward="false" selection-start-line="1097" selection-start-column="8" selection-end-line="1097" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+>>>>>>> ProfilePage
       <file leaf-file-name="user_page.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/pages/user/user_page.dart">
           <provider selected="true" editor-type-id="text-editor">
@@ -495,7 +512,11 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+<<<<<<< HEAD
         <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1531740354993" />
+=======
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1531739973257" />
+>>>>>>> ProfilePage
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -543,7 +564,11 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+<<<<<<< HEAD
         <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1531740354993" />
+=======
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1531739973257" />
+>>>>>>> ProfilePage
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -1232,18 +1257,32 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://D:/flutter/packages/flutter/lib/src/widgets/framework.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="243">
           <caret line="1097" column="8" lean-forward="false" selection-start-line="1097" selection-start-column="8" selection-end-line="1097" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+=======
     <entry file="file://$PROJECT_DIR$/lib/pages/user/profile/profile_page.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="439">
           <caret line="46" column="8" lean-forward="false" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
+>>>>>>> ProfilePage
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/lib/pages/user/profile/profile_page.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="439">
+          <caret line="46" column="8" lean-forward="false" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
+=======
+    <entry file="file://D:/flutter/packages/flutter/lib/src/widgets/framework.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="1097" column="8" lean-forward="false" selection-start-line="1097" selection-start-column="8" selection-end-line="1097" selection-end-column="8" />
+>>>>>>> ProfilePage
           <folding />
         </state>
       </provider>
