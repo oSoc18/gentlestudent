@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:Gentle_Student/data/database_helper.dart';
 import 'package:Gentle_Student/data/rest_data.dart';
 import 'package:Gentle_Student/models/badge.dart';
+import 'package:Gentle_Student/models/category.dart';
+import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/user.dart';
 import 'package:Gentle_Student/models/user_token.dart';
 import 'package:flutter/material.dart';
@@ -15,38 +17,25 @@ class BackPackPage extends StatefulWidget {
 
 class _BackPackPageState extends State<BackPackPage> {
   User user;
-  String token;
+  final token = "bf6a76694eaa7f44807984abb04b77e8c9dbb8f1";
   List<dynamic> _badges = [];
   RestDatasource _api;
 
   @override
   void initState() {
     super.initState();
-    _doLogin("van-driessche-maxime@hotmail.com", "osocosoc");
     _loadFromBadgr();
-  }
-
-  _doLogin(String username, String password) {
-    RestDatasource api = new RestDatasource();
-    api.login(username, password).then((token) {
-      print("login succesfull");
-      print(token);
-      var user = User(name: username,password: password, userId: "1", kind: "participant");
-      onLoginSuccess(user, token);
-    }).catchError((Exception error) => print("login failed"));
   }
 
   void onLoginSuccess(User user, String token) async {
     var db = new DatabaseHelper();
     await db.deleteUserTokens();
-    var userToken = UserToken(user, token);
+    UserToken userToken = UserToken(user, token);
     await db.saveUserToken(userToken);
   }
 
   _loadFromBadgr() async {
-    var db = new DatabaseHelper();
-    token = await db.getToken();
-    final api = new RestDatasource();
+    RestDatasource api = new RestDatasource();
     final badges = await api.getBadges(token);
     setState(() {
       _api = api;
@@ -101,7 +90,7 @@ class _BackPackPageState extends State<BackPackPage> {
                   " - " +
                   _getDifficulty(badge) +
                   "\n" +
-                  badge.issuerName),
+                  badge.issuer),
               isThreeLine: true,
               dense: false,
             ),
@@ -169,7 +158,7 @@ class _BackPackPageState extends State<BackPackPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Leerkansen", style: TextStyle(color: Colors.white)),
+        title: Text("Backpack", style: TextStyle(color: Colors.white)),
         iconTheme: new IconThemeData(color: Colors.white),
       ),
       body: _buildBody(),

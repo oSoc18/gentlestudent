@@ -27,7 +27,7 @@ class RestDatasource {
     });
   }
 
-  Future<List> getBadges(String token){
+  Future<List<dynamic>> getBadges(String token){
     final url = BASE_URL + "v2/badgeclasses";
     
     return _netUtil.get(url, headers: {

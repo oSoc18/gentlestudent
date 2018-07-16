@@ -10,7 +10,7 @@ class NetworkUtil {
 
   final JsonDecoder _decoder = new JsonDecoder();
 
-  Future<dynamic> get(String url, {Map headers}) {
+  Future<dynamic> get(String url, {Map<String,String> headers}) {
     return http.get(url, headers: headers).then((http.Response response) {
       final String res = response.body;
       final int statusCode = response.statusCode;
@@ -22,7 +22,7 @@ class NetworkUtil {
     });
   }
 
-  Future<dynamic> post(String url, {Map headers, body, encoding}) {
+  Future<dynamic> post(String url, {Map<String,String> headers, body, encoding}) {
     return http
         .post(url, body: body, headers: headers, encoding: encoding)
         .then((http.Response response) {
