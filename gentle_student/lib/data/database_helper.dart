@@ -61,10 +61,17 @@ class DatabaseHelper {
     return res;
   }
 
-  Future<bool> isLoggedIn() async {
+  // Future<bool> isLoggedIn() async {
+  //   var dbClient = await db;
+  //   var res = await dbClient.query("User");
+  //   return res.length > 0? true: false;
+  // }
+
+  Future<String> getToken() async {
     var dbClient = await db;
-    var res = await dbClient.query("User");
-    return res.length > 0? true: false;
+    var res = await dbClient.query("UserToken");
+    String token = res[0]["Token"];
+    return token;
   }
 
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:Gentle_Student/data/database_helper.dart';
 import 'package:Gentle_Student/data/rest_data.dart';
 import 'package:Gentle_Student/models/user.dart';
@@ -13,6 +15,7 @@ class BackPackPage extends StatefulWidget {
 class _BackPackPageState extends State<BackPackPage> {
   User user;
   String token;
+  Future<List> badges;
 
   doLogin(String username, String password) {
     RestDatasource api = new RestDatasource();
@@ -31,10 +34,20 @@ class _BackPackPageState extends State<BackPackPage> {
     await db.saveUserToken(userToken);
   }
 
+  Future<List> getBadges() async {
+    var db = new DatabaseHelper();
+    String token = await db.getToken();
+    RestDatasource api = new RestDatasource();
+    api.getBadges(token).then((badges) {
+      return badges;
+    });
+  }
+
   @override
     void initState() {
       // TODO: implement initState
       super.initState();
+      badges = getBadges();
     }
   
   @override
@@ -46,12 +59,13 @@ class _BackPackPageState extends State<BackPackPage> {
       ),
       backgroundColor: Colors.white,
       body:
-        IconButton(
-            icon: Icon(Icons.account_circle, size: 48.0),
-            onPressed: () {
-              doLogin("van-driessche-maxime@hotmail.com", "yeix6chi");
-            },
-          )
+        badges;
+        // IconButton(
+        //     icon: Icon(Icons.account_circle, size: 48.0),
+        //     onPressed: () {
+        //       doLogin("van-driessche-maxime@hotmail.com", "yeix6chi");
+        //     },
+        //   )
     );
   }
 }

@@ -21,13 +21,20 @@ class RestDatasource {
       "username": username,
       "password": password
     }).then((dynamic res) {
-      print(res.toString());
+      // print(res.toString());
       if(res["error"]) throw new Exception(res["error_msg"]);
       return res.toString();
     });
   }
 
-  Future<List<Badge>> getBadges(){
-    final url = BASE_URL + " ";
+  Future<List> getBadges(String token){
+    final url = BASE_URL + "v2/badgeclasses";
+    
+    return _netUtil.get(url, headers: {
+      "Authorization": "Token "+token
+    }).then((dynamic res){
+      if(res["error"]) throw new Exception(res["error_msg"]);
+      return res;
+    });
   }
 }
