@@ -18,7 +18,7 @@ class OpportunityApi {
     return Firestore.instance
         .collection('Opportunities')
         .document(opportunity.opportunityId)
-        .snapshots
+        .snapshots()
         .listen((snapshot) => onChange(_fromDocumentSnapshot(snapshot)));
   }
 
