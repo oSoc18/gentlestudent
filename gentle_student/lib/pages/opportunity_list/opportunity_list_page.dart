@@ -106,8 +106,8 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
         return "Digitale geletterdheid";
       case Category.DUURZAAMHEID:
         return "Duurzaamheid";
-      case Category.ONDERNEMERSSCHAP:
-        return "Ondernemersschap";
+      case Category.ONDERNEMINGSZIN:
+        return "Ondernemingszin";
       case Category.ONDERZOEK:
         return "Onderzoek";
       case Category.WERELDBURGERSCHAP:

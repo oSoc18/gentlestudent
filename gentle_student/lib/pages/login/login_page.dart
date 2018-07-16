@@ -1,5 +1,6 @@
 import 'package:Gentle_Student/navigation/home_page.dart';
 import 'package:Gentle_Student/pages/register/register_page.dart';
+import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -11,17 +12,49 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   var emailController;
-  var wachtwoordController;
+  var passwordController;
 
   _LoginPageState() {
     emailController = new TextEditingController();
-    wachtwoordController = new TextEditingController();
+    passwordController = new TextEditingController();
+  }
+
+  void _login() async {
+    if (_allFieldsFilledIn()) {
+          try {
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
+              email: emailController.text,
+              password: passwordController.text,
+            );
+            Navigator.of(context).pushNamed(HomePage.tag);
+          } catch (Error) {
+            _showSnackBar("Er is iets fout gelopen tijdens het aanmelden.");
+          }
+    } else {
+      _showSnackBar("Gelieve alle velden in te vullen.");
+    }
+  }
+
+  //Custom form validation
+  bool _allFieldsFilledIn() {
+    return emailController.text != null &&
+        emailController.text != "" &&
+        passwordController.text != null &&
+        passwordController.text != "";
+  }
+
+  //Shows a given message at the bottom of the screen
+  void _showSnackBar(String text) {
+    scaffoldKey.currentState.showSnackBar(new SnackBar(
+      content: new Text(text),
+      duration: Duration(seconds: 4),
+    ));
   }
 
   @override
   void dispose() {
     emailController.dispose();
-    wachtwoordController.dispose();
+    passwordController.dispose();
     super.dispose();
   }
 
@@ -49,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
     final password = TextField(
       autofocus: false,
       obscureText: true,
-      controller: wachtwoordController,
+      controller: passwordController,
       decoration: InputDecoration(
           labelText: 'Wachtwoord',
           hintText: '**********',
@@ -67,9 +100,7 @@ class _LoginPageState extends State<LoginPage> {
         child: MaterialButton(
           minWidth: 200.0,
           height: 42.0,
-          onPressed: () {
-            Navigator.of(context).pushNamed(HomePage.tag);
-          },
+          onPressed: () => _login(),
           color: Colors.lightBlueAccent,
           child: Text('Log in', style: TextStyle(color: Colors.white)),
         ),
@@ -77,8 +108,8 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final registerLabel = FlatButton(
-      child:
-          Text('Geen account? Registreer hier!', style: TextStyle(color: Colors.black54)),
+      child: Text('Geen account? Registreer hier!',
+          style: TextStyle(color: Colors.black54)),
       onPressed: () {
         Navigator.of(context).pushNamed(RegisterPage.tag);
       },

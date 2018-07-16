@@ -56,7 +56,7 @@ packages:
       name: cloud_firestore
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.0"
+    version: "0.7.3"
   collection:
     dependency: transitive
     description:
@@ -92,6 +92,21 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
+
+  date_format:
+    dependency: "direct main"
+    description:
+      name: date_format
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4"
+  firebase_auth:
+    dependency: "direct main"
+    description:
+      name: firebase_auth
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.12"
   dart_config:
     dependency: transitive
     description:
@@ -105,7 +120,7 @@ packages:
       name: firebase_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.2"
+    version: "0.2.4"
   flutter:
     dependency: "direct main"
     description: flutter

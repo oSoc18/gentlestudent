@@ -19,7 +19,7 @@ class OpportunityApi {
     return Firestore.instance
         .collection('Opportunities')
         .document(opportunity.opportunityId)
-        .snapshots
+        .snapshots()
         .listen((snapshot) => onChange(_fromDocumentSnapshot(snapshot)));
   }
 
@@ -32,6 +32,14 @@ class OpportunityApi {
       difficulty: _dataToDifficulty(data['difficulty']),
       category: _dataToCategory(data['category']),
       badgeImageUrl: data['badgeImageUrl'],
+      opportunityImageUrl: data['oppImageUrl'],
+      shortDescription: data['shortDescription'],
+      longDescription: data['longDescription'],
+      beginDate: DateTime.parse(data['beginDate']),
+      endDate: DateTime.parse(data['endDate']),
+      street: data['street'],
+      postalCode: data['postalCode'],
+      city: data['city'],
       issuerName: data['issuerName'],
     );
   }
@@ -55,7 +63,7 @@ class OpportunityApi {
       case 1:
         return Category.DIGITALEGELETTERDHEID;
       case 2:
-        return Category.ONDERNEMERSSCHAP;
+        return Category.ONDERNEMINGSZIN;
       case 3:
         return Category.ONDERZOEK;
       case 4:
