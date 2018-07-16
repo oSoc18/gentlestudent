@@ -1,4 +1,5 @@
 import 'package:Gentle_Student/pages/information/about_us/about_us_page.dart';
+import 'package:Gentle_Student/pages/information/experiences/experiences_page.dart';
 import 'package:Gentle_Student/pages/information/privacy_policy/privacy_policy_page.dart';
 import 'package:Gentle_Student/pages/information/tutorial/tutorial_page.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,7 @@ class InformationPage extends StatelessWidget {
                 trailing: Icon(Icons.arrow_forward_ios),
                 title: Text('Ervaringen'),
                 onTap: () {
-                  //Navigator.of(context).pushNamed(AboutUsPage.tag);
+                  Navigator.of(context).pushNamed(ExperiencesPage.tag);
                 },
               ),
               decoration: new BoxDecoration(
