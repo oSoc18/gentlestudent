@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
+import 'package:Gentle_Student/models/experience.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:Gentle_Student/models/participation.dart';
 import 'package:Gentle_Student/models/status.dart';
@@ -111,5 +112,26 @@ class ParticipationApi {
         return Status.REFUSED;
     }
     return Status.PENDING;
+  }
+}
+
+class ExperiencesApi{
+  Future<List<Experience>> getAllExperiencs() async {
+    return (await Firestore.instance.collection('Experiences').getDocuments())
+        .documents
+        .map((snapshot) => _fromDocumentSnapshot(snapshot))
+        .toList();
+  }
+
+  Experience _fromDocumentSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data;
+
+    return new Experience(
+      experienceId: snapshot.documentID,
+      content: data['content'],
+      recap: data['recap'],
+      date: data['date'],
+      authorId: data['difficulty']
+    );
   }
 }

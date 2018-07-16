@@ -1,4 +1,5 @@
 import 'package:Gentle_Student/navigation/home_page.dart';
+import 'package:Gentle_Student/pages/information/experiences/experiences_page.dart';
 import 'package:flutter/material.dart';
 import 'package:map_view/map_view.dart';
 
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
     FavoritesPage.tag: (context)=>FavoritesPage(),
     SettingsPage.tag: (context)=>SettingsPage(),
     TutorialPage.tag: (context)=>TutorialPage(),
+    ExperiencesPage.tag: (context)=>ExperiencesPage()
   };
 
   @override
