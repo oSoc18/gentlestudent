@@ -75,12 +75,14 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     new Expanded(
-                      
                         child:
+                        new Container(
+                          padding: const EdgeInsets.all(5.0),
+                          child:
                         new Text(
                           experience.recap,
                           textAlign: TextAlign.center
-                          ),
+                          ),),
                     ),
                   ],
                 ),
@@ -155,7 +157,7 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
   @override
   Widget build(BuildContext context){
     return Scaffold(appBar: AppBar(
-        title: Text("Leerkansen", style: TextStyle(color: Colors.white)),
+        title: Text("Ervaringen", style: TextStyle(color: Colors.white)),
         iconTheme: new IconThemeData(color:Colors.white)
       ),
       body: _buildBody(),
