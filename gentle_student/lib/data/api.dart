@@ -97,6 +97,10 @@ class ParticipationApi {
     );
   }
 
+  Future<bool> participationExists(FirebaseUser firebaseUser, Opportunity opportunity) async {
+    return (await Firestore.instance.collection('Participations').where("participantId", isEqualTo: firebaseUser.uid).where("opportunityId", isEqualTo: opportunity.opportunityId).getDocuments()).documents.length != 0;
+  }
+
   Status _dataToStatus(int status) {
     switch (status) {
       case 0:
