@@ -1,5 +1,10 @@
+import 'dart:async';
+
+import 'package:Gentle_Student/data/api.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:date_format/date_format.dart';
 
@@ -12,8 +17,75 @@ class OpportunityDetailsPage extends StatefulWidget {
 
 class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
   Opportunity opportunity;
+  ParticipationApi api;
+  FirebaseUser firebaseUser;
+  final scaffoldKey = new GlobalKey<ScaffoldState>();
 
   _OpportunityDetailsPageState(this.opportunity);
+
+  //Shows a given message at the bottom of the screen
+  void _showSnackBar(String text) {
+    scaffoldKey.currentState.showSnackBar(new SnackBar(
+      content: new Text(text),
+      duration: Duration(seconds: 4),
+    ));
+  }
+
+  Future<Null> _displayAlertDialog() async {
+    return showDialog<Null>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return new AlertDialog(
+          title: new Text(opportunity.name),
+          content: new SingleChildScrollView(
+            child: new ListBody(
+              children: <Widget>[
+                new Text(
+                    'Bent u zeker dat u zich voor deze leerkans wilt inschrijven?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text('Ja'),
+              onPressed: () {
+                _enlistInOpportunity();
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text('Neen'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  _enlistInOpportunity() async {
+    bool participationExists =
+        await api.participationExists(firebaseUser, opportunity);
+    if (participationExists) {
+      _showSnackBar("U bent al ingeschreven voor deze leerkans.");
+    } else {
+      Map<String, dynamic> data = <String, dynamic>{
+        "participantId": firebaseUser.uid,
+        "opportunityId": opportunity.opportunityId,
+        "status": 0,
+        "reason": "",
+      };
+      final CollectionReference collection =
+          Firestore.instance.collection("Participations");
+      collection.add(data).whenComplete(() {
+        print("Participation added");
+      }).catchError((e) => print(e));
+      _showSnackBar("U bent succesvol ingeschreven voor deze leerkans.");
+    }
+  }
 
   Widget buildStars(BuildContext context, int index) {
     return new Icon(
@@ -23,12 +95,25 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    FirebaseAuth.instance.onAuthStateChanged.listen((user) {
+      firebaseUser = user;
+      final participationApi = new ParticipationApi();
+      setState(() {
+        api = participationApi;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Doe mee!", style: TextStyle(color: Colors.white)),
         iconTheme: new IconThemeData(color: Colors.white),
       ),
+      key: scaffoldKey,
       body: ListView(
         children: <Widget>[
           //Top row
@@ -237,7 +322,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
               child: MaterialButton(
                 minWidth: 200.0,
                 height: 42.0,
-                onPressed: () {},
+                onPressed: () => _displayAlertDialog(),
                 color: Colors.lightBlueAccent,
                 child: Text('Doe mee!', style: TextStyle(color: Colors.white)),
               ),
