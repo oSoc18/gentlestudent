@@ -10,6 +10,8 @@ dependencies:
   firebase_core: 0.2.4
   firebase_auth: 0.5.12
   cloud_firestore: 0.7.3
+  flutter_local_notifications: "^0.2.9"
+  beacons: "^0.3.0"
   map_view: "^0.0.12"
   date_format: any
   flutter_html_view: "^0.5.2"
