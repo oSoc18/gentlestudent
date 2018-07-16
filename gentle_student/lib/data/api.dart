@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
+import 'package:Gentle_Student/models/experience.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -18,7 +19,7 @@ class OpportunityApi {
     return Firestore.instance
         .collection('Opportunities')
         .document(opportunity.opportunityId)
-        .snapshots
+        .snapshots()
         .listen((snapshot) => onChange(_fromDocumentSnapshot(snapshot)));
   }
 
@@ -31,6 +32,14 @@ class OpportunityApi {
       difficulty: _dataToDifficulty(data['difficulty']),
       category: _dataToCategory(data['category']),
       badgeImageUrl: data['badgeImageUrl'],
+      opportunityImageUrl: data['oppImageUrl'],
+      shortDescription: data['shortDescription'],
+      longDescription: data['longDescription'],
+      beginDate: DateTime.parse(data['beginDate']),
+      endDate: DateTime.parse(data['endDate']),
+      street: data['street'],
+      postalCode: data['postalCode'],
+      city: data['city'],
       issuerName: data['issuerName'],
     );
   }
@@ -61,5 +70,34 @@ class OpportunityApi {
         return Category.WERELDBURGERSCHAP;
     }
     return Category.DUURZAAMHEID;
+  }
+}
+
+class ExperiencesApi{
+  Future<List<Experience>> getAllExperiencs() async {
+    return (await Firestore.instance.collection('Experiences').getDocuments())
+        .documents
+        .map((snapshot) => _fromDocumentSnapshot(snapshot))
+        .toList();
+  }
+
+  StreamSubscription watch(Experience experience, void onChange(Experience experience)) {
+    return Firestore.instance
+        .collection('Experiences')
+        .document(experience.experienceId)
+        .snapshots
+        .listen((snapshot) => onChange(_fromDocumentSnapshot(snapshot)));
+  }
+
+  Experience _fromDocumentSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data;
+
+    return new Experience(
+      experienceId: snapshot.documentID,
+      content: data['content'],
+      recap: data['recap'],
+      date: data['date'],
+      authorId: data['difficulty']
+    );
   }
 }

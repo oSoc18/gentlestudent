@@ -11,12 +11,14 @@ class Opportunity {
   final Difficulty difficulty;
   final Category category;
   final String badgeImageUrl;
-  String description;
-  DateTime beginDate;
-  DateTime endDate;
-  String address;
-  int postalCode;
-  String city;
+  final String opportunityImageUrl;
+  final String shortDescription;
+  final String longDescription;
+  final DateTime beginDate;
+  final DateTime endDate;
+  final String street;
+  final int postalCode;
+  final String city;
   final String issuerName;
 
   Opportunity({
@@ -25,6 +27,14 @@ class Opportunity {
     @required this.difficulty,
     @required this.category,
     @required this.badgeImageUrl,
+    @required this.opportunityImageUrl,
+    @required this.shortDescription,
+    @required this.longDescription,
+    @required this.beginDate,
+    @required this.endDate,
+    @required this.street,
+    @required this.postalCode,
+    @required this.city,
     @required this.issuerName,
   });
   
