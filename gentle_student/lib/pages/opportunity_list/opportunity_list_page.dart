@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:Gentle_Student/data/api.dart';
-import 'package:Gentle_Student/models/adres.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
@@ -41,13 +40,14 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     }
   }
 
-  _navigateToOpportunityDetails(Opportunity opportunity) async{
-    Adress adress = await AdressApi().getAdressById(opportunity.adresId);
+  _navigateToOpportunityDetails(Opportunity opportunity) async {
     Navigator.push(
-        context,
-        new MaterialPageRoute(
-            builder: (BuildContext context) =>
-                new OpportunityDetailsPage(opportunity, adress)));
+      context,
+      new MaterialPageRoute(
+        builder: (BuildContext context) =>
+            new OpportunityDetailsPage(opportunity),
+      ),
+    );
   }
 
   Widget _buildOpportunityItem(BuildContext context, int index) {
@@ -66,7 +66,8 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
               leading: new Hero(
                 tag: index,
                 child: new CircleAvatar(
-                  backgroundImage: new NetworkImage(opportunity.badge.image), radius: 40.0,
+                  backgroundImage: new NetworkImage("opportunity.badge.image"),
+                  radius: 40.0,
                 ),
               ),
               title: new Text(

@@ -3,9 +3,6 @@ import 'dart:async';
 import 'package:Gentle_Student/data/api.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
-import 'package:Gentle_Student/models/adres.dart';
-import 'package:Gentle_Student/data/api.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,21 +10,16 @@ import 'package:date_format/date_format.dart';
 
 class OpportunityDetailsPage extends StatefulWidget {
   final Opportunity o;
-  final Adress adress;
-  OpportunityDetailsPage(this.o, this.adress);
+  OpportunityDetailsPage(this.o);
   @override
   _OpportunityDetailsPageState createState() => _OpportunityDetailsPageState(o);
 }
 
 class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
   Opportunity opportunity;
-<<<<<<< HEAD
-  Adress adress;
-=======
   ParticipationApi api;
   FirebaseUser firebaseUser;
   final scaffoldKey = new GlobalKey<ScaffoldState>();
->>>>>>> e7e19297c78a7cf3d6b55a8d1cd568f5d9286257
 
   _OpportunityDetailsPageState(this.opportunity);
 
@@ -45,7 +37,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return new AlertDialog(
-          title: new Text(opportunity.name),
+          title: new Text("opportunity.name"),
           content: new SingleChildScrollView(
             child: new ListBody(
               children: <Widget>[
@@ -137,7 +129,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                 new Hero(
                   child: new CircleAvatar(
                     backgroundImage:
-                        new NetworkImage(opportunity.badge.image),
+                        new NetworkImage("opportunity.badge.image"),
                     radius: 32.0,
                   ),
                   tag: "badge image",
@@ -238,11 +230,11 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                       new Expanded(
                         child: new Text(
                           " " +
-                              adress.street +
+                              "adress.street +"
                               ", " +
-                              adress.postalcode.toString() +
+                              "adress.postalcode.toString() +"
                               " " +
-                              adress.city,
+                              "adress.city",
                           style: new TextStyle(
                             fontSize: 14.0,
                             color: Colors.lightBlue,

@@ -1,59 +1,42 @@
-import 'package:Gentle_Student/models/badge.dart';
-import 'package:Gentle_Student/models/beacon.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:meta/meta.dart';
 
 //This model represents an opportunity
 class Opportunity {
-  
   //Declaration of the variables
   String opportunityId;
   String title;
   Difficulty difficulty;
   Category category;
-  Badge badge;
+  String badgeId;
   String opportunityImageUrl;
   String shortDescription;
   String longDescription;
   DateTime beginDate;
   DateTime endDate;
-  String adresId;
+  String addressId;
   String issuerId;
   String requirements;
   bool international;
   bool blocked;
-  Beacon beacon;
-  List<String> _participantIds;
+  String beaconId;
 
   Opportunity({
     @required this.opportunityId,
     @required this.title,
     @required this.difficulty,
     @required this.category,
-    @required this.badge,
+    @required this.badgeId,
     @required this.opportunityImageUrl,
     @required this.shortDescription,
     @required this.longDescription,
     @required this.beginDate,
     @required this.endDate,
-    @required this.adresId,
+    @required this.addressId,
     @required this.international,
-    @required this.beacon,
-    @required this.issuerId
-  }){
-    this.blocked = false;
-    this._participantIds = new List<String>();
-  }
-  
-
-  void addParticipant(String id){
-    if(_participantIds.contains(id)){
-      _participantIds.add(id);
-    }
-  }
-
-  List<String> getParticipants(){
-    return _participantIds;
-  }
+    @required this.beaconId,
+    @required this.issuerId,
+    @required this.blocked,
+  });
 }

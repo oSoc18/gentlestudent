@@ -119,12 +119,12 @@ class _MyLearningOpportunitiesPageState
               leading: new Hero(
                 tag: index,
                 child: new CircleAvatar(
-                  backgroundImage: new NetworkImage(opportunity.badgeImageUrl),
+                  backgroundImage: new NetworkImage("opportunity.badgeImageUrl"),
                   radius: 40.0,
                 ),
               ),
               title: new Text(
-                opportunity.name,
+                "opportunity.name",
                 style: new TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black54,
@@ -135,7 +135,7 @@ class _MyLearningOpportunitiesPageState
                     " - " +
                     _getDifficulty(opportunity) +
                     "\n" +
-                    opportunity.issuerName,
+                    "opportunity.issuerName",
               ),
               isThreeLine: true,
               dense: false,
@@ -164,12 +164,12 @@ class _MyLearningOpportunitiesPageState
               leading: new Hero(
                 tag: index,
                 child: new CircleAvatar(
-                  backgroundImage: new NetworkImage(opportunity.badgeImageUrl),
+                  backgroundImage: new NetworkImage("opportunity.badgeImageUrl"),
                   radius: 40.0,
                 ),
               ),
               title: new Text(
-                opportunity.name,
+                "opportunity.name",
                 style: new TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black54,

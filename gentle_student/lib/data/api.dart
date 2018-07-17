@@ -1,52 +1,33 @@
 import 'dart:async';
 
+import 'package:Gentle_Student/models/adres.dart';
 import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/experience.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
-import 'package:Gentle_Student/models/adres.dart';
 import 'package:Gentle_Student/models/participation.dart';
 import 'package:Gentle_Student/models/status.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AdressApi{
-  Future<List<Adress>> getAllAdress() async {
-    return (await Firestore.instance.collection('Adress').getDocuments())
+class AddressApi {
+  Future<List<Address>> getAllAddresses() async {
+    return (await Firestore.instance.collection('Addresses').getDocuments())
         .documents
         .map((snapshot) => _fromDocumentSnapshot(snapshot))
         .toList();
   }
 
-  Future<Adress> getAdressById(String adresId) async{
-    List<Adress> adresses = await getAllAdress();
-    for (var adress in adresses) {
-      if(adress.adresId == adresId){
-        return adress;
-      }
-    }
-    return null;
-  }
-
-  StreamSubscription watch(Adress adress, void onChange(Adress adress)) {
-    return Firestore.instance
-        .collection('Adress')
-        .document(adress.adresId)
-        .snapshots()
-        .listen((snapshot) => onChange(_fromDocumentSnapshot(snapshot)));
-  }
-
-  Adress _fromDocumentSnapshot(DocumentSnapshot snapshot) {
+  Address _fromDocumentSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data;
 
-    return new Adress(
-      adresId: snapshot.documentID,
-      street: data['street'],
-      housenumber: data['housenumber'],
-      city: data['city'],
-      postalcode: data['postalcode']
-    );
+    return new Address(
+        addressId: snapshot.documentID,
+        street: data['street'],
+        housenumber: data['housenumber'],
+        city: data['city'],
+        postalcode: data['postalcode']);
   }
 }
 
@@ -67,23 +48,23 @@ class OpportunityApi {
 
   Opportunity _fromDocumentSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data;
-    Adress adres = new Adress(adresId: "", street: data['street'], postalcode: data['postalCode'], city: data['city'], housenumber: data['housenumber']);
 
     return new Opportunity(
       opportunityId: snapshot.documentID,
       title: data['name'],
       difficulty: _dataToDifficulty(data['difficulty']),
       category: _dataToCategory(data['category']),
-      badge: new Badge(data['badgeImageUrl']),
+      badgeId: data['badgeId'],
       opportunityImageUrl: data['oppImageUrl'],
       shortDescription: data['shortDescription'],
       longDescription: data['longDescription'],
       beginDate: DateTime.parse(data['beginDate']),
       endDate: DateTime.parse(data['endDate']),
-      adresId: adres.adresId,
+      addressId: data['addressId'],
       issuerId: data['issuerName'],
       international: data['international'],
-      beacon: data['beaconid']
+      beaconId: data['beaconId'],
+      blocked: data['blocked'],
     );
   }
 
@@ -140,8 +121,16 @@ class ParticipationApi {
     );
   }
 
-  Future<bool> participationExists(FirebaseUser firebaseUser, Opportunity opportunity) async {
-    return (await Firestore.instance.collection('Participations').where("participantId", isEqualTo: firebaseUser.uid).where("opportunityId", isEqualTo: opportunity.opportunityId).getDocuments()).documents.length != 0;
+  Future<bool> participationExists(
+      FirebaseUser firebaseUser, Opportunity opportunity) async {
+    return (await Firestore.instance
+                .collection('Participations')
+                .where("participantId", isEqualTo: firebaseUser.uid)
+                .where("opportunityId", isEqualTo: opportunity.opportunityId)
+                .getDocuments())
+            .documents
+            .length !=
+        0;
   }
 
   Status _dataToStatus(int status) {
@@ -157,7 +146,7 @@ class ParticipationApi {
   }
 }
 
-class ExperiencesApi{
+class ExperiencesApi {
   Future<List<Experience>> getAllExperiencs() async {
     return (await Firestore.instance.collection('Experiences').getDocuments())
         .documents
@@ -165,7 +154,8 @@ class ExperiencesApi{
         .toList();
   }
 
-  StreamSubscription watch(Experience experience, void onChange(Experience experience)) {
+  StreamSubscription watch(
+      Experience experience, void onChange(Experience experience)) {
     return Firestore.instance
         .collection('Experiences')
         .document(experience.experienceId)
@@ -177,11 +167,10 @@ class ExperiencesApi{
     final data = snapshot.data;
 
     return new Experience(
-      experienceId: snapshot.documentID,
-      content: data['content'],
-      recap: data['recap'],
-      date: data['date'],
-      authorId: data['difficulty']
-    );
+        experienceId: snapshot.documentID,
+        content: data['content'],
+        recap: data['recap'],
+        date: data['date'],
+        authorId: data['difficulty']);
   }
 }
