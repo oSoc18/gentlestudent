@@ -29,7 +29,7 @@ class _BackPackPageState extends State<BackPackPage> {
 
   _loadFromFirebase() async {
     BadgeApi api = new BadgeApi();
-    final badges = await api.getAllBadges(token);
+    final badges = await api.getAllBadges();
     setState(() {
       _api = api;
       _badges = badges;
@@ -38,7 +38,7 @@ class _BackPackPageState extends State<BackPackPage> {
 
   _reloadBadges() async {
     if (_api != null) {
-      final badges = await _api.getAllBadges(token);
+      final badges = await _api.getAllBadges();
       setState(() {
         _badges = badges;
       });
