@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/android.iml" filepath="$PROJECT_DIR$/android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android.iml" filepath="$PROJECT_DIR$/android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/beacons-0.3.0/android/beacons.iml" filepath="$PROJECT_DIR$/../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/beacons-0.3.0/android/beacons.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-0.7.3/android/cloud_firestore-0.7.3-cloud_firestore.iml" filepath="$PROJECT_DIR$/../../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-0.7.3/android/cloud_firestore-0.7.3-cloud_firestore.iml" />
