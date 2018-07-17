@@ -1,6 +1,8 @@
+import 'package:Gentle_Student/models/category.dart';
+
 class Badge {
   String _id;
-  String _type;
+  Category _type;
   String _name;
   String _description;
   String _image;
@@ -9,6 +11,10 @@ class Badge {
   List<dynamic> _alignment;
   List<dynamic> _tags;
 
+  Badge(String url){
+    this._image=url;
+  }
+/*
   Badge(this._id, this._type, this._name, this._description, this._image, this._criteria, this._issuer, this._alignment, this._tags);
 
   Badge.map(dynamic obj) {
@@ -22,9 +28,9 @@ class Badge {
     this._alignment = obj["alignment"];
     this._tags = obj["tags"];
   }
-
+*/
   String get id => _id;
-  String get type => _type;
+  Category get type => _type;
   String get name => _name;
   String get description => _description;
   String get image => _image;
@@ -45,5 +51,9 @@ class Badge {
     map["tags"] = _tags;
 
     return map;
+  }
+
+  String getImageURL(){
+    return _image;
   }
 }

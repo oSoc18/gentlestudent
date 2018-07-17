@@ -1,10 +1,50 @@
 import 'dart:async';
 
+import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/experience.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
+import 'package:Gentle_Student/models/adres.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+class AdressApi{
+  Future<List<Adress>> getAllAdress() async {
+    return (await Firestore.instance.collection('Adress').getDocuments())
+        .documents
+        .map((snapshot) => _fromDocumentSnapshot(snapshot))
+        .toList();
+  }
+
+  Future<Adress> getAdressById(String adresId) async{
+    List<Adress> adresses = await getAllAdress();
+    for (var adress in adresses) {
+      if(adress.adresId == adresId){
+        return adress;
+      }
+    }
+  }
+
+  StreamSubscription watch(Adress adress, void onChange(Adress adress)) {
+    return Firestore.instance
+        .collection('Adress')
+        .document(adress.adresId)
+        .snapshots()
+        .listen((snapshot) => onChange(_fromDocumentSnapshot(snapshot)));
+  }
+
+  Adress _fromDocumentSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data;
+
+    return new Adress(
+      adresId: snapshot.documentID,
+      street: data['street'],
+      housenumber: data['housenumber'],
+      city: data['city'],
+      postalcode: data['postalcode']
+    );
+  }
+}
 
 class OpportunityApi {
 
@@ -25,22 +65,21 @@ class OpportunityApi {
 
   Opportunity _fromDocumentSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data;
+    Adress adres = new Adress(adresId: "", street: data['street'], postalcode: data['postalCode'], city: data['city'], housenumber: data['housenumber']);
 
     return new Opportunity(
       opportunityId: snapshot.documentID,
-      name: data['name'],
+      title: data['name'],
       difficulty: _dataToDifficulty(data['difficulty']),
       category: _dataToCategory(data['category']),
-      badgeImageUrl: data['badgeImageUrl'],
+      badge: new Badge(data['badgeImageUrl']),
       opportunityImageUrl: data['oppImageUrl'],
       shortDescription: data['shortDescription'],
       longDescription: data['longDescription'],
       beginDate: DateTime.parse(data['beginDate']),
       endDate: DateTime.parse(data['endDate']),
-      street: data['street'],
-      postalCode: data['postalCode'],
-      city: data['city'],
-      issuerName: data['issuerName'],
+      adresId: adres.adresId,
+      issuerId: data['issuerName'],
     );
   }
 

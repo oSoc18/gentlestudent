@@ -1,17 +1,21 @@
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
+import 'package:Gentle_Student/models/adres.dart';
+import 'package:Gentle_Student/data/api.dart';
 import 'package:flutter/material.dart';
 import 'package:date_format/date_format.dart';
 
 class OpportunityDetailsPage extends StatefulWidget {
   final Opportunity o;
-  OpportunityDetailsPage(this.o);
+  final Adress adress;
+  OpportunityDetailsPage(this.o, this.adress);
   @override
   _OpportunityDetailsPageState createState() => _OpportunityDetailsPageState(o);
 }
 
 class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
   Opportunity opportunity;
+  Adress adress;
 
   _OpportunityDetailsPageState(this.opportunity);
 
@@ -44,7 +48,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                 new Hero(
                   child: new CircleAvatar(
                     backgroundImage:
-                        new NetworkImage(opportunity.badgeImageUrl),
+                        new NetworkImage(opportunity.badge.image),
                     radius: 32.0,
                   ),
                   tag: "badge image",
@@ -53,7 +57,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                   child: new Padding(
                     padding: EdgeInsets.only(left: 16.0, right: 24.0),
                     child: new Text(
-                      opportunity.name,
+                      opportunity.title,
                       style: new TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black54,
@@ -145,11 +149,11 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                       new Expanded(
                         child: new Text(
                           " " +
-                              opportunity.street +
+                              adress.street +
                               ", " +
-                              opportunity.postalCode.toString() +
+                              adress.postalcode.toString() +
                               " " +
-                              opportunity.city,
+                              adress.city,
                           style: new TextStyle(
                             fontSize: 14.0,
                             color: Colors.lightBlue,
@@ -175,7 +179,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                       ),
                       new Expanded(
                         child: new Text(
-                          " " + opportunity.issuerName,
+                          " " + opportunity.issuerId,
                           style: new TextStyle(
                             fontSize: 14.0,
                             color: Colors.lightBlue,

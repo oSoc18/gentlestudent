@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:Gentle_Student/data/api.dart';
+import 'package:Gentle_Student/models/adres.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
@@ -40,12 +41,13 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     }
   }
 
-  _navigateToOpportunityDetails(Opportunity opportunity) {
+  _navigateToOpportunityDetails(Opportunity opportunity) async{
+    Adress adress = await AdressApi().getAdressById(opportunity.adresId);
     Navigator.push(
         context,
         new MaterialPageRoute(
             builder: (BuildContext context) =>
-                new OpportunityDetailsPage(opportunity)));
+                new OpportunityDetailsPage(opportunity, adress)));
   }
 
   Widget _buildOpportunityItem(BuildContext context, int index) {
@@ -64,11 +66,11 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
               leading: new Hero(
                 tag: index,
                 child: new CircleAvatar(
-                  backgroundImage: new NetworkImage(opportunity.badgeImageUrl), radius: 40.0,
+                  backgroundImage: new NetworkImage(opportunity.badge.image), radius: 40.0,
                 ),
               ),
               title: new Text(
-                opportunity.name,
+                opportunity.title,
                 style: new TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black54,
@@ -78,7 +80,7 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
                   " - " +
                   _getDifficulty(opportunity) +
                   "\n" +
-                  opportunity.issuerName),
+                  opportunity.issuerId),
               isThreeLine: true,
               dense: false,
             ),

@@ -109,7 +109,7 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
                             fontSize: 21.0),
                           ),
                         subtitle: new Text(
-                          _getUser(experience.authorId).kind),
+                          _getUser(experience.authorId).name),
                         isThreeLine: false,
                         dense: false,
                       
@@ -125,7 +125,7 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
     }
 
     User _getUser(String userId){
-      return new User(name: "Michael", password: "Paswoord", userId: "500", kind: "Participant");
+      return new User(name: "Michael", password: "Paswoord", userId: "500");
     }
 
     Future<Null> refresh(){
