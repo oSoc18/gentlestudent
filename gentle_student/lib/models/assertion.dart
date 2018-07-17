@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
 //This model represents a badge as defined by the badgr API
-class Badge {
+class Assertion {
   
   //Declaration of the variables
   final String entityType;
@@ -9,36 +9,40 @@ class Badge {
   final String openBadgeId;
   final String createdAt;
   final String createdBy;
+  final String badgeclass;
+  final String badgeclassOpenBadgeId;
   final String issuer;
   final String issuerOpenBadgeId;
-  final String name;
   final String image;
-  final String description;
-  final String criteriaUrl;
-  final String criteriaNarrative;
-  final List alignments;
-  final List tags;
-  final String extensions;
+  final dynamic recipient;
+  final String issuedOn;
+  final String narrative;
+  final dynamic evidence;
+  final bool revoked;
+  final String revocationReason;
+  final String expires;
   //Extra variables for Gentlestudent
-  final String opportunityId;
+  final String extensions;
 
-  Badge({
+  Assertion({
     @required this.entityType,
     @required this.entityId,
     @required this.openBadgeId,
     @required this.createdAt,
     @required this.createdBy,
+    @required this.badgeclass,
+    @required this.badgeclassOpenBadgeId,
     @required this.issuer,
     @required this.issuerOpenBadgeId,
-    @required this.name,
     @required this.image,
-    @required this.description,
-    @required this.criteriaUrl,
-    @required this.criteriaNarrative,
-    @required this.alignments,
-    @required this.tags,
-    @required this.extensions,
-    @required this.opportunityId
+    @required this.recipient,
+    @required this.issuedOn,
+    @required this.narrative,
+    @required this.evidence,
+    @required this.revoked,
+    @required this.revocationReason,
+    @required this.expires,
+    @required this.extensions
   });
   
 }

@@ -24,17 +24,10 @@ class _BackPackPageState extends State<BackPackPage> {
   @override
   void initState() {
     super.initState();
-    _loadFromBadgr();
+    _loadFromFirebase();
   }
 
-  void onLoginSuccess(User user, String token) async {
-    var db = new DatabaseHelper();
-    await db.deleteUserTokens();
-    UserToken userToken = UserToken(user, token);
-    await db.saveUserToken(userToken);
-  }
-
-  _loadFromBadgr() async {
+  _loadFromFirebase() async {
     RestDatasource api = new RestDatasource();
     final badges = await api.getBadges(token);
     setState(() {

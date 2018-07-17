@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:Gentle_Student/models/assertion.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/experience.dart';
@@ -98,6 +99,49 @@ class ExperiencesApi{
       recap: data['recap'],
       date: data['date'],
       authorId: data['difficulty']
+    );
+  }
+}
+
+class BadgeApi {
+
+  Future<List<Assertion>> getAllAssertions() async {
+    return (await Firestore.instance.collection('Assertions').getDocuments())
+        .documents
+        .map((snapshot) => _fromDocumentSnapshot(snapshot))
+        .toList();
+  }
+
+  StreamSubscription watch(Assertion assertion, void onChange(Assertion opportunity)) {
+    return Firestore.instance
+        .collection('Assertions')
+        .document(assertion.entityId)
+        .snapshots()
+        .listen((snapshot) => onChange(_fromDocumentSnapshot(snapshot)));
+  }
+
+  Assertion _fromDocumentSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data;
+
+    return new Assertion(
+      entityType: data['entityType'],
+      entityId: data['entityId'],
+      openBadgeId: data['openBadgeId'],
+      createdAt: data['createdAt'],
+      createdBy: data['createdBy'],
+      badgeclass: data['badgeclass'],
+      badgeclassOpenBadgeId: data['badgeclassOpenBadgeId'],
+      issuer: data['issuer'],
+      issuerOpenBadgeId: data['issuerOpenBadgeId'],
+      image: data['image'],
+      recipient: data['recipient'],
+      issuedOn: data['issuedOn'],
+      narrative: data['narrative'],
+      evidence: data['evidence'],
+      revoked: data['revoked'],
+      revocationReason: data['revocationReason'],
+      expires: data['expires'],
+      extensions: data['extensions'],
     );
   }
 }

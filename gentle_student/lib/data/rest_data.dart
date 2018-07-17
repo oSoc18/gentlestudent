@@ -26,15 +26,4 @@ class RestDatasource {
       return res.toString();
     });
   }
-
-  Future<List<dynamic>> getBadges(String token){
-    final url = BASE_URL + "v2/badgeclasses";
-    
-    return _netUtil.get(url, headers: {
-      "Authorization": "Token "+token
-    }).then((dynamic res){
-      if(res["error"]) throw new Exception(res["error_msg"]);
-      return res;
-    });
-  }
 }
