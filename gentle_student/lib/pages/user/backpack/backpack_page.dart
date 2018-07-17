@@ -51,21 +51,35 @@ class _BackPackPageState extends State<BackPackPage> {
   //               new OpportunityDetailsPage(opportunity)));
   // }
 
+// BadgeItem builder for svgs
+  // Widget _buildBadgeItem(BuildContext context, int index) {
+  //   Badge badge = _badges[index];
+  //   final Widget svg = new SvgPicture.network(
+  //     badge.image,
+  //     height: 60.0,
+  //     width: 60.0,
+  //     placeholderBuilder: (BuildContext context) => new Container(
+  //       padding: const EdgeInsets.all(30.0),
+  //       child: const CircularProgressIndicator()),
+  //   );
+  //   return Column(
+  //       mainAxisSize: MainAxisSize.min,
+  //       mainAxisAlignment: MainAxisAlignment.center,
+  //       children: [
+  //         svg
+  //       ],
+  //   );
+  // }
+
   Widget _buildBadgeItem(BuildContext context, int index) {
     Badge badge = _badges[index];
-    final Widget svg = new SvgPicture.network(
-      badge.image,
-      height: 60.0,
-      width: 60.0,
-      placeholderBuilder: (BuildContext context) => new Container(
-        padding: const EdgeInsets.all(30.0),
-        child: const CircularProgressIndicator()),
-    );
     return Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          svg
+          new CircleAvatar(
+                  backgroundImage: new NetworkImage(badge.image), radius: 40.0,
+                )
         ],
     );
   }
