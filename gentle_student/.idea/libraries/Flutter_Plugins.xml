@@ -2,18 +2,13 @@
   <library name="Flutter Plugins" type="FlutterPluginsLibraryType">
     <CLASSES>
       <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-0.4.1" />
-      <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher-3.0.3" />
       <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.4.2" />
-      <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/streams_channel-0.2.2" />
       <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/map_view-0.0.12" />
       <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/video_player-0.5.4" />
       <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_custom_tabs-0.1.0" />
-      <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/beacons-0.3.0" />
-      <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-0.5.12" />
-      <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_local_notifications-0.2.9" />
-      <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.2.4" />
-      <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-0.7.3" />
-      <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/local_notifications-0.0.7" />
+      <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.1.2" />
+      <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-0.3.0" />
+      <root url="file://D:/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher-3.0.3" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

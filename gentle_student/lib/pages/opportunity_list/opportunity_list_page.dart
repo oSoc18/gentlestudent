@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:Gentle_Student/data/api.dart';
+import 'package:Gentle_Student/models/address.dart';
+import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
+import 'package:Gentle_Student/models/issuer.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:Gentle_Student/pages/opportunity_details/opportunity_details_page.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +17,13 @@ class OpportunityListPage extends StatefulWidget {
 
 class _OpportunityListPageState extends State<OpportunityListPage> {
   List<Opportunity> _opportunities = [];
-  OpportunityApi _api;
+  List<Badge> _badges = [];
+  List<Issuer> _issuers = [];
+  List<Address> _addresses = [];
+  OpportunityApi _opportunityuApi;
+  BadgeApi _badgeApi;
+  IssuerApi _issuerApi;
+  AddressApi _addressApi;
 
   @override
   void initState() {
@@ -23,33 +32,56 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
   }
 
   _loadFromFirebase() async {
-    final api = new OpportunityApi();
-    final opportunities = await api.getAllOpportunities();
+    final opportunityApi = new OpportunityApi();
+    final badgeApi = new BadgeApi();
+    final issuerApi = new IssuerApi();
+    final addresApi = new AddressApi();
+    final opportunities = await opportunityApi.getAllOpportunities();
+    final badges = await badgeApi.getAllBadges();
+    final issuers = await issuerApi.getAllIssuers();
+    final addresses = await addresApi.getAllAddresses();
     setState(() {
-      _api = api;
+      _opportunityuApi = opportunityApi;
+      _badgeApi = badgeApi;
+      _issuerApi = issuerApi;
+      _addressApi = addresApi;
       _opportunities = opportunities;
+      _badges = badges;
+      _issuers = issuers;
+      _addresses = addresses;
     });
   }
 
   _reloadOpportunities() async {
-    if (_api != null) {
-      final opportunities = await _api.getAllOpportunities();
+    if (_opportunityuApi != null && _badgeApi != null && _issuerApi != null) {
+      final opportunities = await _opportunityuApi.getAllOpportunities();
+      final badges = await _badgeApi.getAllBadges();
+      final issuers = await _issuerApi.getAllIssuers();
+      final addresses = await _addressApi.getAllAddresses();
       setState(() {
         _opportunities = opportunities;
+        _badges = badges;
+        _issuers = issuers;
+        _addresses = addresses;
       });
     }
   }
 
-  _navigateToOpportunityDetails(Opportunity opportunity) {
+  _navigateToOpportunityDetails(Opportunity opportunity, Badge badge, Issuer issuer, Address address) async {
     Navigator.push(
-        context,
-        new MaterialPageRoute(
-            builder: (BuildContext context) =>
-                new OpportunityDetailsPage(opportunity)));
+      context,
+      new MaterialPageRoute(
+        builder: (BuildContext context) =>
+            new OpportunityDetailsPage(opportunity, badge, issuer, address),
+      ),
+    );
   }
 
   Widget _buildOpportunityItem(BuildContext context, int index) {
     Opportunity opportunity = _opportunities[index];
+    Badge badge = _badges.firstWhere((b) => b.openBadgeId == opportunity.badgeId);
+    Issuer issuer = _issuers.firstWhere((i) => i.issuerId == opportunity.issuerId);
+    Address address = _addresses.firstWhere((a) => a.addressId == opportunity.addressId);
 
     return new Container(
       margin: const EdgeInsets.only(top: 3.0),
@@ -59,16 +91,17 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
           children: <Widget>[
             new ListTile(
               onTap: () {
-                _navigateToOpportunityDetails(opportunity);
+                _navigateToOpportunityDetails(opportunity, badge, issuer, address);
               },
               leading: new Hero(
                 tag: index,
                 child: new CircleAvatar(
-                  backgroundImage: new NetworkImage(opportunity.badgeImageUrl), radius: 40.0,
+                  backgroundImage: new NetworkImage(badge.image),
+                  radius: 40.0,
                 ),
               ),
               title: new Text(
-                opportunity.name,
+                opportunity.title,
                 style: new TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black54,
@@ -78,7 +111,7 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
                   " - " +
                   _getDifficulty(opportunity) +
                   "\n" +
-                  opportunity.issuerName),
+                  issuer.name),
               isThreeLine: true,
               dense: false,
             ),

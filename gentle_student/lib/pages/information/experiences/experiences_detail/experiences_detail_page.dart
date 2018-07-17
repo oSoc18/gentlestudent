@@ -23,7 +23,7 @@ class ExperienceDetailsPage extends StatelessWidget {
             SizedBox(height: 8.0),
             new Text("Naam: " + experience.recap),
             SizedBox(height: 8.0),
-            new Text("Issuer: " + experience.authorId),
+            new Text("Issuer: " + experience.participantId),
             SizedBox(height: 8.0),
           ],
         ),

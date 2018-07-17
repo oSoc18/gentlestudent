@@ -1,19 +1,100 @@
+import 'dart:async';
+
+import 'package:Gentle_Student/data/api.dart';
+import 'package:Gentle_Student/models/address.dart';
+import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/models/category.dart';
+import 'package:Gentle_Student/models/issuer.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:date_format/date_format.dart';
 
 class OpportunityDetailsPage extends StatefulWidget {
   final Opportunity o;
-  OpportunityDetailsPage(this.o);
+  final Badge b;
+  final Issuer i;
+  final Address a;
+  OpportunityDetailsPage(this.o, this.b, this.i, this.a);
   @override
-  _OpportunityDetailsPageState createState() => _OpportunityDetailsPageState(o);
+  _OpportunityDetailsPageState createState() => _OpportunityDetailsPageState(o, b, i, a);
 }
 
 class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
   Opportunity opportunity;
+  Badge badge;
+  Issuer issuer;
+  Address address;
+  ParticipationApi api;
+  FirebaseUser firebaseUser;
+  final scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  _OpportunityDetailsPageState(this.opportunity);
+  _OpportunityDetailsPageState(this.opportunity, this.badge, this.issuer, this.address);
+
+  //Shows a given message at the bottom of the screen
+  void _showSnackBar(String text) {
+    scaffoldKey.currentState.showSnackBar(new SnackBar(
+      content: new Text(text),
+      duration: Duration(seconds: 4),
+    ));
+  }
+
+  Future<Null> _displayAlertDialog() async {
+    return showDialog<Null>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return new AlertDialog(
+          title: new Text(opportunity.title),
+          content: new SingleChildScrollView(
+            child: new ListBody(
+              children: <Widget>[
+                new Text(
+                    'Bent u zeker dat u zich voor deze leerkans wilt inschrijven?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text('Ja'),
+              onPressed: () {
+                _enlistInOpportunity();
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text('Neen'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  _enlistInOpportunity() async {
+    bool participationExists =
+        await api.participationExists(firebaseUser, opportunity);
+    if (participationExists) {
+      _showSnackBar("U bent al ingeschreven voor deze leerkans.");
+    } else {
+      Map<String, dynamic> data = <String, dynamic>{
+        "participantId": firebaseUser.uid,
+        "opportunityId": opportunity.opportunityId,
+        "status": 0,
+        "reason": "",
+      };
+      final CollectionReference collection =
+          Firestore.instance.collection("Participations");
+      collection.add(data).whenComplete(() {
+        print("Participation added");
+      }).catchError((e) => print(e));
+      _showSnackBar("U bent succesvol ingeschreven voor deze leerkans.");
+    }
+  }
 
   Widget buildStars(BuildContext context, int index) {
     return new Icon(
@@ -23,12 +104,25 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    FirebaseAuth.instance.onAuthStateChanged.listen((user) {
+      firebaseUser = user;
+      final participationApi = new ParticipationApi();
+      setState(() {
+        api = participationApi;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Doe mee!", style: TextStyle(color: Colors.white)),
         iconTheme: new IconThemeData(color: Colors.white),
       ),
+      key: scaffoldKey,
       body: ListView(
         children: <Widget>[
           //Top row
@@ -44,7 +138,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                 new Hero(
                   child: new CircleAvatar(
                     backgroundImage:
-                        new NetworkImage(opportunity.badgeImageUrl),
+                        new NetworkImage(badge.image),
                     radius: 32.0,
                   ),
                   tag: "badge image",
@@ -53,7 +147,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                   child: new Padding(
                     padding: EdgeInsets.only(left: 16.0, right: 24.0),
                     child: new Text(
-                      opportunity.name,
+                      opportunity.title,
                       style: new TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black54,
@@ -145,11 +239,15 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                       new Expanded(
                         child: new Text(
                           " " +
-                              opportunity.street +
-                              ", " +
-                              opportunity.postalCode.toString() +
+                              address.street +
                               " " +
-                              opportunity.city,
+                              address.housenumber.toString() +
+                              " " +
+                              address.bus +
+                              ", " +
+                              address.postalcode.toString() +
+                              " " +
+                              address.city,
                           style: new TextStyle(
                             fontSize: 14.0,
                             color: Colors.lightBlue,
@@ -175,7 +273,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                       ),
                       new Expanded(
                         child: new Text(
-                          " " + opportunity.issuerName,
+                          " " + issuer.name,
                           style: new TextStyle(
                             fontSize: 14.0,
                             color: Colors.lightBlue,
@@ -237,7 +335,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
               child: MaterialButton(
                 minWidth: 200.0,
                 height: 42.0,
-                onPressed: () {},
+                onPressed: () => _displayAlertDialog(),
                 color: Colors.lightBlueAccent,
                 child: Text('Doe mee!', style: TextStyle(color: Colors.white)),
               ),

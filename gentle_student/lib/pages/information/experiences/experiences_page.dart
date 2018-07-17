@@ -25,13 +25,13 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
 
     _loadFromFirebase() async{
       final api = new ExperiencesApi();
-      final experiences = await api.getAllExperiencs();// api.getAllExperiences();
+      final experiences = await api.getAllExperiences();// api.getAllExperiences();
       setState((){
           _api = api;
           _experiences = experiences;
           _experiences.add(
             new Experience(
-              authorId: "500",
+              participantId: "500",
               content: "Mijn content",
               date: DateTime(2018,12,6),
               experienceId: "550",
@@ -43,7 +43,7 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
 
     _reloadExperiences() async {
       if (_api != null){
-        final experiences = await _api.getAllExperiencs();//_api.getAllExperiences();
+        final experiences = await _api.getAllExperiences();//_api.getAllExperiences();
         setState((){
           _experiences = experiences;
         });
@@ -75,12 +75,14 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     new Expanded(
-                      
                         child:
+                        new Container(
+                          padding: const EdgeInsets.all(5.0),
+                          child:
                         new Text(
                           experience.recap,
                           textAlign: TextAlign.center
-                          ),
+                          ),),
                     ),
                   ],
                 ),
@@ -96,18 +98,18 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
                         child: new CircleAvatar(
                           backgroundColor: Colors.brown.shade100,
                           child: new Text(
-                            _getUser(experience.authorId).name.substring(0, 1)
+                            _getUser(experience.participantId).name.substring(0, 1)
                           ),
                         ),),
                         title: new Text(
-                          _getUser(experience.authorId).name,
+                          _getUser(experience.participantId).name,
                           style: new TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.black54,
                             fontSize: 21.0),
                           ),
                         subtitle: new Text(
-                          _getUser(experience.authorId).kind),
+                          _getUser(experience.participantId).name),
                         isThreeLine: false,
                         dense: false,
                       
@@ -123,7 +125,7 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
     }
 
     User _getUser(String userId){
-      return new User(name: "Michael", password: "Paswoord", userId: "500", kind: "Participant");
+      return new User(name: "Michael", password: "Paswoord", userId: "500");
     }
 
     Future<Null> refresh(){
@@ -155,7 +157,7 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
   @override
   Widget build(BuildContext context){
     return Scaffold(appBar: AppBar(
-        title: Text("Leerkansen", style: TextStyle(color: Colors.white)),
+        title: Text("Ervaringen", style: TextStyle(color: Colors.white)),
         iconTheme: new IconThemeData(color:Colors.white)
       ),
       body: _buildBody(),
