@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:Gentle_Student/data/api.dart';
 import 'package:Gentle_Student/data/database_helper.dart';
-import 'package:Gentle_Student/data/rest_data.dart';
 import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
@@ -19,7 +19,7 @@ class _BackPackPageState extends State<BackPackPage> {
   User user;
   final token = "bf6a76694eaa7f44807984abb04b77e8c9dbb8f1";
   List<dynamic> _badges = [];
-  RestDatasource _api;
+  BadgeApi _api;
 
   @override
   void initState() {
@@ -28,8 +28,8 @@ class _BackPackPageState extends State<BackPackPage> {
   }
 
   _loadFromFirebase() async {
-    RestDatasource api = new RestDatasource();
-    final badges = await api.getBadges(token);
+    BadgeApi api = new BadgeApi();
+    final badges = await api.getAllBadges(token);
     setState(() {
       _api = api;
       _badges = badges;
@@ -38,7 +38,7 @@ class _BackPackPageState extends State<BackPackPage> {
 
   _reloadBadges() async {
     if (_api != null) {
-      final badges = await _api.getBadges(token);
+      final badges = await _api.getAllBadges(token);
       setState(() {
         _badges = badges;
       });
@@ -79,10 +79,7 @@ class _BackPackPageState extends State<BackPackPage> {
                     color: Colors.black54,
                     fontSize: 21.0),
               ),
-              subtitle: new Text(_getCategory(badge) +
-                  " - " +
-                  _getDifficulty(badge) +
-                  "\n" +
+              subtitle: new Text(
                   badge.issuer),
               isThreeLine: true,
               dense: false,
@@ -91,34 +88,6 @@ class _BackPackPageState extends State<BackPackPage> {
         ),
       ),
     );
-  }
-
-  String _getDifficulty(Badge badge) {
-    switch (badge.difficulty) {
-      case Difficulty.BEGINNER:
-        return "Niveau 1";
-      case Difficulty.INTERMEDIATE:
-        return "Niveau 2";
-      case Difficulty.EXPERT:
-        return "Niveau 3";
-    }
-    return "Niveau 0";
-  }
-
-  String _getCategory(Badge badge) {
-    switch (badge.category) {
-      case Category.DIGITALEGELETTERDHEID:
-        return "Digitale geletterdheid";
-      case Category.DUURZAAMHEID:
-        return "Duurzaamheid";
-      case Category.ONDERNEMINGSZIN:
-        return "Ondernemingszin";
-      case Category.ONDERZOEK:
-        return "Onderzoek";
-      case Category.WERELDBURGERSCHAP:
-        return "Wereldburgerschap";
-    }
-    return "Algemeen";
   }
 
   Future<Null> refresh() {

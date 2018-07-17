@@ -105,6 +105,10 @@ class ExperiencesApi{
 
 class BadgeApi {
 
+  Future<List<Badges>> getAllBadges() async {
+    //TODO get all badges with badgeclassOpenBadgeId from assertions
+  }
+
   Future<List<Assertion>> getAllAssertions() async {
     return (await Firestore.instance.collection('Assertions').getDocuments())
         .documents
