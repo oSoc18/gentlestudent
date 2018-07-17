@@ -27,7 +27,7 @@ class _UserPageState extends State<UserPage> {
           ),
           Center(
             child: Padding(
-              padding: EdgeInsets.only(top: 32.0),
+              padding: EdgeInsets.only(top: 30.0),
               child: Text(
                 label,
                 style: TextStyle(
