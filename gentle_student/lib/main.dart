@@ -18,6 +18,7 @@ import 'pages/user/favorites/favorites_page.dart';
 import 'pages/user/settings/settings_page.dart';
 import 'pages/information/tutorial/tutorial_page.dart';
 
+
 //API key for Google Maps
 const API_KEY = "AIzaSyDl5W6GeM02xFCyASmGvKtoP3fJ_xhvUvM";
 
