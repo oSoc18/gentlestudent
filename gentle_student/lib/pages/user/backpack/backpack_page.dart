@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:Gentle_Student/data/api.dart';
-import 'package:Gentle_Student/data/database_helper.dart';
 import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/user.dart';
 import 'package:Gentle_Student/models/user_token.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class BackPackPage extends StatefulWidget {
   static String tag = 'backpack-page';
@@ -16,9 +16,7 @@ class BackPackPage extends StatefulWidget {
 }
 
 class _BackPackPageState extends State<BackPackPage> {
-  User user;
-  final token = "bf6a76694eaa7f44807984abb04b77e8c9dbb8f1";
-  List<dynamic> _badges = [];
+  List<Badge> _badges = [];
   BadgeApi _api;
 
   @override
@@ -55,38 +53,20 @@ class _BackPackPageState extends State<BackPackPage> {
 
   Widget _buildBadgeItem(BuildContext context, int index) {
     Badge badge = _badges[index];
-
-    return new Container(
-      margin: const EdgeInsets.only(top: 3.0),
-      child: new Card(
-        child: new Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            new ListTile(
-              onTap: () {
-                // _navigateToOpportunityDetails(opportunity);
-              },
-              leading: new Hero(
-                tag: index,
-                child: new CircleAvatar(
-                  backgroundImage: new NetworkImage(badge.image), radius: 40.0,
-                ),
-              ),
-              title: new Text(
-                badge.name,
-                style: new TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black54,
-                    fontSize: 21.0),
-              ),
-              subtitle: new Text(
-                  badge.issuer),
-              isThreeLine: true,
-              dense: false,
-            ),
-          ],
-        ),
-      ),
+    final Widget svg = new SvgPicture.network(
+      badge.image,
+      height: 60.0,
+      width: 60.0,
+      placeholderBuilder: (BuildContext context) => new Container(
+        padding: const EdgeInsets.all(30.0),
+        child: const CircularProgressIndicator()),
+    );
+    return Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          svg
+        ],
     );
   }
 
@@ -95,13 +75,15 @@ class _BackPackPageState extends State<BackPackPage> {
     return new Future<Null>.value();
   }
 
-  Widget _getListViewWidget() {
+  Widget _getGridViewWidget() {
     return new Flexible(
       child: new RefreshIndicator(
         onRefresh: refresh,
-        child: new ListView.builder(
+        child: new GridView.builder(
             physics: const AlwaysScrollableScrollPhysics(),
             itemCount: _badges.length,
+            gridDelegate:
+            new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
             itemBuilder: _buildBadgeItem),
       ),
     );
@@ -111,7 +93,7 @@ class _BackPackPageState extends State<BackPackPage> {
     return new Container(
       margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
       child: new Column(
-        children: <Widget>[_getListViewWidget()],
+        children: <Widget>[_getGridViewWidget()],
       ),
     );
   }

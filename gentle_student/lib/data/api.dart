@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:Gentle_Student/models/assertion.dart';
+import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/experience.dart';
@@ -105,8 +106,86 @@ class ExperiencesApi{
 
 class BadgeApi {
 
-  Future<List<Badges>> getAllBadges() async {
+  Future<List<Badge>> getAllBadges() async {
     //TODO get all badges with badgeclassOpenBadgeId from assertions
+    List<Badge> badges = [];
+    Badge badge1 = Badge(
+      entityType: "",
+      entityId: "",
+      openBadgeId: "",
+      createdAt: "",
+      createdBy: "",
+      issuer: "",
+      issuerOpenBadgeId: "",
+      name: "",
+      image: "https://raw.githubusercontent.com/oSoc18/gentlestudent/feature-back-pack/badge%20maker/Artevelde%20Hogeschool_DigitaleGeletterdheid.svg",
+      description: "",
+      criteriaUrl: "",
+      criteriaNarrative: "",
+      alignments: [],
+      tags: [],
+      extensions: "",
+      opportunityId: ""
+      );
+    Badge badge2 = Badge(
+      entityType: "",
+      entityId: "",
+      openBadgeId: "",
+      createdAt: "",
+      createdBy: "",
+      issuer: "",
+      issuerOpenBadgeId: "",
+      name: "",
+      image: "https://image.flaticon.com/icons/svg/126/126455.svg",
+      description: "",
+      criteriaUrl: "",
+      criteriaNarrative: "",
+      alignments: [],
+      tags: [],
+      extensions: "",
+      opportunityId: ""
+      );
+    Badge badge3 = Badge(
+      entityType: "",
+      entityId: "",
+      openBadgeId: "",
+      createdAt: "",
+      createdBy: "",
+      issuer: "",
+      issuerOpenBadgeId: "",
+      name: "",
+      image: "https://image.flaticon.com/icons/svg/126/126455.svg",
+      description: "",
+      criteriaUrl: "",
+      criteriaNarrative: "",
+      alignments: [],
+      tags: [],
+      extensions: "",
+      opportunityId: ""
+      );
+    Badge badge4 = Badge(
+      entityType: "",
+      entityId: "",
+      openBadgeId: "",
+      createdAt: "",
+      createdBy: "",
+      issuer: "",
+      issuerOpenBadgeId: "",
+      name: "",
+      image: "https://image.flaticon.com/icons/svg/126/126455.svg",
+      description: "",
+      criteriaUrl: "",
+      criteriaNarrative: "",
+      alignments: [],
+      tags: [],
+      extensions: "",
+      opportunityId: ""
+      );
+    badges.add(badge1);
+    badges.add(badge2);
+    badges.add(badge3);
+    badges.add(badge4);
+    return badges;
   }
 
   Future<List<Assertion>> getAllAssertions() async {
