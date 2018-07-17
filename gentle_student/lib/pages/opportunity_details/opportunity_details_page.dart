@@ -16,20 +16,17 @@ class OpportunityDetailsPage extends StatefulWidget {
   final Adress adress;
   OpportunityDetailsPage(this.o, this.adress);
   @override
-  _OpportunityDetailsPageState createState() => _OpportunityDetailsPageState(o);
+  _OpportunityDetailsPageState createState() => _OpportunityDetailsPageState(o, adress);
 }
 
 class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
   Opportunity opportunity;
-<<<<<<< HEAD
   Adress adress;
-=======
   ParticipationApi api;
   FirebaseUser firebaseUser;
   final scaffoldKey = new GlobalKey<ScaffoldState>();
->>>>>>> e7e19297c78a7cf3d6b55a8d1cd568f5d9286257
 
-  _OpportunityDetailsPageState(this.opportunity);
+  _OpportunityDetailsPageState(this.opportunity, this.adress);
 
   //Shows a given message at the bottom of the screen
   void _showSnackBar(String text) {
@@ -45,7 +42,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return new AlertDialog(
-          title: new Text(opportunity.name),
+          title: new Text(opportunity.title),
           content: new SingleChildScrollView(
             child: new ListBody(
               children: <Widget>[

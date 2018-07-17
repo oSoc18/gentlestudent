@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:Gentle_Student/data/api.dart';
+import 'package:Gentle_Student/models/adres.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
@@ -95,12 +96,13 @@ class _MyLearningOpportunitiesPageState
     return new Future<Null>.value();
   }
 
-  _navigateToOpportunityDetails(Opportunity opportunity) {
+  _navigateToOpportunityDetails(Opportunity opportunity) async{
+    Adress a = await new AdressApi().getAdressById(opportunity.adresId);
     Navigator.push(
         context,
         new MaterialPageRoute(
             builder: (BuildContext context) =>
-                new OpportunityDetailsPage(opportunity)));
+                new OpportunityDetailsPage(opportunity, a)));
   }
 
   Widget _buildApprovedOpportunityItem(BuildContext context, int index) {
@@ -119,12 +121,12 @@ class _MyLearningOpportunitiesPageState
               leading: new Hero(
                 tag: index,
                 child: new CircleAvatar(
-                  backgroundImage: new NetworkImage(opportunity.badgeImageUrl),
+                  backgroundImage: new NetworkImage(opportunity.badge.getImageURL()),
                   radius: 40.0,
                 ),
               ),
               title: new Text(
-                opportunity.name,
+                opportunity.title,
                 style: new TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black54,
@@ -135,7 +137,7 @@ class _MyLearningOpportunitiesPageState
                     " - " +
                     _getDifficulty(opportunity) +
                     "\n" +
-                    opportunity.issuerName,
+                    opportunity.issuerId,
               ),
               isThreeLine: true,
               dense: false,
@@ -164,12 +166,12 @@ class _MyLearningOpportunitiesPageState
               leading: new Hero(
                 tag: index,
                 child: new CircleAvatar(
-                  backgroundImage: new NetworkImage(opportunity.badgeImageUrl),
+                  backgroundImage: new NetworkImage(opportunity.badge.getImageURL()),
                   radius: 40.0,
                 ),
               ),
               title: new Text(
-                opportunity.name,
+                opportunity.title,
                 style: new TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black54,
