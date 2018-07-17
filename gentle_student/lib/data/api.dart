@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:Gentle_Student/models/address.dart';
 import 'package:Gentle_Student/models/badge.dart';
+import 'package:Gentle_Student/models/beacon.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/experience.dart';
@@ -9,10 +10,91 @@ import 'package:Gentle_Student/models/issuer.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:Gentle_Student/models/participation.dart';
 import 'package:Gentle_Student/models/status.dart';
+import 'package:Gentle_Student/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-//OPPORTUNITIES
+class BeaconApi{
+  Future<List<Beacon>> getAllAdress() async {
+    return (await Firestore.instance.collection('Beacons').getDocuments())
+        .documents
+        .map((snapshot) => _fromDocumentSnapshot(snapshot))
+        .toList();
+  }
+
+  Future<Beacon> getBeaconById(String beaconId) async{
+    DocumentReference beaconDoc = Firestore.instance.collection('Beacons').document(beaconId);
+    DocumentSnapshot docsnap = await beaconDoc.get();
+    return new Beacon(
+      beaconId: beaconId,
+      opportunityId: docsnap.data['opportunityId'],
+      latitude: docsnap.data['latitude'],
+      longitude: docsnap.data['longitude'],
+      issuerId: docsnap.data['issuerId']);
+  }
+
+  StreamSubscription watch(Beacon beacon, void onChange(Beacon beacon)) {
+    return Firestore.instance
+        .collection('Beacons')
+        .document(beacon.beaconId)
+        .snapshots()
+        .listen((snapshot) => onChange(_fromDocumentSnapshot(snapshot)));
+  }
+
+  Beacon _fromDocumentSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data;
+
+    return new Beacon(
+      beaconId: data['beaconId'],
+      opportunityId: data['opportunityId'],
+      latitude: data['latitude'],
+      longitude: data['longitude'],
+      issuerId: data['issuerId']);
+  }
+}
+
+class ParticipantApi{
+  Future<List<Participant>> getAllAdress() async {
+    return (await Firestore.instance.collection('Participants').getDocuments())
+        .documents
+        .map((snapshot) => _fromDocumentSnapshot(snapshot))
+        .toList();
+  }
+
+  Future<Participant> getParticipantById(String participantId) async{
+    DocumentReference participantDoc = Firestore.instance.collection('Participants').document(participantId);
+    DocumentSnapshot docsnap = await participantDoc.get();
+    return new Participant(
+      participantId,
+      docsnap.data['name'],
+      docsnap.data['password'],
+      docsnap.data['institute'],
+      docsnap.data['education'],
+      docsnap.data['birthday']
+      );
+  }
+
+  StreamSubscription watch(Participant participant, void onChange(Participant participant)) {
+    return Firestore.instance
+        .collection('Participants')
+        .document(participant.userId)
+        .snapshots()
+        .listen((snapshot) => onChange(_fromDocumentSnapshot(snapshot)));
+  }
+
+  Participant _fromDocumentSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data;
+
+    return new Participant(
+      data['participantId'],
+      data['name'],
+      data['password'],
+      data['institute'],
+      data['education'],
+      data['birthday']);
+  }
+}
+
 class OpportunityApi {
   Future<List<Opportunity>> getAllOpportunities() async {
     return (await Firestore.instance.collection('Opportunities').getDocuments())
