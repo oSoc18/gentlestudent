@@ -17,7 +17,6 @@ class Opportunity {
   DateTime endDate;
   String addressId;
   String issuerId;
-  String requirements;
   bool international;
   bool blocked;
   String beaconId;
@@ -34,9 +33,9 @@ class Opportunity {
     @required this.beginDate,
     @required this.endDate,
     @required this.addressId,
+    @required this.issuerId,
     @required this.international,
     @required this.beaconId,
-    @required this.issuerId,
     @required this.blocked,
   });
 }

@@ -65,8 +65,7 @@ class _RegisterPageState extends State<RegisterPage> {
   //Add user details to database
   void _addUserToDatabase() {
     Map<String, String> data = <String, String>{
-      "firstname": firstnameController.text,
-      "lastname": lastnameController.text,
+      "name": firstnameController.text + " " + lastnameController.text,
       "birthdate": birthdateController.text,
       "institute": instituteController.text,
       "education": educationController.text,

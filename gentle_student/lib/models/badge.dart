@@ -1,7 +1,7 @@
 import 'package:Gentle_Student/models/category.dart';
 
 class Badge {
-  String _id;
+  String _badgeId;
   Category _type;
   String _name;
   String _description;
@@ -29,7 +29,7 @@ class Badge {
     this._tags = obj["tags"];
   }
 */
-  String get id => _id;
+  String get id => _badgeId;
   Category get type => _type;
   String get name => _name;
   String get description => _description;
@@ -41,7 +41,7 @@ class Badge {
 
   Map<String, dynamic> toMap() {
     var map = new Map<String, dynamic>();
-    map["id"] = _id;
+    map["id"] = _badgeId;
     map["name"] = _name;
     map["description"] = _description;
     map["image"] = _image;

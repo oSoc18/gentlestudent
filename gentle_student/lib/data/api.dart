@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:Gentle_Student/models/adres.dart';
-import 'package:Gentle_Student/models/badge.dart';
+import 'package:Gentle_Student/models/address.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/experience.dart';
@@ -11,26 +10,7 @@ import 'package:Gentle_Student/models/status.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AddressApi {
-  Future<List<Address>> getAllAddresses() async {
-    return (await Firestore.instance.collection('Addresses').getDocuments())
-        .documents
-        .map((snapshot) => _fromDocumentSnapshot(snapshot))
-        .toList();
-  }
-
-  Address _fromDocumentSnapshot(DocumentSnapshot snapshot) {
-    final data = snapshot.data;
-
-    return new Address(
-        addressId: snapshot.documentID,
-        street: data['street'],
-        housenumber: data['housenumber'],
-        city: data['city'],
-        postalcode: data['postalcode']);
-  }
-}
-
+//OPPORTUNITIES
 class OpportunityApi {
   Future<List<Opportunity>> getAllOpportunities() async {
     return (await Firestore.instance.collection('Opportunities').getDocuments())
@@ -97,6 +77,7 @@ class OpportunityApi {
   }
 }
 
+//PARTICIPATIONS
 class ParticipationApi {
   Future<List<Participation>> getAllParticipationsFromUser(
       FirebaseUser firebaseUser) async {
@@ -146,21 +127,13 @@ class ParticipationApi {
   }
 }
 
+//EXPERIENCES
 class ExperiencesApi {
-  Future<List<Experience>> getAllExperiencs() async {
+  Future<List<Experience>> getAllExperiences() async {
     return (await Firestore.instance.collection('Experiences').getDocuments())
         .documents
         .map((snapshot) => _fromDocumentSnapshot(snapshot))
         .toList();
-  }
-
-  StreamSubscription watch(
-      Experience experience, void onChange(Experience experience)) {
-    return Firestore.instance
-        .collection('Experiences')
-        .document(experience.experienceId)
-        .snapshots()
-        .listen((snapshot) => onChange(_fromDocumentSnapshot(snapshot)));
   }
 
   Experience _fromDocumentSnapshot(DocumentSnapshot snapshot) {
@@ -171,6 +144,28 @@ class ExperiencesApi {
         content: data['content'],
         recap: data['recap'],
         date: data['date'],
-        authorId: data['difficulty']);
+        participantId: data['participantId']);
+  }
+}
+
+//ADDRESSES
+class AddressApi {
+  Future<List<Address>> getAllAddresses() async {
+    return (await Firestore.instance.collection('Addresses').getDocuments())
+        .documents
+        .map((snapshot) => _fromDocumentSnapshot(snapshot))
+        .toList();
+  }
+
+  Address _fromDocumentSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data;
+
+    return new Address(
+        addressId: snapshot.documentID,
+        street: data['street'],
+        housenumber: data['housenumber'],
+        city: data['city'],
+        postalcode: data['postalcode'],
+        bus: data['bus']);
   }
 }
