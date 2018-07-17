@@ -14,85 +14,41 @@ import 'package:Gentle_Student/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class BeaconApi{
-  Future<List<Beacon>> getAllAdress() async {
-    return (await Firestore.instance.collection('Beacons').getDocuments())
-        .documents
-        .map((snapshot) => _fromDocumentSnapshot(snapshot))
-        .toList();
-  }
-
-  Future<Beacon> getBeaconById(String beaconId) async{
-    DocumentReference beaconDoc = Firestore.instance.collection('Beacons').document(beaconId);
-    DocumentSnapshot docsnap = await beaconDoc.get();
-    return new Beacon(
-      beaconId: docsnap.documentID,
-      opportunityId: docsnap.data['opportunityId'],
-      latitude: docsnap.data['latitude'],
-      longitude: docsnap.data['longitude']);
-  }
-
-  StreamSubscription watch(Beacon beacon, void onChange(Beacon beacon)) {
-    return Firestore.instance
-        .collection('Beacons')
-        .document(beacon.beaconId)
-        .snapshots()
-        .listen((snapshot) => onChange(_fromDocumentSnapshot(snapshot)));
-  }
-
-  Beacon _fromDocumentSnapshot(DocumentSnapshot snapshot) {
-    final data = snapshot.data;
-
-    return new Beacon(
-      beaconId: data['beaconId'],
-      opportunityId: data['opportunityId'],
-      latitude: data['latitude'],
-      longitude: data['longitude']);
-  }
-}
-
-class ParticipantApi{
-  Future<List<Participant>> getAllAdress() async {
+class ParticipantApi {
+  Future<List<Participant>> getAllParticipant() async {
     return (await Firestore.instance.collection('Participants').getDocuments())
         .documents
         .map((snapshot) => _fromDocumentSnapshot(snapshot))
         .toList();
   }
 
-  Future<Participant> getParticipantById(String participantId) async{
-    DocumentReference participantDoc = Firestore.instance.collection('Participants').document(participantId);
+  Future<Participant> getParticipantById(String participantId) async {
+    DocumentReference participantDoc =
+        Firestore.instance.collection('Participants').document(participantId);
     DocumentSnapshot docsnap = await participantDoc.get();
     return new Participant(
-      participantId,
-      docsnap.data['name'],
-      docsnap.data['password'],
-      docsnap.data['institute'],
-      docsnap.data['education'],
-      docsnap.data['birthday']
-      );
-  }
-
-  StreamSubscription watch(Participant participant, void onChange(Participant participant)) {
-    return Firestore.instance
-        .collection('Participants')
-        .document(participant.userId)
-        .snapshots()
-        .listen((snapshot) => onChange(_fromDocumentSnapshot(snapshot)));
+        participantId,
+        docsnap.data['name'],
+        docsnap.data['password'],
+        docsnap.data['institute'],
+        docsnap.data['education'],
+        docsnap.data['birthday']);
   }
 
   Participant _fromDocumentSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data;
 
     return new Participant(
-      data['participantId'],
-      data['name'],
-      data['password'],
-      data['institute'],
-      data['education'],
-      data['birthday']);
+        data['participantId'],
+        data['name'],
+        data['password'],
+        data['institute'],
+        data['education'],
+        data['birthdate']);
   }
 }
 
+//OPPORTUNITIES
 class OpportunityApi {
   Future<List<Opportunity>> getAllOpportunities() async {
     return (await Firestore.instance.collection('Opportunities').getDocuments())
@@ -106,6 +62,15 @@ class OpportunityApi {
         .collection("Opportunities")
         .document(opportunityId)
         .get());
+  }
+
+  Future<Opportunity> getOpportunityByBeaconId(String beaconId) async {
+    return _fromDocumentSnapshot((await Firestore.instance
+            .collection("Beacons")
+            .where("beaconId", isEqualTo: beaconId)
+            .getDocuments())
+        .documents
+        .first);
   }
 
   Opportunity _fromDocumentSnapshot(DocumentSnapshot snapshot) {
@@ -263,7 +228,6 @@ class IssuerApi {
     return new Issuer(
         issuerId: snapshot.documentID,
         addressId: data['addressId'],
-        badgekey: data['badgekey'],
         email: data['email'],
         institution: data['institution'],
         name: data['name'],
@@ -298,6 +262,33 @@ class BadgeApi {
       image: data['image'],
       description: data['description'],
     );
+  }
+}
+
+//BEACONS
+class BeaconApi {
+  Future<List<Beacon>> getAllBeacons() async {
+    return (await Firestore.instance.collection('Beacons').getDocuments())
+        .documents
+        .map((snapshot) => _fromDocumentSnapshot(snapshot))
+        .toList();
+  }
+
+  Future<Beacon> getBeaconById(String beaconId) async {
+    return _fromDocumentSnapshot(await Firestore.instance
+        .collection("Beacons")
+        .document(beaconId)
+        .get());
+  }
+
+  Beacon _fromDocumentSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data;
+
+    return new Beacon(
+        beaconId: snapshot.documentID,
+        opportunityId: data['opportunityId'],
+        latitude: data['latitude'],
+        longitude: data['longitude']);
   }
 }
 

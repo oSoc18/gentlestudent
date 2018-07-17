@@ -125,7 +125,7 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
     }
 
     User _getUser(String userId){
-      return new User(name: "Michael", password: "Paswoord", userId: "500");
+      return new User(name: "Michael", email: "Paswoord", userId: "500");
     }
 
     Future<Null> refresh(){

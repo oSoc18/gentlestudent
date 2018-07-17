@@ -3,7 +3,6 @@ import 'package:meta/meta.dart';
 class Issuer {
   final String issuerId;
   final String addressId;
-  final String badgekey;
   final String email;
   final String institution;
   final String name;
@@ -13,7 +12,6 @@ class Issuer {
   Issuer({
     @required this.issuerId,
     @required this.addressId,
-    @required this.badgekey,
     @required this.email,
     @required this.institution,
     @required this.name,
