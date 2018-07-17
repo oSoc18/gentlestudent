@@ -16,7 +16,6 @@ class Opportunity {
   DateTime endDate;
   bool international;
   bool blocked;
-  String beaconId;
   String addressId;
   String badgeId;
   String issuerId;
@@ -32,7 +31,6 @@ class Opportunity {
     @required this.beginDate,
     @required this.endDate,
     @required this.international,
-    @required this.beaconId,
     @required this.blocked,
     @required this.addressId,
     @required this.badgeId,

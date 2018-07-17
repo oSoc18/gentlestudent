@@ -26,11 +26,10 @@ class BeaconApi{
     DocumentReference beaconDoc = Firestore.instance.collection('Beacons').document(beaconId);
     DocumentSnapshot docsnap = await beaconDoc.get();
     return new Beacon(
-      beaconId: beaconId,
+      beaconId: docsnap.documentID,
       opportunityId: docsnap.data['opportunityId'],
       latitude: docsnap.data['latitude'],
-      longitude: docsnap.data['longitude'],
-      issuerId: docsnap.data['issuerId']);
+      longitude: docsnap.data['longitude']);
   }
 
   StreamSubscription watch(Beacon beacon, void onChange(Beacon beacon)) {
@@ -48,8 +47,7 @@ class BeaconApi{
       beaconId: data['beaconId'],
       opportunityId: data['opportunityId'],
       latitude: data['latitude'],
-      longitude: data['longitude'],
-      issuerId: data['issuerId']);
+      longitude: data['longitude']);
   }
 }
 
@@ -115,7 +113,6 @@ class OpportunityApi {
 
     return new Opportunity(
       opportunityId: snapshot.documentID,
-      beaconId: data['beaconId'],
       beginDate: DateTime.parse(data['beginDate']),
       blocked: data['blocked'],
       category: _dataToCategory(data['category']),
