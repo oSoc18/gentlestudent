@@ -6,47 +6,12 @@ import 'package:Gentle_Student/models/beacon.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/experience.dart';
-import 'package:Gentle_Student/models/issuer.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:Gentle_Student/models/participation.dart';
 import 'package:Gentle_Student/models/status.dart';
 import 'package:Gentle_Student/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-class ParticipantApi {
-  Future<List<Participant>> getAllParticipant() async {
-    return (await Firestore.instance.collection('Participants').getDocuments())
-        .documents
-        .map((snapshot) => _fromDocumentSnapshot(snapshot))
-        .toList();
-  }
-
-  Future<Participant> getParticipantById(String participantId) async {
-    DocumentReference participantDoc =
-        Firestore.instance.collection('Participants').document(participantId);
-    DocumentSnapshot docsnap = await participantDoc.get();
-    return new Participant(
-        participantId,
-        docsnap.data['name'],
-        docsnap.data['password'],
-        docsnap.data['institute'],
-        docsnap.data['education'],
-        docsnap.data['birthday']);
-  }
-
-  Participant _fromDocumentSnapshot(DocumentSnapshot snapshot) {
-    final data = snapshot.data;
-
-    return new Participant(
-        data['participantId'],
-        data['name'],
-        data['password'],
-        data['institute'],
-        data['education'],
-        data['birthdate']);
-  }
-}
 
 //OPPORTUNITIES
 class OpportunityApi {
@@ -170,6 +135,35 @@ class ParticipationApi {
         return Status.REFUSED;
     }
     return Status.PENDING;
+  }
+}
+
+//PARTICIPANTS
+class ParticipantApi {
+  Future<List<Participant>> getAllParticipant() async {
+    return (await Firestore.instance.collection('Participants').getDocuments())
+        .documents
+        .map((snapshot) => _fromDocumentSnapshot(snapshot))
+        .toList();
+  }
+
+  Future<Participant> getParticipantById(String participantId) async {
+    return _fromDocumentSnapshot(await Firestore.instance
+        .collection("Participants")
+        .document(participantId)
+        .get());
+  }
+
+  Participant _fromDocumentSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data;
+
+    return new Participant(
+        participantId: snapshot.documentID,
+        name: data['name'],
+        institute: data['institute'],
+        education: data['education'],
+        email: data['email'],
+        birthdate: DateTime.parse(data['birthdate']));
   }
 }
 

@@ -1,67 +1,39 @@
-import 'package:Gentle_Student/models/badge.dart';
-import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:meta/meta.dart';
 
-class User{
-  String userId;
-  String name;
-  String email;
+class Participant {
+  final String participantId;
+  final String email;
+  final String name;
+  final String institute;
+  final String education;
+  final DateTime birthdate;
 
-  User({
-    @required this.userId,
-    @required this.name,
+  Participant({
+    @required this.participantId,
+    @required this.institute,
     @required this.email,
+    @required this.education,
+    @required this.name,
+    @required this.birthdate,
   });
 }
 
-class Participant extends User{
-  String institute;
-  List<Opportunity> _opportunities;
-  List<Badge> _badges;
-  String education;
-  DateTime birthday;
+class Issuer {
+  final String issuerId;
+  final String addressId;
+  final String email;
+  final String institution;
+  final String name;
+  final String phonenumber;
+  final String url;
 
-  Participant(String userId, String name, String email, String institute, String education, DateTime birthday): super(userId: userId, email: email, name:name){
-    this.institute = institute;
-    this.education = education;
-    this.birthday = birthday;
-    this._opportunities = new List<Opportunity>();
-    this._badges = new List<Badge>();
-  }
-
-  void addBadge(Badge b){
-    if(_badges.contains(b)){
-      _badges.add(b);
-    }
-  }
-
-  List<Badge> getBadges(){
-    return _badges;
-  }
-
-  void addOpportunity(Opportunity o){
-    if(_opportunities.contains(o)){
-      _opportunities.add(o);
-    }
-  }
-
-  List<Opportunity> getOpportunities(){
-    return _opportunities;
-  }
-}
-
-class IssuerM extends User{
-  String institution;
-  String urlWebsite;
-  String phoneNumber;
-  String adresId;
-  String signingKey;
-
-  IssuerM(String userId, String name, String email, String institution, String phoneNumber, String urlWebsite, String signingKey,  String adresId): super(userId: userId,email: email,name: name){
-    this.institution = institution;
-    this.urlWebsite = urlWebsite;
-    this.phoneNumber = phoneNumber;
-    this.adresId = adresId;
-    this.signingKey = signingKey;
-  }
+  Issuer({
+    @required this.issuerId,
+    @required this.addressId,
+    @required this.email,
+    @required this.institution,
+    @required this.name,
+    @required this.phonenumber,
+    @required this.url,
+  });
 }
