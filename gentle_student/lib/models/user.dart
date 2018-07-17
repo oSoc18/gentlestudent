@@ -51,7 +51,7 @@ class Participant extends User{
   }
 }
 
-class Issuer extends User{
+class IssuerM extends User{
   String institution;
   List<Opportunity> _opportunities;
   List<Beacon> _beacons;
@@ -60,7 +60,7 @@ class Issuer extends User{
   String adresId;
   String signingKey;
 
-  Issuer(String userId, String name, String password, String institution, String phoneNumber, String urlWebsite, String signingKey,  String adresId): super(userId: userId,password: password,name: name){
+  IssuerM(String userId, String name, String password, String institution, String phoneNumber, String urlWebsite, String signingKey,  String adresId): super(userId: userId,password: password,name: name){
     this.institution = institution;
     this.urlWebsite = urlWebsite;
     this.phoneNumber = phoneNumber;

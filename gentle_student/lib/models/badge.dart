@@ -1,59 +1,15 @@
-import 'package:Gentle_Student/models/category.dart';
+import 'package:meta/meta.dart';
 
+//This model represents a badge as defined by the badgr API
 class Badge {
-  String _badgeId;
-  Category _type;
-  String _name;
-  String _description;
-  String _image;
-  String _criteria;
-  String _issuer;
-  List<dynamic> _alignment;
-  List<dynamic> _tags;
+  //Declaration of the variables
+  final String openBadgeId;
+  final String image;
+  final String description;
 
-  Badge(String url){
-    this._image=url;
-  }
-/*
-  Badge(this._id, this._type, this._name, this._description, this._image, this._criteria, this._issuer, this._alignment, this._tags);
-
-  Badge.map(dynamic obj) {
-    this._id = obj["id"];
-    this._type = obj["type"];
-    this._name = obj["name"];
-    this._description = obj["description"];
-    this._image = obj["image"];
-    this._criteria = obj["criteria"];
-    this._issuer = obj["issuer"];
-    this._alignment = obj["alignment"];
-    this._tags = obj["tags"];
-  }
-*/
-  String get id => _badgeId;
-  Category get type => _type;
-  String get name => _name;
-  String get description => _description;
-  String get image => _image;
-  String get criteria => _criteria;
-  String get issuer => _issuer;
-  List<dynamic> get alignment => _alignment;
-  List<dynamic> get tags => _tags;
-
-  Map<String, dynamic> toMap() {
-    var map = new Map<String, dynamic>();
-    map["id"] = _badgeId;
-    map["name"] = _name;
-    map["description"] = _description;
-    map["image"] = _image;
-    map["criteria"] = _criteria;
-    map["issuer"] = _issuer;
-    map["alignment"] = _alignment;
-    map["tags"] = _tags;
-
-    return map;
-  }
-
-  String getImageURL(){
-    return _image;
-  }
+  Badge({
+    @required this.openBadgeId,
+    @required this.image,
+    @required this.description,
+  });
 }

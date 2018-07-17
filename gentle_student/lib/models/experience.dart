@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-class Experience{
+class Experience {
   final String experienceId;
   final String recap;
   final String participantId;
@@ -12,7 +12,6 @@ class Experience{
     @required this.content,
     @required this.recap,
     @required this.experienceId,
-    @required this.date
-  }
-  );
+    @required this.date,
+  });
 }
