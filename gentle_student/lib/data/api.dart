@@ -26,6 +26,7 @@ class AdressApi{
         return adress;
       }
     }
+    return null;
   }
 
   StreamSubscription watch(Adress adress, void onChange(Adress adress)) {
@@ -81,6 +82,8 @@ class OpportunityApi {
       endDate: DateTime.parse(data['endDate']),
       adresId: adres.adresId,
       issuerId: data['issuerName'],
+      international: data['international'],
+      beacon: data['beaconid']
     );
   }
 
