@@ -6,7 +6,10 @@ import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/experience.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:Gentle_Student/models/adres.dart';
+import 'package:Gentle_Student/models/participation.dart';
+import 'package:Gentle_Student/models/status.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AdressApi{
   Future<List<Adress>> getAllAdress() async {
@@ -47,7 +50,6 @@ class AdressApi{
 }
 
 class OpportunityApi {
-
   Future<List<Opportunity>> getAllOpportunities() async {
     return (await Firestore.instance.collection('Opportunities').getDocuments())
         .documents
@@ -55,12 +57,11 @@ class OpportunityApi {
         .toList();
   }
 
-  StreamSubscription watch(Opportunity opportunity, void onChange(Opportunity opportunity)) {
-    return Firestore.instance
-        .collection('Opportunities')
-        .document(opportunity.opportunityId)
-        .snapshots()
-        .listen((snapshot) => onChange(_fromDocumentSnapshot(snapshot)));
+  Future<Opportunity> getOpportunityById(String opportunityId) async {
+    return _fromDocumentSnapshot(await Firestore.instance
+        .collection("Opportunities")
+        .document(opportunityId)
+        .get());
   }
 
   Opportunity _fromDocumentSnapshot(DocumentSnapshot snapshot) {
@@ -109,6 +110,47 @@ class OpportunityApi {
         return Category.WERELDBURGERSCHAP;
     }
     return Category.DUURZAAMHEID;
+  }
+}
+
+class ParticipationApi {
+  Future<List<Participation>> getAllParticipationsFromUser(
+      FirebaseUser firebaseUser) async {
+    return (await Firestore.instance
+            .collection('Participations')
+            .where("participantId", isEqualTo: firebaseUser.uid)
+            .getDocuments())
+        .documents
+        .map((snapshot) => _fromDocumentSnapshotParticipation(snapshot))
+        .toList();
+  }
+
+  Participation _fromDocumentSnapshotParticipation(DocumentSnapshot snapshot) {
+    final data = snapshot.data;
+
+    return new Participation(
+      participationId: snapshot.documentID,
+      participantId: data['participantId'],
+      opportunityId: data['opportunityId'],
+      reason: data['reason'],
+      status: _dataToStatus(data['status']),
+    );
+  }
+
+  Future<bool> participationExists(FirebaseUser firebaseUser, Opportunity opportunity) async {
+    return (await Firestore.instance.collection('Participations').where("participantId", isEqualTo: firebaseUser.uid).where("opportunityId", isEqualTo: opportunity.opportunityId).getDocuments()).documents.length != 0;
+  }
+
+  Status _dataToStatus(int status) {
+    switch (status) {
+      case 0:
+        return Status.PENDING;
+      case 1:
+        return Status.APPROVED;
+      case 2:
+        return Status.REFUSED;
+    }
+    return Status.PENDING;
   }
 }
 
