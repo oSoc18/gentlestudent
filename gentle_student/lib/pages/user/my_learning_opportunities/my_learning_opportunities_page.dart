@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:Gentle_Student/data/api.dart';
+import 'package:Gentle_Student/models/address.dart';
+import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
+import 'package:Gentle_Student/models/issuer.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:Gentle_Student/models/participation.dart';
 import 'package:Gentle_Student/models/status.dart';
@@ -23,8 +26,14 @@ class _MyLearningOpportunitiesPageState
   List<Participation> _participations = [];
   List<Opportunity> _opportunitiesApproved = [];
   List<Opportunity> _opportunitiesRequested = [];
+  List<Badge> _badges = [];
+  List<Issuer> _issuers = [];
+  List<Address> _addresses = [];
   ParticipationApi _participationApi;
   OpportunityApi _opportunityApi;
+  BadgeApi _badgeApi;
+  IssuerApi _issuerApi;
+  AddressApi _addressApi;
 
   @override
   void initState() {
@@ -60,12 +69,24 @@ class _MyLearningOpportunitiesPageState
   _loadFromFirebase() async {
     final participationApi = new ParticipationApi();
     final opportunityApi = new OpportunityApi();
+    final badgeApi = new BadgeApi();
+    final issuerApi = new IssuerApi();
+    final addressApi = new AddressApi();
     final participations =
         await participationApi.getAllParticipationsFromUser(firebaseUser);
+    final badges = await badgeApi.getAllBadges();
+    final issuers = await issuerApi.getAllIssuers();
+    final addresses = await addressApi.getAllAddresses();
     setState(() {
       _participationApi = participationApi;
       _opportunityApi = opportunityApi;
+      _badgeApi = badgeApi;
+      _issuerApi = issuerApi;
+      _addressApi = addressApi;
       _participations = participations;
+      _badges = badges;
+      _issuers = issuers;
+      _addresses = addresses;
     });
     await _loadOpportunities();
   }
@@ -74,8 +95,14 @@ class _MyLearningOpportunitiesPageState
     if (_participationApi != null && _opportunityApi != null) {
       final participations =
           await _participationApi.getAllParticipationsFromUser(firebaseUser);
+      final badges = await _badgeApi.getAllBadges();
+      final issuers = await _issuerApi.getAllIssuers();
+      final addresses = await _addressApi.getAllAddresses();
       setState(() {
         _participations = participations;
+        _badges = badges;
+        _issuers = issuers;
+        _addresses = addresses;
       });
       await _loadOpportunities();
     }
@@ -95,16 +122,22 @@ class _MyLearningOpportunitiesPageState
     return new Future<Null>.value();
   }
 
-  _navigateToOpportunityDetails(Opportunity opportunity) {
+  _navigateToOpportunityDetails(
+      Opportunity opportunity, Badge badge, Issuer issuer, Address address) {
     Navigator.push(
-        context,
-        new MaterialPageRoute(
-            builder: (BuildContext context) =>
-                new OpportunityDetailsPage(opportunity)));
+      context,
+      new MaterialPageRoute(
+        builder: (BuildContext context) =>
+            new OpportunityDetailsPage(opportunity, badge, issuer, address),
+      ),
+    );
   }
 
   Widget _buildApprovedOpportunityItem(BuildContext context, int index) {
     Opportunity opportunity = _opportunitiesApproved[index];
+    Badge badge = _badges.firstWhere((b) => b.openBadgeId == opportunity.badgeId);
+    Issuer issuer = _issuers.firstWhere((i) => i.issuerId == opportunity.issuerId);
+    Address address = _addresses.firstWhere((a) => a.addressId == opportunity.addressId);
 
     return new Container(
       margin: const EdgeInsets.only(top: 3.0),
@@ -114,17 +147,19 @@ class _MyLearningOpportunitiesPageState
           children: <Widget>[
             new ListTile(
               onTap: () {
-                _navigateToOpportunityDetails(opportunity);
+                _navigateToOpportunityDetails(
+                    opportunity, badge, issuer, address);
               },
               leading: new Hero(
                 tag: index,
                 child: new CircleAvatar(
-                  backgroundImage: new NetworkImage("opportunity.badgeImageUrl"),
+                  backgroundImage:
+                      new NetworkImage(badge.image),
                   radius: 40.0,
                 ),
               ),
               title: new Text(
-                "opportunity.name",
+                opportunity.title,
                 style: new TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black54,
@@ -135,7 +170,7 @@ class _MyLearningOpportunitiesPageState
                     " - " +
                     _getDifficulty(opportunity) +
                     "\n" +
-                    "opportunity.issuerName",
+                    issuer.name,
               ),
               isThreeLine: true,
               dense: false,
@@ -150,6 +185,9 @@ class _MyLearningOpportunitiesPageState
     Opportunity opportunity = _opportunitiesRequested[index];
     Participation participation = _participations
         .firstWhere((p) => p.opportunityId == opportunity.opportunityId);
+    Badge badge = _badges.firstWhere((b) => b.openBadgeId == opportunity.badgeId);
+    Issuer issuer = _issuers.firstWhere((i) => i.issuerId == opportunity.issuerId);
+    Address address = _addresses.firstWhere((a) => a.addressId == opportunity.addressId);
 
     return new Container(
       margin: const EdgeInsets.only(top: 3.0),
@@ -159,17 +197,19 @@ class _MyLearningOpportunitiesPageState
           children: <Widget>[
             new ListTile(
               onTap: () {
-                _navigateToOpportunityDetails(opportunity);
+                _navigateToOpportunityDetails(
+                    opportunity, badge, issuer, address);
               },
               leading: new Hero(
                 tag: index,
                 child: new CircleAvatar(
-                  backgroundImage: new NetworkImage("opportunity.badgeImageUrl"),
+                  backgroundImage:
+                      new NetworkImage(badge.image),
                   radius: 40.0,
                 ),
               ),
               title: new Text(
-                "opportunity.name",
+                opportunity.title,
                 style: new TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black54,

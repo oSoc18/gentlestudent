@@ -14,7 +14,6 @@ class Address{
     @required this.city,
     @required this.postalcode,
     @required this.housenumber,
-  }){
-    this.bus = bus;
-  }
+    @required this.bus,
+  });
 }

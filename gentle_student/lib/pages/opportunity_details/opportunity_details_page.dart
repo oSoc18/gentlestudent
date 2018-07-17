@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:Gentle_Student/data/api.dart';
+import 'package:Gentle_Student/models/address.dart';
+import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/models/category.dart';
+import 'package:Gentle_Student/models/issuer.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,18 +13,24 @@ import 'package:date_format/date_format.dart';
 
 class OpportunityDetailsPage extends StatefulWidget {
   final Opportunity o;
-  OpportunityDetailsPage(this.o);
+  final Badge b;
+  final Issuer i;
+  final Address a;
+  OpportunityDetailsPage(this.o, this.b, this.i, this.a);
   @override
-  _OpportunityDetailsPageState createState() => _OpportunityDetailsPageState(o);
+  _OpportunityDetailsPageState createState() => _OpportunityDetailsPageState(o, b, i, a);
 }
 
 class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
   Opportunity opportunity;
+  Badge badge;
+  Issuer issuer;
+  Address address;
   ParticipationApi api;
   FirebaseUser firebaseUser;
   final scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  _OpportunityDetailsPageState(this.opportunity);
+  _OpportunityDetailsPageState(this.opportunity, this.badge, this.issuer, this.address);
 
   //Shows a given message at the bottom of the screen
   void _showSnackBar(String text) {
@@ -37,7 +46,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return new AlertDialog(
-          title: new Text("opportunity.name"),
+          title: new Text(opportunity.title),
           content: new SingleChildScrollView(
             child: new ListBody(
               children: <Widget>[
@@ -129,7 +138,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                 new Hero(
                   child: new CircleAvatar(
                     backgroundImage:
-                        new NetworkImage("opportunity.badge.image"),
+                        new NetworkImage(badge.image),
                     radius: 32.0,
                   ),
                   tag: "badge image",
@@ -230,11 +239,15 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                       new Expanded(
                         child: new Text(
                           " " +
-                              "adress.street +"
-                              ", " +
-                              "adress.postalcode.toString() +"
+                              address.street +
                               " " +
-                              "adress.city",
+                              address.housenumber.toString() +
+                              " " +
+                              address.bus +
+                              ", " +
+                              address.postalcode.toString() +
+                              " " +
+                              address.city,
                           style: new TextStyle(
                             fontSize: 14.0,
                             color: Colors.lightBlue,
@@ -260,7 +273,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                       ),
                       new Expanded(
                         child: new Text(
-                          " " + opportunity.issuerId,
+                          " " + issuer.name,
                           style: new TextStyle(
                             fontSize: 14.0,
                             color: Colors.lightBlue,

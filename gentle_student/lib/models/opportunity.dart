@@ -9,34 +9,33 @@ class Opportunity {
   String title;
   Difficulty difficulty;
   Category category;
-  String badgeId;
   String opportunityImageUrl;
   String shortDescription;
   String longDescription;
   DateTime beginDate;
   DateTime endDate;
-  String addressId;
-  String issuerId;
-  String requirements;
   bool international;
   bool blocked;
   String beaconId;
+  String addressId;
+  String badgeId;
+  String issuerId;
 
   Opportunity({
     @required this.opportunityId,
     @required this.title,
     @required this.difficulty,
     @required this.category,
-    @required this.badgeId,
     @required this.opportunityImageUrl,
     @required this.shortDescription,
     @required this.longDescription,
     @required this.beginDate,
     @required this.endDate,
-    @required this.addressId,
     @required this.international,
     @required this.beaconId,
-    @required this.issuerId,
     @required this.blocked,
+    @required this.addressId,
+    @required this.badgeId,
+    @required this.issuerId,
   });
 }
