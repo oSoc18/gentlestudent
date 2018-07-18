@@ -53,9 +53,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.lightBlue,
         fontFamily: 'NeoSansPro',
       ),
-      //home: new LoginPage(),
-      //home: new MapPage(),
-      home: new HomePage(),
+      home: new LoginPage(),
       routes: routes
     );
   }

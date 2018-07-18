@@ -20,6 +20,9 @@ class Opportunity {
   String addressId;
   String badgeId;
   String issuerId;
+  double latitude;
+  double longitude;
+  String pinImageUrl;
 
   Opportunity({
     @required this.opportunityId,
@@ -37,5 +40,8 @@ class Opportunity {
     @required this.addressId,
     @required this.badgeId,
     @required this.issuerId,
+    @required this.latitude,
+    @required this.longitude,
+    @required this.pinImageUrl,
   });
 }
