@@ -42,7 +42,7 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-    <string>Geef "Gentlestudent" toegang tot jouw locatie.</string>
+    <string>Geef Gentlestudent toegang tot jouw locatie.</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

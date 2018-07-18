@@ -1,7 +1,7 @@
 import 'package:Gentle_Student/navigation/home_page.dart';
+import 'package:Gentle_Student/navigation/map_list_page.dart';
 import 'package:Gentle_Student/pages/information/experiences/experiences_page.dart';
 import 'package:flutter/material.dart';
-import 'package:map_view/map_view.dart';
 
 import 'pages/login/login_page.dart';
 import 'pages/register/register_page.dart';
@@ -18,12 +18,7 @@ import 'pages/user/favorites/favorites_page.dart';
 import 'pages/user/settings/settings_page.dart';
 import 'pages/information/tutorial/tutorial_page.dart';
 
-
-//API key for Google Maps
-const API_KEY = "AIzaSyDl5W6GeM02xFCyASmGvKtoP3fJ_xhvUvM";
-
 void main() {
-  MapView.setApiKey(API_KEY);
   runApp(new MyApp());
 }
 
@@ -31,6 +26,7 @@ void main() {
 class MyApp extends StatelessWidget {
   final routes = <String, WidgetBuilder>{
     HomePage.tag: (context)=>HomePage(),
+    MapListPage.tag: (context)=>MapListPage(),
     LoginPage.tag: (context)=>LoginPage(),
     RegisterPage.tag: (context)=>RegisterPage(),
     MapPage.tag: (context)=>MapPage(),

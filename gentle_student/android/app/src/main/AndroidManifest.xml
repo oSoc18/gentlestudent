@@ -18,8 +18,6 @@
         android:name=".App"
         android:label="Gentlestudent"
         android:icon="@mipmap/ic_launcher">
-        <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyDl5W6GeM02xFCyASmGvKtoP3fJ_xhvUvM"/>
-        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -39,6 +37,5 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.apptreesoftware.mapview.MapActivity" android:theme="@style/Theme.AppCompat"/>
     </application>
 </manifest>
