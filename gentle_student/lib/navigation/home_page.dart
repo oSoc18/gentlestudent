@@ -1,5 +1,5 @@
+import 'package:Gentle_Student/navigation/map_list_page.dart';
 import 'package:Gentle_Student/pages/information/information_page.dart';
-import 'package:Gentle_Student/pages/opportunity_list/opportunity_list_page.dart';
 import 'package:Gentle_Student/pages/user/user_page.dart';
 import 'package:flutter/material.dart';
 
@@ -76,7 +76,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int currentTab = 1; // Index of currently opened tab.
   InformationPage informationPage = new InformationPage(); // Page that corresponds with the first tab.
-  OpportunityListPage opportunityListPage = new OpportunityListPage(); // Page that corresponds with the second tab.
+  MapListPage mapListPage = new MapListPage(); // Page that corresponds with the second tab.
   UserPage userPage = new UserPage(); // Page that corresponds with the third tab.
   List<Widget> pages; // List of all pages that can be opened from our BottomNavigationBar.
                       // Index 0 represents the page for the 0th tab, index 1 represents the page for the 1st tab etc...
@@ -85,8 +85,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    pages = [informationPage, opportunityListPage, userPage]; // Populate our pages list.
-    currentPage = opportunityListPage; // Setting the first page that we'd like to show our user.
+    pages = [informationPage, mapListPage, userPage]; // Populate our pages list.
+    currentPage = mapListPage; // Setting the first page that we'd like to show our user.
   }
 
   @override

@@ -178,10 +178,6 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Leerkansen", style: TextStyle(color: Colors.white)),
-        iconTheme: new IconThemeData(color: Colors.white),
-      ),
       body: _buildBody(),
     );
   }
