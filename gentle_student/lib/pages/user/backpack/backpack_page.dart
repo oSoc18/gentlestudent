@@ -103,11 +103,64 @@ class _BackPackPageState extends State<BackPackPage> {
     );
   }
 
+  List<Widget> _getBannerContent() {
+    if(_badges.length>1){
+      return [
+        new Expanded(
+          child: new Align(
+            alignment: FractionalOffset.bottomCenter,
+            child: new Text(
+              "Zeer goed!",
+              style: new TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+          ),
+        ),
+        new Expanded(
+          child: new Center(
+            child: new Text(
+              "Je hebt in totaal ${_badges.length.toString()} badges verdiend!",
+              style: new TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+          )
+        ),
+      ];
+      return [
+        new Expanded(
+          child: new Center(
+            child: new Text(
+              "Je hebt nog geen badges verdiend",
+              style: new TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+            )
+          )
+        ),
+      ];
+    }
+  }
+
+  Widget _getBannerWidget() {
+    return new Flexible(
+      child: new Container(
+        decoration: new BoxDecoration(color: Colors.grey),
+        child: new ConstrainedBox(
+          constraints: const BoxConstraints.expand(
+            height: 100.0
+          ),
+          child: new Center(
+            child: new Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: _getBannerContent()
+            )
+          )
+        ),
+      )
+    );
+  }
+
   Widget _buildBody() {
     return new Container(
       margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
       child: new Column(
-        children: <Widget>[_getGridViewWidget()],
+        children: <Widget>[_getBannerWidget(),_getGridViewWidget()],
       ),
     );
   }
@@ -122,6 +175,9 @@ class _BackPackPageState extends State<BackPackPage> {
       body: _buildBody(),
     );
   }
+}
+
+_getBannerWidget() {
 }
   
 //   @override
