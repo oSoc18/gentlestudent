@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { UserRegister } from './../actions/authActions';
-
 import Nav from './../Components/Nav';
 import Footer from './../Components/Footer';
 
@@ -42,17 +40,4 @@ class Register extends Component {
 	}
 }
 
-export default (Register = connect(
-  (state) => {
-    return {
-      form: state.form
-    };
-  },
-  (dispatch) => {
-    return {
-      registerUser: (data) => {
-        dispatch(UserRegister(data));
-      },
-    };
-  }
-)(Register));
+export default Register;

@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
-import { LeerkansCreateItem } from './../../actions/leerkansActions';
-
 import { renderInput, renderTextarea, renderSelect, RenderDropzoneInput } from './../Utils';
 
 let FormCreateLeerkans = (props) => {
@@ -158,17 +156,4 @@ FormCreateLeerkans = reduxForm({
   fields: ['title', 'synopsis']
 })(FormCreateLeerkans);
 
-export default (FormCreateLeerkans = connect(
-  (state) => {
-    return {
-      badge: state.badge,
-    };
-  },
-  (dispatch) => {
-    return {
-      createLeerkans: (data) => {
-        dispatch(LeerkansCreateItem(data));
-      }
-    };
-  }
-)(FormCreateLeerkans));
+export default FormCreateLeerkans;

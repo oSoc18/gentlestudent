@@ -5,11 +5,6 @@ import { Link } from 'react-router-dom';
 import Nav from './../../Components/Nav';
 import Footer from './../../Components/Footer';
 
-import {
-  LeerkansenFetch,
-  LeerkansenDeleteItem
-} from './../../actions/leerkansActions';
-
 class BOLeerkansen extends Component {
   constructor(props) {
     super(props)
@@ -17,10 +12,10 @@ class BOLeerkansen extends Component {
     this.delete = this.delete.bind(this);
   }
   componentDidMount() {
-	  this.props.fetchLeerkansen();
+	  // this.props.fetchLeerkansen();
 	}
   delete(id) {
-    this.props.deleteLeerkans(id);
+    // this.props.deleteLeerkans(id);
   }
   render() {
     return (
@@ -50,20 +45,4 @@ class BOLeerkansen extends Component {
   }
 }
 
-export default connect(
-	(state) => {
-		return {
-			leerkansen: state.leerkansen
-		};
-	},
-	(dispatch) => {
-		return {
-			fetchLeerkansen: () => {
-				dispatch(LeerkansenFetch());
-      },
-      deleteLeerkans: (id) => {
-        dispatch(LeerkansenDeleteItem(id));
-      }
-		}
-	}
-)(BOLeerkansen);
+export default BOLeerkansen;

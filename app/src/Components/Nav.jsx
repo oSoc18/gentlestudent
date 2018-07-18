@@ -6,10 +6,10 @@ import logo from './../assets/logo.svg';
 
 class Nav extends Component {
 	componentDidMount() {
-		console.log(this.props.auth.user);
+		// console.log(this.props.auth.user);
 	}
 	render() {
-		console.log(this.props.auth.user);
+		// console.log(this.props.auth.user);
 		return (
 			<nav>
 				<div className="nav-wrapper">

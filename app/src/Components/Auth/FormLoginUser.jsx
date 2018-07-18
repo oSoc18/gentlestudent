@@ -43,11 +43,4 @@ FormLoginUser = reduxForm({
   fields: ['email', 'password']
 })(FormLoginUser);
 
-export default (FormLoginUser = connect(
-  (state) => {
-    return {};
-  },
-  (dispatch) => {
-    return {};
-  }
-)(FormLoginUser));
+export default FormLoginUser;

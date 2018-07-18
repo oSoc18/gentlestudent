@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import {
-	BadgeFetchList,
-	BadgeIssueRecipient
-} from './../../actions/badgesActions';
-
 import Nav from './../../Components/Nav';
 import Footer from './../../Components/Footer';
 import FormIssueBadge from './../../Components/Badge/FormIssueBadge';
@@ -47,21 +42,4 @@ class IssueBadgeRecipient extends Component {
 	}
 }
 
-export default (IssueBadgeRecipient = connect(
-  (state) => {
-    return {
-			badge: state.badge,
-			form: state.form
-		};
-  },
-  (dispatch) => {
-    return {
-      issueBadge: (data) => {
-        dispatch(BadgeIssueRecipient(data));
-			},
-			badgeFetchList: () => {
-        dispatch(BadgeFetchList());
-      }
-    };
-  }
-)(IssueBadgeRecipient));
+export default IssueBadgeRecipient;

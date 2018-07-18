@@ -70,21 +70,12 @@ class Maps extends Component {
 	render() {
 		return (
 			<React.Fragment>
-				{!this.props.leerkansen.loading &&
+				{/* {!this.props.leerkansen.loading &&
 					<MapComponent markers={this.props.leerkansen.items} />
-				}
+				} */}
 			</React.Fragment>
 		)
 	}
 }
 
-export default connect(
-	(state) => {
-		return {
-			leerkansen: state.leerkansen
-		};
-	},
-	(dispatch) => {
-		return {}
-	}
-)(Maps);
+export default Maps;
