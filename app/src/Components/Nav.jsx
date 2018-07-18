@@ -46,9 +46,9 @@ class Nav extends Component {
 									</li>
 								</React.Fragment>
 							{/* } */}
-							<li className="nav_item language dropdown">
+							{/* <li className="nav_item language dropdown">
 								<NavLink to="/">NL <i className="fas fa-caret-down"></i></NavLink>
-							</li>
+							</li> */}
 						</ul>
 					</div>
 				</div>

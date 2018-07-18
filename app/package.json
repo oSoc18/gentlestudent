@@ -5,6 +5,7 @@
 	"dependencies": {
 		"axios": "^0.18.0",
 		"bulma": "^0.6.2",
+		"firebase": "^5.2.0",
 		"glamor": "^2.20.40",
 		"jsonwebtoken": "^8.3.0",
 		"node-sass-chokidar": "^1.2.2",

@@ -1,0 +1,11 @@
+export const FrontPage = '/';
+export const Leerkansen = '/leerkansen';
+export const WordIssuer = '/word-issuer';
+export const Ervaringen = '/ervaringen';
+export const Nieuws = '/nieuws';
+export const OverOns = '/overons';
+export const Register = '/Register';
+export const Login = '/login';
+export const BOLeerkansen = '/backoffice/leerkansen';
+export const CreateLeerkansen = '/backoffice/create-leerkansen';
+export const IssueBadgeRecipient = '/backoffice/issue-badge-recipient';
