@@ -5,8 +5,8 @@ import 'package:Gentle_Student/models/address.dart';
 import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
-import 'package:Gentle_Student/models/issuer.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
+import 'package:Gentle_Student/models/user.dart';
 import 'package:Gentle_Student/pages/opportunity_details/opportunity_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -33,16 +33,6 @@ class _MapPageState extends State<MapPage> {
           height: 100.0,
           point: new LatLng(
               _opportunities[i].latitude, _opportunities[i].longitude),
-          // builder: (context) => new Container(
-          //       child: IconButton(
-          //         icon: Icon(Icons.location_on),
-          //         color: Colors.red,
-          //         iconSize: 45.0,
-          //         onPressed: () {
-          //           print(_opportunities[i].title);
-          //         },
-          //       ),
-          //     ),
           builder: (context) => new GestureDetector(
                 child: new Container(
                   child: Image.network(
