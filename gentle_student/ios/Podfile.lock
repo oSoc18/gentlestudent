@@ -94,6 +94,8 @@ PODS:
     - gRPC-RxLibrary (= 1.13.0)
   - GTMSessionFetcher/Core (1.1.15)
   - leveldb-library (1.20)
+  - local_notifications (0.0.1):
+    - Flutter
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
@@ -119,6 +121,7 @@ DEPENDENCIES:
   - Flutter (from `Pods/.symlinks/flutter/ios`)
   - flutter_custom_tabs (from `Pods/.symlinks/plugins/flutter_custom_tabs/ios`)
   - flutter_local_notifications (from `Pods/.symlinks/plugins/flutter_local_notifications/ios`)
+  - local_notifications (from `Pods/.symlinks/plugins/local_notifications/ios`)
   - path_provider (from `Pods/.symlinks/plugins/path_provider/ios`)
   - shared_preferences (from `Pods/.symlinks/plugins/shared_preferences/ios`)
   - streams_channel (from `Pods/.symlinks/plugins/streams_channel/ios`)
@@ -160,6 +163,8 @@ EXTERNAL SOURCES:
     :path: Pods/.symlinks/plugins/flutter_custom_tabs/ios
   flutter_local_notifications:
     :path: Pods/.symlinks/plugins/flutter_local_notifications/ios
+  local_notifications:
+    :path: Pods/.symlinks/plugins/local_notifications/ios
   path_provider:
     :path: Pods/.symlinks/plugins/path_provider/ios
   shared_preferences:
@@ -194,6 +199,7 @@ SPEC CHECKSUMS:
   gRPC-RxLibrary: fa6852f98d6ec0b73c0ec2f6406c26943099d501
   GTMSessionFetcher: 5fa5b80fd20e439ef5f545fb2cb3ca6c6714caa2
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
+  local_notifications: af1664b4f99603a346f2fa5ff6e9b2a322ed00b3
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   path_provider: 09407919825bfe3c2deae39453b7a5b44f467873
   Protobuf: 0fc0ad8bec688b2a3017a139953e01374fedbd5f

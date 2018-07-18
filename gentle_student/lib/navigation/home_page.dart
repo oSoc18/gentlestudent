@@ -3,8 +3,71 @@ import 'package:Gentle_Student/pages/information/information_page.dart';
 import 'package:Gentle_Student/pages/user/user_page.dart';
 import 'package:flutter/material.dart';
 
+import 'package:beacons/beacons.dart';
+import 'package:local_notifications/local_notifications.dart';
+
 class HomePage extends StatefulWidget {
   static String tag = 'home-page';
+
+  static const AndroidNotificationChannel channel = const AndroidNotificationChannel(
+      id: 'default_notification',
+      name: 'Default',
+      description: 'Grant this app the ability to show notifications',
+      importance: AndroidNotificationChannelImportance.HIGH
+  );
+  
+  HomePage(){
+    bool notified = false;
+
+    Beacons.ranging(
+      region: new BeaconRegionIBeacon(
+        identifier: 'hallo',
+        proximityUUID: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
+        /*major: 43488,
+        minor: 54570,*/
+      ),
+      inBackground: true, // continue the ranging operation in background or not, see below
+    ).listen((result) {
+      // result contains a list of beacons
+      // list can be empty if no matching beacons were found in range
+      if(result.isSuccessful){
+        if(result.beacons.isNotEmpty){
+          if(result.beacons.first.ids[2] == '54570') {
+            if(!notified) {
+              notified = true;
+              LocalNotifications.createAndroidNotificationChannel(
+                  channel: channel);
+              LocalNotifications.createNotification(
+                  title: "Beacon nearby",
+                  content: "In range of an opportunity!",
+                  id: 0,
+                  androidSettings: new AndroidSettings(
+                      channel: channel
+                  )
+              );
+            }
+          }
+        }
+        else{
+
+          if(notified) {
+            LocalNotifications.createAndroidNotificationChannel(
+                channel: channel);
+            LocalNotifications.createNotification(
+                title: "out of range",
+                content: "In range of an opportunity!",
+                id: 0,
+                androidSettings: new AndroidSettings(
+                    channel: channel
+                )
+            );
+          }
+
+          notified = false;
+        }
+      }
+    });
+  }
 
   @override
   _HomePageState createState() => _HomePageState();
