@@ -118,23 +118,23 @@ class _BackPackPageState extends State<BackPackPage> {
         new Expanded(
           child: new Center(
             child: new Text(
-              "Je hebt in totaal ${_badges.length.toString()} badges verdiend!",
-              style: new TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+              "Je hebt in totaal ${_badges.length.toString()} badges verdiend.",
+              style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.white),
             ),
           )
         ),
       ];
-      return [
-        new Expanded(
-          child: new Center(
-            child: new Text(
-              "Je hebt nog geen badges verdiend",
-              style: new TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-            )
-          )
-        ),
-      ];
     }
+    return [
+      new Expanded(
+        child: new Center(
+          child: new Text(
+            "Je hebt nog geen badges verdiend.",
+            style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),
+          )
+        )
+      ),
+    ];
   }
 
   Widget _getBannerWidget() {
