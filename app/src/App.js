@@ -27,7 +27,7 @@ import IssueBadgeRecipient from './Screens/Issuers/IssueBadgeRecipient';
 import Navigation from './Components/Navigation';
 import Footer from './Components/Footer';
 
-import WithAuthentication from './Components/WithAuthentication';
+import withAuthentication from './Components/withAuthentication';
 
 import * as routes from './routes/routes';
 
@@ -64,4 +64,4 @@ class App extends Component {
 }
 
 
-export default WithAuthentication(App);
+export default withAuthentication(App);
