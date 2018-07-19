@@ -10,6 +10,7 @@ import 'package:Gentle_Student/models/participation.dart';
 import 'package:Gentle_Student/models/status.dart';
 import 'package:Gentle_Student/models/user.dart';
 import 'package:Gentle_Student/pages/opportunity_details/opportunity_details_page.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -135,9 +136,12 @@ class _MyLearningOpportunitiesPageState
 
   Widget _buildApprovedOpportunityItem(BuildContext context, int index) {
     Opportunity opportunity = _opportunitiesApproved[index];
-    Badge badge = _badges.firstWhere((b) => b.openBadgeId == opportunity.badgeId);
-    Issuer issuer = _issuers.firstWhere((i) => i.issuerId == opportunity.issuerId);
-    Address address = _addresses.firstWhere((a) => a.addressId == opportunity.addressId);
+    Badge badge =
+        _badges.firstWhere((b) => b.openBadgeId == opportunity.badgeId);
+    Issuer issuer =
+        _issuers.firstWhere((i) => i.issuerId == opportunity.issuerId);
+    Address address =
+        _addresses.firstWhere((a) => a.addressId == opportunity.addressId);
 
     return new Container(
       margin: const EdgeInsets.only(top: 3.0),
@@ -153,8 +157,9 @@ class _MyLearningOpportunitiesPageState
               leading: new Hero(
                 tag: index,
                 child: new CircleAvatar(
-                  backgroundImage:
-                      new NetworkImage(badge.image),
+                  child: new Image(
+                    image: new CachedNetworkImageProvider(badge.image),
+                  ),
                   radius: 40.0,
                 ),
               ),
@@ -185,9 +190,12 @@ class _MyLearningOpportunitiesPageState
     Opportunity opportunity = _opportunitiesRequested[index];
     Participation participation = _participations
         .firstWhere((p) => p.opportunityId == opportunity.opportunityId);
-    Badge badge = _badges.firstWhere((b) => b.openBadgeId == opportunity.badgeId);
-    Issuer issuer = _issuers.firstWhere((i) => i.issuerId == opportunity.issuerId);
-    Address address = _addresses.firstWhere((a) => a.addressId == opportunity.addressId);
+    Badge badge =
+        _badges.firstWhere((b) => b.openBadgeId == opportunity.badgeId);
+    Issuer issuer =
+        _issuers.firstWhere((i) => i.issuerId == opportunity.issuerId);
+    Address address =
+        _addresses.firstWhere((a) => a.addressId == opportunity.addressId);
 
     return new Container(
       margin: const EdgeInsets.only(top: 3.0),
@@ -203,8 +211,9 @@ class _MyLearningOpportunitiesPageState
               leading: new Hero(
                 tag: index,
                 child: new CircleAvatar(
-                  backgroundImage:
-                      new NetworkImage(badge.image),
+                  child: new Image(
+                    image: new CachedNetworkImageProvider(badge.image),
+                  ),
                   radius: 40.0,
                 ),
               ),

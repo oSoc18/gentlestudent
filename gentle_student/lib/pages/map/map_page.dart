@@ -8,6 +8,7 @@ import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:Gentle_Student/models/user.dart';
 import 'package:Gentle_Student/pages/opportunity_details/opportunity_details_page.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
@@ -35,8 +36,10 @@ class _MapPageState extends State<MapPage> {
               _opportunities[i].latitude, _opportunities[i].longitude),
           builder: (context) => new GestureDetector(
                 child: new Container(
-                  child: Image.network(
-                    _opportunities[i].pinImageUrl,
+                  child: new CachedNetworkImage(
+                    imageUrl: _opportunities[i].pinImageUrl,
+                    placeholder: new CircularProgressIndicator(),
+                    errorWidget: new Icon(Icons.error),
                   ),
                 ),
                 onTap: () => _displayOpportunity(_opportunities[i]),
@@ -88,7 +91,9 @@ class _MapPageState extends State<MapPage> {
                   leading: new Hero(
                     tag: "badge image",
                     child: new CircleAvatar(
-                      backgroundImage: new NetworkImage(badge.image),
+                      child: new Image(
+                        image: new CachedNetworkImageProvider(badge.image),
+                      ),
                       radius: 28.0,
                     ),
                   ),

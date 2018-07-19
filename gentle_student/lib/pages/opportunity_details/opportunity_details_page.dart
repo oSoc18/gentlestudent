@@ -6,6 +6,7 @@ import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:Gentle_Student/models/user.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,8 @@ class OpportunityDetailsPage extends StatefulWidget {
   final Address a;
   OpportunityDetailsPage(this.o, this.b, this.i, this.a);
   @override
-  _OpportunityDetailsPageState createState() => _OpportunityDetailsPageState(o, b, i, a);
+  _OpportunityDetailsPageState createState() =>
+      _OpportunityDetailsPageState(o, b, i, a);
 }
 
 class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
@@ -30,7 +32,8 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
   FirebaseUser firebaseUser;
   final scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  _OpportunityDetailsPageState(this.opportunity, this.badge, this.issuer, this.address);
+  _OpportunityDetailsPageState(
+      this.opportunity, this.badge, this.issuer, this.address);
 
   //Shows a given message at the bottom of the screen
   void _showSnackBar(String text) {
@@ -137,10 +140,11 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
               children: <Widget>[
                 new Hero(
                   child: new CircleAvatar(
-                    backgroundImage:
-                        new NetworkImage(badge.image),
-                    radius: 32.0,
-                  ),
+                      child: new Image(
+                        image: new CachedNetworkImageProvider(badge.image),
+                      ),
+                      radius: 32.0,
+                    ),
                   tag: "badge image",
                 ),
                 new Expanded(
@@ -164,7 +168,11 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
           ),
 
           //Big image
-          new Image.network(opportunity.opportunityImageUrl),
+          new CachedNetworkImage(
+            imageUrl: opportunity.opportunityImageUrl,
+            placeholder: new CircularProgressIndicator(),
+            errorWidget: new Icon(Icons.error),
+          ),
 
           //Blue box
           new Padding(
@@ -337,7 +345,8 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                 height: 42.0,
                 onPressed: () => _displayAlertDialog(),
                 color: Colors.lightBlueAccent,
-                child: Text('Registreer', style: TextStyle(color: Colors.white)),
+                child:
+                    Text('Registreer', style: TextStyle(color: Colors.white)),
               ),
             ),
           ),

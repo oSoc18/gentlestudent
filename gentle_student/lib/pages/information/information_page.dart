@@ -1,11 +1,23 @@
+import 'dart:async';
+
 import 'package:Gentle_Student/pages/information/about_us/about_us_page.dart';
 import 'package:Gentle_Student/pages/information/experiences/experiences_page.dart';
 import 'package:Gentle_Student/pages/information/privacy_policy/privacy_policy_page.dart';
 import 'package:Gentle_Student/pages/information/tutorial/tutorial_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 
 class InformationPage extends StatelessWidget {
   static String tag = 'information-page';
+
+  Future<Null> _launchInBrowser(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,6 +28,14 @@ class InformationPage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: ListView(
         children: <Widget>[
+          Container(
+              child: ListTile(
+                trailing: Icon(Icons.arrow_forward_ios),
+                title: Text('Website'),
+                onTap: () => _launchInBrowser("http://gentlestudent.gent"),
+              ),
+              decoration: new BoxDecoration(
+                  border: new Border(bottom: new BorderSide()))),
           Container(
               child: ListTile(
                 trailing: Icon(Icons.arrow_forward_ios),
