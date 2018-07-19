@@ -1,15 +1,13 @@
 import 'package:meta/meta.dart';
 
-class iBeacon{
+class IBeacon{
   String beaconId;
   String opportunityId;
   double latitude;
   double longitude;
 
-  iBeacon({
+  IBeacon({
     @required this.beaconId,
     @required this.opportunityId,
-    /*@required this.longitude,
-    @required this.latitude,*/
   });
 }
