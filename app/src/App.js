@@ -24,32 +24,20 @@ import CreateLeerkansen from './Screens/Backoffice/CreateLeerkans';
 import BOLeerkansen from './Screens/Backoffice/Leerkansen';
 import IssueBadgeRecipient from './Screens/Issuers/IssueBadgeRecipient';
 
-import Nav from './Components/Nav';
+import Navigation from './Components/Navigation';
 import Footer from './Components/Footer';
+
+import WithAuthentication from './Components/WithAuthentication';
 
 import * as routes from './routes/routes';
 
 class App extends Component {
-	constructor(props) {
-		super(props);
-	
-		this.state = {
-		  authUser: null,
-		};
-	  }
-	componentDidMount() {
-		firebase.auth.onAuthStateChanged(authUser => {
-			authUser
-			? this.setState(() => ({ authUser }))
-			: this.setState(() => ({ authUser: null }));
-		});
-	}
 	render() {
 		return (
 			<Provider store={store}>
 				<Router>
 					<div>
-						<Nav authUser={this.state.authUser}/>
+						<Navigation/>
 						<Switch>
 							<Route path={routes.FrontPage} exact render={() => <FrontPage />} />
 							<Route path={routes.Leerkansen} render={() => <Leerkansen />} />
@@ -75,4 +63,5 @@ class App extends Component {
 	}
 }
 
-export default App;
+
+export default WithAuthentication(App);
