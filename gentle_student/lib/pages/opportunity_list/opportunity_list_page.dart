@@ -20,7 +20,7 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
   List<Badge> _badges = [];
   List<Issuer> _issuers = [];
   List<Address> _addresses = [];
-  OpportunityApi _opportunityuApi;
+  OpportunityApi _opportunityApi;
   BadgeApi _badgeApi;
   IssuerApi _issuerApi;
   AddressApi _addressApi;
@@ -41,7 +41,7 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     final issuers = await issuerApi.getAllIssuers();
     final addresses = await addresApi.getAllAddresses();
     setState(() {
-      _opportunityuApi = opportunityApi;
+      _opportunityApi = opportunityApi;
       _badgeApi = badgeApi;
       _issuerApi = issuerApi;
       _addressApi = addresApi;
@@ -53,8 +53,8 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
   }
 
   _reloadOpportunities() async {
-    if (_opportunityuApi != null && _badgeApi != null && _issuerApi != null) {
-      final opportunities = await _opportunityuApi.getAllOpportunities();
+    if (_opportunityApi != null && _badgeApi != null && _issuerApi != null) {
+      final opportunities = await _opportunityApi.getAllOpportunities();
       final badges = await _badgeApi.getAllBadges();
       final issuers = await _issuerApi.getAllIssuers();
       final addresses = await _addressApi.getAllAddresses();

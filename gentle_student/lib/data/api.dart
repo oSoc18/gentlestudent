@@ -183,12 +183,10 @@ class AddressApi {
   }
 
   Future<Address> getAddressById(String addressId) async {
-    return _fromDocumentSnapshot((await Firestore.instance
-            .collection("Addresses")
-            .where("addressId", isEqualTo: addressId)
-            .getDocuments())
-        .documents
-        .first);
+    return _fromDocumentSnapshot(await Firestore.instance
+        .collection("Addresses")
+        .document(addressId)
+        .get());
   }
 
   Address _fromDocumentSnapshot(DocumentSnapshot snapshot) {
@@ -214,14 +212,11 @@ class IssuerApi {
   }
 
   Future<Issuer> getIssuerById(String issuerId) async {
-    return _fromDocumentSnapshot((await Firestore.instance
-            .collection("Issuers")
-            .where("issuerId", isEqualTo: issuerId)
-            .getDocuments())
-        .documents
-        .first);
+    return _fromDocumentSnapshot(await Firestore.instance
+        .collection("Issuers")
+        .document(issuerId)
+        .get());
   }
-
   Issuer _fromDocumentSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data;
 
@@ -246,12 +241,10 @@ class BadgeApi {
   }
 
   Future<Badge> getBadgeById(String badgeId) async {
-    return _fromDocumentSnapshot((await Firestore.instance
+    return _fromDocumentSnapshot(await Firestore.instance
             .collection("Badges")
-            .where("badgeId", isEqualTo: badgeId)
-            .getDocuments())
-        .documents
-        .first);
+            .document(badgeId)
+            .get());
   }
 
   Badge _fromDocumentSnapshot(DocumentSnapshot snapshot) {
@@ -267,28 +260,28 @@ class BadgeApi {
 
 //BEACONS
 class BeaconApi {
-  Future<List<Beacon>> getAllBeacons() async {
+  Future<List<iBeacon>> getAllBeacons() async {
     return (await Firestore.instance.collection('Beacons').getDocuments())
         .documents
         .map((snapshot) => _fromDocumentSnapshot(snapshot))
         .toList();
   }
 
-  Future<Beacon> getBeaconById(String beaconId) async {
+  Future<iBeacon> getBeaconById(String beaconId) async {
     return _fromDocumentSnapshot(await Firestore.instance
         .collection("Beacons")
         .document(beaconId)
         .get());
   }
 
-  Beacon _fromDocumentSnapshot(DocumentSnapshot snapshot) {
+  iBeacon _fromDocumentSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data;
 
-    return new Beacon(
+    return new iBeacon(
         beaconId: snapshot.documentID,
         opportunityId: data['opportunityId'],
-        latitude: data['latitude'],
-        longitude: data['longitude']);
+        /*latitude: data['latitude'],
+        longitude: data['longitude']*/);
   }
 }
 
