@@ -96,16 +96,12 @@ class Steps extends Component {
 							/>
 						</div>
 						<div className={`cta ${this.state.ctaFixed}`} {...cta}>
-
 							<AuthUserContext.Consumer>
 								{authUser => authUser
-									? <RegisterAuth />
-									: <RegisterNonAuth />
+									? <RegisterAuth ctaFixed={this.state.ctaFixed}/>
+									: <RegisterNonAuth ctaFixed={this.state.ctaFixed}/>
 								}
 							</AuthUserContext.Consumer>
-
-
-
 						</div>
 					</div>
 				</div>
@@ -114,31 +110,12 @@ class Steps extends Component {
 	}
 }
 
-class RegisterAuth extends Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			ctaFixed: 'fixed'
-		};
-	}
-
-	<div className={`cta ${this.state.ctaFixed}`} {...cta}>
-
-
-	<a href={routes.RegistreerIssuer} className="primary" activeClassName="active">Word issuer</a>
-
-</div>
-
+const RegisterAuth = () =>
+	<a href={routes.RegistreerIssuer} className="primary">Word Issuer</a>
 
 
 const RegisterNonAuth = () =>
-
-	<div className={`cta ${this.state.ctaFixed}`} {...cta}>
-
-		<a href={routes.Register} classname="primary" activeClassName="active">Word issuer</a>
-
-	</div>
+	<a href={routes.Register} className="primary">Word Issuer</a>
 
 
 export default Steps;
