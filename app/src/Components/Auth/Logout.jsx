@@ -8,7 +8,7 @@ const SignOutButton = () =>
   <a className="primary" href={routes.Login}
     onClick={auth.doSignOut}
   >
-    Sign Out
+    Log uit
   </a>
 
 export default SignOutButton;

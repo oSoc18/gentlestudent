@@ -113,9 +113,7 @@ class Steps extends Component {
 const RegisterAuth = () =>
 	<a href={routes.RegistreerIssuer} className="primary">Word Issuer</a>
 
-
 const RegisterNonAuth = () =>
 	<a href={routes.Register} className="primary">Word Issuer</a>
-
 
 export default Steps;
