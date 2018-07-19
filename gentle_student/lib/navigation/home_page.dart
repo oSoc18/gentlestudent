@@ -8,11 +8,8 @@ import 'package:Gentle_Student/pages/opportunity_details/opportunity_details_pag
 import 'package:Gentle_Student/pages/user/user_page.dart';
 import 'package:flutter/material.dart';
 import 'package:Gentle_Student/data/api.dart';
-import 'package:Gentle_Student/models/beacon.dart';
 import 'package:beacons/beacons.dart';
 import 'package:local_notifications/local_notifications.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:async';
 
 class HomePage extends StatefulWidget {
   static String tag = 'home-page';
@@ -30,9 +27,6 @@ class _HomePageState extends State<HomePage> {
                       // Index 0 represents the page for the 0th tab, index 1 represents the page for the 1st tab etc...
   Widget currentPage; // Page that is open at the moment.
 
-  BeaconApi _beaconApi;
-  OpportunityApi _opportunityApi;
-  iBeacon _beacon;
   Opportunity _opportunity;
   Badge _badge;
   Issuer _issuer;
@@ -107,9 +101,6 @@ class _HomePageState extends State<HomePage> {
     final issuer = await issuerApi.getIssuerById(opportunity.issuerId);
     final address = await addressApi.getAddressById(opportunity.addressId);
     setState(() {
-      _opportunityApi = opportunityApi;
-      _beaconApi = beaconApi;
-      _beacon = beacon;
       _opportunity = opportunity;
       _badge = badge;
       _issuer = issuer;

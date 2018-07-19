@@ -257,24 +257,24 @@ class BadgeApi {
 
 //BEACONS
 class BeaconApi {
-  Future<List<iBeacon>> getAllBeacons() async {
+  Future<List<IBeacon>> getAllBeacons() async {
     return (await Firestore.instance.collection('Beacons').getDocuments())
         .documents
         .map((snapshot) => _fromDocumentSnapshot(snapshot))
         .toList();
   }
 
-  Future<iBeacon> getBeaconById(String beaconId) async {
+  Future<IBeacon> getBeaconById(String beaconId) async {
     return _fromDocumentSnapshot(await Firestore.instance
         .collection("Beacons")
         .document(beaconId)
         .get());
   }
 
-  iBeacon _fromDocumentSnapshot(DocumentSnapshot snapshot) {
+  IBeacon _fromDocumentSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data;
 
-    return new iBeacon(
+    return new IBeacon(
         beaconId: snapshot.documentID,
         opportunityId: data['opportunityId'],
         /*latitude: data['latitude'],
