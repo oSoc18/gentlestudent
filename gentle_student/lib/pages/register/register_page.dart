@@ -243,7 +243,7 @@ class _RegisterPageState extends State<RegisterPage> {
           height: 42.0,
           onPressed: () => _register(),
           color: Colors.lightBlueAccent,
-          child: Text('Registreer', style: TextStyle(color: Colors.white)),
+          child: Text('Maak uw account aan', style: TextStyle(color: Colors.white)),
         ),
       ),
     );
@@ -261,7 +261,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       key: scaffoldKey,
       appBar: new AppBar(
-        title: new Text("Registreren", style: TextStyle(color: Colors.white)),
+        title: new Text("Account aanmaken", style: TextStyle(color: Colors.white)),
         iconTheme: new IconThemeData(color: Colors.white),
       ),
       backgroundColor: Colors.white,
