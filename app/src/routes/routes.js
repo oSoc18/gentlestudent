@@ -9,3 +9,4 @@ export const Login = '/login';
 export const BOLeerkansen = '/backoffice/leerkansen';
 export const CreateLeerkansen = '/backoffice/create-leerkansen';
 export const IssueBadgeRecipient = '/backoffice/issue-badge-recipient';
+export const RegistreerIssuer = '/word-issuer/registratie';
