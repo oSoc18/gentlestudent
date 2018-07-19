@@ -143,7 +143,7 @@ class _HomePageState extends State<HomePage> {
         if(result.beacons.isNotEmpty){
           String beaconKey = result.beacons.first.ids[1] + result.beacons.first.ids[2];
           print(beaconKey);
-          if(beaconKey == '4348854570' || beaconKey == '6495545722' || beaconKey == '6542615842') {
+          if(beaconKey == '6495545722' || beaconKey == '4348854570' || beaconKey == '6542615842') {
             if(!notified) {
               notified = true;
 
@@ -153,9 +153,10 @@ class _HomePageState extends State<HomePage> {
               await LocalNotifications.createAndroidNotificationChannel(
                   channel: channel);
               int id = await LocalNotifications.createNotification(
-                  title: "Beacon nearby",
-                  content: beaconKey,
+                  title: "Beacon gevonden",
+                  content: "Er is een leerkans in de buurt!",
                   id: _notId,
+                  imageUrl: _badge.image,
                   androidSettings: new AndroidSettings(
                       channel: channel,
                   ),
