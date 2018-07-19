@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Nav from './../Components/Nav';
-import Footer from './../Components/Footer';
-
 import FormRegisterUser from './../Components/Auth/FormRegisterUser';
 
 class Register extends Component {
@@ -25,16 +22,14 @@ class Register extends Component {
   render() {
 		return (
 			<React.Fragment>
-				<Nav/>
-					<div className="container">
-						<div className="content">
-              <h1>Register</h1>
-              <div className="form" id="register_user">
-                <FormRegisterUser onSubmit={this.handleSubmit}/>
-              </div>
+        <div className="container">
+          <div className="content">
+            <h1>Register</h1>
+            <div className="form" id="register_user">
+              <FormRegisterUser onSubmit={this.handleSubmit}/>
             </div>
-					</div>
-				<Footer/>
+          </div>
+        </div>
 			</React.Fragment>
 		)
 	}

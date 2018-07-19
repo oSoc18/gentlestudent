@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import Nav from './../../Components/Nav';
-import Footer from './../../Components/Footer';
 import FormCreateLeerkans from './../../Components/Leerkansen/FormCreateLeerkans';
 
 class CreateLeerkans extends Component {
@@ -42,17 +40,15 @@ class CreateLeerkans extends Component {
   render() {
     return (
       <div>
-        <Nav/>
-          <div className="container">
-            <div className="content">
-              <Link to="/backoffice/leerkansen">Back</Link>
-              <h1>Create Leerkans</h1>
-              <div className="form" id="create_leerkans">
-                <FormCreateLeerkans onSubmit={this.submit}/>
-              </div>
+        <div className="container">
+          <div className="content">
+            <Link to="/backoffice/leerkansen">Back</Link>
+            <h1>Create Leerkans</h1>
+            <div className="form" id="create_leerkans">
+              <FormCreateLeerkans onSubmit={this.submit}/>
             </div>
           </div>
-        <Footer/>
+        </div>
     </div>
     );
   }

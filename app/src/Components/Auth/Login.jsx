@@ -4,18 +4,13 @@ import { withRouter } from 'react-router-dom';
 import { SignUpLink } from './Register';
 import { auth } from '../firebase';
 
-import Nav from '../Nav';
-import Footer from '../Footer';
-
 import * as routes from '../../routes/routes';
 
 const SignInPage = ({ history }) =>
   <div>
-    <Nav/>
     <h1>SignIn</h1>
     <SignInForm history={history} />
     <SignUpLink />
-    <Footer/>
   </div>
 
 const byPropKey = (propertyName, value) => () => ({

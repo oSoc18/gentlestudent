@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import Nav from './../../Components/Nav';
-import Footer from './../../Components/Footer';
-
 class BOLeerkansen extends Component {
   constructor(props) {
     super(props)
@@ -20,7 +17,6 @@ class BOLeerkansen extends Component {
   render() {
     return (
       <React.Fragment>
-        <Nav />
         <div className="container">
           <div className="content">
             <h1>Manage Leerkansen</h1>
@@ -39,7 +35,6 @@ class BOLeerkansen extends Component {
             }
           </div>
         </div>
-        <Footer />
       </React.Fragment>
     )
   }

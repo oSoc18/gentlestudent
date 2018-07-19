@@ -9,6 +9,8 @@ import {
 
 import store from './store';
 
+import { firebase } from './Components/firebase';
+
 import FrontPage from './Screens/FrontPage';
 import Leerkansen from './Screens/Leerkansen';
 import WordIssuer from './Screens/WordIssuer';
@@ -22,30 +24,51 @@ import CreateLeerkansen from './Screens/Backoffice/CreateLeerkans';
 import BOLeerkansen from './Screens/Backoffice/Leerkansen';
 import IssueBadgeRecipient from './Screens/Issuers/IssueBadgeRecipient';
 
+import Nav from './Components/Nav';
+import Footer from './Components/Footer';
+
 import * as routes from './routes/routes';
 
 class App extends Component {
+	constructor(props) {
+		super(props);
+	
+		this.state = {
+		  authUser: null,
+		};
+	  }
+	componentDidMount() {
+		firebase.auth.onAuthStateChanged(authUser => {
+			authUser
+			? this.setState(() => ({ authUser }))
+			: this.setState(() => ({ authUser: null }));
+		});
+	}
 	render() {
 		return (
 			<Provider store={store}>
 				<Router>
-					<Switch>
-						<Route path={routes.FrontPage} exact render={() => <FrontPage />} />
-						<Route path={routes.Leerkansen} render={() => <Leerkansen />} />
-						<Route path={routes.WordIssuer} exact render={() => <WordIssuer />} />
-						<Route path={routes.Ervaringen} exact render={() => <Ervaringen />} />
-						<Route path={routes.Nieuws} exact render={() => <Nieuws />} />
-						<Route path={routes.OverOns} exact render={() => <OverOns />} />
-						<Route path={routes.Register} render={() => <Register />} />
-						<Route path={routes.Login} render={() => <Login />} />
-						{/* <Route path="/login" render={() => <Login />} /> */}
-						{/* BACKOFFICE */}
-						{/* <Auth> */}
-							<Route path={routes.BOLeerkansen} exact render={() => <BOLeerkansen />} />
-							<Route path={routes.CreateLeerkansen} exact render={() => <CreateLeerkansen />} />
-							<Route path={routes.IssueBadgeRecipient} exact render={() => <IssueBadgeRecipient />} />
-						{/* </Auth> */}
-					</Switch>
+					<div>
+						<Nav authUser={this.state.authUser}/>
+						<Switch>
+							<Route path={routes.FrontPage} exact render={() => <FrontPage />} />
+							<Route path={routes.Leerkansen} render={() => <Leerkansen />} />
+							<Route path={routes.WordIssuer} exact render={() => <WordIssuer />} />
+							<Route path={routes.Ervaringen} exact render={() => <Ervaringen />} />
+							<Route path={routes.Nieuws} exact render={() => <Nieuws />} />
+							<Route path={routes.OverOns} exact render={() => <OverOns />} />
+							<Route path={routes.Register} render={() => <Register />} />
+							<Route path={routes.Login} render={() => <Login />} />
+							{/* <Route path="/login" render={() => <Login />} /> */}
+							{/* BACKOFFICE */}
+							{/* <Auth> */}
+								<Route path={routes.BOLeerkansen} exact render={() => <BOLeerkansen />} />
+								<Route path={routes.CreateLeerkansen} exact render={() => <CreateLeerkansen />} />
+								<Route path={routes.IssueBadgeRecipient} exact render={() => <IssueBadgeRecipient />} />
+							{/* </Auth> */}
+						</Switch>
+						<Footer/>
+					</div>
 				</Router>
 			</Provider>
 		);

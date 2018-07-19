@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
-import Nav from './../Components/Nav';
 import Maps from './../Components/Leerkansen/Maps';
 import SearchFilter from './../Components/Leerkansen/SearchFilters';
 
@@ -16,7 +15,6 @@ class Leerkansen extends Component {
 	render() {
 		return (
 			<div>
-				<Nav/>
 				<div className="content">
 					<SearchFilter />
 					<div id="leerkansen">

@@ -6,17 +6,12 @@ import {
 
 import { auth } from '../firebase';
 
-import Nav from '../Nav';
-import Footer from '../Footer';
-
 import * as routes from '../../routes/routes';
 
 const SignUpPage = ({ history }) =>
   <div>
-    <Nav/>
     <h1>SignUp</h1>
     <SignUpForm history={history} />
-    <Footer/>
   </div>
 
 const INITIAL_STATE = {

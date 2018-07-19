@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Nav from './../../Components/Nav';
-import Footer from './../../Components/Footer';
 import FormIssueBadge from './../../Components/Badge/FormIssueBadge';
 
 class IssueBadgeRecipient extends Component {
@@ -29,14 +27,12 @@ class IssueBadgeRecipient extends Component {
 	render() {
 		return (
 			<div>
-				<Nav/>
-					<div className="container">
-						<div className="content">
-							<h1>Reward Badge Recipient</h1>
-							<FormIssueBadge onSubmit={this.submit}/>
-						</div>
+				<div className="container">
+					<div className="content">
+						<h1>Reward Badge Recipient</h1>
+						<FormIssueBadge onSubmit={this.submit}/>
 					</div>
-				<Footer/>
+				</div>
 			</div>
 		)
 	}
