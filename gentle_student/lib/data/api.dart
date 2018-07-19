@@ -56,6 +56,9 @@ class OpportunityApi {
       title: data['title'],
       addressId: data['addressId'],
       badgeId: data['badgeId'],
+      latitude: data['latitude'],
+      longitude: data['longitude'],
+      pinImageUrl: data['pinImageUrl'],
     );
   }
 
