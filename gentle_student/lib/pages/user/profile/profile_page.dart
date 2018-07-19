@@ -1,3 +1,7 @@
+import 'package:Gentle_Student/data/api.dart';
+import 'package:Gentle_Student/models/user.dart';
+import 'package:date_format/date_format.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -7,6 +11,27 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  FirebaseUser firebaseUser;
+  Participant _participant = new Participant(name: "", institute: "", participantId: "0", email: "", birthdate: DateTime.now(), education: "");
+
+  @override
+  void initState() {
+    FirebaseAuth.instance.onAuthStateChanged.listen((user) {
+      firebaseUser = user;
+      _loadFromFirebase();
+    });
+    super.initState();
+  }
+
+  _loadFromFirebase() async {
+    final participantApi = new ParticipantApi();
+    final participant =
+        await participantApi.getParticipantById(firebaseUser.uid);
+    setState(() {
+      _participant = participant;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Color color = Theme.of(context).primaryColor;
@@ -24,7 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
 
     final name = Text(
-      'Stijn Mets',
+      _participant.name,
       textAlign: TextAlign.center,
       style: new TextStyle(
         fontWeight: FontWeight.bold,
@@ -74,7 +99,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
 
     final mail = Text(
-      'gentlestudent@student.arteveldehs.be',
+      _participant.email,
       textAlign: TextAlign.center,
       style: new TextStyle(
         color: Colors.black38,
@@ -83,7 +108,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
 
     final education = Text(
-      'Grafische en Digitale media',
+      _participant.education,
       textAlign: TextAlign.center,
       style: new TextStyle(
         color: Colors.black38,
@@ -92,7 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
 
     final institute = Text(
-      'Artevelde Hogeschool',
+      _participant.institute,
       textAlign: TextAlign.center,
       style: new TextStyle(
         color: Colors.black38,
@@ -101,7 +126,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
 
     final birthdate = Text(
-      '23/01/1998',
+      _makeDate(_participant.birthdate),
       textAlign: TextAlign.center,
       style: new TextStyle(
         color: Colors.black38,
@@ -175,5 +200,9 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
       ),
     );
+  }
+
+  static String _makeDate(DateTime date) {
+    return formatDate(date, [dd, '/', mm, '/', yyyy]);
   }
 }

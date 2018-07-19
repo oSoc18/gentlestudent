@@ -12,32 +12,34 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
+  Center _buildButtons(IconData icon, String label, String tag) {
+    Color color = Theme.of(context).primaryColor;
 
-  Column buildButtonColumn(IconData icon, String label, String tag) {
-      Color color = Theme.of(context).primaryColor;
-
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+    return Center(
+      child: ListView(
+        shrinkWrap: true,
+        children: <Widget>[
           IconButton(
-            icon: Icon(icon, color: color, size: 48.0),
+            icon: Icon(icon, color: color, size: 64.0),
             onPressed: () {
               Navigator.of(context).pushNamed(tag);
             },
           ),
-          Container(
-            margin: const EdgeInsets.only(top: 8.0),
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.w400,
+          Center(
+            child: Padding(
+              padding: EdgeInsets.only(top: 30.0),
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ),
           ),
         ],
-      );
+      ),
+    );
   }
 
   @override
@@ -49,15 +51,16 @@ class _UserPageState extends State<UserPage> {
       ),
       backgroundColor: Colors.white,
       body: GridView.count(
-          crossAxisCount: 3,
-          children: [
-            buildButtonColumn(Icons.account_circle, "Profiel", ProfilePage.tag),
-            buildButtonColumn(Icons.work, "Backpack", BackPackPage.tag),
-            buildButtonColumn(Icons.school, "Leerkansen", MyLearningOpportunitiesPage.tag),
-            buildButtonColumn(Icons.favorite, "Favorieten", FavoritesPage.tag),
-            buildButtonColumn(Icons.settings, "Instellingen", SettingsPage.tag),
-          ],
-        ),
+        crossAxisCount: 3,
+        children: [
+          _buildButtons(Icons.account_circle, "Profiel", ProfilePage.tag),
+          _buildButtons(Icons.work, "Backpack", BackPackPage.tag),
+          _buildButtons(
+              Icons.school, "Leerkansen", MyLearningOpportunitiesPage.tag),
+          _buildButtons(Icons.favorite, "Favorieten", FavoritesPage.tag),
+          _buildButtons(Icons.settings, "Instellingen", SettingsPage.tag),
+        ],
+      ),
     );
   }
 }

@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'package:Gentle_Student/pages/information/experiences/experiences_detail/experiences_detail_page.dart';
 import 'package:flutter/material.dart';
-import 'package:Gentle_Student/models/user.dart';
 import 'package:Gentle_Student/models/experience.dart';
 import 'package:Gentle_Student/data/api.dart';
-
 
 class ExperiencesPage extends StatefulWidget{
   static String tag = 'experiences-page';
@@ -98,18 +96,18 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
                         child: new CircleAvatar(
                           backgroundColor: Colors.brown.shade100,
                           child: new Text(
-                            _getUser(experience.participantId).name.substring(0, 1)
+                            "_getUser(experience.participantId).name.substring(0, 1)"
                           ),
                         ),),
                         title: new Text(
-                          _getUser(experience.participantId).name,
+                          "_getUser(experience.participantId).name",
                           style: new TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.black54,
                             fontSize: 21.0),
                           ),
                         subtitle: new Text(
-                          _getUser(experience.participantId).name),
+                          "_getUser(experience.participantId).name"),
                         isThreeLine: false,
                         dense: false,
                       
@@ -122,10 +120,6 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
       
       ),
       );
-    }
-
-    User _getUser(String userId){
-      return new User(name: "Michael", email: "Paswoord", userId: "500");
     }
 
     Future<Null> refresh(){
