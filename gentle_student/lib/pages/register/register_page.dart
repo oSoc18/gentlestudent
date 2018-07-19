@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth, FirebaseUser;
+import 'package:firebase_auth/firebase_auth.dart'
+    show FirebaseAuth, FirebaseUser;
 
 class RegisterPage extends StatefulWidget {
   //This tag is used for navigation
@@ -21,6 +25,7 @@ class _RegisterPageState extends State<RegisterPage> {
   var emailController;
   var passwordController;
   var repeatPasswordController;
+  DateTime _birthdate = new DateTime.now();
 
   //Constructor
   _RegisterPageState() {
@@ -35,13 +40,19 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   //Functions
+  //Date formatter
+  static String _formatDate(DateTime date) {
+    return formatDate(date, [yyyy, '-', mm, '-', dd]);
+  }
+
   //Register with Firebase
   void _register() async {
     if (_allFieldsFilledIn()) {
       if (passwordController.text.toString().length >= 6) {
         if (passwordController.text == repeatPasswordController.text) {
           try {
-            firebaseUser = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            firebaseUser =
+                await FirebaseAuth.instance.createUserWithEmailAndPassword(
               email: emailController.text,
               password: passwordController.text,
             );
@@ -66,13 +77,13 @@ class _RegisterPageState extends State<RegisterPage> {
   void _addUserToDatabase() {
     Map<String, String> data = <String, String>{
       "name": firstnameController.text + " " + lastnameController.text,
-      "birthdate": birthdateController.text,
+      "birthdate":  _formatDate(_birthdate),
       "institute": instituteController.text,
       "education": educationController.text,
       "email": emailController.text,
     };
     final DocumentReference documentReference =
-      Firestore.instance.document("Participants/" + firebaseUser.uid);
+        Firestore.instance.document("Participants/" + firebaseUser.uid);
     documentReference.setData(data).whenComplete(() {
       print("User added");
     }).catchError((e) => print(e));
@@ -84,8 +95,7 @@ class _RegisterPageState extends State<RegisterPage> {
         firstnameController.text != "" &&
         lastnameController.text != null &&
         lastnameController.text != "" &&
-        birthdateController.text != null &&
-        birthdateController.text != "" &&
+        _birthdate != DateTime.now() &&
         instituteController.text != null &&
         instituteController.text != "" &&
         educationController.text != null &&
@@ -148,15 +158,14 @@ class _RegisterPageState extends State<RegisterPage> {
     );
 
     //Geboortedatum widget
-    final geboortedatum = TextField(
-      controller: birthdateController,
-      keyboardType: TextInputType.datetime,
-      autofocus: false,
-      decoration: InputDecoration(
-          labelText: 'Geboortedatum',
-          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+    final geboortedatum = new _DateTimePicker(
+      labelText: 'Geboortedatum',
+      selectedDate: _birthdate,
+      selectDate: (DateTime date) {
+        setState(() {
+          _birthdate = date;
+        });
+      },
     );
 
     //Onderwijsinstelling widget
@@ -268,7 +277,7 @@ class _RegisterPageState extends State<RegisterPage> {
             achternaam,
             SizedBox(height: 8.0),
             geboortedatum,
-            SizedBox(height: 8.0),
+            SizedBox(height: 10.0),
             onderwijsinstelling,
             SizedBox(height: 8.0),
             opleiding,
@@ -285,5 +294,95 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+  }
+}
+
+class _InputDropdown extends StatelessWidget {
+  const _InputDropdown(
+      {Key key,
+      this.child,
+      this.labelText,
+      this.valueText,
+      this.valueStyle,
+      this.onPressed})
+      : super(key: key);
+
+  final String labelText;
+  final String valueText;
+  final TextStyle valueStyle;
+  final VoidCallback onPressed;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return new InkWell(
+      onTap: onPressed,
+      child: new InputDecorator(
+        decoration: InputDecoration(
+          labelText: labelText,
+          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+          border:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            new Text(valueText, style: valueStyle),
+            new Icon(Icons.arrow_drop_down,
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.grey.shade700
+                    : Colors.white70),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _DateTimePicker extends StatelessWidget {
+  const _DateTimePicker({
+    Key key,
+    this.labelText,
+    this.selectedDate,
+    this.selectDate,
+  }) : super(key: key);
+
+  final String labelText;
+  final DateTime selectedDate;
+  final ValueChanged<DateTime> selectDate;
+
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(1900),
+        lastDate: DateTime.now());
+    if (picked != null && picked != selectedDate) selectDate(picked);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Padding(
+      padding: EdgeInsets.all(0.0),
+      child: Row(
+        children: <Widget>[
+          new Expanded(
+            child: new _InputDropdown(
+              labelText: labelText,
+              valueText: _formatDate(selectedDate),
+              valueStyle: TextStyle(fontSize: 16.0),
+              onPressed: () {
+                _selectDate(context);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  //Date formatter
+  static String _formatDate(DateTime date) {
+    return formatDate(date, [dd, '/', mm, '/', yyyy]);
   }
 }
