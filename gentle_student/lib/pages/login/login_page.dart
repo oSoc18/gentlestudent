@@ -108,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final registerLabel = FlatButton(
-      child: Text('Geen account? Registreer hier!',
+      child: Text('Geen account? Klik hier!',
           style: TextStyle(color: Colors.black54)),
       onPressed: () {
         Navigator.of(context).pushNamed(RegisterPage.tag);

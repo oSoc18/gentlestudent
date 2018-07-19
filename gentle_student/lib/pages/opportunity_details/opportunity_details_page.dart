@@ -51,7 +51,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
             child: new ListBody(
               children: <Widget>[
                 new Text(
-                    'Bent u zeker dat u zich voor deze leerkans wilt inschrijven?'),
+                    'Bent u zeker dat u zich voor deze leerkans wilt registreren?'),
               ],
             ),
           ),
@@ -119,7 +119,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Doe mee!", style: TextStyle(color: Colors.white)),
+        title: Text("Registreren", style: TextStyle(color: Colors.white)),
         iconTheme: new IconThemeData(color: Colors.white),
       ),
       key: scaffoldKey,
@@ -337,7 +337,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                 height: 42.0,
                 onPressed: () => _displayAlertDialog(),
                 color: Colors.lightBlueAccent,
-                child: Text('Doe mee!', style: TextStyle(color: Colors.white)),
+                child: Text('Registreer', style: TextStyle(color: Colors.white)),
               ),
             ),
           ),

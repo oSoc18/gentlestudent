@@ -295,7 +295,7 @@ class _MyLearningOpportunitiesPageState
                   labelColor: Colors.white,
                   tabs: <Tab>[
                     new Tab(text: 'Goedgekeurde'),
-                    new Tab(text: 'Aangevraagde'),
+                    new Tab(text: 'Geregistreerde'),
                   ],
                 ),
               ),
