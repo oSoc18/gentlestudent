@@ -9,7 +9,7 @@ import {
 
 import store from './store';
 
-import { firebase } from './Components/firebase';
+import { firebase } from './Components/Firebase';
 
 import FrontPage from './Screens/FrontPage';
 import Leerkansen from './Screens/Leerkansen';
