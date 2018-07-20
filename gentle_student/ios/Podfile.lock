@@ -68,6 +68,9 @@ PODS:
     - Flutter
   - flutter_local_notifications (0.0.1):
     - Flutter
+  - FMDB (2.7.2):
+    - FMDB/standard (= 2.7.2)
+  - FMDB/standard (2.7.2)
   - GoogleToolboxForMac/Defines (2.1.4)
   - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
     - GoogleToolboxForMac/Defines (= 2.1.4)
@@ -106,6 +109,9 @@ PODS:
   - Protobuf (3.6.0)
   - shared_preferences (0.0.1):
     - Flutter
+  - sqflite (0.0.1):
+    - Flutter
+    - FMDB (~> 2.7.2)
   - streams_channel (0.2.1):
     - Flutter
   - url_launcher (0.0.1):
@@ -124,6 +130,7 @@ DEPENDENCIES:
   - local_notifications (from `Pods/.symlinks/plugins/local_notifications/ios`)
   - path_provider (from `Pods/.symlinks/plugins/path_provider/ios`)
   - shared_preferences (from `Pods/.symlinks/plugins/shared_preferences/ios`)
+  - sqflite (from `Pods/.symlinks/plugins/sqflite/ios`)
   - streams_channel (from `Pods/.symlinks/plugins/streams_channel/ios`)
   - url_launcher (from `Pods/.symlinks/plugins/url_launcher/ios`)
   - video_player (from `Pods/.symlinks/plugins/video_player/ios`)
@@ -138,6 +145,7 @@ SPEC REPOS:
     - FirebaseDatabase
     - FirebaseFirestore
     - FirebaseInstanceID
+    - FMDB
     - GoogleToolboxForMac
     - gRPC
     - gRPC-Core
@@ -169,6 +177,8 @@ EXTERNAL SOURCES:
     :path: Pods/.symlinks/plugins/path_provider/ios
   shared_preferences:
     :path: Pods/.symlinks/plugins/shared_preferences/ios
+  sqflite:
+    :path: Pods/.symlinks/plugins/sqflite/ios
   streams_channel:
     :path: Pods/.symlinks/plugins/streams_channel/ios
   url_launcher:
@@ -192,6 +202,7 @@ SPEC CHECKSUMS:
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
   flutter_custom_tabs: 8dcb85ffe874ee8fd8139bb3960743efeaf521ee
   flutter_local_notifications: 696a74904e0a0ab754e27a5f761da4a7f9153710
+  FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   gRPC: 81b990caa01d7c32605d300c2ffd1b5ba0ef9e49
   gRPC-Core: a56b086a8ef5ced6f6ba5be5bc0a63fca185015a
@@ -204,6 +215,7 @@ SPEC CHECKSUMS:
   path_provider: 09407919825bfe3c2deae39453b7a5b44f467873
   Protobuf: 0fc0ad8bec688b2a3017a139953e01374fedbd5f
   shared_preferences: 5a1d487c427ee18fcd3ea1f2a131569481834b53
+  sqflite: d1612813fa7db7c667bed9f1d1b508deffc56999
   streams_channel: 7e83cef39495e5007e3586e58b6ecb703c7c1fea
   url_launcher: 92b89c1029a0373879933c21642958c874539095
   video_player: 906796a841943c8d370ac7c13b18039aa9b56498

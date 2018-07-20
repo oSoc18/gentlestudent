@@ -51,7 +51,13 @@ class InformationPage extends StatelessWidget {
                 trailing: Icon(Icons.arrow_forward_ios),
                 title: Text('Tutorial'),
                 onTap: () {
-                  Navigator.of(context).pushNamed(TutorialPage.tag);
+                  Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          new TutorialPage(false),
+                    ),
+                  );
                 },
               ),
               decoration: new BoxDecoration(
