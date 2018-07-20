@@ -112,9 +112,11 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
     FirebaseAuth.instance.onAuthStateChanged.listen((user) {
       firebaseUser = user;
       final participationApi = new ParticipationApi();
-      setState(() {
-        api = participationApi;
-      });
+      if (this.mounted) {
+        setState(() {
+          api = participationApi;
+        });
+      }
     });
   }
 
@@ -140,11 +142,11 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
               children: <Widget>[
                 new Hero(
                   child: new CircleAvatar(
-                      child: new Image(
-                        image: new CachedNetworkImageProvider(badge.image),
-                      ),
-                      radius: 32.0,
+                    child: new Image(
+                      image: new CachedNetworkImageProvider(badge.image),
                     ),
+                    radius: 32.0,
+                  ),
                   tag: "badge image",
                 ),
                 new Expanded(

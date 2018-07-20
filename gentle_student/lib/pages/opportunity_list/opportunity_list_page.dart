@@ -41,16 +41,18 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     final badges = await badgeApi.getAllBadges();
     final issuers = await issuerApi.getAllIssuers();
     final addresses = await addresApi.getAllAddresses();
-    setState(() {
-      _opportunityApi = opportunityApi;
-      _badgeApi = badgeApi;
-      _issuerApi = issuerApi;
-      _addressApi = addresApi;
-      _opportunities = opportunities;
-      _badges = badges;
-      _issuers = issuers;
-      _addresses = addresses;
-    });
+    if (this.mounted) {
+      setState(() {
+        _opportunityApi = opportunityApi;
+        _badgeApi = badgeApi;
+        _issuerApi = issuerApi;
+        _addressApi = addresApi;
+        _opportunities = opportunities;
+        _badges = badges;
+        _issuers = issuers;
+        _addresses = addresses;
+      });
+    }
   }
 
   _reloadOpportunities() async {
@@ -59,12 +61,14 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
       final badges = await _badgeApi.getAllBadges();
       final issuers = await _issuerApi.getAllIssuers();
       final addresses = await _addressApi.getAllAddresses();
-      setState(() {
-        _opportunities = opportunities;
-        _badges = badges;
-        _issuers = issuers;
-        _addresses = addresses;
-      });
+      if (this.mounted) {
+        setState(() {
+          _opportunities = opportunities;
+          _badges = badges;
+          _issuers = issuers;
+          _addresses = addresses;
+        });
+      }
     }
   }
 
@@ -100,7 +104,7 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
                     opportunity, badge, issuer, address);
               },
               leading: new Hero(
-                tag: index,
+                tag: "listitem " + index.toString(),
                 child: new CircleAvatar(
                   child: new Image(
                     image: new CachedNetworkImageProvider(badge.image),

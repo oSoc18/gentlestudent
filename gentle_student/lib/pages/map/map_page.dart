@@ -59,12 +59,14 @@ class _MapPageState extends State<MapPage> {
     final badges = await badgeApi.getAllBadges();
     final issuers = await issuerApi.getAllIssuers();
     final addresses = await addresApi.getAllAddresses();
-    setState(() {
-      _opportunities = opportunities;
-      _badges = badges;
-      _issuers = issuers;
-      _addresses = addresses;
-    });
+    if (this.mounted) {
+      setState(() {
+        _opportunities = opportunities;
+        _badges = badges;
+        _issuers = issuers;
+        _addresses = addresses;
+      });
+    }
   }
 
   Future<Null> _displayOpportunity(Opportunity opportunity) async {
@@ -173,6 +175,11 @@ class _MapPageState extends State<MapPage> {
   initState() {
     super.initState();
     _loadFromFirebase();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override

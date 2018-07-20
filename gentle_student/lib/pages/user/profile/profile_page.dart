@@ -12,7 +12,13 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   FirebaseUser firebaseUser;
-  Participant _participant = new Participant(name: "", institute: "", participantId: "0", email: "", birthdate: DateTime.now(), education: "");
+  Participant _participant = new Participant(
+      name: "",
+      institute: "",
+      participantId: "0",
+      email: "",
+      birthdate: DateTime.now(),
+      education: "");
 
   @override
   void initState() {
@@ -27,9 +33,11 @@ class _ProfilePageState extends State<ProfilePage> {
     final participantApi = new ParticipantApi();
     final participant =
         await participantApi.getParticipantById(firebaseUser.uid);
-    setState(() {
-      _participant = participant;
-    });
+    if (this.mounted) {
+      setState(() {
+        _participant = participant;
+      });
+    }
   }
 
   @override
@@ -37,7 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
     Color color = Theme.of(context).primaryColor;
 
     final logo = Hero(
-      tag: 'hero',
+      tag: 'profile hero',
       child: CircleAvatar(
         backgroundColor: Colors.white,
         radius: 60.0,

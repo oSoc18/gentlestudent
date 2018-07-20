@@ -78,28 +78,13 @@ class _MyLearningOpportunitiesPageState
     final badges = await badgeApi.getAllBadges();
     final issuers = await issuerApi.getAllIssuers();
     final addresses = await addressApi.getAllAddresses();
-    setState(() {
-      _participationApi = participationApi;
-      _opportunityApi = opportunityApi;
-      _badgeApi = badgeApi;
-      _issuerApi = issuerApi;
-      _addressApi = addressApi;
-      _participations = participations;
-      _badges = badges;
-      _issuers = issuers;
-      _addresses = addresses;
-    });
-    await _loadOpportunities();
-  }
-
-  _reloadParticipations() async {
-    if (_participationApi != null && _opportunityApi != null) {
-      final participations =
-          await _participationApi.getAllParticipationsFromUser(firebaseUser);
-      final badges = await _badgeApi.getAllBadges();
-      final issuers = await _issuerApi.getAllIssuers();
-      final addresses = await _addressApi.getAllAddresses();
+    if (this.mounted) {
       setState(() {
+        _participationApi = participationApi;
+        _opportunityApi = opportunityApi;
+        _badgeApi = badgeApi;
+        _issuerApi = issuerApi;
+        _addressApi = addressApi;
         _participations = participations;
         _badges = badges;
         _issuers = issuers;
@@ -109,13 +94,34 @@ class _MyLearningOpportunitiesPageState
     }
   }
 
+  _reloadParticipations() async {
+    if (_participationApi != null && _opportunityApi != null) {
+      final participations =
+          await _participationApi.getAllParticipationsFromUser(firebaseUser);
+      final badges = await _badgeApi.getAllBadges();
+      final issuers = await _issuerApi.getAllIssuers();
+      final addresses = await _addressApi.getAllAddresses();
+      if (this.mounted) {
+        setState(() {
+          _participations = participations;
+          _badges = badges;
+          _issuers = issuers;
+          _addresses = addresses;
+        });
+        await _loadOpportunities();
+      }
+    }
+  }
+
   _loadOpportunities() async {
     final approvedOpportunities = await _getApprovedOpportunities();
     final requestedOpportunities = await _getRequestedOpportunities();
-    setState(() {
-      _opportunitiesApproved = approvedOpportunities;
-      _opportunitiesRequested = requestedOpportunities;
-    });
+    if (this.mounted) {
+      setState(() {
+        _opportunitiesApproved = approvedOpportunities;
+        _opportunitiesRequested = requestedOpportunities;
+      });
+    }
   }
 
   Future<Null> refresh() {
@@ -155,7 +161,7 @@ class _MyLearningOpportunitiesPageState
                     opportunity, badge, issuer, address);
               },
               leading: new Hero(
-                tag: index,
+                tag: "approved " + index.toString(),
                 child: new CircleAvatar(
                   child: new Image(
                     image: new CachedNetworkImageProvider(badge.image),
@@ -209,7 +215,7 @@ class _MyLearningOpportunitiesPageState
                     opportunity, badge, issuer, address);
               },
               leading: new Hero(
-                tag: index,
+                tag: "requested " + index.toString(),
                 child: new CircleAvatar(
                   child: new Image(
                     image: new CachedNetworkImageProvider(badge.image),
