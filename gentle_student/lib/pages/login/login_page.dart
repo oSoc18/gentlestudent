@@ -1,4 +1,7 @@
+import 'package:Gentle_Student/data/database_helper.dart';
+import 'package:Gentle_Student/models/user.dart';
 import 'package:Gentle_Student/navigation/home_page.dart';
+import 'package:Gentle_Student/pages/information/tutorial/tutorial_page.dart';
 import 'package:Gentle_Student/pages/register/register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 import 'package:flutter/material.dart';
@@ -13,6 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   var emailController;
   var passwordController;
+  final db = new DatabaseHelper();
 
   _LoginPageState() {
     emailController = new TextEditingController();
@@ -21,15 +25,32 @@ class _LoginPageState extends State<LoginPage> {
 
   void _login() async {
     if (_allFieldsFilledIn()) {
-          try {
-            await FirebaseAuth.instance.signInWithEmailAndPassword(
-              email: emailController.text,
-              password: passwordController.text,
-            );
-            Navigator.of(context).pushNamed(HomePage.tag);
-          } catch (Error) {
-            _showSnackBar("Er is iets fout gelopen tijdens het aanmelden.");
-          }
+      try {
+        //Authentication via Firebase
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+
+        //Storing the user in the local database
+        User huidigeUser = await db.getUser();
+        if (huidigeUser == null) {
+          await db.saveUser(
+              new User(emailController.text, passwordController.text));
+          Navigator.pushReplacement(
+            context,
+            new MaterialPageRoute(
+              builder: (BuildContext context) => new TutorialPage(true),
+            ),
+          );
+        } else {
+          await db.updateUser(
+              new User(emailController.text, passwordController.text));
+          Navigator.of(context).pushReplacementNamed(HomePage.tag);
+        }
+      } catch (Error) {
+        _showSnackBar("Er is iets fout gelopen tijdens het aanmelden.");
+      }
     } else {
       _showSnackBar("Gelieve alle velden in te vullen.");
     }

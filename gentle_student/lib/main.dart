@@ -1,6 +1,9 @@
+import 'package:Gentle_Student/data/database_helper.dart';
+import 'package:Gentle_Student/models/user.dart';
 import 'package:Gentle_Student/navigation/home_page.dart';
 import 'package:Gentle_Student/navigation/map_list_page.dart';
 import 'package:Gentle_Student/pages/information/experiences/experiences_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/login/login_page.dart';
@@ -16,45 +19,74 @@ import 'pages/user/profile/profile_page.dart';
 import 'pages/user/my_learning_opportunities/my_learning_opportunities_page.dart';
 import 'pages/user/favorites/favorites_page.dart';
 import 'pages/user/settings/settings_page.dart';
-import 'pages/information/tutorial/tutorial_page.dart';
 
-void main() {
-  runApp(new MyApp());
+final db = new DatabaseHelper();
+
+void main() async {
+  User localUser = await db.getUser();
+  if (localUser != null) {
+    try {
+      //Authentication via Firebase
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: localUser.username,
+        password: localUser.password,
+      );
+      runApp(new MyAppHome());
+    } catch (Error) {
+      runApp(new MyApp());
+    }
+  } else {
+    runApp(new MyApp());
+  }
 }
 
-//This widget is the root of the application
-class MyApp extends StatelessWidget {
-  final routes = <String, WidgetBuilder>{
-    HomePage.tag: (context)=>HomePage(),
-    MapListPage.tag: (context)=>MapListPage(),
-    LoginPage.tag: (context)=>LoginPage(),
-    RegisterPage.tag: (context)=>RegisterPage(),
-    MapPage.tag: (context)=>MapPage(),
-    InformationPage.tag: (context)=>InformationPage(),
-    PrivacyPolicyPage.tag: (context)=>PrivacyPolicyPage(),
-    AboutUsPage.tag: (context)=>AboutUsPage(),
-    UserPage.tag: (context)=>UserPage(),
-    OpportunityListPage.tag: (context)=>OpportunityListPage(),
-    BackPackPage.tag: (context)=>BackPackPage(),
-    ProfilePage.tag: (context)=>ProfilePage(),
-    MyLearningOpportunitiesPage.tag: (context)=>MyLearningOpportunitiesPage(),
-    FavoritesPage.tag: (context)=>FavoritesPage(),
-    SettingsPage.tag: (context)=>SettingsPage(),
-    TutorialPage.tag: (context)=>TutorialPage(),
-    ExperiencesPage.tag: (context)=>ExperiencesPage()
-  };
+final routes = <String, WidgetBuilder>{
+  HomePage.tag: (context) => HomePage(),
+  MapListPage.tag: (context) => MapListPage(),
+  LoginPage.tag: (context) => LoginPage(),
+  RegisterPage.tag: (context) => RegisterPage(),
+  MapPage.tag: (context) => MapPage(),
+  InformationPage.tag: (context) => InformationPage(),
+  PrivacyPolicyPage.tag: (context) => PrivacyPolicyPage(),
+  AboutUsPage.tag: (context) => AboutUsPage(),
+  UserPage.tag: (context) => UserPage(),
+  OpportunityListPage.tag: (context) => OpportunityListPage(),
+  BackPackPage.tag: (context) => BackPackPage(),
+  ProfilePage.tag: (context) => ProfilePage(),
+  MyLearningOpportunitiesPage.tag: (context) => MyLearningOpportunitiesPage(),
+  FavoritesPage.tag: (context) => FavoritesPage(),
+  SettingsPage.tag: (context) => SettingsPage(),
+  ExperiencesPage.tag: (context) => ExperiencesPage()
+};
 
+//This widget is the root of the application (first time)
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'GentleStudent',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
-        fontFamily: 'NeoSansPro',
-      ),
-      home: new LoginPage(),
-      routes: routes
-    );
+        title: 'GentleStudent',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.lightBlue,
+          fontFamily: 'NeoSansPro',
+        ),
+        home: new LoginPage(),
+        routes: routes);
+  }
+}
+
+//This widget is the root of the application (after first login)
+class MyAppHome extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+        title: 'GentleStudent',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.lightBlue,
+          fontFamily: 'NeoSansPro',
+        ),
+        home: new HomePage(),
+        routes: routes);
   }
 }
