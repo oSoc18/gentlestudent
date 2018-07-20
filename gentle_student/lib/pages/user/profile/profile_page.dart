@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:Gentle_Student/data/api.dart';
 import 'package:Gentle_Student/models/user.dart';
 import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -37,6 +40,14 @@ class _ProfilePageState extends State<ProfilePage> {
       setState(() {
         _participant = participant;
       });
+    }
+  }
+
+  Future<Null> _launchInBrowser(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
     }
   }
 
@@ -150,6 +161,14 @@ class _ProfilePageState extends State<ProfilePage> {
             color: Colors.white,
           ),
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.edit,
+            ),
+            onPressed: () => _launchInBrowser("http://gentlestudent.gent"),
+          ),
+        ],
         iconTheme: new IconThemeData(color: Colors.white),
       ),
       backgroundColor: Colors.white,
