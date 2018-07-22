@@ -1,33 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { firestore } from '../Firebase';
-
 import Spinner from '../Spinner';
 
 class List extends Component {
-	constructor(props) {
-		super(props);
-	
-		this.state = {
-		  opportunities: null,
-		};
-	  }
-	
-	componentDidMount() {
-		firestore.onceGetLeerkansen().then(snapshot => {
-				var res = new Object()
-				snapshot.forEach(doc => {
-					res[doc.id] = doc.data();
-				  });
-				this.setState(() => ({ opportunities: res }))
-			})
-		  	.catch(err => {
-				console.log('Error getting documents', err);
-		  	});
-	}
 	render() {
-		const { opportunities } = this.state;
+		const { opportunities } = this.props;
 
 		return (
 			<React.Fragment>

@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Detail extends Component {
-  componentDidMount() {
-    this.props.fetchLeerkansenById(this.props.match.params._id);
-  }
   render() {
+    const { opportunities } = this.props;
+    let id = this.props.match.params.id;
+
     return (
       <div>
         <a href="/leerkansen">Back</a>
-        <h1>{this.props.leerkansen.item.title}</h1>
-        <p>{this.props.leerkansen.item.description}</p>
+        {/* <h1>{opportunities[id].title}</h1>
+        <p>{opportunities[id].description}</p> */}
       </div>
     )
   }
