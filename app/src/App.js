@@ -28,7 +28,7 @@ import RegistreerIssuer from './Screens/RegistreerIssuer';
 import Navigation from './Components/Navigation';
 import Footer from './Components/Footer';
 
-import withAuthentication from './Components/WithAuthentication';
+import withAuthentication from './Components/withAuthentication';
 
 import * as routes from './routes/routes';
 
