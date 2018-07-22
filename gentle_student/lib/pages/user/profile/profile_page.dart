@@ -167,6 +167,7 @@ class _ProfilePageState extends State<ProfilePage> {
               Icons.edit,
             ),
             onPressed: () => _launchInBrowser("http://gentlestudent.gent"),
+            tooltip: "Klik hier om uw gegevens aan te kunnen passen",
           ),
         ],
         iconTheme: new IconThemeData(color: Colors.white),
