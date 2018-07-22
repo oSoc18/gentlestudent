@@ -10,7 +10,7 @@ class Detail extends Component {
 
     return (
       <React.Fragment>
-				{ !! opportunities && <LeerkansDetail opportunity={ id } /> }
+        { !! opportunities && <LeerkansDetail opportunity={ opportunities[id] } /> }
 				{ ! opportunities && <EmptyList/> }
 			</React.Fragment>
       
@@ -21,8 +21,8 @@ class Detail extends Component {
 const LeerkansDetail = ({ opportunity }) =>
   <div>
     <a href="/leerkansen">Back</a>
-    {/* {opportunity} */}
-    {/* {opportunity.shortDescription} */}
+    {/* {JSON.stringify(opportunity)} */}
+    {opportunity.shortDescription}
     {/* <h1>{opportunities[id].title}</h1>
     <p>{opportunities[id].description}</p> */}
   </div>

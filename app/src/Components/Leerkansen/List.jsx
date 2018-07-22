@@ -20,7 +20,7 @@ const LeerkansenList = ({ opportunities }) =>
 	<div>
 		<div className="card-container leerkansen">
 			{Object.keys(opportunities).map(key =>
-				<a href={`/leerkansen/${opportunities[key].addressId}`} className={`card-item leerkans ${ opportunities[key].category }`} key={opportunities[key].addressId}>
+				<a href={`/leerkansen/${key}`} className={`card-item leerkans ${ opportunities[key].category }`} key={opportunities[key].addressId}>
 					<img src={opportunities[key].oppImageUrl ? `https://gentlestudent-api.herokuapp.com/leerkansen/${opportunities[key].pinImageUrl}` : null} className="photo" alt={opportunities[key].title} />
 					<div style={{position: "relative"}}>
 					<img src={`https://api.badgr.io/public/badges/${opportunities[key].pinImageUrl}/image",`} className="badge" alt={opportunities[key].category + opportunities[key].difficulty} />
