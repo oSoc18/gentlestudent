@@ -38,9 +38,7 @@ const LeerkansenList = ({ opportunities }) =>
 
 const EmptyList = () =>
 	<div>
-		<div className="card-container leerkansen">
-			Leerkansen konden niet worden geladen.
-		</div>
+		<Spinner />
 	</div>
 
 export default List;
