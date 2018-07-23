@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import Spinner from '../Spinner';
 
+import { firestore, auth } from './../Firebase';
+
 import { renderInput, renderAutomaticInput, renderTextarea, renderSelect, RenderDropzoneInput } from './../Utils';
 
 // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
@@ -21,17 +23,21 @@ class FormCreateLeerkans extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
-
     this.state = {
       lat: 51.0511164,
       lng: 3.7114566,
+      badgeId: 0,
       address: '',
       street: "",
       house_number: "",
       city: "",
       postal_code: "",
-      country: "Belgium"
+      country: "Belgium",
+      start_date: "",
+      end_date: "",
+      description: "",
+      synopsis: "",
+      title: "",
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -52,7 +58,39 @@ class FormCreateLeerkans extends React.Component {
   }
 
   handleSubmit(event) {
-    alert('Your favorite flavor is: ' + this.state.value);
+    let address = new Object();
+    address["bus"] = "";
+    address["city"] = this.state.city;
+    address["housenumber"] = this.state.house_number;
+    address["postalcode"] = this.state.postal_code;
+    address["street"] = this.state.street;
+    address["country"] = this.state.country;
+    let opportunity = new Object();
+    // opportunity["addressId"] = "";
+    opportunity["badgeId"] = this.state.badgeId;
+    opportunity["beginDate"] = this.state.start_date;
+    opportunity["blocked"] = true;
+    opportunity["category"] = "";
+    opportunity["difficulty"] = "";
+    opportunity["endDate"] = this.state.end_date;
+    opportunity["international"] = false;
+    opportunity["issuerId"] = auth.getUserID();
+    opportunity["latitude"] = this.state.lat;
+    opportunity["longDescription"] = this.state.description;
+    opportunity["longitude"] = this.state.lng;
+    opportunity["oppImageUrl"] = "";
+    opportunity["pinImageUrl"] = "";
+    opportunity["shortDescription"] = this.state.synopsis;
+    opportunity["title"] = this.state.title;
+
+    firestore.createAddress(address).then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id);
+      opportunity["addressId"] = docRef.id;
+      firestore.createOpportunity(opportunity);
+    }).catch(function(error) {
+      console.error("Error adding document: ", error);
+    });
+
     event.preventDefault();
   }
 
@@ -261,7 +299,7 @@ class FormCreateLeerkans extends React.Component {
 
 const BadgesList = ({badges}) =>
   <Field
-    id="badge"
+    id="badgeId"
     name="badge"
     label="Badge"
     data={{
