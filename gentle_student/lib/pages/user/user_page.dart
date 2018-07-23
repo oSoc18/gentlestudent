@@ -38,7 +38,7 @@ class UserPage extends StatelessWidget {
                   ),
                   Center(
                     child: Padding(
-                      padding: EdgeInsets.only(top: 30.0),
+                      padding: EdgeInsets.only(top: 22.0),
                       child: Text(
                         "Profiel",
                         style: TextStyle(
@@ -72,7 +72,7 @@ class UserPage extends StatelessWidget {
                   ),
                   Center(
                     child: Padding(
-                      padding: EdgeInsets.only(top: 30.0),
+                      padding: EdgeInsets.only(top: 22.0),
                       child: Text(
                         "Backpack",
                         style: TextStyle(
@@ -106,7 +106,7 @@ class UserPage extends StatelessWidget {
                   ),
                   Center(
                     child: Padding(
-                      padding: EdgeInsets.only(top: 30.0),
+                      padding: EdgeInsets.only(top: 22.0),
                       child: Text(
                         "Leerkansen",
                         style: TextStyle(
@@ -140,7 +140,7 @@ class UserPage extends StatelessWidget {
                   ),
                   Center(
                     child: Padding(
-                      padding: EdgeInsets.only(top: 30.0),
+                      padding: EdgeInsets.only(top: 22.0),
                       child: Text(
                         "Favorieten",
                         style: TextStyle(
@@ -174,7 +174,7 @@ class UserPage extends StatelessWidget {
                   ),
                   Center(
                     child: Padding(
-                      padding: EdgeInsets.only(top: 30.0),
+                      padding: EdgeInsets.only(top: 22.0),
                       child: Text(
                         "Instellingen",
                         style: TextStyle(
