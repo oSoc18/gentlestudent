@@ -93,6 +93,21 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           Container(
             child: ListTile(
+              trailing: Switch(
+                value: false,
+                onChanged: null,
+              ),
+              title: Text('Donkere modus'),
+              onTap: () => {},
+            ),
+            decoration: new BoxDecoration(
+              border: new Border(
+                bottom: new BorderSide(),
+              ),
+            ),
+          ),
+          Container(
+            child: ListTile(
               trailing: Icon(Icons.arrow_forward_ios),
               title: Text('Sta locatie altijd toe'),
               onTap: () => {},
