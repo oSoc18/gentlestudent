@@ -64,7 +64,7 @@ class UserPage extends StatelessWidget {
                     icon: Icon(
                       Icons.work,
                       color: Colors.lightBlue,
-                      size: 64.0,
+                      size: 56.0,
                     ),
                     onPressed: () {
                       Navigator.of(context).pushNamed(BackPackPage.tag);
@@ -76,7 +76,7 @@ class UserPage extends StatelessWidget {
                       child: Text(
                         "Backpack",
                         style: TextStyle(
-                          fontSize: 18.0,
+                          fontSize: 16.0,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -98,7 +98,7 @@ class UserPage extends StatelessWidget {
                     icon: Icon(
                       Icons.school,
                       color: Colors.lightBlue,
-                      size: 64.0,
+                      size: 56.0,
                     ),
                     onPressed: () {
                       Navigator.of(context).pushNamed(MyLearningOpportunitiesPage.tag);
@@ -110,7 +110,7 @@ class UserPage extends StatelessWidget {
                       child: Text(
                         "Leerkansen",
                         style: TextStyle(
-                          fontSize: 18.0,
+                          fontSize: 16.0,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -132,7 +132,7 @@ class UserPage extends StatelessWidget {
                     icon: Icon(
                       Icons.favorite,
                       color: Colors.lightBlue,
-                      size: 64.0,
+                      size: 56.0,
                     ),
                     onPressed: () {
                       Navigator.of(context).pushNamed(FavoritesPage.tag);
@@ -144,7 +144,7 @@ class UserPage extends StatelessWidget {
                       child: Text(
                         "Favorieten",
                         style: TextStyle(
-                          fontSize: 18.0,
+                          fontSize: 16.0,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -166,7 +166,7 @@ class UserPage extends StatelessWidget {
                     icon: Icon(
                       Icons.settings,
                       color: Colors.lightBlue,
-                      size: 64.0,
+                      size: 56.0,
                     ),
                     onPressed: () {
                       Navigator.of(context).pushNamed(SettingsPage.tag);
@@ -178,7 +178,7 @@ class UserPage extends StatelessWidget {
                       child: Text(
                         "Instellingen",
                         style: TextStyle(
-                          fontSize: 18.0,
+                          fontSize: 16.0,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
