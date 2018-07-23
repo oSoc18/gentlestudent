@@ -76,7 +76,7 @@ class _BackPackPageState extends State<BackPackPage> {
                 child: new Image(
                   image: new CachedNetworkImageProvider(badge.image),
                 ),
-                radius: 44.0,
+                radius: 38.0,
               ),
             ),
             Center(
@@ -85,7 +85,7 @@ class _BackPackPageState extends State<BackPackPage> {
                 child: Text(
                   issuer.institution,
                   style: TextStyle(
-                    fontSize: 18.0,
+                    fontSize: 15.0,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -150,7 +150,7 @@ class _BackPackPageState extends State<BackPackPage> {
                     bottom: 5.0,
                   ),
                   child: new Text(
-                    "U heeft deze badge verdiend op " +
+                    "U heeft deze badge behaald op " +
                         _makeDate(assertion.issuedOn) +
                         ".",
                     textAlign: TextAlign.center,
@@ -174,7 +174,7 @@ class _BackPackPageState extends State<BackPackPage> {
       ),
       backgroundColor: Colors.white,
       body: Container(
-        margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
+        margin: const EdgeInsets.fromLTRB(5.0, 15.0, 5.0, 0.0),
         child: new GridView.builder(
           gridDelegate:
               SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
