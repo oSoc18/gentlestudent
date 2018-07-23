@@ -141,7 +141,6 @@ class _LoginPageState extends State<LoginPage> {
         title: new Text("Login", style: TextStyle(color: Colors.white)),
       ),
       key: scaffoldKey,
-      backgroundColor: Colors.white,
       body: Center(
         child: ListView(
           shrinkWrap: true,

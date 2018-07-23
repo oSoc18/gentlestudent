@@ -15,7 +15,6 @@ class UserPage extends StatelessWidget {
         title: new Text("Gebruiker", style: TextStyle(color: Colors.white)),
         iconTheme: new IconThemeData(color: Colors.white),
       ),
-      backgroundColor: Colors.white,
       body: GridView.count(
         crossAxisCount: 3,
         children: [

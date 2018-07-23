@@ -172,7 +172,6 @@ class _BackPackPageState extends State<BackPackPage> {
         title: new Text("Backpack", style: TextStyle(color: Colors.white)),
         iconTheme: new IconThemeData(color: Colors.white),
       ),
-      backgroundColor: Colors.white,
       body: Container(
         margin: const EdgeInsets.fromLTRB(5.0, 15.0, 5.0, 0.0),
         child: new GridView.builder(
