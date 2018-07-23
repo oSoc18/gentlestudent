@@ -172,7 +172,6 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
         iconTheme: new IconThemeData(color: Colors.white),
       ),
-      backgroundColor: Colors.white,
       body: ListView(
         shrinkWrap: true,
         children: <Widget>[

@@ -16,19 +16,33 @@ class _SettingsPageState extends State<SettingsPage> {
   //Declaration of the variables
   final db = new DatabaseHelper();
   final scaffoldKey = new GlobalKey<ScaffoldState>();
+  bool _switchValue = false;
 
-  void changeBrightness() {
+  //Function for switching between dark mode and light mode
+  void _changeBrightnessAndColor() {
     DynamicTheme.of(context).setBrightness(
         Theme.of(context).brightness == Brightness.dark
             ? Brightness.light
             : Brightness.dark);
+
+    DynamicTheme.of(context).setThemeData(
+          new ThemeData(
+              primaryColor: Theme.of(context).primaryColor == Colors.lightBlue
+                  ? Colors.red
+                  : Colors.indigo),
+        );
   }
 
-  void changeColor() {
-    DynamicTheme.of(context).setThemeData(new ThemeData(
-        primaryColor: Theme.of(context).primaryColor == Colors.lightBlue
-            ? Colors.red
-            : Colors.indigo));
+  //Function to change switch value on page creation
+  void _setSwitchState() async {
+    if (Theme.of(context).brightness == Brightness.dark)
+      setState(() {
+        _switchValue = true;
+      });
+    else
+      setState(() {
+        _switchValue = false;
+      });
   }
 
   //Function for signing out
@@ -81,6 +95,12 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _setSwitchState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
@@ -95,8 +115,7 @@ class _SettingsPageState extends State<SettingsPage> {
               trailing: Icon(Icons.arrow_forward_ios),
               title: Text('Wijzig profielfoto'),
               onTap: () {
-                changeBrightness();
-                changeColor();
+
               },
             ),
             decoration: new BoxDecoration(
@@ -108,11 +127,21 @@ class _SettingsPageState extends State<SettingsPage> {
           Container(
             child: ListTile(
               trailing: Switch(
-                value: false,
-                onChanged: null,
+                value: _switchValue,
+                onChanged: (bool newValue) {
+                  setState(() {
+                    _switchValue = newValue;
+                  });
+                  _changeBrightnessAndColor();
+                },
               ),
               title: Text('Donkere modus'),
-              onTap: () => {},
+              onTap: () {
+                setState(() {
+                  _switchValue = !_switchValue;
+                });
+                _changeBrightnessAndColor();
+              },
             ),
             decoration: new BoxDecoration(
               border: new Border(
