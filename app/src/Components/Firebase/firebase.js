@@ -17,12 +17,16 @@ if (!firebase.apps.length) {
     firebase.initializeApp(config);
 }
 
+const auth = firebase.auth();
 const firestore = firebase.firestore();
 const settings = {/* your settings... */ timestampsInSnapshots: true};
 firestore.settings(settings);
-const auth = firebase.auth();
+const storage = firebase.storage();
+
 
 export {
-  firestore,
   auth,
+  firebase,
+  firestore,
+  storage
 };

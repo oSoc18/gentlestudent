@@ -3,6 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
+		"@google-cloud/storage": "^1.7.0",
 		"axios": "^0.18.0",
 		"bulma": "^0.6.2",
 		"firebase": "^5.2.0",

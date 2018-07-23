@@ -24,6 +24,7 @@ import MaakLeerkans from './Screens/Backoffice/MaakLeerkans';
 import BOLeerkansen from './Screens/Backoffice/Leerkansen';
 import IssueBadgeRecipient from './Screens/Issuers/IssueBadgeRecipient';
 import RegistreerIssuer from './Screens/RegistreerIssuer';
+import ValidateIssuer from './Screens/Backoffice/ValidateIssuer';
 
 import Navigation from './Components/Navigation';
 import Footer from './Components/Footer';
@@ -55,6 +56,7 @@ class App extends Component {
 								<Route path={routes.MaakLeerkans} exact render={() => <MaakLeerkans />} />
 								<Route path={routes.IssueBadgeRecipient} exact render={() => <IssueBadgeRecipient />} />
 								<Route path={routes.RegistreerIssuer} exact render={() => <RegistreerIssuer />} />
+								<Route path={routes.ValidateIssuer} exact render={() => <ValidateIssuer />} />
 							{/* </Auth> */}
 						</Switch>
 						<Footer/>

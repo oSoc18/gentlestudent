@@ -6,7 +6,9 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import Spinner from '../Spinner';
 
-import { firestore, auth } from './../Firebase';
+import { auth, firestore } from './../Firebase';
+import firebase from 'firebase';
+import 'firebase/storage';
 
 import { renderInput, renderAutomaticInput, renderTextarea, renderSelect, RenderDropzoneInput } from './../Utils';
 
@@ -38,26 +40,62 @@ class FormCreateLeerkans extends React.Component {
       description: "",
       synopsis: "",
       title: "",
+      image: "",
+      imageUrl: "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Opportunity%20Images%2FNederlandse%20Les.jpg?alt=media&token=7938b826-8407-4659-8cfa-ee6fb139d448",
+      imageExtension: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleImage = this.handleImage.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.changeLat = this.changeLat.bind(this);
     this.changeLng = this.changeLng.bind(this);
+    this.postNewAddress = this.postNewAddress.bind(this);
+    this.postNewOpportunity = this.postNewOpportunity.bind(this);
+    this.uploadImage = this.uploadImage.bind(this);
   }
 
   handleChange(event) {
     this.setState({[event.target.id]: event.target.value});
-    if(event.target.id==this.state.street 
-      || this.state.house_number 
-      || this.state.city 
-      || this.state.postal_code 
-      || this.state.country ){
+    // console.log(event.target.id);
+    // console.log(event.target.value);
+    if(event.target.id=="street" 
+      || "house_number" 
+      || "city" 
+      || "postal_code" 
+      || "country" ){
       this.changeAddress();
     }
   }
 
+  handleImage(event) {
+    this.setState({image: event.target.files[0]});
+    this.setState({imageExtension: event.target.value.split('.').pop()});
+  }
+
   handleSubmit(event) {
+    event.preventDefault();
+    if(this.state.image != ""){
+      let fileName = this.state.title+"."+this.state.imageExtension;
+      let baseUrl = "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Opportunity%20Images%2F";
+      this.setState({imageUrl: baseUrl + encodeURIComponent(fileName)+"?alt=media"});
+      this.uploadImage(fileName);
+    }
+    // this.postNewAddress(this.postNewOpportunity);
+  }
+
+  uploadImage(fileName){
+    console.log(fileName);
+    let path = "Opportunity Images/"+fileName;
+    let ref = firebase.storage().ref().child(path);
+    ref.put(this.state.image).then(function(snapshot) {
+      console.log('Uploaded file!');
+    }).catch(function(error) {
+      console.error("Error uploading file: ", error);
+    });
+  }
+
+  postNewAddress(postNewOpportunity){
     let address = new Object();
     address["bus"] = "";
     address["city"] = this.state.city;
@@ -65,8 +103,18 @@ class FormCreateLeerkans extends React.Component {
     address["postalcode"] = this.state.postal_code;
     address["street"] = this.state.street;
     address["country"] = this.state.country;
+
+    firestore.createAddress(address).then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id);
+      postNewOpportunity(docRef.id);
+    }).catch(function(error) {
+      console.error("Error adding document: ", error);
+    });
+  }
+
+  postNewOpportunity(addressId){
     let opportunity = new Object();
-    // opportunity["addressId"] = "";
+    opportunity["addressId"] = addressId;
     opportunity["badgeId"] = this.state.badgeId;
     opportunity["beginDate"] = this.state.start_date;
     opportunity["blocked"] = true;
@@ -78,20 +126,16 @@ class FormCreateLeerkans extends React.Component {
     opportunity["latitude"] = this.state.lat;
     opportunity["longDescription"] = this.state.description;
     opportunity["longitude"] = this.state.lng;
-    opportunity["oppImageUrl"] = "";
+    opportunity["oppImageUrl"] = this.state.imageUrl;
     opportunity["pinImageUrl"] = "";
     opportunity["shortDescription"] = this.state.synopsis;
     opportunity["title"] = this.state.title;
 
-    firestore.createAddress(address).then(function(docRef) {
-      console.log("Document written with ID: ", docRef.id);
-      opportunity["addressId"] = docRef.id;
-      firestore.createOpportunity(opportunity);
-    }).catch(function(error) {
+    firestore.createOpportunity(opportunity)
+    .catch(function(error) {
       console.error("Error adding document: ", error);
+      console.error(JSON.stringify(opportunity));
     });
-
-    event.preventDefault();
   }
 
   changeLat(newLat) {
@@ -136,6 +180,7 @@ class FormCreateLeerkans extends React.Component {
             label="Titel"
             type="text"
             name="title"
+            id="title"
             component={renderInput}
             defaultValue="Titel"
             placeholder="Titel"
@@ -256,10 +301,14 @@ class FormCreateLeerkans extends React.Component {
             onChange={ this.handleChange } 
           />
         </div>
-        <h3> Pas locatie aan (Optioneel) </h3>
-        <p>Verplaats de marker indien de locatie van het adres op google maps niet volledig overeenkomt met de beacon</p>
-        <div>
-          <BeaconLocationPicker changeLat={this.changeLat} changeLng={this.changeLng}/>
+        <div className="form-group">
+          <label htmlFor="LocationPicker">
+            Pas locatie aan (Optioneel)
+          </label>
+          <p>Verplaats de marker indien de locatie van het adres op google maps niet volledig overeenkomt met de beacon</p>
+          <div>
+            <BeaconLocationPicker changeLat={this.changeLat} changeLng={this.changeLng}/>
+          </div>
         </div>
         <div className="form-group">
           <Field
@@ -281,10 +330,22 @@ class FormCreateLeerkans extends React.Component {
             component={renderAutomaticInput}
           />
         </div>
-        <div className="form-group">
+        {/* <div className="form-group">
           <Field
             name="image"
             component={RenderDropzoneInput}
+          />
+        </div> */}
+        <div className="form-group">
+          <label htmlFor="Image">
+            Afbeelding uploaden
+          </label>
+          <input 
+            type="file"
+            label="Afbeelding uploaden"
+            className="input"
+            id="image"
+            onChange={ this.handleImage } 
           />
         </div>
         <div className="form-group">
