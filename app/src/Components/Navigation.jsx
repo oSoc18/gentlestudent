@@ -123,6 +123,7 @@ class NavigationAuth extends Component{
 									<NavLink to={routes.Profiel}>Profiel</NavLink>
 									<NavLink to={routes.BOLeerkansen}>Mijn leerkansen</NavLink>
 									<NavLink to={routes.MaakLeerkans}>Maak leerkans</NavLink>
+									<NavLink to={routes.ValidateIssuer}>Valideer issuer</NavLink>
 								</div>
 							)
 							: (

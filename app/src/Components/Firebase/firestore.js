@@ -25,7 +25,8 @@ export const createIssuer = (institution, longName, url, phonenumber,street, hou
             institution: institution,
             name: longName,
             phonenumber: phonenumber,
-            url: url
+            url: url,
+            validated: false
         };
         console.log(userId, issuerdata);
         firestore.collection('Issuers').doc(userId).set(issuerdata).catch(function(error) {
@@ -38,10 +39,16 @@ export const createIssuer = (institution, longName, url, phonenumber,street, hou
 
 }
 export const createAddress = (data) =>
-  firestore.collection('Addresses').add(data);
+  firestore.collection('Addresses').add(data)
 
 export const onceGetBadges = () =>
   // db.ref('Opportunities').once('value');
   firestore.collection('Badges').get()
+
+export const onceGetNonValidatedIssuers = () =>
+  firestore.collection('Issuers').where('validated', '==', false).get()
+
+export const validateIssuer = (id) =>
+    firestore.collection('Issuers').doc(id).update({ validated: true })
 
 
