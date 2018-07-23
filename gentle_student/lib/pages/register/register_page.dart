@@ -5,6 +5,8 @@ import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart'
     show FirebaseAuth, FirebaseUser;
+import 'package:flutter/services.dart';
+import 'package:flutter_html_view/flutter_html_view.dart';
 
 class RegisterPage extends StatefulWidget {
   //This tag is used for navigation
@@ -26,6 +28,8 @@ class _RegisterPageState extends State<RegisterPage> {
   var passwordController;
   var repeatPasswordController;
   DateTime _birthdate = new DateTime.now();
+  final String privacyPolicyLink = "assets/PrivacyPolicy.txt";
+  String _privacyPolicy = "";
 
   //Constructor
   _RegisterPageState() {
@@ -47,29 +51,15 @@ class _RegisterPageState extends State<RegisterPage> {
 
   //Register with Firebase
   void _register() async {
-    if (_allFieldsFilledIn()) {
-      if (passwordController.text.toString().length >= 6) {
-        if (passwordController.text == repeatPasswordController.text) {
-          try {
-            firebaseUser =
-                await FirebaseAuth.instance.createUserWithEmailAndPassword(
-              email: emailController.text,
-              password: passwordController.text,
-            );
-            _addUserToDatabase();
-            Navigator.of(context).pop();
-          } catch (Error) {
-            _showSnackBar("Er is iets fout gelopen tijdens het registeren.");
-          }
-        } else {
-          _showSnackBar(
-              "Wachtwoord en herhaal wachtwoord zijn niet gelijk aan elkaar.");
-        }
-      } else {
-        _showSnackBar("Uw wachtwoord moet minstens 6 karakters lang zijn.");
-      }
-    } else {
-      _showSnackBar("Gelieve alle velden in te vullen.");
+    try {
+      firebaseUser = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      _addUserToDatabase();
+      Navigator.of(context).pop();
+    } catch (Error) {
+      _showSnackBar("Er is iets fout gelopen tijdens het registeren.");
     }
   }
 
@@ -108,12 +98,62 @@ class _RegisterPageState extends State<RegisterPage> {
         repeatPasswordController.text != "";
   }
 
+  //Dialog for GDPR reasons
+  Future<Null> _displayGDPRDialog() async {
+    return showDialog<Null>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return new AlertDialog(
+          title: new Text("Privacybeleid & voorwaarden"),
+          content: new SingleChildScrollView(
+            child: new HtmlView(
+              data: _privacyPolicy,
+            ),
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text('Akkoord'),
+              onPressed: () {
+                _register();
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text('Niet akkoord'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<String> _getPrivacyPolicy(String path) async {
+    return await rootBundle.loadString(path);
+  }
+
+  void _fillInPrivacyPolicy() async {
+    String privacyPolicy = await _getPrivacyPolicy(privacyPolicyLink);
+    setState(() {
+      _privacyPolicy = privacyPolicy;
+    });
+  }
+
   //Shows a given message at the bottom of the screen
   void _showSnackBar(String text) {
     scaffoldKey.currentState.showSnackBar(new SnackBar(
       content: new Text(text),
       duration: Duration(seconds: 4),
     ));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _fillInPrivacyPolicy();
   }
 
   //We need to dispose of our controllers
@@ -243,7 +283,23 @@ class _RegisterPageState extends State<RegisterPage> {
         child: MaterialButton(
           minWidth: 200.0,
           height: 42.0,
-          onPressed: () => _register(),
+          onPressed: () {
+            if (_allFieldsFilledIn()) {
+              if (passwordController.text.toString().length >= 6) {
+                if (passwordController.text == repeatPasswordController.text) {
+                  _displayGDPRDialog();
+                } else {
+                  _showSnackBar(
+                      "Wachtwoord en herhaal wachtwoord zijn niet gelijk aan elkaar.");
+                }
+              } else {
+                _showSnackBar(
+                    "Uw wachtwoord moet minstens 6 karakters lang zijn.");
+              }
+            } else {
+              _showSnackBar("Gelieve alle velden in te vullen.");
+            }
+          },
           color: Colors.lightBlueAccent,
           child: Text('Maak uw account aan',
               style: TextStyle(color: Colors.white)),
