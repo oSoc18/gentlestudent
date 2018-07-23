@@ -324,7 +324,6 @@ class _RegisterPageState extends State<RegisterPage> {
             new Text("Account aanmaken", style: TextStyle(color: Colors.white)),
         iconTheme: new IconThemeData(color: Colors.white),
       ),
-      backgroundColor: Colors.white,
       body: Center(
         child: ListView(
           shrinkWrap: true,

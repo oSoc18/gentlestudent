@@ -18,13 +18,17 @@ class _SettingsPageState extends State<SettingsPage> {
   final scaffoldKey = new GlobalKey<ScaffoldState>();
 
   void changeBrightness() {
-    DynamicTheme.of(context).setBrightness(Theme.of(context).brightness == Brightness.dark? Brightness.light: Brightness.dark);
+    DynamicTheme.of(context).setBrightness(
+        Theme.of(context).brightness == Brightness.dark
+            ? Brightness.light
+            : Brightness.dark);
   }
-  
+
   void changeColor() {
     DynamicTheme.of(context).setThemeData(new ThemeData(
-        primaryColor: Theme.of(context).primaryColor == Colors.lightBlue? Colors.red: Colors.indigo
-    ));
+        primaryColor: Theme.of(context).primaryColor == Colors.lightBlue
+            ? Colors.red
+            : Colors.indigo));
   }
 
   //Function for signing out
@@ -32,16 +36,12 @@ class _SettingsPageState extends State<SettingsPage> {
     try {
       await FirebaseAuth.instance.signOut();
       await db.deleteUser();
-      await Navigator.pushAndRemoveUntil(
-        context,
-        new MaterialPageRoute(
-          builder: (BuildContext context) => new LoginPage(),
-        ),
-        ModalRoute.withName('/'),
-      );
     } catch (Error) {
       _showSnackBar("Er is een fout opgetreden tijdens het afmelden.");
     }
+    Navigator
+        .of(context)
+        .pushNamedAndRemoveUntil(LoginPage.tag, (Route<dynamic> r) => false);
   }
 
   //Dialog for signing out
