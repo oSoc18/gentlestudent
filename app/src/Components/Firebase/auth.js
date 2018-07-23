@@ -19,6 +19,12 @@ auth.onAuthStateChanged((user) => {
     }
 });
 
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    id = user.uid;
+  }
+});
+
 // Sign out
 export const doSignOut = () =>
     auth.signOut();

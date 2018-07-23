@@ -144,6 +144,42 @@ export const renderInput = ({
           id={id}
           label={label}
           placeholder={placeholder}
+        />
+        {touched && error && <span className="error">{error}</span>}
+        {touched && !error && <span className="succes">✓</span>}
+      </div>
+    </React.Fragment>
+  );
+};
+
+export const renderAutomaticInput = ({
+  label,
+  input,
+  type,
+  id,
+  defaultValue,
+  placeholder,
+  meta: { asyncValidating, touched, error }
+}) => {
+  return (
+    <React.Fragment>
+      <div
+        // className={
+        //   touched && error
+        //     ? `${errorMessage}`
+        //     : touched && !error ? `${succesMessage}` : null
+        // }
+      >
+        <label htmlFor={input.name}>
+          {label}
+        </label>
+        <input
+          {...input}
+          className="input"
+          type={type}
+          id={id}
+          label={label}
+          placeholder={placeholder}
           value={defaultValue}
         />
         {touched && error && <span className="error">{error}</span>}

@@ -20,7 +20,7 @@ import OverOns from './Screens/OverOns';
 import Register from './Components/Auth/Register';
 import Login from './Components/Auth/Login';
 
-import CreateLeerkansen from './Screens/Backoffice/CreateLeerkans';
+import MaakLeerkans from './Screens/Backoffice/MaakLeerkans';
 import BOLeerkansen from './Screens/Backoffice/Leerkansen';
 import IssueBadgeRecipient from './Screens/Issuers/IssueBadgeRecipient';
 import RegistreerIssuer from './Screens/RegistreerIssuer';
@@ -52,7 +52,7 @@ class App extends Component {
 							{/* BACKOFFICE */}
 							{/* <Auth> */}
 								<Route path={routes.BOLeerkansen} exact render={() => <BOLeerkansen />} />
-								<Route path={routes.CreateLeerkansen} exact render={() => <CreateLeerkansen />} />
+								<Route path={routes.MaakLeerkans} exact render={() => <MaakLeerkans />} />
 								<Route path={routes.IssueBadgeRecipient} exact render={() => <IssueBadgeRecipient />} />
 								<Route path={routes.RegistreerIssuer} exact render={() => <RegistreerIssuer />} />
 							{/* </Auth> */}

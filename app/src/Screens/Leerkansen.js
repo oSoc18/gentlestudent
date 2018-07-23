@@ -19,7 +19,7 @@ class Leerkansen extends Component {
 		};
 	  }
 	componentDidMount() {
-		firestore.onceGetLeerkansen().then(snapshot => {
+		firestore.onceGetOpportunities().then(snapshot => {
 			var res = new Object()
 			snapshot.forEach(doc => {
 				res[doc.id] = doc.data();

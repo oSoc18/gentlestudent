@@ -1,154 +1,364 @@
-import React from 'react';
+import React, { Component } from 'react';
+import LocationPicker from 'react-location-picker';
+import Geocode from "react-geocode";
+
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import Spinner from '../Spinner';
 
-import { renderInput, renderTextarea, renderSelect, RenderDropzoneInput } from './../Utils';
+import { firestore, auth } from './../Firebase';
 
-let FormCreateLeerkans = (props) => {
-  const { 
-    handleSubmit,
-    submitting,
-    badge
-  } = props
-  return(
-    <form onSubmit={handleSubmit} encType="multipart/form-data">
-      <h2>(Loop all the fields before submitting -- will be fixed soon!)</h2>
-      <div className="form-group">
-        <Field
-          label="Title"
-          type="text"
-          name="title"
-          component={renderInput}
-          defaultValue="Test title"
-        />
+import { renderInput, renderAutomaticInput, renderTextarea, renderSelect, RenderDropzoneInput } from './../Utils';
+
+// set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
+Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
+
+/* Default position */
+var defaultPosition = {
+  lat: 51.0511164,
+  lng: 3.7114566
+};
+
+class FormCreateLeerkans extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      lat: 51.0511164,
+      lng: 3.7114566,
+      badgeId: 0,
+      address: '',
+      street: "",
+      house_number: "",
+      city: "",
+      postal_code: "",
+      country: "Belgium",
+      start_date: "",
+      end_date: "",
+      description: "",
+      synopsis: "",
+      title: "",
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.changeLat = this.changeLat.bind(this);
+    this.changeLng = this.changeLng.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({[event.target.id]: event.target.value});
+    if(event.target.id==this.state.street 
+      || this.state.house_number 
+      || this.state.city 
+      || this.state.postal_code 
+      || this.state.country ){
+      this.changeAddress();
+    }
+  }
+
+  handleSubmit(event) {
+    let address = new Object();
+    address["bus"] = "";
+    address["city"] = this.state.city;
+    address["housenumber"] = this.state.house_number;
+    address["postalcode"] = this.state.postal_code;
+    address["street"] = this.state.street;
+    address["country"] = this.state.country;
+    let opportunity = new Object();
+    // opportunity["addressId"] = "";
+    opportunity["badgeId"] = this.state.badgeId;
+    opportunity["beginDate"] = this.state.start_date;
+    opportunity["blocked"] = true;
+    opportunity["category"] = "";
+    opportunity["difficulty"] = "";
+    opportunity["endDate"] = this.state.end_date;
+    opportunity["international"] = false;
+    opportunity["issuerId"] = auth.getUserID();
+    opportunity["latitude"] = this.state.lat;
+    opportunity["longDescription"] = this.state.description;
+    opportunity["longitude"] = this.state.lng;
+    opportunity["oppImageUrl"] = "";
+    opportunity["pinImageUrl"] = "";
+    opportunity["shortDescription"] = this.state.synopsis;
+    opportunity["title"] = this.state.title;
+
+    firestore.createAddress(address).then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id);
+      opportunity["addressId"] = docRef.id;
+      firestore.createOpportunity(opportunity);
+    }).catch(function(error) {
+      console.error("Error adding document: ", error);
+    });
+
+    event.preventDefault();
+  }
+
+  changeLat(newLat) {
+    this.setState({
+      lat: newLat
+    })
+  }
+
+  changeLng(newLng) {
+    this.setState({
+      lng: newLng
+    })
+  }
+
+  changeAddress() {
+    Geocode.fromAddress(this.state.street+" "+this.state.houseNr+", "+this.state.city+" "+this.state.postCode+", "+this.state.country).then(
+      response => {
+        const { lat, lng } = response.results[0].geometry.location;
+        this.setState({lat: lat});
+        this.setState({lng: lng});
+        defaultPosition = {lat, lng};
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
+  render() {
+    const { 
+      handleSubmit,
+      submitting,
+      badge,
+      badges
+    } = this.props
+
+    return (
+      <form onSubmit={this.handleSubmit}>
+        {/* <h2>(Loop all the fields before submitting -- will be fixed soon!)</h2> */}
+        <div className="form-group">
+          <Field
+            label="Titel"
+            type="text"
+            name="title"
+            component={renderInput}
+            defaultValue="Titel"
+            placeholder="Titel"
+            value={this.state.title}
+            onChange={ this.handleChange }
+          />
+        </div>
+        <div className="form-group">
+          <Field
+            label="Verwachtingen"
+            type="text"
+            name="synopsis"
+            id="synopsis"
+            component={renderTextarea}
+            placeholder="Korte beschrijving van wat er verwacht wordt"
+            value={this.state.synopsis}
+            onChange={ this.handleChange }
+          />
+        </div>
+        <div className="form-group">
+          <Field
+            label="Beschrijving"
+            id="description"
+            name="description"
+            component={renderTextarea}
+            placeholder="Volledige beschrijving van de leerkans"
+            value={this.state.description}
+            onChange={ this.handleChange }
+          />
+        </div>
+        <div className="form-group">
+          <React.Fragment>
+            { !! badges && <BadgesList badges={ badges } /> }
+            { ! badges && <EmptyList/> }
+          </React.Fragment>
+        </div>
+        <div className="form-group">
+          <Field
+            label="Start datum"
+            id="start_date"
+            name="start_date"
+            defaultValue="01/03/2018"
+            component={renderInput}
+            placeholder="DD/MM/JJJJ"
+            value={this.state.start_date}
+            onChange={ this.handleChange }
+          />
+        </div>
+        <div className="form-group">
+          <Field
+            label="Eind datum"
+            id="end_date"
+            name="end_date"
+            defaultValue="01/06/2018"
+            component={renderInput}
+            placeholder="DD/MM/JJJJ"
+            value={this.state.end_date}
+            onChange={ this.handleChange }
+          />
+        </div>
+        <div className="form-group">
+          <Field
+            label="Straatnaam"
+            id="street"
+            name="street"
+            defaultValue="Rooigemlaan"
+            component={renderInput}
+            placeholder="Straatnaam"
+            value={this.state.street}
+            onChange={ this.handleChange }
+          />
+        </div>
+        <div className="form-group">
+          <Field
+            label="Huisnummer"
+            id="house_number"
+            name="house_number"
+            defaultValue="123"
+            component={renderInput}
+            placeholder="Huisnummer"
+            value={this.state.house_number}
+            onChange={ this.handleChange }
+          />
+        </div>
+        <div className="form-group">
+          <Field
+            label="Post code"
+            id="postal_code"
+            name="postal_code"
+            defaultValue="9000"
+            component={renderInput}
+            placeholder="Post code"
+            value={this.state.postal_code}
+            onChange={ this.handleChange }
+          />
+        </div>
+        <div className="form-group">
+          <Field
+            label="Stad"
+            id="city"
+            name="city"
+            defaultValue="Gent"
+            component={renderInput}
+            placeholder="Stad"
+            value={this.state.city}
+            onChange={this.handleChange }
+          />
+        </div>
+        <div className="form-group">
+          <Field
+            label="Land"
+            id="country"
+            name="country"
+            defaultValue="Belgie"
+            component={renderInput}
+            placeholder="Land"
+            value={this.state.country}
+            onChange={ this.handleChange } 
+          />
+        </div>
+        <h3> Pas locatie aan (Optioneel) </h3>
+        <p>Verplaats de marker indien de locatie van het adres op google maps niet volledig overeenkomt met de beacon</p>
+        <div>
+          <BeaconLocationPicker changeLat={this.changeLat} changeLng={this.changeLng}/>
+        </div>
+        <div className="form-group">
+          <Field
+            label="Latitude (automatisch)"
+            id="latitude"
+            name="latitude"
+            defaultValue={this.state.lat}
+            value={this.state.lat}
+            component={renderAutomaticInput}
+          />
+        </div>
+        <div className="form-group">
+          <Field
+            label="Longitude (automatisch)"
+            id="longitude"
+            name="longitude"
+            defaultValue={this.state.lng}
+            value={this.state.lng}
+            component={renderAutomaticInput}
+          />
+        </div>
+        <div className="form-group">
+          <Field
+            name="image"
+            component={RenderDropzoneInput}
+          />
+        </div>
+        <div className="form-group">
+          <button type="submit" disabled={submitting}>
+            Maak leerkans
+          </button>
+        </div>
+      </form>
+    );
+  }
+}
+
+const BadgesList = ({badges}) =>
+  <Field
+    id="badgeId"
+    name="badge"
+    label="Badge"
+    data={{
+      list: Object.keys(badges).map(key => {
+        return {
+          value: key,
+          display: badges[key].name
+        };
+      })
+    }}
+    component={renderSelect}
+  />
+
+const EmptyList = () =>
+	<div>
+		<Spinner />
+	</div>
+
+class BeaconLocationPicker extends Component {
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      address: "Kala Pattar Ascent Trail, Khumjung 56000, Nepal",
+      position: {
+         lat: 0,
+         lng: 0
+      }
+    };
+ 
+    // Bind
+    this.handleLocationChange = this.handleLocationChange.bind(this);
+  }
+  
+  handleLocationChange ({ position, address }) {
+ 
+    // Set new location
+    this.setState({ position, address });
+    if(!!position){
+      this.props.changeLat(position.lat);
+      this.props.changeLng(position.lng);
+    }
+  }
+ 
+  render () {
+    return (
+      <div>
+        {/* <h1>{this.state.address}</h1> */}
+        <div>
+          <LocationPicker
+            containerElement={ <div style={ {height: '100%'} } /> }
+            mapElement={ <div style={ {height: '400px'} } /> }
+            defaultPosition={defaultPosition}
+            onChange={this.handleLocationChange}
+          />
+        </div>
       </div>
-      <div className="form-group">
-        <Field
-          label="Synopsis"
-          type="text"
-          name="synopsis"
-          id="synopsis"
-          component={renderTextarea}
-        />
-      </div>
-      <div className="form-group">
-        <Field
-          label="Description"
-          id="description"
-          name="description"
-          component={renderTextarea}
-        />
-      </div>
-      <div className="form-group">
-        <Field
-          id="badge"
-          name="badge"
-          label="Badge"
-          data={{
-            list: badge.list.map((index, key) => {
-              return {
-                value: index.slug,
-                display: index.name
-              };
-            })
-          }}
-          component={renderSelect}
-        />
-      </div>
-      <div className="form-group">
-        <Field
-          label="Start Date (DD/MM/JJJJ)"
-          id="start_date"
-          name="start_date"
-          defaultValue="01/03/2018"
-          component={renderInput}
-        />
-      </div>
-      <div className="form-group">
-        <Field
-          label="End Date (DD/MM/JJJJ)"
-          id="end_date"
-          name="end_date"
-          defaultValue="01/06/2018"
-          component={renderInput}
-        />
-      </div>
-      <div className="form-group">
-        <Field
-          label="Latitude"
-          id="latitude"
-          name="latitude"
-          defaultValue="51.086793"
-          component={renderInput}
-        />
-      </div>
-      <div className="form-group">
-        <Field
-          label="Longitude"
-          id="longitude"
-          name="longitude"
-          defaultValue="3.6661196"
-          component={renderInput}
-        />
-      </div>
-      <div className="form-group">
-        <Field
-          label="Street"
-          id="street"
-          name="street"
-          defaultValue="Rooigemlaan"
-          component={renderInput}
-        />
-      </div>
-      <div className="form-group">
-        <Field
-          label="House Number"
-          id="house_number"
-          name="house_number"
-          defaultValue="123"
-          component={renderInput}
-        />
-      </div>
-      <div className="form-group">
-        <Field
-          label="Postal Code"
-          id="postal_code"
-          name="postal_code"
-          defaultValue="9000"
-          component={renderInput}
-        />
-      </div>
-      <div className="form-group">
-        <Field
-          label="City"
-          id="city"
-          name="city"
-          defaultValue="Gent"
-          component={renderInput}
-        />
-      </div>
-      <div className="form-group">
-        <Field
-          label="Country"
-          id="country"
-          name="country"
-          defaultValue="Belgie"
-          component={renderInput}
-        />
-      </div>
-      <div className="form-group">
-        <Field
-          name="image"
-          component={RenderDropzoneInput}
-        />
-      </div>
-      <div className="form-group">
-        <button type="submit" disabled={submitting}>
-          Add leerkans
-        </button>
-      </div>
-    </form>
-  )
+    )
+  }
 }
 
 FormCreateLeerkans = reduxForm({
