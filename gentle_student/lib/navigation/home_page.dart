@@ -20,11 +20,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentTab = 1; // Index of currently opened tab.
-  InformationPage informationPage = new InformationPage(); // Page that corresponds with the first tab.
-  MapListPage mapListPage = new MapListPage(); // Page that corresponds with the second tab.
-  UserPage userPage = new UserPage(); // Page that corresponds with the third tab.
-  List<Widget> pages; // List of all pages that can be opened from our BottomNavigationBar.
-                      // Index 0 represents the page for the 0th tab, index 1 represents the page for the 1st tab etc...
+  InformationPage informationPage =
+      new InformationPage(); // Page that corresponds with the first tab.
+  MapListPage mapListPage =
+      new MapListPage(); // Page that corresponds with the second tab.
+  UserPage userPage =
+      new UserPage(); // Page that corresponds with the third tab.
+  List<Widget>
+      pages; // List of all pages that can be opened from our BottomNavigationBar.
+  // Index 0 represents the page for the 0th tab, index 1 represents the page for the 1st tab etc...
   Widget currentPage; // Page that is open at the moment.
 
   Opportunity _opportunity;
@@ -33,21 +37,24 @@ class _HomePageState extends State<HomePage> {
   Address _address;
   int _notId = 0;
 
-
-  static const AndroidNotificationChannel channel = const AndroidNotificationChannel(
-      id: 'default_notification',
-      name: 'Default',
-      description: 'Grant this app the ability to show notifications',
-      importance: AndroidNotificationChannelImportance.HIGH
-  );
+  static const AndroidNotificationChannel channel =
+      const AndroidNotificationChannel(
+          id: 'default_notification',
+          name: 'Default',
+          description: 'Grant this app the ability to show notifications',
+          importance: AndroidNotificationChannelImportance.HIGH);
 
   @override
   void initState() {
     super.initState();
-    //_loadFromFirebase();
     _beaconRanging();
-    pages = [informationPage, mapListPage, userPage]; // Populate our pages list.
-    currentPage = mapListPage; // Setting the first page that we'd like to show our user.
+    pages = [
+      informationPage,
+      mapListPage,
+      userPage
+    ]; // Populate our pages list.
+    currentPage =
+        mapListPage; // Setting the first page that we'd like to show our user.
   }
 
   @override
@@ -59,33 +66,40 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     // Here we create our BottomNavigationBar.
     final BottomNavigationBar navBar = new BottomNavigationBar(
-      currentIndex: currentTab, // Our currentIndex will be the currentTab value. So we need to update this whenever we tab on a new page!
-      onTap: (int numTab) { // numTab will be the index of the tab that is pressed.
-        setState(() { // Setting the state so we can show our new page.
-          currentTab = numTab; // Updating our currentTab with the tab that is pressed.
-          currentPage = pages[numTab]; // Updating the page that we'd like to show to the user.
+      currentIndex:
+          currentTab, // Our currentIndex will be the currentTab value. So we need to update this whenever we tab on a new page!
+      onTap: (int numTab) {
+        // numTab will be the index of the tab that is pressed.
+        setState(() {
+          // Setting the state so we can show our new page.
+          currentTab =
+              numTab; // Updating our currentTab with the tab that is pressed.
+          currentPage = pages[
+              numTab]; // Updating the page that we'd like to show to the user.
         });
       },
-      items: <BottomNavigationBarItem>[ // Visuals, see docs for more information: https://docs.flutter.io/flutter/material/BottomNavigationBar-class.html
-        new BottomNavigationBarItem( //numTab 0
-          icon: new Icon(Icons.info),
-          title: new Text("Informatie")
-        ),
-        new BottomNavigationBarItem( //numTab 1
-          icon: new Icon(Icons.location_on),
-          title: new Text("Leerkansen")
-        ),
-        new BottomNavigationBarItem( //numTab 2
-          icon: new Icon(Icons.account_circle),
-          title: new Text("Gebruiker")
-        )
+      items: <BottomNavigationBarItem>[
+        // Visuals, see docs for more information: https://docs.flutter.io/flutter/material/BottomNavigationBar-class.html
+        new BottomNavigationBarItem(
+            //numTab 0
+            icon: new Icon(Icons.info),
+            title: new Text("Informatie")),
+        new BottomNavigationBarItem(
+            //numTab 1
+            icon: new Icon(Icons.location_on),
+            title: new Text("Leerkansen")),
+        new BottomNavigationBarItem(
+            //numTab 2
+            icon: new Icon(Icons.account_circle),
+            title: new Text("Gebruiker"))
       ],
-
     );
 
     return new Scaffold(
-      bottomNavigationBar: navBar, // Assigning our navBar to the Scaffold's bottomNavigationBar property.
-      body: currentPage, // The body will be the currentPage. Which we update when a tab is pressed.
+      bottomNavigationBar:
+          navBar, // Assigning our navBar to the Scaffold's bottomNavigationBar property.
+      body:
+          currentPage, // The body will be the currentPage. Which we update when a tab is pressed.
     );
   }
 
@@ -96,7 +110,8 @@ class _HomePageState extends State<HomePage> {
     final issuerApi = new IssuerApi();
     final addressApi = new AddressApi();
     final beacon = await beaconApi.getBeaconById(beaconkey);
-    final opportunity = await opportunityApi.getOpportunityById(beacon.opportunityId);
+    final opportunity =
+        await opportunityApi.getOpportunityById(beacon.opportunityId);
     final badge = await badgeApi.getBadgeById(opportunity.badgeId);
     final issuer = await issuerApi.getIssuerById(opportunity.issuerId);
     final address = await addressApi.getAddressById(opportunity.addressId);
@@ -109,13 +124,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   _navigateToOpportunityDetails(String payload) async {
-
     await LocalNotifications.removeNotification(int.parse(payload));
     Navigator.push(
       context,
       new MaterialPageRoute(
         builder: (BuildContext context) =>
-        new OpportunityDetailsPage(_opportunity, _badge, _issuer, _address),
+            new OpportunityDetailsPage(_opportunity, _badge, _issuer, _address),
       ),
     );
   }
@@ -123,34 +137,38 @@ class _HomePageState extends State<HomePage> {
   _beaconRanging() {
     bool notified = false;
     _notId = 0;
-    Beacons.ranging(
+    Beacons
+        .ranging(
       region: new BeaconRegionIBeacon(
         identifier: 'hallo',
         proximityUUID: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
       ),
       inBackground: true,
-    ).listen((result) async {
-      if(result.isSuccessful){
-        if(result.beacons.isNotEmpty){
-          String beaconKey = result.beacons.first.ids[1] + result.beacons.first.ids[2];
+    )
+        .listen((result) async {
+      if (result.isSuccessful) {
+        if (result.beacons.isNotEmpty) {
+          String beaconKey =
+              result.beacons.first.ids[1] + result.beacons.first.ids[2];
           print(beaconKey);
-          if(beaconKey == '6495545722' || beaconKey == '4348854570' || beaconKey == '6542615842') {
-            if(!notified) {
+          if (beaconKey == '6495545722' ||
+              beaconKey == '4348854570' ||
+              beaconKey == '6542615842') {
+            if (!notified) {
               notified = true;
 
               await _loadFromFirebase(beaconKey);
 
-
               await LocalNotifications.createAndroidNotificationChannel(
                   channel: channel);
 
-              int id = await LocalNotifications.createNotification(
+              await LocalNotifications.createNotification(
                   title: "Beacon gevonden",
                   content: "Er is een leerkans in de buurt!",
                   id: _notId,
                   imageUrl: _badge.image,
                   androidSettings: new AndroidSettings(
-                      channel: channel,
+                    channel: channel,
                   ),
                   iOSSettings: new IOSSettings(
                     presentWhileAppOpen: true,
@@ -158,30 +176,23 @@ class _HomePageState extends State<HomePage> {
                   onNotificationClick: new NotificationAction(
                       actionText: "some action",
                       callback: _navigateToOpportunityDetails,
-                      payload: _notId.toString())
-              );
-              _notId ++;
+                      payload: _notId.toString()));
+              _notId++;
             }
           }
-        }
-        else{
-
-          if(notified) {
+        } else {
+          if (notified) {
             LocalNotifications.createAndroidNotificationChannel(
                 channel: channel);
             LocalNotifications.createNotification(
                 title: "out of range",
                 content: "In range of an opportunity!",
                 id: _notId,
-                androidSettings: new AndroidSettings(
-                    channel: channel
-                )
-            );
+                androidSettings: new AndroidSettings(channel: channel));
           }
 
           notified = false;
-          _notId ++;
-
+          _notId++;
         }
       }
     });

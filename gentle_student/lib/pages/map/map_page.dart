@@ -108,7 +108,7 @@ class _MapPageState extends State<MapPage> {
                   ),
                   subtitle: new Text(
                     _getCategory(opportunity) +
-                        " - " +
+                        "\n" +
                         _getDifficulty(opportunity) +
                         "\n" +
                         issuer.name,
