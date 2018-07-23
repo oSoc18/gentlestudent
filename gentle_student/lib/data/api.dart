@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:Gentle_Student/models/address.dart';
+import 'package:Gentle_Student/models/assertion.dart';
 import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/models/beacon.dart';
 import 'package:Gentle_Student/models/category.dart';
@@ -31,8 +32,17 @@ class OpportunityApi {
 
   Future<Opportunity> getOpportunityByBeaconId(String beaconId) async {
     return _fromDocumentSnapshot((await Firestore.instance
-            .collection("Beacons")
+            .collection("Opportunities")
             .where("beaconId", isEqualTo: beaconId)
+            .getDocuments())
+        .documents
+        .first);
+  }
+
+  Future<Opportunity> getOpportunityByBadgeId(String badgeId) async {
+    return _fromDocumentSnapshot((await Firestore.instance
+            .collection("Opportunities")
+            .where("badgeId", isEqualTo: badgeId)
             .getDocuments())
         .documents
         .first);
@@ -214,6 +224,7 @@ class IssuerApi {
         .document(issuerId)
         .get());
   }
+
   Issuer _fromDocumentSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data;
 
@@ -238,10 +249,8 @@ class BadgeApi {
   }
 
   Future<Badge> getBadgeById(String badgeId) async {
-    return _fromDocumentSnapshot(await Firestore.instance
-            .collection("Badges")
-            .document(badgeId)
-            .get());
+    return _fromDocumentSnapshot(
+        await Firestore.instance.collection("Badges").document(badgeId).get());
   }
 
   Badge _fromDocumentSnapshot(DocumentSnapshot snapshot) {
@@ -275,10 +284,33 @@ class BeaconApi {
     final data = snapshot.data;
 
     return new IBeacon(
-        beaconId: snapshot.documentID,
-        opportunityId: data['opportunityId'],
-        /*latitude: data['latitude'],
-        longitude: data['longitude']*/);
+      beaconId: snapshot.documentID,
+      opportunityId: data['opportunityId'],
+    );
+  }
+}
+
+//ASSERTIONS
+class AssertionApi {
+  Future<List<Assertion>> getAllAssertionsFromUser(String participantId) async {
+    return (await Firestore.instance
+            .collection('Assertions')
+            .where("recipientId", isEqualTo: participantId)
+            .getDocuments())
+        .documents
+        .map((snapshot) => _fromDocumentSnapshot(snapshot))
+        .toList();
+  }
+
+  Assertion _fromDocumentSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data;
+
+    return new Assertion(
+      assertionId: snapshot.documentID,
+      openBadgeId: data['badgeId'],
+      participantId: data['recipientId'],
+      issuedOn: DateTime.parse(data['issuedOn']),
+    );
   }
 }
 
