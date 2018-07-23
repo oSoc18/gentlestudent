@@ -21,7 +21,8 @@
         android:icon="@mipmap/ic_launcher">
         <service
             android:name="com.mythichelm.localnotifications.services.LocalNotificationsService"
-            android:exported="false" />
+            android:exported="false"
+            />
         <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyDl5W6GeM02xFCyASmGvKtoP3fJ_xhvUvM"/>
         <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
         <activity
@@ -44,4 +45,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

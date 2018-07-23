@@ -143,6 +143,7 @@ class _HomePageState extends State<HomePage> {
 
               await LocalNotifications.createAndroidNotificationChannel(
                   channel: channel);
+
               int id = await LocalNotifications.createNotification(
                   title: "Beacon gevonden",
                   content: "Er is een leerkans in de buurt!",
@@ -150,6 +151,9 @@ class _HomePageState extends State<HomePage> {
                   imageUrl: _badge.image,
                   androidSettings: new AndroidSettings(
                       channel: channel,
+                  ),
+                  iOSSettings: new IOSSettings(
+                    presentWhileAppOpen: true,
                   ),
                   onNotificationClick: new NotificationAction(
                       actionText: "some action",
