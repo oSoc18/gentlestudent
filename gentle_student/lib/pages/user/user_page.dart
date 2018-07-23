@@ -30,7 +30,7 @@ class UserPage extends StatelessWidget {
                     icon: Icon(
                       Icons.account_circle,
                       color: Colors.lightBlue,
-                      size: 64.0,
+                      size: 56.0,
                     ),
                     onPressed: () {
                       Navigator.of(context).pushNamed(ProfilePage.tag);
@@ -42,7 +42,7 @@ class UserPage extends StatelessWidget {
                       child: Text(
                         "Profiel",
                         style: TextStyle(
-                          fontSize: 18.0,
+                          fontSize: 16.0,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
