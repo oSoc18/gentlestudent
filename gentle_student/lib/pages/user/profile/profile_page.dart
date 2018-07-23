@@ -181,6 +181,7 @@ class _ProfilePageState extends State<ProfilePage> {
             height: 300.0,
             child: ListView(
               shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
               children: <Widget>[
                 SizedBox(height: 24.0),
                 logo,
