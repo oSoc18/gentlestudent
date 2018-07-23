@@ -188,7 +188,7 @@ class _MapPageState extends State<MapPage> {
       body: new FlutterMap(
         options: new MapOptions(
           center: new LatLng(51.052233, 3.723653),
-          zoom: 13.8,
+          zoom: 14.0,
         ),
         layers: [
           //OPENSTREETMAP (FREE, BUT REALLY SLOW)
