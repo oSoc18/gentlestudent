@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:Gentle_Student/data/api.dart';
 import 'package:beacons/beacons.dart';
 import 'package:local_notifications/local_notifications.dart';
+import 'package:Gentle_Student/models/beacon.dart';
 
 class HomePage extends StatefulWidget {
   static String tag = 'home-page';
@@ -27,6 +28,8 @@ class _HomePageState extends State<HomePage> {
                       // Index 0 represents the page for the 0th tab, index 1 represents the page for the 1st tab etc...
   Widget currentPage; // Page that is open at the moment.
 
+  List<IBeacon> _beaconList = [];
+  List<String> _keyList = [];
   Opportunity _opportunity;
   Badge _badge;
   Issuer _issuer;
@@ -44,8 +47,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    //_loadFromFirebase();
-    _beaconRanging();
+    _beaconRanging();//start scanning for beacons
+    _loadBeacons();//load all the beacons from the database into a list
     pages = [informationPage, mapListPage, userPage]; // Populate our pages list.
     currentPage = mapListPage; // Setting the first page that we'd like to show our user.
   }
@@ -87,6 +90,18 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: navBar, // Assigning our navBar to the Scaffold's bottomNavigationBar property.
       body: currentPage, // The body will be the currentPage. Which we update when a tab is pressed.
     );
+  }
+
+  _loadBeacons() async {
+    final beaconApi = new BeaconApi();
+    final beacons = await beaconApi.getAllBeacons();
+    setState(() {
+      _beaconList = beacons;
+      for(IBeacon beacon in _beaconList)
+        {
+          _keyList.add(beacon.beaconId);
+        }
+    });
   }
 
   _loadFromFirebase(String beaconkey) async {
@@ -134,7 +149,7 @@ class _HomePageState extends State<HomePage> {
         if(result.beacons.isNotEmpty){
           String beaconKey = result.beacons.first.ids[1] + result.beacons.first.ids[2];
           print(beaconKey);
-          if(beaconKey == '6495545722' || beaconKey == '4348854570' || beaconKey == '6542615842') {
+          if(_keyList.contains(beaconKey) ) {
             if(!notified) {
               notified = true;
 
