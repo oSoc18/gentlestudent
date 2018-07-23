@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import LocationPicker from 'react-location-picker';
+import Geocode from "react-geocode";
 
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import Spinner from '../Spinner';
 
-import { renderInput, renderTextarea, renderSelect, RenderDropzoneInput } from './../Utils';
+import { renderInput, renderAutomaticInput, renderTextarea, renderSelect, RenderDropzoneInput } from './../Utils';
+
+// set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
+Geocode.setApiKey("AIzaSyALLWUxYAWdEzUoSuWD8j2gVGRR05SWpe8");
 
 /* Default position */
-const defaultPosition = {
+var defaultPosition = {
   lat: 51.0511164,
   lng: 3.7114566
 };
@@ -20,7 +24,13 @@ class FormCreateLeerkans extends React.Component {
     this.state = {
       value: 'coconut', 
       lat: 51.0511164,
-      lng: 3.7114566
+      lng: 3.7114566,
+      address: '',
+      street: "Veldstraat",
+      houseNr: "1",
+      city: "Ghent",
+      postCode: "9000",
+      country: "Belgium"
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -50,6 +60,45 @@ class FormCreateLeerkans extends React.Component {
     })
   }
 
+  changeStreet(event) {
+    this.setState({street: event.target.value});
+    this.changeAddress();
+  }
+
+  changeHouseNr(event) {
+    this.setState({houseNr: event.target.value});
+    this.changeAddress();
+  }
+
+  changePostCode(event) {
+    this.setState({postCode: event.target.value});
+    this.changeAddress();
+  }
+
+  changeCity(event) {
+    this.setState({city: event.target.value});
+    this.changeAddress();
+  }
+
+  changeCountry(event) {
+    this.setState({country: event.target.value});
+    this.changeAddress();
+  }
+
+  changeAddress() {
+    Geocode.fromAddress(this.state.street+" "+this.state.houseNr+", "+this.state.city+" "+this.state.postCode+", "+this.state.country).then(
+      response => {
+        const { lat, lng } = response.results[0].geometry.location;
+        this.setState({lat: lat});
+        this.setState({lng: lng});
+        defaultPosition = {lat, lng};
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
   render() {
     const { 
       handleSubmit,
@@ -68,23 +117,26 @@ class FormCreateLeerkans extends React.Component {
             name="title"
             component={renderInput}
             defaultValue="Titel"
+            placeholder="Titel"
           />
         </div>
         <div className="form-group">
           <Field
-            label="Korte beschrijving van wat er verwacht wordt"
+            label="Verwachtingen"
             type="text"
             name="synopsis"
             id="synopsis"
             component={renderTextarea}
+            placeholder="Korte beschrijving van wat er verwacht wordt"
           />
         </div>
         <div className="form-group">
           <Field
-            label="Volledige beschrijving van de leerkans"
+            label="Beschrijving"
             id="description"
             name="description"
             component={renderTextarea}
+            placeholder="Volledige beschrijving van de leerkans"
           />
         </div>
         <div className="form-group">
@@ -95,20 +147,22 @@ class FormCreateLeerkans extends React.Component {
         </div>
         <div className="form-group">
           <Field
-            label="Start datum (DD/MM/JJJJ)"
+            label="Start datum"
             id="start_date"
             name="start_date"
             defaultValue="01/03/2018"
             component={renderInput}
+            placeholder="DD/MM/JJJJ"
           />
         </div>
         <div className="form-group">
           <Field
-            label="Eind datum (DD/MM/JJJJ)"
+            label="Eind datum"
             id="end_date"
             name="end_date"
             defaultValue="01/06/2018"
             component={renderInput}
+            placeholder="DD/MM/JJJJ"
           />
         </div>
         <div className="form-group">
@@ -118,6 +172,9 @@ class FormCreateLeerkans extends React.Component {
             name="street"
             defaultValue="Rooigemlaan"
             component={renderInput}
+            placeholder="Straatnaam"
+            value={this.state.street}
+            onChange={ this.changeStreet.bind(this) }
           />
         </div>
         <div className="form-group">
@@ -127,6 +184,9 @@ class FormCreateLeerkans extends React.Component {
             name="house_number"
             defaultValue="123"
             component={renderInput}
+            placeholder="Huisnummer"
+            value={this.state.houseNr}
+            onChange={ this.changeHouseNr.bind(this) }
           />
         </div>
         <div className="form-group">
@@ -136,6 +196,9 @@ class FormCreateLeerkans extends React.Component {
             name="postal_code"
             defaultValue="9000"
             component={renderInput}
+            placeholder="Post code"
+            value={this.state.postcode}
+            onChange={ this.changePostCode.bind(this) }
           />
         </div>
         <div className="form-group">
@@ -145,6 +208,9 @@ class FormCreateLeerkans extends React.Component {
             name="city"
             defaultValue="Gent"
             component={renderInput}
+            placeholder="Stad"
+            value={this.state.city}
+            onChange={this.changeCity.bind(this)}
           />
         </div>
         <div className="form-group">
@@ -154,10 +220,13 @@ class FormCreateLeerkans extends React.Component {
             name="country"
             defaultValue="Belgie"
             component={renderInput}
+            placeholder="Land"
+            value={this.state.country}
+            onChange={ this.changeCountry.bind(this) } 
           />
         </div>
         <h3> Pas locatie aan (Optioneel) </h3>
-        Verplaats de marker indien de locatie van het adres op google maps niet volledig overeenkomt met de beacon
+        <p>Verplaats de marker indien de locatie van het adres op google maps niet volledig overeenkomt met de beacon</p>
         <div>
           <BeaconLocationPicker changeLat={this.changeLat} changeLng={this.changeLng}/>
         </div>
@@ -168,7 +237,7 @@ class FormCreateLeerkans extends React.Component {
             name="latitude"
             defaultValue={this.state.lat}
             value={this.state.lat}
-            component={renderInput}
+            component={renderAutomaticInput}
           />
         </div>
         <div className="form-group">
@@ -178,7 +247,7 @@ class FormCreateLeerkans extends React.Component {
             name="longitude"
             defaultValue={this.state.lng}
             value={this.state.lng}
-            component={renderInput}
+            component={renderAutomaticInput}
           />
         </div>
         <div className="form-group">
@@ -238,8 +307,10 @@ class BeaconLocationPicker extends Component {
  
     // Set new location
     this.setState({ position, address });
-    this.props.changeLat(position.lat);
-    this.props.changeLng(position.lng);
+    if(!!position){
+      this.props.changeLat(position.lat);
+      this.props.changeLng(position.lng);
+    }
   }
  
   render () {
