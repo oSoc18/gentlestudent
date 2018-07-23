@@ -4,13 +4,27 @@ import { Link } from 'react-router-dom';
 
 import FormCreateLeerkans from './../../Components/Leerkansen/FormCreateLeerkans';
 
+import { firestore } from './../../Components/Firebase';
+
 class CreateLeerkans extends Component {
   constructor() {
     super();
     this.submit = this.submit.bind(this);
+    this.state = {
+		  badges: null,
+		};
   };
   componentDidMount() {
-		this.props.badgeFetchList();
+		firestore.onceGetBadges().then(snapshot => {
+			var res = new Object();
+			snapshot.forEach(doc => {
+				res[doc.id] = doc.data();
+			});
+			this.setState(() => ({ badges: res }))
+		})
+		.catch(err => {
+			console.log('Error getting documents', err);
+		});
 	}
   submit() {
     /* 
@@ -38,14 +52,16 @@ class CreateLeerkans extends Component {
       resolve()
     })
   render() {
+    const { badges } = this.state;
+
     return (
       <div>
         <div className="container">
           <div className="content">
             <Link to="/backoffice/leerkansen">Back</Link>
-            <h1>Create Leerkans</h1>
+            <h1>Maak Leerkans</h1>
             <div className="form" id="create_leerkans">
-              <FormCreateLeerkans onSubmit={this.submit}/>
+              <FormCreateLeerkans onSubmit={this.submit} badges={badges}/>
             </div>
           </div>
         </div>
