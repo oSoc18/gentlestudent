@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:Gentle_Student/data/database_helper.dart';
 import 'package:Gentle_Student/pages/login/login_page.dart';
+import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,16 @@ class _SettingsPageState extends State<SettingsPage> {
   //Declaration of the variables
   final db = new DatabaseHelper();
   final scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  void changeBrightness() {
+    DynamicTheme.of(context).setBrightness(Theme.of(context).brightness == Brightness.dark? Brightness.light: Brightness.dark);
+  }
+  
+  void changeColor() {
+    DynamicTheme.of(context).setThemeData(new ThemeData(
+        primaryColor: Theme.of(context).primaryColor == Colors.lightBlue? Colors.red: Colors.indigo
+    ));
+  }
 
   //Function for signing out
   Future<Null> _signOut() async {
@@ -75,7 +86,6 @@ class _SettingsPageState extends State<SettingsPage> {
         title: new Text("Instellingen", style: TextStyle(color: Colors.white)),
         iconTheme: new IconThemeData(color: Colors.white),
       ),
-      backgroundColor: Colors.white,
       key: scaffoldKey,
       body: ListView(
         children: <Widget>[
@@ -83,7 +93,10 @@ class _SettingsPageState extends State<SettingsPage> {
             child: ListTile(
               trailing: Icon(Icons.arrow_forward_ios),
               title: Text('Wijzig profielfoto'),
-              onTap: () => {},
+              onTap: () {
+                changeBrightness();
+                changeColor();
+              },
             ),
             decoration: new BoxDecoration(
               border: new Border(

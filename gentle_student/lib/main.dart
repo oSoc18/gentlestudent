@@ -5,6 +5,7 @@ import 'package:Gentle_Student/navigation/map_list_page.dart';
 import 'package:Gentle_Student/pages/information/experiences/experiences_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:dynamic_theme/dynamic_theme.dart';
 
 import 'pages/login/login_page.dart';
 import 'pages/register/register_page.dart';
@@ -63,15 +64,22 @@ final routes = <String, WidgetBuilder>{
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-        title: 'GentleStudent',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.lightBlue,
-          fontFamily: 'NeoSansPro',
-        ),
-        home: new LoginPage(),
-        routes: routes);
+    return new DynamicTheme(
+      defaultBrightness: Brightness.light,
+      data: (brightness) => new ThemeData(
+            primarySwatch: Colors.lightBlue,
+            brightness: brightness,
+            fontFamily: 'NeoSansPro',
+          ),
+      themedWidgetBuilder: (context, theme) {
+        return new MaterialApp(
+            title: 'GentleStudent',
+            debugShowCheckedModeBanner: false,
+            theme: theme,
+            home: new LoginPage(),
+            routes: routes);
+      },
+    );
   }
 }
 
@@ -79,14 +87,21 @@ class MyApp extends StatelessWidget {
 class MyAppHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-        title: 'GentleStudent',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.lightBlue,
-          fontFamily: 'NeoSansPro',
-        ),
-        home: new HomePage(),
-        routes: routes);
+    return new DynamicTheme(
+        defaultBrightness: Brightness.light,
+        data: (brightness) => new ThemeData(
+              primarySwatch: Colors.lightBlue,
+              brightness: brightness,
+              fontFamily: 'NeoSansPro',
+            ),
+        themedWidgetBuilder: (context, theme) {
+          return new MaterialApp(
+            title: 'GentleStudent',
+            debugShowCheckedModeBanner: false,
+            home: new HomePage(),
+            routes: routes,
+            theme: theme,
+          );
+        });
   }
 }

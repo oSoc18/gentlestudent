@@ -5,6 +5,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  dynamic_theme:
+    git:
+      url: git://github.com/Norbert515/dynamic_theme.git
+
   cupertino_icons: ^0.1.2
 
   firebase_core: 0.2.4

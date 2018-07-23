@@ -25,7 +25,6 @@ class InformationPage extends StatelessWidget {
         title: new Text("Informatie", style: TextStyle(color: Colors.white)),
         iconTheme: new IconThemeData(color: Colors.white),
       ),
-      backgroundColor: Colors.white,
       body: ListView(
         children: <Widget>[
           Container(
