@@ -11,4 +11,5 @@ export const Profiel = '/profiel';
 export const BOLeerkansen = '/backoffice/leerkansen';
 export const MaakLeerkans = '/backoffice/maak-leerkans';
 export const IssueBadgeRecipient = '/backoffice/issue-badge-recipient';
-export const ValidateIssuer = '/backoffice/validate-issuer';
+export const ValideerIssuer = '/backoffice/valideer-issuer';
+export const ValideerLeerkans = '/backoffice/valideer-leerkans';

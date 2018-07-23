@@ -51,4 +51,9 @@ export const onceGetNonValidatedIssuers = () =>
 export const validateIssuer = (id) =>
     firestore.collection('Issuers').doc(id).update({ validated: true })
 
+export const onceGetNonValidatedOpportunities = () =>
+  firestore.collection('Opportunities').where('blocked', '==', true).get()
+
+export const validateOpportunity = (id) =>
+  firestore.collection('Opportunities').doc(id).update({ blocked: false })
 

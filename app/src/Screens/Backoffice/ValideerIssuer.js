@@ -6,7 +6,7 @@ import { firestore } from './../../Components/Firebase';
 
 import Spinner from './../../Components/Spinner';
 
-class ValidateIssuer extends Component {
+class ValideerIssuer extends Component {
   constructor() {
     super();
     // this.submit = this.submit.bind(this);
@@ -103,4 +103,4 @@ const Loading = () =>
 		<Spinner />
 	</div>
 
-export default ValidateIssuer;
+export default ValideerIssuer;
