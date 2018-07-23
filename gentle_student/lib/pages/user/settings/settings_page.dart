@@ -39,9 +39,10 @@ class _SettingsPageState extends State<SettingsPage> {
     } catch (Error) {
       _showSnackBar("Er is een fout opgetreden tijdens het afmelden.");
     }
-    Navigator
-        .of(context)
-        .pushNamedAndRemoveUntil(LoginPage.tag, (Route<dynamic> r) => false);
+    Navigator.of(context).pushNamedAndRemoveUntil(
+          LoginPage.tag,
+          (Route<dynamic> r) => false,
+        );
   }
 
   //Dialog for signing out
