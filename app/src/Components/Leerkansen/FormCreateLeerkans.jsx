@@ -9,7 +9,7 @@ import Spinner from '../Spinner';
 import { renderInput, renderAutomaticInput, renderTextarea, renderSelect, RenderDropzoneInput } from './../Utils';
 
 // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
-Geocode.setApiKey("AIzaSyALLWUxYAWdEzUoSuWD8j2gVGRR05SWpe8");
+Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
 
 /* Default position */
 var defaultPosition = {
@@ -21,15 +21,16 @@ class FormCreateLeerkans extends React.Component {
   constructor(props) {
     super(props);
 
+    console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
+
     this.state = {
-      value: 'coconut', 
       lat: 51.0511164,
       lng: 3.7114566,
       address: '',
-      street: "Veldstraat",
-      houseNr: "1",
-      city: "Ghent",
-      postCode: "9000",
+      street: "",
+      house_number: "",
+      city: "",
+      postal_code: "",
       country: "Belgium"
     };
 
@@ -40,7 +41,14 @@ class FormCreateLeerkans extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({[event.target.id]: event.target.value});
+    if(event.target.id==this.state.street 
+      || this.state.house_number 
+      || this.state.city 
+      || this.state.postal_code 
+      || this.state.country ){
+      this.changeAddress();
+    }
   }
 
   handleSubmit(event) {
@@ -58,31 +66,6 @@ class FormCreateLeerkans extends React.Component {
     this.setState({
       lng: newLng
     })
-  }
-
-  changeStreet(event) {
-    this.setState({street: event.target.value});
-    this.changeAddress();
-  }
-
-  changeHouseNr(event) {
-    this.setState({houseNr: event.target.value});
-    this.changeAddress();
-  }
-
-  changePostCode(event) {
-    this.setState({postCode: event.target.value});
-    this.changeAddress();
-  }
-
-  changeCity(event) {
-    this.setState({city: event.target.value});
-    this.changeAddress();
-  }
-
-  changeCountry(event) {
-    this.setState({country: event.target.value});
-    this.changeAddress();
   }
 
   changeAddress() {
@@ -118,6 +101,8 @@ class FormCreateLeerkans extends React.Component {
             component={renderInput}
             defaultValue="Titel"
             placeholder="Titel"
+            value={this.state.title}
+            onChange={ this.handleChange }
           />
         </div>
         <div className="form-group">
@@ -128,6 +113,8 @@ class FormCreateLeerkans extends React.Component {
             id="synopsis"
             component={renderTextarea}
             placeholder="Korte beschrijving van wat er verwacht wordt"
+            value={this.state.synopsis}
+            onChange={ this.handleChange }
           />
         </div>
         <div className="form-group">
@@ -137,6 +124,8 @@ class FormCreateLeerkans extends React.Component {
             name="description"
             component={renderTextarea}
             placeholder="Volledige beschrijving van de leerkans"
+            value={this.state.description}
+            onChange={ this.handleChange }
           />
         </div>
         <div className="form-group">
@@ -153,6 +142,8 @@ class FormCreateLeerkans extends React.Component {
             defaultValue="01/03/2018"
             component={renderInput}
             placeholder="DD/MM/JJJJ"
+            value={this.state.start_date}
+            onChange={ this.handleChange }
           />
         </div>
         <div className="form-group">
@@ -163,6 +154,8 @@ class FormCreateLeerkans extends React.Component {
             defaultValue="01/06/2018"
             component={renderInput}
             placeholder="DD/MM/JJJJ"
+            value={this.state.end_date}
+            onChange={ this.handleChange }
           />
         </div>
         <div className="form-group">
@@ -174,7 +167,7 @@ class FormCreateLeerkans extends React.Component {
             component={renderInput}
             placeholder="Straatnaam"
             value={this.state.street}
-            onChange={ this.changeStreet.bind(this) }
+            onChange={ this.handleChange }
           />
         </div>
         <div className="form-group">
@@ -185,8 +178,8 @@ class FormCreateLeerkans extends React.Component {
             defaultValue="123"
             component={renderInput}
             placeholder="Huisnummer"
-            value={this.state.houseNr}
-            onChange={ this.changeHouseNr.bind(this) }
+            value={this.state.house_number}
+            onChange={ this.handleChange }
           />
         </div>
         <div className="form-group">
@@ -197,8 +190,8 @@ class FormCreateLeerkans extends React.Component {
             defaultValue="9000"
             component={renderInput}
             placeholder="Post code"
-            value={this.state.postcode}
-            onChange={ this.changePostCode.bind(this) }
+            value={this.state.postal_code}
+            onChange={ this.handleChange }
           />
         </div>
         <div className="form-group">
@@ -210,7 +203,7 @@ class FormCreateLeerkans extends React.Component {
             component={renderInput}
             placeholder="Stad"
             value={this.state.city}
-            onChange={this.changeCity.bind(this)}
+            onChange={this.handleChange }
           />
         </div>
         <div className="form-group">
@@ -222,7 +215,7 @@ class FormCreateLeerkans extends React.Component {
             component={renderInput}
             placeholder="Land"
             value={this.state.country}
-            onChange={ this.changeCountry.bind(this) } 
+            onChange={ this.handleChange } 
           />
         </div>
         <h3> Pas locatie aan (Optioneel) </h3>
