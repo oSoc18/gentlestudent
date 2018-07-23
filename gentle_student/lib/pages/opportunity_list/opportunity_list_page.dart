@@ -7,6 +7,7 @@ import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:Gentle_Student/models/user.dart';
 import 'package:Gentle_Student/pages/opportunity_details/opportunity_details_page.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class OpportunityListPage extends StatefulWidget {
@@ -40,25 +41,12 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     final badges = await badgeApi.getAllBadges();
     final issuers = await issuerApi.getAllIssuers();
     final addresses = await addresApi.getAllAddresses();
-    setState(() {
-      _opportunityApi = opportunityApi;
-      _badgeApi = badgeApi;
-      _issuerApi = issuerApi;
-      _addressApi = addresApi;
-      _opportunities = opportunities;
-      _badges = badges;
-      _issuers = issuers;
-      _addresses = addresses;
-    });
-  }
-
-  _reloadOpportunities() async {
-    if (_opportunityApi != null && _badgeApi != null && _issuerApi != null) {
-      final opportunities = await _opportunityApi.getAllOpportunities();
-      final badges = await _badgeApi.getAllBadges();
-      final issuers = await _issuerApi.getAllIssuers();
-      final addresses = await _addressApi.getAllAddresses();
+    if (this.mounted) {
       setState(() {
+        _opportunityApi = opportunityApi;
+        _badgeApi = badgeApi;
+        _issuerApi = issuerApi;
+        _addressApi = addresApi;
         _opportunities = opportunities;
         _badges = badges;
         _issuers = issuers;
@@ -67,7 +55,25 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     }
   }
 
-  _navigateToOpportunityDetails(Opportunity opportunity, Badge badge, Issuer issuer, Address address) async {
+  _reloadOpportunities() async {
+    if (_opportunityApi != null && _badgeApi != null && _issuerApi != null) {
+      final opportunities = await _opportunityApi.getAllOpportunities();
+      final badges = await _badgeApi.getAllBadges();
+      final issuers = await _issuerApi.getAllIssuers();
+      final addresses = await _addressApi.getAllAddresses();
+      if (this.mounted) {
+        setState(() {
+          _opportunities = opportunities;
+          _badges = badges;
+          _issuers = issuers;
+          _addresses = addresses;
+        });
+      }
+    }
+  }
+
+  _navigateToOpportunityDetails(Opportunity opportunity, Badge badge,
+      Issuer issuer, Address address) async {
     Navigator.push(
       context,
       new MaterialPageRoute(
@@ -79,9 +85,12 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
 
   Widget _buildOpportunityItem(BuildContext context, int index) {
     Opportunity opportunity = _opportunities[index];
-    Badge badge = _badges.firstWhere((b) => b.openBadgeId == opportunity.badgeId);
-    Issuer issuer = _issuers.firstWhere((i) => i.issuerId == opportunity.issuerId);
-    Address address = _addresses.firstWhere((a) => a.addressId == opportunity.addressId);
+    Badge badge =
+        _badges.firstWhere((b) => b.openBadgeId == opportunity.badgeId);
+    Issuer issuer =
+        _issuers.firstWhere((i) => i.issuerId == opportunity.issuerId);
+    Address address =
+        _addresses.firstWhere((a) => a.addressId == opportunity.addressId);
 
     return new Container(
       margin: const EdgeInsets.only(top: 3.0),
@@ -91,12 +100,15 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
           children: <Widget>[
             new ListTile(
               onTap: () {
-                _navigateToOpportunityDetails(opportunity, badge, issuer, address);
+                _navigateToOpportunityDetails(
+                    opportunity, badge, issuer, address);
               },
               leading: new Hero(
-                tag: index,
+                tag: "listitem " + index.toString(),
                 child: new CircleAvatar(
-                  backgroundImage: new NetworkImage(badge.image),
+                  child: new Image(
+                    image: new CachedNetworkImageProvider(badge.image),
+                  ),
                   radius: 40.0,
                 ),
               ),

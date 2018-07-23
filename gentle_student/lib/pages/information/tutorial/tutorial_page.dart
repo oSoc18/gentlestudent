@@ -1,9 +1,14 @@
+import 'package:Gentle_Student/navigation/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_views_flutter/Models/page_view_model.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
 
 class TutorialPage extends StatelessWidget {
   static String tag = "tutorial-page";
+  final bool _firstLogin;
+
+  TutorialPage(this._firstLogin);
+
   final pages = [
     new PageViewModel(
         pageColor: const Color(0xFF03A9F4),
@@ -64,7 +69,11 @@ class TutorialPage extends StatelessWidget {
         builder: (context) => new IntroViewsFlutter(
               pages,
               onTapDoneButton: () {
-                Navigator.of(context).pop();
+                if (_firstLogin) {
+                  Navigator.of(context).pushReplacementNamed(HomePage.tag);
+                } else {
+                  Navigator.of(context).pop();
+                }
               },
               showSkipButton: true,
               skipText: Text("Overslaan"),

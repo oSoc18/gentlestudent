@@ -1,46 +1,12 @@
-import 'package:Gentle_Student/pages/user/profile/profile_page.dart';
 import 'package:Gentle_Student/pages/user/backpack/backpack_page.dart';
-import 'package:Gentle_Student/pages/user/my_learning_opportunities/my_learning_opportunities_page.dart';
 import 'package:Gentle_Student/pages/user/favorites/favorites_page.dart';
+import 'package:Gentle_Student/pages/user/my_learning_opportunities/my_learning_opportunities_page.dart';
+import 'package:Gentle_Student/pages/user/profile/profile_page.dart';
 import 'package:Gentle_Student/pages/user/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 
-class UserPage extends StatefulWidget {
+class UserPage extends StatelessWidget {
   static String tag = 'user-page';
-  @override
-  _UserPageState createState() => _UserPageState();
-}
-
-class _UserPageState extends State<UserPage> {
-  Center _buildButtons(IconData icon, String label, String tag) {
-    Color color = Theme.of(context).primaryColor;
-
-    return Center(
-      child: ListView(
-        shrinkWrap: true,
-        children: <Widget>[
-          IconButton(
-            icon: Icon(icon, color: color, size: 64.0),
-            onPressed: () {
-              Navigator.of(context).pushNamed(tag);
-            },
-          ),
-          Center(
-            child: Padding(
-              padding: EdgeInsets.only(top: 30.0),
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,12 +19,175 @@ class _UserPageState extends State<UserPage> {
       body: GridView.count(
         crossAxisCount: 3,
         children: [
-          _buildButtons(Icons.account_circle, "Profiel", ProfilePage.tag),
-          _buildButtons(Icons.work, "Backpack", BackPackPage.tag),
-          _buildButtons(
-              Icons.school, "Leerkansen", MyLearningOpportunitiesPage.tag),
-          _buildButtons(Icons.favorite, "Favorieten", FavoritesPage.tag),
-          _buildButtons(Icons.settings, "Instellingen", SettingsPage.tag),
+          //Profile page
+          Center(
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).pushNamed(ProfilePage.tag),
+              child: ListView(
+                shrinkWrap: true,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(
+                      Icons.account_circle,
+                      color: Colors.lightBlue,
+                      size: 64.0,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(ProfilePage.tag);
+                    },
+                  ),
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 30.0),
+                      child: Text(
+                        "Profiel",
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          //BackPack page
+          Center(
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).pushNamed(BackPackPage.tag),
+              child: ListView(
+                shrinkWrap: true,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(
+                      Icons.work,
+                      color: Colors.lightBlue,
+                      size: 64.0,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(BackPackPage.tag);
+                    },
+                  ),
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 30.0),
+                      child: Text(
+                        "Backpack",
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          //MyLearningOpportunities page
+          Center(
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).pushNamed(MyLearningOpportunitiesPage.tag),
+              child: ListView(
+                shrinkWrap: true,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(
+                      Icons.school,
+                      color: Colors.lightBlue,
+                      size: 64.0,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(MyLearningOpportunitiesPage.tag);
+                    },
+                  ),
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 30.0),
+                      child: Text(
+                        "Leerkansen",
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          //Favorites page
+          Center(
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).pushNamed(FavoritesPage.tag),
+              child: ListView(
+                shrinkWrap: true,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(
+                      Icons.favorite,
+                      color: Colors.lightBlue,
+                      size: 64.0,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(FavoritesPage.tag);
+                    },
+                  ),
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 30.0),
+                      child: Text(
+                        "Favorieten",
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          //Settings page
+          Center(
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).pushNamed(SettingsPage.tag),
+              child: ListView(
+                shrinkWrap: true,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(
+                      Icons.settings,
+                      color: Colors.lightBlue,
+                      size: 64.0,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(SettingsPage.tag);
+                    },
+                  ),
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 30.0),
+                      child: Text(
+                        "Instellingen",
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

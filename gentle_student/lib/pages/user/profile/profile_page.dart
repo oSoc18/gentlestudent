@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:Gentle_Student/data/api.dart';
 import 'package:Gentle_Student/models/user.dart';
 import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -12,7 +15,13 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   FirebaseUser firebaseUser;
-  Participant _participant = new Participant(name: "", institute: "", participantId: "0", email: "", birthdate: DateTime.now(), education: "");
+  Participant _participant = new Participant(
+      name: "",
+      institute: "",
+      participantId: "0",
+      email: "",
+      birthdate: DateTime.now(),
+      education: "");
 
   @override
   void initState() {
@@ -27,9 +36,19 @@ class _ProfilePageState extends State<ProfilePage> {
     final participantApi = new ParticipantApi();
     final participant =
         await participantApi.getParticipantById(firebaseUser.uid);
-    setState(() {
-      _participant = participant;
-    });
+    if (this.mounted) {
+      setState(() {
+        _participant = participant;
+      });
+    }
+  }
+
+  Future<Null> _launchInBrowser(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -37,7 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
     Color color = Theme.of(context).primaryColor;
 
     final logo = Hero(
-      tag: 'hero',
+      tag: 'profile hero',
       child: CircleAvatar(
         backgroundColor: Colors.white,
         radius: 60.0,
@@ -142,6 +161,15 @@ class _ProfilePageState extends State<ProfilePage> {
             color: Colors.white,
           ),
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.edit,
+            ),
+            onPressed: () => _launchInBrowser("http://gentlestudent.gent"),
+            tooltip: "Klik hier om uw gegevens aan te kunnen passen",
+          ),
+        ],
         iconTheme: new IconThemeData(color: Colors.white),
       ),
       backgroundColor: Colors.white,

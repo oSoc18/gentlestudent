@@ -77,7 +77,7 @@ class _RegisterPageState extends State<RegisterPage> {
   void _addUserToDatabase() {
     Map<String, String> data = <String, String>{
       "name": firstnameController.text + " " + lastnameController.text,
-      "birthdate":  _formatDate(_birthdate),
+      "birthdate": _formatDate(_birthdate),
       "institute": instituteController.text,
       "education": educationController.text,
       "email": emailController.text,
@@ -162,9 +162,11 @@ class _RegisterPageState extends State<RegisterPage> {
       labelText: 'Geboortedatum',
       selectedDate: _birthdate,
       selectDate: (DateTime date) {
-        setState(() {
-          _birthdate = date;
-        });
+        if (this.mounted) {
+          setState(() {
+            _birthdate = date;
+          });
+        }
       },
     );
 
@@ -243,7 +245,8 @@ class _RegisterPageState extends State<RegisterPage> {
           height: 42.0,
           onPressed: () => _register(),
           color: Colors.lightBlueAccent,
-          child: Text('Maak uw account aan', style: TextStyle(color: Colors.white)),
+          child: Text('Maak uw account aan',
+              style: TextStyle(color: Colors.white)),
         ),
       ),
     );
@@ -261,7 +264,8 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       key: scaffoldKey,
       appBar: new AppBar(
-        title: new Text("Account aanmaken", style: TextStyle(color: Colors.white)),
+        title:
+            new Text("Account aanmaken", style: TextStyle(color: Colors.white)),
         iconTheme: new IconThemeData(color: Colors.white),
       ),
       backgroundColor: Colors.white,
@@ -319,10 +323,10 @@ class _InputDropdown extends StatelessWidget {
       onTap: onPressed,
       child: new InputDecorator(
         decoration: InputDecoration(
-          labelText: labelText,
-          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+            labelText: labelText,
+            contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
         child: new Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.min,
