@@ -3,6 +3,7 @@ import 'package:Gentle_Student/models/user.dart';
 import 'package:Gentle_Student/navigation/home_page.dart';
 import 'package:Gentle_Student/navigation/map_list_page.dart';
 import 'package:Gentle_Student/pages/information/experiences/experiences_page.dart';
+import 'package:Gentle_Student/pages/information/news/news_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
@@ -57,7 +58,8 @@ final routes = <String, WidgetBuilder>{
   MyLearningOpportunitiesPage.tag: (context) => MyLearningOpportunitiesPage(),
   FavoritesPage.tag: (context) => FavoritesPage(),
   SettingsPage.tag: (context) => SettingsPage(),
-  ExperiencesPage.tag: (context) => ExperiencesPage()
+  ExperiencesPage.tag: (context) => ExperiencesPage(),
+  NewsPage.tag: (context) => NewsPage(),
 };
 
 //This widget is the root of the application (first time)

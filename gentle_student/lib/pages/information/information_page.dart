@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:Gentle_Student/pages/information/about_us/about_us_page.dart';
 import 'package:Gentle_Student/pages/information/experiences/experiences_page.dart';
+import 'package:Gentle_Student/pages/information/news/news_page.dart';
 import 'package:Gentle_Student/pages/information/privacy_policy/privacy_policy_page.dart';
 import 'package:Gentle_Student/pages/information/tutorial/tutorial_page.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -76,7 +77,7 @@ class InformationPage extends StatelessWidget {
                 trailing: Icon(Icons.arrow_forward_ios),
                 title: Text('Nieuws'),
                 onTap: () {
-                  //Navigator.of(context).pushNamed(AboutUsPage.tag);
+                  Navigator.of(context).pushNamed(NewsPage.tag);
                 },
               ),
               decoration: new BoxDecoration(
