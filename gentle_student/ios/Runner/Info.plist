@@ -57,6 +57,10 @@
 	<string>Geef Gentlestudent toegang tot jouw locatie.</string>
 	<key>NSLocationAlwaysInUseUsageDescription</key>
     <string>Geef Gentlestudent toegang tot jouw locatie.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Geef Gentlestudent toegang tot jouw afbeeldingen.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Geef Gentlestudent toegang tot jouw camera.</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

@@ -34,6 +34,7 @@ class Participant {
   final String institute;
   final String education;
   final DateTime birthdate;
+  final String profilePicture;
 
   Participant({
     @required this.participantId,
@@ -42,6 +43,7 @@ class Participant {
     @required this.education,
     @required this.name,
     @required this.birthdate,
+    @required this.profilePicture,
   });
 }
 

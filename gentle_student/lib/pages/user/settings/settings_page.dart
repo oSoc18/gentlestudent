@@ -1,10 +1,15 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:Gentle_Student/data/api.dart';
 import 'package:Gentle_Student/data/database_helper.dart';
 import 'package:Gentle_Student/pages/login/login_page.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SettingsPage extends StatefulWidget {
   static String tag = 'settings-page';
@@ -17,6 +22,9 @@ class _SettingsPageState extends State<SettingsPage> {
   final db = new DatabaseHelper();
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   bool _switchValue = false;
+  FirebaseUser firebaseUser;
+  File _image;
+  String _path;
 
   //Function for switching between dark mode and light mode
   void _changeBrightnessAndColor() {
@@ -94,6 +102,72 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
+  //Let user choose between camera and gallery
+  Future<Null> _displayCameraOrGalleryDialog() async {
+    return showDialog<Null>(
+      context: context,
+      builder: (BuildContext context) {
+        return new AlertDialog(
+          title: new Text("Profielfoto"),
+          content: new SingleChildScrollView(
+            child: new ListBody(
+              children: <Widget>[
+                new Text(
+                    'Wilt u de camera gebruiken om een nieuwe foto nemen of wilt u een bestaande foto uit uw gallerij gebruiken?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text('Camera'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                getImage(ImageSource.camera);
+              },
+            ),
+            new FlatButton(
+              child: new Text('Gallerij'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                getImage(ImageSource.gallery);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  //Let user take a picture or choose an existing picture from their gallery
+  Future getImage(ImageSource imageSource) async {
+    var image = await ImagePicker.pickImage(source: imageSource);
+
+    setState(() {
+      _image = image;
+    });
+
+    await uploadFile();
+  }
+
+  //Upload file to Firebase storage and change profile picture of the user
+  Future<Null> uploadFile() async {
+    try {
+      final StorageReference ref = FirebaseStorage.instance.ref().child(
+          "Profile pictures/" + firebaseUser.uid + "/profile_picture.jpg");
+      final StorageUploadTask task = ref.putFile(_image);
+      final Uri downloadUrl = (await task.future).downloadUrl;
+      _path = downloadUrl.toString();
+
+      final ParticipantApi participantApi = new ParticipantApi();
+      await participantApi.changeProfilePicture(firebaseUser.uid, _path);
+
+      _showSnackBar("Uw profielfoto werd succesvol bijgewerkt.");
+    } catch (E) {
+      _showSnackBar(
+          "Er ging iets mis tijdens het bijwerken van uw profielfoto.");
+    }
+  }
+
   //Location permission dialog
   Future<Null> _displayLocationPermissionDialog() async {
     return showDialog<Null>(
@@ -127,6 +201,9 @@ class _SettingsPageState extends State<SettingsPage> {
   void initState() {
     super.initState();
     _setSwitchState();
+    FirebaseAuth.instance.onAuthStateChanged.listen((user) {
+      firebaseUser = user;
+    });
   }
 
   @override
@@ -143,7 +220,7 @@ class _SettingsPageState extends State<SettingsPage> {
             child: ListTile(
               trailing: Icon(Icons.arrow_forward_ios),
               title: Text('Wijzig profielfoto'),
-              onTap: () {},
+              onTap: () => _displayCameraOrGalleryDialog(),
             ),
             decoration: new BoxDecoration(
               border: new Border(

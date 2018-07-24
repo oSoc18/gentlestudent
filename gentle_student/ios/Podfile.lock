@@ -28,12 +28,18 @@ PODS:
   - Firebase/Firestore (5.4.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (= 0.12.5)
+  - Firebase/Storage (5.4.0):
+    - Firebase/CoreOnly
+    - FirebaseStorage (= 3.0.0)
   - firebase_auth (0.0.1):
     - Firebase/Auth
     - Firebase/Core
     - Flutter
   - firebase_core (0.0.1):
     - Firebase/Core
+    - Flutter
+  - firebase_storage (0.0.1):
+    - Firebase/Storage
     - Flutter
   - FirebaseAnalytics (5.0.1):
     - FirebaseCore (~> 5.0)
@@ -63,6 +69,9 @@ PODS:
     - Protobuf (~> 3.1)
   - FirebaseInstanceID (3.1.1):
     - FirebaseCore (~> 5.0)
+  - FirebaseStorage (3.0.0):
+    - FirebaseCore (~> 5.0)
+    - GTMSessionFetcher/Core (~> 1.1)
   - Flutter (1.0.0)
   - flutter_custom_tabs (0.0.1):
     - Flutter
@@ -96,6 +105,8 @@ PODS:
     - gRPC-Core (= 1.13.0)
     - gRPC-RxLibrary (= 1.13.0)
   - GTMSessionFetcher/Core (1.1.15)
+  - image_picker (0.0.1):
+    - Flutter
   - leveldb-library (1.20)
   - local_notifications (0.0.1):
     - Flutter
@@ -124,9 +135,11 @@ DEPENDENCIES:
   - cloud_firestore (from `Pods/.symlinks/plugins/cloud_firestore/ios`)
   - firebase_auth (from `Pods/.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `Pods/.symlinks/plugins/firebase_core/ios`)
+  - firebase_storage (from `Pods/.symlinks/plugins/firebase_storage/ios`)
   - Flutter (from `Pods/.symlinks/flutter/ios`)
   - flutter_custom_tabs (from `Pods/.symlinks/plugins/flutter_custom_tabs/ios`)
   - flutter_local_notifications (from `Pods/.symlinks/plugins/flutter_local_notifications/ios`)
+  - image_picker (from `Pods/.symlinks/plugins/image_picker/ios`)
   - local_notifications (from `Pods/.symlinks/plugins/local_notifications/ios`)
   - path_provider (from `Pods/.symlinks/plugins/path_provider/ios`)
   - shared_preferences (from `Pods/.symlinks/plugins/shared_preferences/ios`)
@@ -145,6 +158,7 @@ SPEC REPOS:
     - FirebaseDatabase
     - FirebaseFirestore
     - FirebaseInstanceID
+    - FirebaseStorage
     - FMDB
     - GoogleToolboxForMac
     - gRPC
@@ -165,12 +179,16 @@ EXTERNAL SOURCES:
     :path: Pods/.symlinks/plugins/firebase_auth/ios
   firebase_core:
     :path: Pods/.symlinks/plugins/firebase_core/ios
+  firebase_storage:
+    :path: Pods/.symlinks/plugins/firebase_storage/ios
   Flutter:
     :path: Pods/.symlinks/flutter/ios
   flutter_custom_tabs:
     :path: Pods/.symlinks/plugins/flutter_custom_tabs/ios
   flutter_local_notifications:
     :path: Pods/.symlinks/plugins/flutter_local_notifications/ios
+  image_picker:
+    :path: Pods/.symlinks/plugins/image_picker/ios
   local_notifications:
     :path: Pods/.symlinks/plugins/local_notifications/ios
   path_provider:
@@ -193,12 +211,14 @@ SPEC CHECKSUMS:
   Firebase: d66f4f29c23f22d96808d9abc174d81d8eee968f
   firebase_auth: 27a5a77a032d557c18f8e223aaf8ec1368f6cdbc
   firebase_core: c96aa8b2fcf7f5167d32f22034f502f9304952b8
+  firebase_storage: e34d30ff8bb57e691191b70e9d255ec2eba2351f
   FirebaseAnalytics: b3628aea54c50464c32c393fb2ea032566e7ecc2
   FirebaseAuth: 096e457cdd4274412a66c4a35874787e411f5a03
   FirebaseCore: 42b3267233bd21a5abd54117ccc38ca3dd0f8e83
   FirebaseDatabase: 27be5ac5bc75e0b17537b2bbfada8258addcc8cd
   FirebaseFirestore: b041e4a94601e18e82a863e0dcfa9d3e55cc2031
   FirebaseInstanceID: f3f0657372592ecdfdfe2cac604a5a75758376a6
+  FirebaseStorage: 7ca4bb7b58a25fa647b04f524033fc7cb7eb272b
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
   flutter_custom_tabs: 8dcb85ffe874ee8fd8139bb3960743efeaf521ee
   flutter_local_notifications: 696a74904e0a0ab754e27a5f761da4a7f9153710
@@ -209,6 +229,7 @@ SPEC CHECKSUMS:
   gRPC-ProtoRPC: 842797fbe05dfcf891afb4a5048e5ccf5f06ef86
   gRPC-RxLibrary: fa6852f98d6ec0b73c0ec2f6406c26943099d501
   GTMSessionFetcher: 5fa5b80fd20e439ef5f545fb2cb3ca6c6714caa2
+  image_picker: ee00aab0487cedc80a304085219503cc6d0f2e22
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   local_notifications: af1664b4f99603a346f2fa5ff6e9b2a322ed00b3
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3

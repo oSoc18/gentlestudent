@@ -71,6 +71,7 @@ class _RegisterPageState extends State<RegisterPage> {
       "institute": instituteController.text,
       "education": educationController.text,
       "email": emailController.text,
+      "profilePicture": "",
     };
     final DocumentReference documentReference =
         Firestore.instance.document("Participants/" + firebaseUser.uid);

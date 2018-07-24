@@ -18,7 +18,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 //OPPORTUNITIES
 class OpportunityApi {
   Future<List<Opportunity>> getAllOpportunities() async {
-    return (await Firestore.instance.collection('Opportunities').where("blocked", isEqualTo: false).getDocuments())
+    return (await Firestore.instance
+            .collection('Opportunities')
+            .where("blocked", isEqualTo: false)
+            .getDocuments())
         .documents
         .map((snapshot) => _fromDocumentSnapshot(snapshot))
         .toList();
@@ -168,6 +171,20 @@ class ParticipantApi {
         .get());
   }
 
+  Future<Null> changeProfilePicture(
+      String participantId, String profilePicture) async {
+    Map<String, String> data = <String, String>{
+      "profilePicture": profilePicture,
+    };
+    await Firestore.instance
+        .collection("Participants")
+        .document(participantId)
+        .updateData(data)
+        .whenComplete(() {
+      print("Profile picture changed");
+    }).catchError((e) => print(e));
+  }
+
   Participant _fromDocumentSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data;
 
@@ -177,7 +194,8 @@ class ParticipantApi {
         institute: data['institute'],
         education: data['education'],
         email: data['email'],
-        birthdate: DateTime.parse(data['birthdate']));
+        birthdate: DateTime.parse(data['birthdate']),
+        profilePicture: data['profilePicture']);
   }
 }
 
