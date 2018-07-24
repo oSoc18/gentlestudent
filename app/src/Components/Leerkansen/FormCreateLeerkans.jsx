@@ -168,6 +168,7 @@ class FormCreateLeerkans extends React.Component {
     const { 
       handleSubmit,
       submitting,
+      pristine,
       badge,
       badges
     } = this.props
@@ -354,7 +355,7 @@ class FormCreateLeerkans extends React.Component {
           />
         </div>
         <div className="form-group">
-          <button type="submit" disabled={submitting}>
+          <button type="submit" disabled={submitting || pristine}>
             Maak leerkans
           </button>
         </div>
