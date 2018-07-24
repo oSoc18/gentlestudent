@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:Gentle_Student/data/api.dart';
 import 'package:Gentle_Student/models/user.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -21,7 +22,8 @@ class _ProfilePageState extends State<ProfilePage> {
       participantId: "0",
       email: "",
       birthdate: DateTime.now(),
-      education: "");
+      education: "",
+      profilePicture: "");
 
   @override
   void initState() {
@@ -56,7 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
     Color color = Theme.of(context).primaryColor;
 
     final logo = Hero(
-      tag: 'profile hero',
+      tag: 'profile hero logo',
       child: CircleAvatar(
         backgroundColor: Colors.white,
         radius: 60.0,
@@ -66,6 +68,57 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
     );
+
+    final profilePicture = Hero(
+      tag: 'profile hero picture',
+      child: CircleAvatar(
+        radius: 60.0,
+        child: Image(
+          image: CachedNetworkImageProvider(_participant.profilePicture),
+          width: 120.0,
+          height: 120.0,
+        ),
+      ),
+    );
+
+    final profilePicture3 = Container(
+      constraints: BoxConstraints(
+        maxHeight: 120.0,
+        maxWidth: 120.0,
+      ),
+      child: CircleAvatar(
+        radius: 60.0,
+        child: Image(
+          image: CachedNetworkImageProvider(_participant.profilePicture),
+          width: 120.0,
+          height: 120.0,
+        ),
+      ),
+    );
+
+    final profilePicture2 = Container(
+      width: 120.0,
+      height: 120.0,
+      decoration: new BoxDecoration(
+        color: const Color(0xff7c94b6),
+        image: new DecorationImage(
+          image: CachedNetworkImageProvider(_participant.profilePicture),
+          fit: BoxFit.cover,
+        ),
+        borderRadius: new BorderRadius.all(new Radius.circular(50.0)),
+        border: new Border.all(
+          color: Colors.red,
+          width: 4.0,
+        ),
+      ),
+    );
+
+    Widget _logoOrProfilePicture() {
+      if (_participant.profilePicture == "")
+        return logo;
+      else
+        return profilePicture2;
+    }
 
     final name = Text(
       _participant.name,
@@ -172,60 +225,55 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
         iconTheme: new IconThemeData(color: Colors.white),
       ),
-      body: ListView(
-        shrinkWrap: true,
-        children: <Widget>[
-          new Container(
-            color: color,
-            height: 300.0,
-            child: ListView(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              children: <Widget>[
-                SizedBox(height: 24.0),
-                logo,
-                SizedBox(height: 24.0),
-                name,
-                Container(
-                  margin: EdgeInsets.only(left: 24.0, right: 24.0, top: 20.0),
-                  decoration: new BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(5.0),
-                    boxShadow: <BoxShadow>[
-                      new BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 10.0,
-                        offset: new Offset(0.0, 10.0),
-                      ),
-                    ],
+      body: new Container(
+        color: color,
+        height: 300.0,
+        child: ListView(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          children: <Widget>[
+            SizedBox(height: 24.0),
+            _logoOrProfilePicture(),
+            SizedBox(height: 24.0),
+            name,
+            Container(
+              margin: EdgeInsets.only(left: 24.0, right: 24.0, top: 20.0),
+              decoration: new BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(5.0),
+                boxShadow: <BoxShadow>[
+                  new BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10.0,
+                    offset: new Offset(0.0, 10.0),
                   ),
-                  child: ListView(
-                    shrinkWrap: true,
-                    padding: EdgeInsets.only(bottom: 24.0),
-                    children: <Widget>[
-                      SizedBox(height: 30.0),
-                      lblMail,
-                      SizedBox(height: 5.0),
-                      mail,
-                      SizedBox(height: 30.0),
-                      lblBirthdate,
-                      SizedBox(height: 5.0),
-                      birthdate,
-                      SizedBox(height: 30.0),
-                      lblInstitute,
-                      SizedBox(height: 5.0),
-                      institute,
-                      SizedBox(height: 30.0),
-                      lblEducation,
-                      SizedBox(height: 5.0),
-                      education,
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
+                ],
+              ),
+              child: ListView(
+                shrinkWrap: true,
+                padding: EdgeInsets.only(bottom: 24.0),
+                children: <Widget>[
+                  SizedBox(height: 30.0),
+                  lblMail,
+                  SizedBox(height: 5.0),
+                  mail,
+                  SizedBox(height: 30.0),
+                  lblBirthdate,
+                  SizedBox(height: 5.0),
+                  birthdate,
+                  SizedBox(height: 30.0),
+                  lblInstitute,
+                  SizedBox(height: 5.0),
+                  institute,
+                  SizedBox(height: 30.0),
+                  lblEducation,
+                  SizedBox(height: 5.0),
+                  education,
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
