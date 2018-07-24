@@ -18,26 +18,8 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
   @override
     void initState() {
       super.initState();
-      _loadFromFirebase();
     }
 
-    _loadFromFirebase() async{
-      final api = new ExperiencesApi();
-      final experiences = await api.getAllExperiences();// api.getAllExperiences();
-      setState((){
-          _api = api;
-          _experiences = experiences;
-          _experiences.add(
-            new Experience(
-              participantId: "500",
-              content: "Mijn content",
-              date: DateTime(2018,12,6),
-              experienceId: "550",
-              recap: "MIJN RECAP" 
-            )
-          );
-      });
-    }
 
     _reloadExperiences() async {
       if (_api != null){
@@ -78,7 +60,7 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
                           padding: const EdgeInsets.all(5.0),
                           child:
                         new Text(
-                          experience.recap,
+                          "experience.recap,",
                           textAlign: TextAlign.center
                           ),),
                     ),

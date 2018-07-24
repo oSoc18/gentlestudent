@@ -7,6 +7,7 @@ import 'package:Gentle_Student/models/beacon.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/experience.dart';
+import 'package:Gentle_Student/models/news.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:Gentle_Student/models/participation.dart';
 import 'package:Gentle_Student/models/status.dart';
@@ -328,9 +329,34 @@ class ExperiencesApi {
 
     return new Experience(
         experienceId: snapshot.documentID,
-        content: data['content'],
-        recap: data['recap'],
-        date: data['date'],
-        participantId: data['participantId']);
+        title: data['title'],
+        shortText: data['shortText'],
+        longText: data['longText'],
+        authorId: data['authorId'],
+        published: data['published'],
+        imageUrl: data['imageUrl']);
+  }
+}
+
+//NEWS
+class NewsApi {
+  Future<List<News>> getAllNews() async {
+    return (await Firestore.instance.collection('News').getDocuments())
+        .documents
+        .map((snapshot) => _fromDocumentSnapshot(snapshot))
+        .toList();
+  }
+
+  News _fromDocumentSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data;
+
+    return new News(
+        newsId: snapshot.documentID,
+        title: data['title'],
+        shortText: data['shortText'],
+        longText: data['longText'],
+        authorId: data['authorId'],
+        published: data['published'],
+        imageUrl: data['imageUrl']);
   }
 }

@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
-class Experience {
-  final String experienceId;
+class News{
+  final String newsId;
   final String title;
   final String shortText;
   final String longText;
@@ -9,8 +9,8 @@ class Experience {
   final DateTime published;
   final String imageUrl;
 
-  Experience({
-    @required this.experienceId,
+  News({
+    @required this.newsId,
     @required this.title,
     @required this.shortText,
     @required this.longText,
