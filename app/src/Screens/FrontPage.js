@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
-import { authenticatedCheck } from './../actions/authActions';
-
-import Nav from './../Components/Nav';
 import Leerkansen from './../Components/Frontpage/Leerkansen';
 import RecenteErvaringen from './../Components/Frontpage/RecenteErvaringen';
 import Download from './../Components/Frontpage/Download';
-import Footer from './../Components/Footer';
 
 import eyecather from './../assets/eyecatcher.jpg';
 import newImage from './../assets/wat-is-er-nieuw.png';
@@ -23,12 +18,11 @@ const newStyle = {
 
 class FrontPage extends Component {
 	componentDidMount() {
-    this.props.check();
+    // this.props.check();
   }
 	render() {
 		return (
 			<div>
-				<Nav />
 				<div id="startpage">
 					<div className="eyecather-wrapper">
 						<img src={eyecather} id="eyecather" alt="eyecather" />
@@ -58,21 +52,9 @@ class FrontPage extends Component {
 				</div>
 				<RecenteErvaringen />
 				<Download />
-				<Footer />
 			</div>
 		);
 	}
 }
   
-export default (FrontPage = connect(
-  (state) => {
-    return {
-      auth: state.auth
-    };
-  },
-  (dispatch) => {
-    return {
-      check: () => dispatch(authenticatedCheck())
-    };
-  }
-)(FrontPage));
+export default FrontPage;

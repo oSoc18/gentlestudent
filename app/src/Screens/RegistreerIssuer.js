@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import FormRegisterUser from './../Components/Auth/FormRegisterUser';
+import FormRegisterUser from './../Components/Auth/RegistreerIssuer';
 
-class Register extends Component {
+class RegistreerIssuer extends Component {
   constructor(props) {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,7 +24,7 @@ class Register extends Component {
 			<React.Fragment>
         <div className="container">
           <div className="content">
-            <h1>Register</h1>
+            <h1>Word issuer</h1>
             <div className="form" id="register_user">
               <FormRegisterUser onSubmit={this.handleSubmit}/>
             </div>
@@ -35,4 +35,4 @@ class Register extends Component {
 	}
 }
 
-export default Register;
+export default RegistreerIssuer;

@@ -144,7 +144,45 @@ export const renderInput = ({
           id={id}
           label={label}
           placeholder={placeholder}
+          required
+        />
+        {touched && error && <span className="error">{error}</span>}
+        {touched && !error && <span className="succes">✓</span>}
+      </div>
+    </React.Fragment>
+  );
+};
+
+export const renderAutomaticInput = ({
+  label,
+  input,
+  type,
+  id,
+  defaultValue,
+  placeholder,
+  meta: { asyncValidating, touched, error }
+}) => {
+  return (
+    <React.Fragment>
+      <div
+        // className={
+        //   touched && error
+        //     ? `${errorMessage}`
+        //     : touched && !error ? `${succesMessage}` : null
+        // }
+      >
+        <label htmlFor={input.name}>
+          {label}
+        </label>
+        <input
+          {...input}
+          className="input"
+          type={type}
+          id={id}
+          label={label}
+          placeholder={placeholder}
           value={defaultValue}
+          required
         />
         {touched && error && <span className="error">{error}</span>}
         {touched && !error && <span className="succes">✓</span>}
@@ -190,11 +228,12 @@ export const renderSelect = ({
         <select
           {...input}
           className="select"
+          required
         >
-          <option>— Select an option —</option>
+          <option value="">— Select an option —</option>
           {data.list.map((index, key) => {
             return (
-              <option key={key} value={index.value}>
+              <option key={key} value={index.value} required>
                 {index.display}
               </option>
             );
@@ -235,6 +274,7 @@ export const renderTextarea = ({
           placeholder={placeholder}
           rows="6"
           cols="50"
+          required
         />
         {touched && error && <span className="error">{error}</span>}
         {touched && !error && <span className="succes">✓</span>}
@@ -250,6 +290,7 @@ export const RenderDropzoneInput = (field) => {
       <Dropzone
         name={field.name}
         onDrop={( filesToUpload, e ) => field.input.onChange(filesToUpload)}
+        required
       >
         <div>Try dropping some files here, or click to select files to upload.</div>
       </Dropzone>
@@ -264,3 +305,45 @@ export const RenderDropzoneInput = (field) => {
     </div>
   );
 };
+
+export const validate = values => {
+  const errors = {};
+  if (!values.title) {
+    errors.title = "Required";
+  }
+  if (!values.synopsis){
+    errors.synopsis = "Required";
+  }
+  if (!values.description){
+    errors.description = "Required";
+  }
+  if (!values.start_date){
+    errors.start_date = "Required";
+  }
+  if (!values.end_date){
+    errors.end_date = "Required";
+  }
+  if (!values.street){
+    errors.street = "Required";
+  }
+  if (!values.house_number){
+    errors.house_number = "Required";
+  }
+  if (!values.postal_code){
+    errors.postal_code = "Required";
+  }
+  if (!values.city){
+    errors.city = "Required";
+  }
+  if (!values.country){
+    errors.country = "Required";
+  }
+  if (!values.latitude){
+    errors.street = "Required";
+  }
+  if (!values.longitude){
+    errors.street = "Required";
+  }
+  return errors;
+};
+

@@ -1,34 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { LeerkansenFetchById } from './../../actions/leerkansActions';
+import Spinner from '../Spinner';
 
 class Detail extends Component {
-  componentDidMount() {
-    this.props.fetchLeerkansenById(this.props.match.params._id);
-  }
   render() {
+    const { opportunities } = this.props;
+    const id = this.props.match.params.id;
+
     return (
-      <div>
-        <a href="/leerkansen">Back</a>
-        <h1>{this.props.leerkansen.item.title}</h1>
-        <p>{this.props.leerkansen.item.description}</p>
-      </div>
+      <React.Fragment>
+        { !! opportunities && <LeerkansDetail opportunity={ opportunities[id] } /> }
+				{ ! opportunities && <EmptyList/> }
+			</React.Fragment>
+      
     )
   }
 }
 
-export default connect(
-  (state) => {
-    return {
-      leerkansen: state.leerkansen
-    };
-  },
-  (dispatch) => {
-    return {
-      fetchLeerkansenById: (id) => {
-        dispatch(LeerkansenFetchById(id));
-      }
-    };
-  }
-)(Detail);
+const LeerkansDetail = ({ opportunity }) =>
+  <div>
+    <a href="/leerkansen">Back</a>
+    {/* {JSON.stringify(opportunity)} */}
+    {opportunity.shortDescription}
+    {/* <h1>{opportunities[id].title}</h1>
+    <p>{opportunities[id].description}</p> */}
+  </div>
+
+const EmptyList = () =>
+	<div>
+		<Spinner />
+	</div>
+
+
+export default Detail;

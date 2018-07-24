@@ -1,45 +1,44 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Spinner from './../../Components/Spinner';
+import Spinner from '../Spinner';
 
 class List extends Component {
 	render() {
+		const { opportunities } = this.props;
+
 		return (
 			<React.Fragment>
-				{ this.props.leerkansen.loading ? <Spinner /> : null }
-				<div className="card-container leerkansen">
-				{
-					this.props.leerkansen.items.map((lk, key) => {
-						return(
-							<a href={`/leerkansen/${lk._id}`} className={`card-item leerkans ${ lk.type }`} key={lk._id}>
-								<img src={lk.image ? `https://gentlestudent-api.herokuapp.com/leerkansen/${lk.image}` : null} className="photo" alt={lk.title} />
-								<div style={{position: "relative"}}>
-									<img src={`https://api.badgr.io/public/badges/${lk.badge}/image",`} className="badge" alt={lk.type + lk.level} />
-									<h2>{lk.title}</h2>
-									<div className="meta-data">
-										<small>{lk.start_date + ' - ' + lk.end_date}</small>
-										<small>{lk.street + ' ' + lk.house_number + ', ' + lk.postal_code + ' ' + lk.city}</small>
-									</div>
-									<p>{lk.synopsis}</p>
-								</div>
-							</a>
-						)
-					})
-				}
-				</div>
+				{ !! opportunities && <LeerkansenList opportunities={ opportunities } /> }
+				{ ! opportunities && <EmptyList/> }
 			</React.Fragment>
 		)
 	}
 }
 
-export default connect(
-	(state) => {
-		return {
-			leerkansen: state.leerkansen
-		};
-	},
-	(dispatch) => {
-		return {}
-	}
-)(List);
+const LeerkansenList = ({ opportunities }) =>
+	<div>
+		<div className="card-container leerkansen">
+			{Object.keys(opportunities).map(key =>
+				<a href={`/leerkansen/${key}`} className={`card-item leerkans ${ opportunities[key].category }`} key={opportunities[key].addressId}>
+					<img src={opportunities[key].oppImageUrl ? `https://gentlestudent-api.herokuapp.com/leerkansen/${opportunities[key].pinImageUrl}` : null} className="photo" alt={opportunities[key].title} />
+					<div style={{position: "relative"}}>
+					<img src={`https://api.badgr.io/public/badges/${opportunities[key].pinImageUrl}/image",`} className="badge" alt={opportunities[key].category + opportunities[key].difficulty} />
+					<h2>{opportunities[key].title}</h2>
+					<div className="meta-data">
+					<small>{opportunities[key].beginDate + ' - ' + opportunities[key].endDate}</small>
+					{/* <small>{opportunities[key].street + ' ' + opportunities[key].house_number + ', ' + opportunities[key].postal_code + ' ' + opportunities[key].city}</small> */}
+					</div>
+					<p>{opportunities[key].shortDescription}</p>
+					</div>
+				</a>
+			)}
+		</div>
+	</div>
+
+const EmptyList = () =>
+	<div>
+		<Spinner />
+	</div>
+
+export default List;

@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
-import { BadgeIssueRecipient } from './../../actions/badgesActions';
-
 import { renderInput, renderSelect, renderCheckbox } from './../Utils';
 
 let FormIssueBadge = (props) => {
@@ -56,17 +54,4 @@ FormIssueBadge = reduxForm({
   fields: ['badge', 'recipient', 'create_notification']
 })(FormIssueBadge);
 
-export default (FormIssueBadge = connect(
-  (state) => {
-    return {
-      badge: state.badge,
-    };
-  },
-  (dispatch) => {
-    return {
-      issueBadge: (data) => {
-        dispatch(BadgeIssueRecipient(data));
-      }
-    };
-  }
-)(FormIssueBadge));
+export default FormIssueBadge;
