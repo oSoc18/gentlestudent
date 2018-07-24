@@ -332,8 +332,8 @@ class ExperiencesApi {
         title: data['title'],
         shortText: data['shortText'],
         longText: data['longText'],
-        authorId: data['authorId'],
-        published: data['published'],
+        author: data['author'],
+        published: DateTime.parse(data['published']),
         imageUrl: data['imageUrl']);
   }
 }
