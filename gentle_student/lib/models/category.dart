@@ -1,7 +1,7 @@
 //An enum containing all different categories
 enum Category {
-  DUURZAAMHEID,
   DIGITALEGELETTERDHEID,
+  DUURZAAMHEID,
   ONDERNEMINGSZIN,
   ONDERZOEK,
   WERELDBURGERSCHAP
