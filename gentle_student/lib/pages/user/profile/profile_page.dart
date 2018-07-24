@@ -57,58 +57,35 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     Color color = Theme.of(context).primaryColor;
 
-    final logo = Hero(
-      tag: 'profile hero logo',
-      child: CircleAvatar(
-        backgroundColor: Colors.white,
-        radius: 60.0,
-        child: Icon(
-          Icons.account_circle,
-          size: 120.0,
+    final logo = Center(
+      child: Hero(
+        tag: 'profile hero logo',
+        child: CircleAvatar(
+          backgroundColor: Colors.white,
+          radius: 75.0,
+          child: Icon(
+            Icons.account_circle,
+            size: 150.0,
+          ),
         ),
       ),
     );
 
-    final profilePicture = Hero(
-      tag: 'profile hero picture',
-      child: CircleAvatar(
-        radius: 60.0,
-        child: Image(
-          image: CachedNetworkImageProvider(_participant.profilePicture),
-          width: 120.0,
-          height: 120.0,
-        ),
-      ),
-    );
-
-    final profilePicture3 = Container(
-      constraints: BoxConstraints(
-        maxHeight: 120.0,
-        maxWidth: 120.0,
-      ),
-      child: CircleAvatar(
-        radius: 60.0,
-        child: Image(
-          image: CachedNetworkImageProvider(_participant.profilePicture),
-          width: 120.0,
-          height: 120.0,
-        ),
-      ),
-    );
-
-    final profilePicture2 = Container(
-      width: 120.0,
-      height: 120.0,
-      decoration: new BoxDecoration(
-        color: const Color(0xff7c94b6),
-        image: new DecorationImage(
-          image: CachedNetworkImageProvider(_participant.profilePicture),
-          fit: BoxFit.cover,
-        ),
-        borderRadius: new BorderRadius.all(new Radius.circular(50.0)),
-        border: new Border.all(
-          color: Colors.red,
-          width: 4.0,
+    final profilePicture = Center(
+      child: Container(
+        width: 150.0,
+        height: 150.0,
+        decoration: new BoxDecoration(
+          color: const Color(0xff7c94b6),
+          image: new DecorationImage(
+            image: CachedNetworkImageProvider(_participant.profilePicture),
+            fit: BoxFit.cover,
+          ),
+          borderRadius: new BorderRadius.all(new Radius.circular(360.0)),
+          border: new Border.all(
+            color: Colors.white,
+            width: 3.0,
+          ),
         ),
       ),
     );
@@ -117,7 +94,7 @@ class _ProfilePageState extends State<ProfilePage> {
       if (_participant.profilePicture == "")
         return logo;
       else
-        return profilePicture2;
+        return profilePicture;
     }
 
     final name = Text(
@@ -225,55 +202,57 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
         iconTheme: new IconThemeData(color: Colors.white),
       ),
-      body: new Container(
-        color: color,
-        height: 300.0,
-        child: ListView(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          children: <Widget>[
-            SizedBox(height: 24.0),
-            _logoOrProfilePicture(),
-            SizedBox(height: 24.0),
-            name,
-            Container(
-              margin: EdgeInsets.only(left: 24.0, right: 24.0, top: 20.0),
-              decoration: new BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(5.0),
-                boxShadow: <BoxShadow>[
-                  new BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 10.0,
-                    offset: new Offset(0.0, 10.0),
-                  ),
-                ],
-              ),
-              child: ListView(
-                shrinkWrap: true,
-                padding: EdgeInsets.only(bottom: 24.0),
-                children: <Widget>[
-                  SizedBox(height: 30.0),
-                  lblMail,
-                  SizedBox(height: 5.0),
-                  mail,
-                  SizedBox(height: 30.0),
-                  lblBirthdate,
-                  SizedBox(height: 5.0),
-                  birthdate,
-                  SizedBox(height: 30.0),
-                  lblInstitute,
-                  SizedBox(height: 5.0),
-                  institute,
-                  SizedBox(height: 30.0),
-                  lblEducation,
-                  SizedBox(height: 5.0),
-                  education,
-                ],
-              ),
-            )
-          ],
-        ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            color: color,
+            height: 240.0,
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 24.0),
+                _logoOrProfilePicture(),
+                SizedBox(height: 24.0),
+                name,
+              ],
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 24.0, right: 24.0, top: 20.0),
+            decoration: new BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(5.0),
+              boxShadow: <BoxShadow>[
+                new BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 10.0,
+                  offset: new Offset(0.0, 10.0),
+                ),
+              ],
+            ),
+            child: ListView(
+              shrinkWrap: true,
+              padding: EdgeInsets.only(bottom: 24.0),
+              children: <Widget>[
+                SizedBox(height: 30.0),
+                lblMail,
+                SizedBox(height: 5.0),
+                mail,
+                SizedBox(height: 30.0),
+                lblBirthdate,
+                SizedBox(height: 5.0),
+                birthdate,
+                SizedBox(height: 30.0),
+                lblInstitute,
+                SizedBox(height: 5.0),
+                institute,
+                SizedBox(height: 30.0),
+                lblEducation,
+                SizedBox(height: 5.0),
+                education,
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
