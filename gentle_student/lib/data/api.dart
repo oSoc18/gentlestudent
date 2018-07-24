@@ -18,7 +18,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 //OPPORTUNITIES
 class OpportunityApi {
   Future<List<Opportunity>> getAllOpportunities() async {
-    return (await Firestore.instance.collection('Opportunities').getDocuments())
+    return (await Firestore.instance.collection('Opportunities').where("blocked", isEqualTo: false).getDocuments())
         .documents
         .map((snapshot) => _fromDocumentSnapshot(snapshot))
         .toList();
@@ -355,8 +355,8 @@ class NewsApi {
         title: data['title'],
         shortText: data['shortText'],
         longText: data['longText'],
-        authorId: data['authorId'],
-        published: data['published'],
+        author: data['author'],
+        published: DateTime.parse(data['published']),
         imageUrl: data['imageUrl']);
   }
 }

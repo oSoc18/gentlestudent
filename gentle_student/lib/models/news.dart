@@ -5,7 +5,7 @@ class News{
   final String title;
   final String shortText;
   final String longText;
-  final String authorId;
+  final String author;
   final DateTime published;
   final String imageUrl;
 
@@ -14,7 +14,7 @@ class News{
     @required this.title,
     @required this.shortText,
     @required this.longText,
-    @required this.authorId,
+    @required this.author,
     @required this.published,
     @required this.imageUrl,
   });
