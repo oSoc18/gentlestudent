@@ -10,6 +10,8 @@ import { auth, firestore } from './../Firebase';
 import firebase from 'firebase';
 import 'firebase/storage';
 
+import { Category, Difficulty} from './Constants';
+
 import { renderInput, renderAutomaticInput, renderTextarea, renderSelect, RenderDropzoneInput } from './../Utils';
 
 // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
@@ -29,6 +31,8 @@ class FormCreateLeerkans extends React.Component {
       lat: 51.0511164,
       lng: 3.7114566,
       badgeId: 0,
+      category: 0,
+      difficulty: 0,
       address: '',
       street: "",
       house_number: "",
@@ -118,8 +122,8 @@ class FormCreateLeerkans extends React.Component {
     opportunity["badgeId"] = this.state.badgeId;
     opportunity["beginDate"] = this.state.start_date;
     opportunity["blocked"] = true;
-    opportunity["category"] = "";
-    opportunity["difficulty"] = "";
+    opportunity["category"] = this.state.category;
+    opportunity["difficulty"] = this.state.difficulty;
     opportunity["endDate"] = this.state.end_date;
     opportunity["international"] = false;
     opportunity["issuerId"] = auth.getUserID();
@@ -211,11 +215,43 @@ class FormCreateLeerkans extends React.Component {
             onChange={ this.handleChange }
           />
         </div>
-        <div className="form-group">
+        {/* <div className="form-group">
           <React.Fragment>
             { !! badges && <BadgesList badges={ badges } /> }
             { ! badges && <EmptyList/> }
           </React.Fragment>
+        </div> */}
+        <div className="form-group">
+          <Field
+            id="category"
+            name="Category"
+            label="Categorie"
+            data={{
+              list: Object.keys(Category).map(key => {
+                return {
+                  value: Category.key,
+                  display: key
+                };
+              })
+            }}
+            component={renderSelect}
+          />
+        </div>
+        <div className="form-group">
+          <Field
+            id="difficulty"
+            name="Difficulty"
+            label="Moeilijkheidsgraad"
+            data={{
+              list: Object.keys(Difficulty).map(key => {
+                return {
+                  value: Difficulty.key,
+                  display: key
+                };
+              })
+            }}
+            component={renderSelect}
+          />
         </div>
         <div className="form-group">
           <Field
