@@ -51,13 +51,41 @@ class OpportunitiesList extends Component{
         this.state = {};
 
         this.handleClick = this.handleClick.bind(this);
+        this.postNewBadge = this.postNewBadge.bind(this);
       };
     
       handleClick(event) {
+        event.preventDefault();
         console.log(event.target.id);
         firestore.validateOpportunity(event.target.id);
+        this.postNewBadge(event.target.id);
         this.props.getOpportunities();
       }
+
+      postNewBadge(opportunityId){
+        let opportunity = this.props.opportunities[opportunityId];
+        let badge = new Object();
+        let name = "";
+        switch(opportunity.category){
+            case 0: name = "Digitale Geletterdheid";
+            case 1: name = "Duurzaamheid";
+            case 2: name = "Ondernemingszin";
+            case 3: name = "Onderzoekende houding";
+            case 4: name = "Wereldburgerschap";
+        }
+        badge["type"]= "BadgeClass";
+        badge["name"]= name;
+        badge["description"]= opportunity.description;
+        badge["image"]= "";
+        badge["criteria"]= opportunity.shortDescription;
+        badge["issuerId"]= opportunity.issuerId;
+        firestore.createBadge(badge).then(function(docRef) {
+            console.log("Document written with ID: ", docRef.id);
+            firestore.linkBadgeToOpportunity(opportunityId, docRef.id);
+          }).catch(function(error) {
+            console.error("Error adding document: ", error);
+          });
+    }
 
       render() {
         const { opportunities } = this.props;

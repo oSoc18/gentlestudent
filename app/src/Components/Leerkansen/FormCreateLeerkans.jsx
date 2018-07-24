@@ -30,7 +30,7 @@ class FormCreateLeerkans extends React.Component {
     this.state = {
       lat: 51.0511164,
       lng: 3.7114566,
-      badgeId: 0,
+      badgeId: "",
       category: 0,
       difficulty: 0,
       address: '',
