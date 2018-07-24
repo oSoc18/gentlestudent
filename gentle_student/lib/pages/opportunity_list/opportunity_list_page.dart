@@ -56,7 +56,7 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
   }
 
   _reloadOpportunities() async {
-    if (_opportunityApi != null && _badgeApi != null && _issuerApi != null) {
+    if (_opportunityApi != null && _badgeApi != null && _issuerApi != null && _addressApi != null) {
       final opportunities = await _opportunityApi.getAllOpportunities();
       final badges = await _badgeApi.getAllBadges();
       final issuers = await _issuerApi.getAllIssuers();
