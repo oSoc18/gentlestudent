@@ -10,7 +10,7 @@ import { auth, firestore } from './../Firebase';
 import firebase from 'firebase';
 import 'firebase/storage';
 
-import { renderInput, renderAutomaticInput, renderTextarea, renderSelect, RenderDropzoneInput } from './../Utils';
+import { renderInput, renderAutomaticInput, renderTextarea, renderSelect, RenderDropzoneInput, validate } from './../Utils';
 
 // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
@@ -222,6 +222,7 @@ class FormCreateLeerkans extends React.Component {
             label="Start datum"
             id="start_date"
             name="start_date"
+            type="date"
             defaultValue="01/03/2018"
             component={renderInput}
             placeholder="DD/MM/JJJJ"
@@ -235,10 +236,12 @@ class FormCreateLeerkans extends React.Component {
             id="end_date"
             name="end_date"
             defaultValue="01/06/2018"
+            type="date"
             component={renderInput}
             placeholder="DD/MM/JJJJ"
             value={this.state.end_date}
             onChange={ this.handleChange }
+            required
           />
         </div>
         <div className="form-group">
@@ -258,6 +261,7 @@ class FormCreateLeerkans extends React.Component {
             label="Huisnummer"
             id="house_number"
             name="house_number"
+            type="number"
             defaultValue="123"
             component={renderInput}
             placeholder="Huisnummer"
@@ -271,6 +275,7 @@ class FormCreateLeerkans extends React.Component {
             id="postal_code"
             name="postal_code"
             defaultValue="9000"
+            type="number"
             component={renderInput}
             placeholder="Post code"
             value={this.state.postal_code}
@@ -424,6 +429,7 @@ class BeaconLocationPicker extends Component {
 
 FormCreateLeerkans = reduxForm({
   form: 'createLeerkansForm',
+  validate,
   fields: ['title', 'synopsis']
 })(FormCreateLeerkans);
 

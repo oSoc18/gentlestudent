@@ -144,6 +144,7 @@ export const renderInput = ({
           id={id}
           label={label}
           placeholder={placeholder}
+          required
         />
         {touched && error && <span className="error">{error}</span>}
         {touched && !error && <span className="succes">✓</span>}
@@ -272,7 +273,7 @@ export const renderTextarea = ({
           rows="6"
           cols="50"
         />
-        {touched && error && <span className="error">{error}</span>}
+        {touched && error && <span className="error" style="color: red;">{error}</span>}
         {touched && !error && <span className="succes">✓</span>}
       </div>
     </React.Fragment>
@@ -300,3 +301,15 @@ export const RenderDropzoneInput = (field) => {
     </div>
   );
 };
+
+export const validate = values => {
+  const errors = {};
+  if (!values.title) {
+    errors.title = 'Required';
+  }
+  /*if (!values.password) {
+    errors.password = 'Required';
+  }*/
+  return errors;
+};
+
