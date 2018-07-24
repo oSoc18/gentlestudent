@@ -66,17 +66,24 @@ class OpportunitiesList extends Component{
         let opportunity = this.props.opportunities[opportunityId];
         let badge = new Object();
         let name = "";
+        let baseUrl = "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Badges%2F";
+        let image = baseUrl;
         switch(opportunity.category){
-            case 0: name = "Digitale Geletterdheid";
-            case 1: name = "Duurzaamheid";
-            case 2: name = "Ondernemingszin";
-            case 3: name = "Onderzoekende houding";
-            case 4: name = "Wereldburgerschap";
+            case 0: {name = "Digitale Geletterdheid"; image += "badge_digitale-geletterdheid";}
+            case 1: {name = "Duurzaamheid"; image += "badge_duurzaamheid";}
+            case 2: {name = "Ondernemingszin"; image += "badge_ondernemingszin";}
+            case 3: {name = "Onderzoekende houding"; image += "badge_onderzoekende-houding";}
+            case 4: {name = "Wereldburgerschap"; image += "badge_wereldburgerschap";}
+        }
+        switch(opportunity.difficulty){
+            case 0: image+= "_1.png?alt=media";
+            case 1: image+= "_2.png?alt=media";
+            case 2: image+= "_3.png?alt=media";
         }
         badge["type"]= "BadgeClass";
         badge["name"]= name;
         badge["description"]= opportunity.description;
-        badge["image"]= "";
+        badge["image"]= image;
         badge["criteria"]= opportunity.shortDescription;
         badge["issuerId"]= opportunity.issuerId;
         firestore.createBadge(badge).then(function(docRef) {
