@@ -23,7 +23,8 @@ class _ProfilePageState extends State<ProfilePage> {
       email: "",
       birthdate: DateTime.now(),
       education: "",
-      profilePicture: "");
+      profilePicture: "",
+      favorites: new List<String>());
 
   @override
   void initState() {

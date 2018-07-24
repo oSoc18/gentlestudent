@@ -65,13 +65,14 @@ class _RegisterPageState extends State<RegisterPage> {
 
   //Add user details to database
   void _addUserToDatabase() {
-    Map<String, String> data = <String, String>{
+    Map<String, dynamic> data = <String, dynamic>{
       "name": firstnameController.text + " " + lastnameController.text,
       "birthdate": _formatDate(_birthdate),
       "institute": instituteController.text,
       "education": educationController.text,
       "email": emailController.text,
       "profilePicture": "",
+      "favorites": new List<String>(),
     };
     final DocumentReference documentReference =
         Firestore.instance.document("Participants/" + firebaseUser.uid);

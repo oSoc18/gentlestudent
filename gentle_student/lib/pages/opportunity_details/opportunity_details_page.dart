@@ -28,8 +28,14 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
   Badge badge;
   Issuer issuer;
   Address address;
-  ParticipationApi api;
+  ParticipationApi _participationApi;
+  Participant _participant;
+  ParticipantApi _participantApi;
   FirebaseUser firebaseUser;
+  Icon heart = Icon(
+    Icons.favorite_border,
+    color: Colors.red,
+  );
   final scaffoldKey = new GlobalKey<ScaffoldState>();
 
   _OpportunityDetailsPageState(
@@ -80,7 +86,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
 
   _enlistInOpportunity() async {
     bool participationExists =
-        await api.participationExists(firebaseUser, opportunity);
+        await _participationApi.participationExists(firebaseUser, opportunity);
     if (participationExists) {
       _showSnackBar("U bent al ingeschreven voor deze leerkans.");
     } else {
@@ -99,6 +105,40 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
     }
   }
 
+  _checkIfUserAlreadyFavorited() async {
+    _participant = await _participantApi.getParticipantById(firebaseUser.uid);
+    if (_participant.favorites.contains(opportunity.opportunityId)) {
+      setState(() {
+        heart = Icon(
+          Icons.favorite,
+          color: Colors.red,
+        );
+      });
+    }
+  }
+
+  _favoriteOrUnfavorite() async {
+    if (_participant.favorites.contains(opportunity.opportunityId)) {
+      _participant.favorites.remove(opportunity.opportunityId);
+      await _participantApi.changeFavorites(firebaseUser.uid, _participant.favorites);
+      setState(() {
+        heart = Icon(
+          Icons.favorite_border,
+          color: Colors.red,
+        );
+      });
+    } else {
+      _participant.favorites.add(opportunity.opportunityId);
+      await _participantApi.changeFavorites(firebaseUser.uid, _participant.favorites);
+      setState(() {
+        heart = Icon(
+          Icons.favorite,
+          color: Colors.red,
+        );
+      });
+    }
+  }
+
   Widget buildStars(BuildContext context, int index) {
     return new Icon(
       Icons.star,
@@ -112,10 +152,13 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
     FirebaseAuth.instance.onAuthStateChanged.listen((user) {
       firebaseUser = user;
       final participationApi = new ParticipationApi();
+      final participantApi = new ParticipantApi();
       if (this.mounted) {
         setState(() {
-          api = participationApi;
+          _participationApi = participationApi;
+          _participantApi = participantApi;
         });
+        _checkIfUserAlreadyFavorited();
       }
     });
   }
@@ -165,6 +208,10 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                   children: new List.generate(opportunity.difficulty.index + 1,
                       (index) => buildStars(context, index)),
                 ),
+                new IconButton(
+                  onPressed: () => _favoriteOrUnfavorite(),
+                  icon: heart,
+                )
               ],
             ),
           ),

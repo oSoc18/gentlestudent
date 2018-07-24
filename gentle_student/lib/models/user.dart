@@ -35,6 +35,7 @@ class Participant {
   final String education;
   final DateTime birthdate;
   final String profilePicture;
+  final List<String> favorites;
 
   Participant({
     @required this.participantId,
@@ -44,6 +45,7 @@ class Participant {
     @required this.name,
     @required this.birthdate,
     @required this.profilePicture,
+    @required this.favorites,
   });
 }
 
