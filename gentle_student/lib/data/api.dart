@@ -185,8 +185,26 @@ class ParticipantApi {
     }).catchError((e) => print(e));
   }
 
+  Future<Null> changeFavorites(
+      String participantId, List<String> likes) async {
+    Map<String, List<String>> data = <String, List<String>>{
+      "favorites": likes,
+    };
+    await Firestore.instance
+        .collection("Participants")
+        .document(participantId)
+        .updateData(data)
+        .whenComplete(() {
+      print("Likes changed");
+    }).catchError((e) => print(e));
+  }
+
   Participant _fromDocumentSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data;
+
+    List<dynamic> listDynamic = data['favorites'];
+    List<String> listStrings = new List();
+    listDynamic.forEach((d) => listStrings.add(d));
 
     return new Participant(
         participantId: snapshot.documentID,
@@ -195,7 +213,8 @@ class ParticipantApi {
         education: data['education'],
         email: data['email'],
         birthdate: DateTime.parse(data['birthdate']),
-        profilePicture: data['profilePicture']);
+        profilePicture: data['profilePicture'],
+        favorites: listStrings);
   }
 }
 
