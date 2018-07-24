@@ -74,3 +74,6 @@ export const onceGetParticipant = (id) =>
 
 export const createNewAssertion = (data) =>
   firestore.collection('Assertions').add(data)
+
+export const createNewParticipant = (data) =>
+  firestore.collection('Participants').add(data)

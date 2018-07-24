@@ -4,7 +4,7 @@ import {
   withRouter,
 } from 'react-router-dom';
 
-import { auth } from '../Firebase';
+import { auth, firestore } from '../Firebase';
 
 import * as routes from '../../routes/routes';
 
@@ -15,7 +15,8 @@ const SignUpPage = ({ history }) =>
   </div>
 
 const INITIAL_STATE = {
-  // username: '',
+  firstname: '',
+  lastname: '',
   email: '',
   passwordOne: '',
   passwordTwo: '',
@@ -35,8 +36,12 @@ class SignUpForm extends Component {
 
   onSubmit = (event) => {
     const {
-      // username,
+      firstname,
+      lastname,
       email,
+      birthday,
+      education,
+      institute,
       passwordOne,
     } = this.state;
 
@@ -44,22 +49,40 @@ class SignUpForm extends Component {
       history,
     } = this.props;
 
+    let user = new Object();
+    user["name"] = firstname+" "+lastname;
+    user["email"] = email;
+    user["birthday"] = birthday;
+    user["education"] = education;
+    user["institute"] = institute;
+
     auth.doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         this.setState(() => ({ ...INITIAL_STATE }));
-        history.push(routes.WordIssuer);
       })
       .catch(error => {
         this.setState(byPropKey('error', error));
       });
+
+    firestore.createNewParticipant(user)
+    .then(res => {
+      history.push(routes.WordIssuer);
+    })
+    .catch(error => {
+      console.log('error', error);
+    });
 
     event.preventDefault();
   }
 
   render() {
     const {
-      // username,
+      firstname,
+      lastname,
       email,
+      birthday,
+      education,
+      institute,
       passwordOne,
       passwordTwo,
       error,
@@ -69,35 +92,84 @@ class SignUpForm extends Component {
       passwordOne !== passwordTwo
       || passwordOne === ''
       || email === ''
-      //|| username === ''
+      || firstname === ''
+      || lastname === ''
+      || ! /^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/.test(birthday)
+      || education === ''
+      || institute === ''
       ;
 
     return (
       <form onSubmit={this.onSubmit}>
-        {/* <input
-          value={username}
-          onChange={event => this.setState(byPropKey('username', event.target.value))}
-          type="text"
-          placeholder="Full Name"
-        /> */}
-        <input
-          value={email}
-          onChange={event => this.setState(byPropKey('email', event.target.value))}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          value={passwordOne}
-          onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}
-          type="password"
-          placeholder="Password"
-        />
-        <input
-          value={passwordTwo}
-          onChange={event => this.setState(byPropKey('passwordTwo', event.target.value))}
-          type="password"
-          placeholder="Confirm Password"
-        />
+        <div className="form-group">
+          Email:
+          <input
+            value={email}
+            onChange={event => this.setState(byPropKey('email', event.target.value))}
+            type="text"
+            placeholder="Email"
+          />
+        </div>
+        <div className="form-group">
+          Voornaam:
+          <input
+            value={firstname}
+            onChange={event => this.setState(byPropKey('firstname', event.target.value))}
+            type="text"
+            placeholder="Voornaam"
+          />
+        </div>
+        <div className="form-group">
+          Achternaam:
+          <input
+            value={lastname}
+            onChange={event => this.setState(byPropKey('lastname', event.target.value))}
+            type="text"
+            placeholder="Achternaam"
+          />
+        </div>
+        <div className="form-group">
+          Geboortedatum:
+          <input
+            value={birthday}
+            onChange={event => this.setState(byPropKey('birthday', event.target.value))}
+            type="text"
+            placeholder="YYYY-MM-DD"
+          />
+          </div>
+        <div className="form-group">
+          Educatie:
+          <input
+            value={education}
+            onChange={event => this.setState(byPropKey('education', event.target.value))}
+            type="text"
+            placeholder="Educatie"
+          />
+          </div>
+        <div className="form-group">
+          Universiteit/hogeschool:
+          <input
+            value={institute}
+            onChange={event => this.setState(byPropKey('institute', event.target.value))}
+            type="text"
+            placeholder="Instituut"
+          />
+        </div>
+        <div className="form-group">
+          Wachtwoord:
+          <input
+            value={passwordOne}
+            onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}
+            type="password"
+            placeholder="Wachtwoord"
+          />
+          <input
+            value={passwordTwo}
+            onChange={event => this.setState(byPropKey('passwordTwo', event.target.value))}
+            type="password"
+            placeholder="Herhaal Wachtwoord"
+          />
+        </div>
         <button disabled={isInvalid} type="submit">
           Sign Up
         </button>
