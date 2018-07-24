@@ -1,140 +1,151 @@
 import 'dart:async';
-import 'package:Gentle_Student/pages/information/experiences/experiences_detail/experiences_detail_page.dart';
-import 'package:flutter/material.dart';
 import 'package:Gentle_Student/models/experience.dart';
+import 'package:Gentle_Student/pages/information/experiences/experiences_detail/experiences_detail_page.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
 import 'package:Gentle_Student/data/api.dart';
 
-class ExperiencesPage extends StatefulWidget{
+class ExperiencesPage extends StatefulWidget {
   static String tag = 'experiences-page';
   @override
-    State<StatefulWidget> createState() => _ExperiencesPageState();
+  State<StatefulWidget> createState() => _ExperiencesPageState();
 }
 
 class _ExperiencesPageState extends State<ExperiencesPage> {
-  List<Experience> _experiences = [
-  ];
-  ExperiencesApi _api;
+  List<Experience> _experiences = [];
+  ExperiencesApi _experienceApi;
 
   @override
-    void initState() {
-      super.initState();
+  void initState() {
+    super.initState();
+    _loadFromFirebase();
+  }
+
+  _loadFromFirebase() async {
+    final experienceApi = new ExperiencesApi();
+    final experiences = await experienceApi.getAllExperiences();
+    if (this.mounted) {
+      setState(() {
+        _experienceApi = experienceApi;
+        _experiences = experiences;
+        _experiences.sort((a, b) => a.published.compareTo(b.published));
+        reverse(_experiences);
+      });
     }
+  }
 
-
-    _reloadExperiences() async {
-      if (_api != null){
-        final experiences = await _api.getAllExperiences();//_api.getAllExperiences();
-        setState((){
+  _reloadOpportunities() async {
+    if (_experienceApi != null) {
+      final experiences = await _experienceApi.getAllExperiences();
+      if (this.mounted) {
+        setState(() {
           _experiences = experiences;
+          _experiences.sort((a, b) => a.published.compareTo(b.published));
+          reverse(_experiences);
         });
       }
     }
+  }
 
-    _navigateToExperienceDetails(Experience experience) {
-      Navigator.push(
-        context,
-        new MaterialPageRoute(
-          builder: (BuildContext context) =>
-            new ExperienceDetailsPage(experience)
-        )
-      );
-    }
+  _navigateToExperienceDetails(Experience experience) async {
+    Navigator.push(
+      context,
+      new MaterialPageRoute(
+        builder: (BuildContext context) => new ExperiencesDetailPage(experience),
+      ),
+    );
+  }
 
-    Widget _buildExperienceItem(BuildContext context, int index){
-      Experience experience = _experiences[index];
+  Widget _buildNewsItem(BuildContext context, int index) {
+    Experience experience = _experiences[index];
 
-      return new Container(
-        margin: const EdgeInsets.only(top: 3.0),
-          child: 
-          new Card(
-            child: new Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                new Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    new Expanded(
-                        child:
-                        new Container(
-                          padding: const EdgeInsets.all(5.0),
-                          child:
-                        new Text(
-                          "experience.recap,",
-                          textAlign: TextAlign.center
-                          ),),
-                    ),
-                  ],
+    return new Container(
+      margin: const EdgeInsets.only(
+        top: 3.0,
+        bottom: 10.0,
+      ),
+      child: new GestureDetector(
+        onTap: () => _navigateToExperienceDetails(experience),
+        child: Card(
+          child: new Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              new CachedNetworkImage(
+                imageUrl: experience.imageUrl,
+                placeholder: new CircularProgressIndicator(),
+                errorWidget: new Icon(Icons.error),
+              ),
+              new SizedBox(
+                height: 10.0,
+              ),
+              new Padding(
+                padding: EdgeInsets.only(
+                  left: 20.0,
+                  right: 20.0,
+                  top: 5.0,
                 ),
-                new Row(
-                  children: <Widget>[
-                    new Flexible(child: 
-                    new ListTile(
-                      onTap: () {
-                        _navigateToExperienceDetails(experience);
-                      },
-                      leading: new Hero(
-                        tag: index,
-                        child: new CircleAvatar(
-                          backgroundColor: Colors.brown.shade100,
-                          child: new Text(
-                            "_getUser(experience.participantId).name.substring(0, 1)"
-                          ),
-                        ),),
-                        title: new Text(
-                          "_getUser(experience.participantId).name",
-                          style: new TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black54,
-                            fontSize: 21.0),
-                          ),
-                        subtitle: new Text(
-                          "_getUser(experience.participantId).name"),
-                        isThreeLine: false,
-                        dense: false,
-                      
-                    ),
-                    ),
-                  ],
+                child: new Text(
+                  experience.title,
+                  style: new TextStyle(
+                    fontSize: 21.0,
+                  ),
+                ),
+              ),
+              new Padding(
+                padding: EdgeInsets.only(
+                  left: 20.0,
+                  right: 20.0,
+                  top: 10.0,
+                  bottom: 8.0,
+                ),
+                child: new Text(
+                  experience.shortText,
+                  style: new TextStyle(
+                    fontSize: 14.0,
+                  ),
+                ),
               ),
             ],
           ),
-      
+        ),
       ),
-      );
-    }
+    );
+  }
 
-    Future<Null> refresh(){
-      _reloadExperiences();
-      return new Future<Null>.value();
-    }
+  Future<Null> refresh() {
+    _reloadOpportunities();
+    return new Future<Null>.value();
+  }
 
-    Widget _getListViewWidget(){
-      return new Flexible(
-        child: new RefreshIndicator(
-          onRefresh: refresh,
-          child: new ListView.builder(
+  Widget _getListViewWidget() {
+    return new Flexible(
+      child: new RefreshIndicator(
+        onRefresh: refresh,
+        child: new ListView.builder(
             physics: const AlwaysScrollableScrollPhysics(),
             itemCount: _experiences.length,
-            itemBuilder: _buildExperienceItem
-          ),
-        )
-      );
-    }
+            itemBuilder: _buildNewsItem),
+      ),
+    );
+  }
 
-  Widget _buildBody(){
+  Widget _buildBody() {
     return new Container(
-      margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-      child: new Column(children: <Widget>[_getListViewWidget()],
-      )
+      margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
+      child: new Column(
+        children: <Widget>[_getListViewWidget()],
+      ),
     );
   }
 
   @override
-  Widget build(BuildContext context){
-    return Scaffold(appBar: AppBar(
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
         title: Text("Ervaringen", style: TextStyle(color: Colors.white)),
-        iconTheme: new IconThemeData(color:Colors.white)
+        iconTheme: new IconThemeData(color: Colors.white),
       ),
       body: _buildBody(),
     );
