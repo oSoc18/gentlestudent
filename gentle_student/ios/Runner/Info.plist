@@ -55,7 +55,7 @@
   	<string>Geef Gentlestudent toegang tot jouw locatie.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Geef Gentlestudent toegang tot jouw locatie.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
+	<key>NSLocationAlwaysInUseUsageDescription</key>
     <string>Geef Gentlestudent toegang tot jouw locatie.</string>
 	<key>CFBundleURLTypes</key>
 	<array>

@@ -94,6 +94,35 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
+  //Location permission dialog
+  Future<Null> _displayLocationPermissionDialog() async {
+    return showDialog<Null>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return new AlertDialog(
+          title: new Text("Locatie permissie"),
+          content: new SingleChildScrollView(
+            child: new ListBody(
+              children: <Widget>[
+                new Text(
+                    'De plugin die gebruikt wordt voor de map heeft (voorlopig) geen gebruiker locatie ondersteuning. U hoeft de permissie tot uw locatie momenteel nog niet te geven.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text('Oke'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -114,9 +143,7 @@ class _SettingsPageState extends State<SettingsPage> {
             child: ListTile(
               trailing: Icon(Icons.arrow_forward_ios),
               title: Text('Wijzig profielfoto'),
-              onTap: () {
-
-              },
+              onTap: () {},
             ),
             decoration: new BoxDecoration(
               border: new Border(
@@ -153,7 +180,7 @@ class _SettingsPageState extends State<SettingsPage> {
             child: ListTile(
               trailing: Icon(Icons.arrow_forward_ios),
               title: Text('Sta locatie altijd toe'),
-              onTap: () => {},
+              onTap: () => _displayLocationPermissionDialog(),
             ),
             decoration: new BoxDecoration(
               border: new Border(
