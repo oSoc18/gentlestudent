@@ -49,7 +49,7 @@ export const onceGetNonValidatedIssuers = () =>
   firestore.collection('Issuers').where('validated', '==', false).get()
 
 export const validateIssuer = (id) =>
-    firestore.collection('Issuers').doc(id).update({ validated: true })
+  firestore.collection('Issuers').doc(id).update({ validated: true })
 
 export const onceGetNonValidatedOpportunities = () =>
   firestore.collection('Opportunities').where('blocked', '==', true).get()
@@ -57,3 +57,20 @@ export const onceGetNonValidatedOpportunities = () =>
 export const validateOpportunity = (id) =>
   firestore.collection('Opportunities').doc(id).update({ blocked: false })
 
+export const createBadge = (data) =>
+  firestore.collection('Badges').add(data)
+
+export const linkBadgeToOpportunity = (opportunityId, BadgeId) =>
+  firestore.collection('Opportunities').doc(opportunityId).update({ BadgeId: BadgeId })
+
+export const onceGetCreatedOpportunities = (userId) =>
+  firestore.collection('Opportunities').where('issuerId', '==', userId).get()
+
+export const onceGetParticipationsForOpportunity = (opportunityId) =>
+  firestore.collection('Participations').where('opportunityId', '==', opportunityId).get()
+
+export const onceGetParticipant = (id) =>
+  firestore.collection('Participants').doc(id).get()
+
+export const createNewAssertion = (data) =>
+  firestore.collection('Assertions').add(data)

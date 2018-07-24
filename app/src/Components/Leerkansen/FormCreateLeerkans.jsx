@@ -10,6 +10,8 @@ import { auth, firestore } from './../Firebase';
 import firebase from 'firebase';
 import 'firebase/storage';
 
+import { Category, Difficulty} from './Constants';
+
 import { renderInput, renderAutomaticInput, renderTextarea, renderSelect, RenderDropzoneInput, validate } from './../Utils';
 
 // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
@@ -28,7 +30,9 @@ class FormCreateLeerkans extends React.Component {
     this.state = {
       lat: 51.0511164,
       lng: 3.7114566,
-      badgeId: 0,
+      badgeId: "",
+      category: 0,
+      difficulty: 0,
       address: '',
       street: "",
       house_number: "",
@@ -53,6 +57,25 @@ class FormCreateLeerkans extends React.Component {
     this.postNewAddress = this.postNewAddress.bind(this);
     this.postNewOpportunity = this.postNewOpportunity.bind(this);
     this.uploadImage = this.uploadImage.bind(this);
+    this.choosePin = this.choosePin.bind(this);
+  }
+
+  choosePin(){
+    let baseUrl = "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Pins%2F";
+    let url = baseUrl;
+    switch(this.state.category){
+      case 0: url += "pin_digitale-geletterdheid";
+      case 1: url += "pin_duurzaamheid";
+      case 2: url += "pin_ondernemingszin";
+      case 3: url += "pin_onderzoekende-houding";
+      case 4: url += "pin_wereldburgerschap";
+    }
+    switch(this.state.difficulty){
+      case 0: url += "_1.png?alt=media";
+      case 1: url += "_2.png?alt=media";
+      case 2: url += "_3.png?alt=media";
+    }
+    this.setState({pinImageUrl: url});
   }
 
   handleChange(event) {
@@ -75,13 +98,14 @@ class FormCreateLeerkans extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.choosePin();
     if(this.state.image != ""){
       let fileName = this.state.title+"."+this.state.imageExtension;
       let baseUrl = "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Opportunity%20Images%2F";
       this.setState({imageUrl: baseUrl + encodeURIComponent(fileName)+"?alt=media"});
       this.uploadImage(fileName);
     }
-    // this.postNewAddress(this.postNewOpportunity);
+    this.postNewAddress(this.postNewOpportunity);
   }
 
   uploadImage(fileName){
@@ -118,11 +142,11 @@ class FormCreateLeerkans extends React.Component {
     opportunity["badgeId"] = this.state.badgeId;
     opportunity["beginDate"] = this.state.start_date;
     opportunity["blocked"] = true;
-    opportunity["category"] = "";
-    opportunity["difficulty"] = "";
+    opportunity["category"] = this.state.category;
+    opportunity["difficulty"] = this.state.difficulty;
     opportunity["endDate"] = this.state.end_date;
     opportunity["international"] = false;
-    opportunity["issuerId"] = auth.getUserID();
+    opportunity["issuerId"] = auth.getUserId();
     opportunity["latitude"] = this.state.lat;
     opportunity["longDescription"] = this.state.description;
     opportunity["longitude"] = this.state.lng;
@@ -212,11 +236,43 @@ class FormCreateLeerkans extends React.Component {
             onChange={ this.handleChange }
           />
         </div>
-        <div className="form-group">
+        {/* <div className="form-group">
           <React.Fragment>
             { !! badges && <BadgesList badges={ badges } /> }
             { ! badges && <EmptyList/> }
           </React.Fragment>
+        </div> */}
+        <div className="form-group">
+          <Field
+            id="category"
+            name="Category"
+            label="Categorie"
+            data={{
+              list: Object.keys(Category).map(key => {
+                return {
+                  value: Category.key,
+                  display: key
+                };
+              })
+            }}
+            component={renderSelect}
+          />
+        </div>
+        <div className="form-group">
+          <Field
+            id="difficulty"
+            name="Difficulty"
+            label="Moeilijkheidsgraad"
+            data={{
+              list: Object.keys(Difficulty).map(key => {
+                return {
+                  value: Difficulty.key,
+                  display: key
+                };
+              })
+            }}
+            component={renderSelect}
+          />
         </div>
         <div className="form-group">
           <Field

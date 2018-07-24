@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import FormIssueBadge from './../../Components/Badge/FormIssueBadge';
+import FormIssueBadge from './../../Components/Issuer/FormIssueBadge';
 
 class IssueBadgeRecipient extends Component {
 	constructor() {

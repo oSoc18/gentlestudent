@@ -20,12 +20,13 @@ import OverOns from './Screens/OverOns';
 import Register from './Components/Auth/Register';
 import Login from './Components/Auth/Login';
 
-import MaakLeerkans from './Screens/Backoffice/MaakLeerkans';
 import BOLeerkansen from './Screens/Backoffice/Leerkansen';
-import IssueBadgeRecipient from './Screens/Issuers/IssueBadgeRecipient';
+import MaakLeerkans from './Screens/Issuer/MaakLeerkans';
+import IssueBadgeRecipient from './Screens/Issuer/IssueBadgeRecipient';
 import RegistreerIssuer from './Screens/RegistreerIssuer';
-import ValideerIssuer from './Screens/Backoffice/ValideerIssuer';
-import ValideerLeerkans from './Screens/Backoffice/ValideerLeerkans';
+import ValideerIssuer from './Screens/Admin/ValideerIssuer';
+import ValideerLeerkans from './Screens/Admin/ValideerLeerkans';
+import AangemaakteLeerkansen from './Screens/Issuer/AangemaakteLeerkansen';
 
 import Navigation from './Components/Navigation';
 import Footer from './Components/Footer';
@@ -59,6 +60,7 @@ class App extends Component {
 								<Route path={routes.RegistreerIssuer} exact render={() => <RegistreerIssuer />} />
 								<Route path={routes.ValideerIssuer} exact render={() => <ValideerIssuer />} />
 								<Route path={routes.ValideerLeerkans} exact render={() => <ValideerLeerkans />} />
+								<Route path={routes.AangemaakteLeerkansen} render={() => <AangemaakteLeerkansen />} />
 							{/* </Auth> */}
 						</Switch>
 						<Footer/>

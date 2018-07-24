@@ -47,7 +47,7 @@ class RegistreerIssuer extends Component {
     const {
       history,
     } = this.props;
-    var userId = auth.getUserID();
+    var userId = auth.getUserId();
     var userEmail = auth.getUserEmail();
       event.preventDefault();
     firestore.createIssuer(institution, longName, url, phonenumber, street, housenumber, bus, postalcode, city, userId, userEmail)
