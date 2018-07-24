@@ -91,9 +91,9 @@ class OpportunityApi {
   Category _dataToCategory(int category) {
     switch (category) {
       case 0:
-        return Category.DUURZAAMHEID;
-      case 1:
         return Category.DIGITALEGELETTERDHEID;
+      case 1:
+        return Category.DUURZAAMHEID;
       case 2:
         return Category.ONDERNEMINGSZIN;
       case 3:
