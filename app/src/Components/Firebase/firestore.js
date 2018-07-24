@@ -62,3 +62,15 @@ export const createBadge = (data) =>
 
 export const linkBadgeToOpportunity = (opportunityId, BadgeId) =>
   firestore.collection('Opportunities').doc(opportunityId).update({ BadgeId: BadgeId })
+
+export const onceGetCreatedOpportunities = (userId) =>
+  firestore.collection('Opportunities').where('issuerId', '==', userId).get()
+
+export const onceGetParticipationsForOpportunity = (opportunityId) =>
+  firestore.collection('Participations').where('opportunityId', '==', opportunityId).get()
+
+export const onceGetParticipant = (id) =>
+  firestore.collection('Participants').doc(id).get()
+
+export const createNewAssertion = (data) =>
+  firestore.collection('Assertions').add(data)

@@ -146,7 +146,7 @@ class FormCreateLeerkans extends React.Component {
     opportunity["difficulty"] = this.state.difficulty;
     opportunity["endDate"] = this.state.end_date;
     opportunity["international"] = false;
-    opportunity["issuerId"] = auth.getUserID();
+    opportunity["issuerId"] = auth.getUserId();
     opportunity["latitude"] = this.state.lat;
     opportunity["longDescription"] = this.state.description;
     opportunity["longitude"] = this.state.lng;

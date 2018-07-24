@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 import AuthUserContext from './AuthUserContext';
 import SignOutButton from './Auth/Logout';
+import { auth } from './Firebase';
 
 import logo from './../assets/logo.svg';
 
@@ -121,7 +122,7 @@ class NavigationAuth extends Component{
 									}}
 									>
 									<NavLink to={routes.Profiel}>Profiel</NavLink>
-									<NavLink to={routes.BOLeerkansen}>Mijn leerkansen</NavLink>
+									<NavLink to={routes.AangemaakteLeerkansen}>Aangemaakte leerkansen</NavLink>
 									<NavLink to={routes.MaakLeerkans}>Maak leerkans</NavLink>
 									<NavLink to={routes.ValideerIssuer}>Valideer issuer</NavLink>
 									<NavLink to={routes.ValideerLeerkans}>Valideer leerkans</NavLink>
@@ -133,6 +134,13 @@ class NavigationAuth extends Component{
 						}
 					</div>
 					
+				</li>
+				<li className="nav_item primary">
+					<a className="primary" href={routes.Login}
+						onClick={auth.doSignOut}
+					>
+						Log uit
+					</a>
 				</li>
 				</React.Fragment>
 			</ul>

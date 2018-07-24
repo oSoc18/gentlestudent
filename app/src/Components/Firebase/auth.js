@@ -37,7 +37,7 @@ export const doPasswordReset = (email) =>
 export const doPasswordUpdate = (password) =>
     auth.currentUser.updatePassword(password);
 
-export const getUserID = () =>
+export const getUserId = () =>
 {return id;}
 
 export const getUserEmail = () =>
