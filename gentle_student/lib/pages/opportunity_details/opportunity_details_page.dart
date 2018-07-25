@@ -120,7 +120,8 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
   _favoriteOrUnfavorite() async {
     if (_participant.favorites.contains(opportunity.opportunityId)) {
       _participant.favorites.remove(opportunity.opportunityId);
-      await _participantApi.changeFavorites(firebaseUser.uid, _participant.favorites);
+      await _participantApi.changeFavorites(
+          firebaseUser.uid, _participant.favorites);
       setState(() {
         heart = Icon(
           Icons.favorite_border,
@@ -129,7 +130,8 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
       });
     } else {
       _participant.favorites.add(opportunity.opportunityId);
-      await _participantApi.changeFavorites(firebaseUser.uid, _participant.favorites);
+      await _participantApi.changeFavorites(
+          firebaseUser.uid, _participant.favorites);
       setState(() {
         heart = Icon(
           Icons.favorite,
@@ -199,7 +201,9 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                       opportunity.title,
                       style: new TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Colors.black54,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black54,
                           fontSize: 21.0),
                     ),
                   ),

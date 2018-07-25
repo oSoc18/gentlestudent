@@ -65,6 +65,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     // Here we create our BottomNavigationBar.
     final BottomNavigationBar navBar = new BottomNavigationBar(
+      fixedColor: Colors.lightBlue,
       currentIndex:
           currentTab, // Our currentIndex will be the currentTab value. So we need to update this whenever we tab on a new page!
       onTap: (int numTab) {
@@ -151,7 +152,7 @@ class _HomePageState extends State<HomePage> {
     Beacons
         .ranging(
       region: new BeaconRegionIBeacon(
-        identifier: 'hallo',
+        identifier: 'Gentlestudent beacons',
         proximityUUID: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
       ),
       inBackground: true,

@@ -32,13 +32,6 @@ class _SettingsPageState extends State<SettingsPage> {
         Theme.of(context).brightness == Brightness.dark
             ? Brightness.light
             : Brightness.dark);
-
-    DynamicTheme.of(context).setThemeData(
-          new ThemeData(
-              primaryColor: Theme.of(context).primaryColor == Colors.lightBlue
-                  ? Colors.red
-                  : Colors.indigo),
-        );
   }
 
   //Function to change switch value on page creation
@@ -231,6 +224,7 @@ class _SettingsPageState extends State<SettingsPage> {
           Container(
             child: ListTile(
               trailing: Switch(
+                activeColor: Colors.lightBlue,
                 value: _switchValue,
                 onChanged: (bool newValue) {
                   setState(() {
