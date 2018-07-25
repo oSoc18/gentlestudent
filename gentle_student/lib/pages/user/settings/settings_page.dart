@@ -153,7 +153,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Future<Null> uploadFile() async {
     try {
       final StorageReference ref = FirebaseStorage.instance.ref().child(
-          "Profile pictures/" + firebaseUser.uid + "/profile_picture.jpg");
+          "Profilepictures/" + firebaseUser.uid + "/profile_picture.jpg");
       final StorageUploadTask task = ref.putFile(_image);
       final Uri downloadUrl = (await task.future).downloadUrl;
       _path = downloadUrl.toString();
