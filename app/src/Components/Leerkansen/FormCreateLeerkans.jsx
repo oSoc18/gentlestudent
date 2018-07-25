@@ -35,9 +35,9 @@ class FormCreateLeerkans extends React.Component {
       difficulty: 0,
       address: '',
       street: "",
-      house_number: "",
+      house_number: 0,
       city: "",
-      postal_code: "",
+      postal_code: 0,
       country: "Belgium",
       start_date: "",
       end_date: "",
@@ -79,6 +79,7 @@ class FormCreateLeerkans extends React.Component {
   }
 
   handleChange(event) {
+    console.log(event.target.value);
     this.setState({[event.target.id]: event.target.value});
     // console.log(event.target.id);
     // console.log(event.target.value);
@@ -123,8 +124,8 @@ class FormCreateLeerkans extends React.Component {
     let address = new Object();
     address["bus"] = "";
     address["city"] = this.state.city;
-    address["housenumber"] = this.state.house_number;
-    address["postalcode"] = this.state.postal_code;
+    address["housenumber"] = parseInt(this.state.house_number);
+    address["postalcode"] = parseInt(this.state.postal_code);
     address["street"] = this.state.street;
     address["country"] = this.state.country;
 
@@ -137,6 +138,7 @@ class FormCreateLeerkans extends React.Component {
   }
 
   postNewOpportunity(addressId){
+    console.log(this.state.start_date);
     let opportunity = new Object();
     opportunity["addressId"] = addressId;
     opportunity["badgeId"] = this.state.badgeId;
