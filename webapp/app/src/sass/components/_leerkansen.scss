@@ -1,0 +1,54 @@
+#leerkansen {
+	display: flex;
+	flex-direction: row;
+	h1.uitgelicht {
+		text-align: center;
+	}
+	.content-left { width: 60%; }
+	.content-right {
+		height: calc(100vh - 209px);
+		width: 40%;
+		margin-right: -15px;
+		width: calc(40% + 15px);
+	}
+	.card-item {
+		&.leerkans {
+			border-radius: 15px;
+			border: 2px solid $light-gray;
+			transition: $transition;
+			&:hover {
+				box-shadow: $shadow;
+			}
+			&.digitale-geletterdheid:hover { border-color: $primary }
+			&.duurzaamheid:hover { border-color: $green }
+			&.ons:hover { border-color: $gray3 }
+			&.wbs:hover { border-color: $orange }
+			&.ond:hover { border-color: $sub }
+			> img.photo {
+				margin: -15px -15px 0 -15px;
+				width: calc(100% + 30px);
+			}
+			img.badge {
+				position: absolute;
+				width: 70px;
+				height: auto;
+				top: -60px;
+				right: 0;
+			}
+			h2 { 
+				color: $primary;
+			}
+			.meta-data {
+				small {
+					display: block;
+					color: $gray2;
+					font-size: 12px;
+				}
+			}
+			p {
+				color: $gray;
+				font-size: 14px;
+			}
+		}
+	}
+}

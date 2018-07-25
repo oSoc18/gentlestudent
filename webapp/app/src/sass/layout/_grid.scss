@@ -1,0 +1,14 @@
+.container {
+	position: relative;
+	width: 100%;
+	max-width: 1140px;
+	margin: 0 auto;
+	&.full-height {
+		height: calc(100vh - 100px);
+	}
+}
+
+.content {
+	position: relative;
+	padding: 15px;
+}
