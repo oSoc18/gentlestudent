@@ -19,7 +19,7 @@ class Leerkansen extends Component {
 		};
 	  }
 	componentDidMount() {
-		firestore.onceGetOpportunities().then(snapshot => {
+		firestore.onceGetValidatedOpportunities().then(snapshot => {
 			var res = new Object()
 			snapshot.forEach(doc => {
 				res[doc.id] = doc.data();
@@ -34,7 +34,7 @@ class Leerkansen extends Component {
 		const { opportunities } = this.state;
 
 		return (
-			<div>
+			<div className="leerkansen-content">
 				<div className="content">
 					<SearchFilter />
 					<div id="leerkansen">

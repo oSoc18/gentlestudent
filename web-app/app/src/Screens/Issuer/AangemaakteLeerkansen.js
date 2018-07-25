@@ -43,7 +43,7 @@ class AangemaakteLeerkansen extends Component {
 		const { opportunities } = this.state;
 
 		return (
-			<div>
+			<div className="leerkansen-content">
 				<div className="content">
 					{/* <SearchFilter /> */}
 					<div className="fixed">
