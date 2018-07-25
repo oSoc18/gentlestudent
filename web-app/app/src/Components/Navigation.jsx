@@ -76,9 +76,11 @@ class NavigationAuth extends Component{
 		let id = auth.getUserId()
 		this.setState(() => ({ userId: id }))
 		firestore.onceGetParticipant(id).then(doc => {
-			var res = new Object()
-			this.setState(() => ({ participant: doc.data() }))
-			this.setState(() => ({ name: doc.data().name.split(" ")[0] }))
+			var res = new Object();
+			if(doc.data()){
+				this.setState(() => ({ participant: doc.data() }));
+				this.setState(() => ({ name: doc.data().name.split(" ")[0] }));
+			}
 		})
 		.catch(err => {
 			console.log('Error getting documents', err);

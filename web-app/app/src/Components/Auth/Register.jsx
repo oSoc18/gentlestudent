@@ -4,7 +4,7 @@ import {
   withRouter,
 } from 'react-router-dom';
 
-import { auth, firestore } from '../Firebase';
+import { auth, firebase, firestore } from '../Firebase';
 
 import * as routes from '../../routes/routes';
 
@@ -35,6 +35,8 @@ class SignUpForm extends Component {
   }
 
   onSubmit = (event) => {
+    event.preventDefault();
+
     const {
       firstname,
       lastname,
@@ -56,23 +58,29 @@ class SignUpForm extends Component {
     user["education"] = education;
     user["institute"] = institute;
 
+    console.log(user);
+
+    var self = this;
+
     auth.doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
-        this.setState(() => ({ ...INITIAL_STATE }));
+        console.log(auth.getUserId());
+        // self.setState(() => ({ ...INITIAL_STATE }));
       })
       .catch(error => {
-        this.setState(byPropKey('error', error));
+        self.setState(byPropKey('error', error));
       });
-
-    firestore.createNewParticipant(user)
-    .then(res => {
-      history.push(routes.WordIssuer);
-    })
-    .catch(error => {
-      console.log('error', error);
+    
+    firebase.auth.onAuthStateChanged(authUser => {
+      firestore.createNewParticipant(authUser.uid, user)
+        .then(res => {
+          // history.push(routes.WordIssuer);
+        })
+        .catch(error => {
+          console.log('Error: Could not create participant: ', error);
+        });
     });
 
-    event.preventDefault();
   }
 
   render() {

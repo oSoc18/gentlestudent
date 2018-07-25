@@ -75,8 +75,8 @@ export const onceGetParticipant = (id) =>
 export const createNewAssertion = (data) =>
   firestore.collection('Assertions').add(data)
 
-export const createNewParticipant = (data) =>
-  firestore.collection('Participants').add(data)
+export const createNewParticipant = (id, data) =>
+  firestore.collection('Participants').doc(id).set(data);
 
 export const linkBeaconToOpportunity = (opportunityId, beaconId) =>
   firestore.collection('Opportunities').doc(opportunityId).update({ beaconId: beaconId })
