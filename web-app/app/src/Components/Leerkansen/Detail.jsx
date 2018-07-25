@@ -20,7 +20,7 @@ class Detail extends Component {
 
 const LeerkansDetail = ({ opportunity }) =>
   <div>
-    <a href="/leerkansen">Back</a>
+    <a href="/leerkansen" className="back">&lt; Terug</a>
     {/* {JSON.stringify(opportunity)} */}
     {opportunity.shortDescription}
     {/* <h1>{opportunities[id].title}</h1>

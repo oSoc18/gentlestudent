@@ -101,7 +101,7 @@ class OpportunitiesList extends Component{
             <React.Fragment>
                 <div className="container">
                     <div className="content">
-                        <Link to="/">Back</Link>
+                        <Link to="/" className="back">&lt; Terug</Link>
                         <h1>Valideer leerkans</h1>
                         <div className="card-container opportunities">
                             {Object.keys(opportunities).map(key =>

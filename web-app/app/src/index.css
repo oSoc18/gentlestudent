@@ -91,6 +91,21 @@ button.primary {
     color: #00AACC !important;
     background-color: transparent; }
 
+.back {
+  display: block;
+  font-weight: 700;
+  color: #707070;
+  padding: 5px 10px;
+  margin: 0 5px;
+  line-height: 22px;
+  height: 22px;
+  display:inline-block; }
+  back:hover {
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+    color: #00AACC !important;
+    background-color: transparent; }
+
 .card-container {
   display: grid;
   padding: 10px 0;

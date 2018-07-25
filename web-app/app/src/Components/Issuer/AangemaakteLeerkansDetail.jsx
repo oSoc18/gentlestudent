@@ -105,7 +105,7 @@ class ParticipantsList extends Component{
 
 const LeerkansDetail = ({ opportunity }) =>
   <div>
-    <a href="/leerkansen">Back</a>
+    <a href="/leerkansen" className="back">&lt; Terug</a>
     {/* {JSON.stringify(opportunity)} */}
     <h2>{opportunity.title}</h2>
     <p>{opportunity.shortDescription}</p>

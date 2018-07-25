@@ -58,7 +58,7 @@ class CreateLeerkans extends Component {
       <div>
         <div className="container">
           <div className="content">
-            <Link to="/backoffice/leerkansen">Back</Link>
+            <Link to="/aangemaakte-leerkansen" className="back">&lt; Terug</Link>
             <h1>Maak Leerkans</h1>
             <div className="form" id="create_leerkans">
               {/* <FormCreateLeerkans onSubmit={this.submit} badges={badges}/> */}
