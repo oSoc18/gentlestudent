@@ -72,13 +72,15 @@ class SignUpForm extends Component {
       });
     
     firebase.auth.onAuthStateChanged(authUser => {
-      firestore.createNewParticipant(authUser.uid, user)
-        .then(res => {
-          // history.push(routes.WordIssuer);
-        })
-        .catch(error => {
-          console.log('Error: Could not create participant: ', error);
-        });
+      authUser
+          ? firestore.createNewParticipant(authUser.uid, user)
+          .then(res => {
+            // history.push(routes.FrontPage);
+          })
+          .catch(error => {
+            console.log('Error: Could not create participant: ', error);
+          })
+          : console.log("authUser is null");
     });
 
   }
@@ -141,7 +143,7 @@ class SignUpForm extends Component {
           <input
             value={birthday}
             onChange={event => this.setState(byPropKey('birthday', event.target.value))}
-            type="text"
+            type="date"
             placeholder="YYYY-MM-DD"
           />
           </div>
