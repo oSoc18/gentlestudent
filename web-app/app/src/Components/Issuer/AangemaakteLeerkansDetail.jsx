@@ -135,7 +135,7 @@ class ParticipantsList extends Component{
         const { participants } = this.props;
         return(
             <div>
-                <h1>DEELNEMERS:</h1>
+                <h1>Deelnemers:</h1>
                 {Object.keys(participants).map(key =>
                     <div className='card-item participant' key={key}>
                         <div>

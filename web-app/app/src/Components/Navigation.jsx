@@ -87,9 +87,11 @@ class NavigationAuth extends Component{
 		.catch(err => {
 			console.log('Error getting documents', err);
 		});
-		firestore.onceGetValidatedIssuer(id).then(doc => {
+		firestore.onceGetIssuer(id).then(doc => {
 			if(doc.data()){
-				this.setState(() => ({ isIssuer: true }));
+				if(doc.data().validated){
+					this.setState(() => ({ isIssuer: true }));
+				}
 			}
 		})
 		.catch(err => {
