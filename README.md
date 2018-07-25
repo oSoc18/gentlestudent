@@ -9,24 +9,25 @@ As a student you can download the application in the Play Store (Android) or the
 If you want to become an issuer you have to go to the [web application](http://gentlestudent.gent/). There you can apply to become an issuer and make learning opportunities. Once the learning opportunity is approved the students can participate using the mobile application.
 
 ### The team
-[**Bert Jehoul**](https://github.com/jeborsel)
+[**Bert Jehoul**](https://github.com/jeborsel) -
 Coach
 
-[**Bram De Coninck**](https://github.com/BramDC3)
+[**Bram De Coninck**](https://github.com/BramDC3) - 
 Full stack developer
 
-[**Stijn Mets**](https://github.com/StijnMets)
+[**Stijn Mets**](https://github.com/StijnMets) - 
 Back-end developer
 
-[**Maxime Van Driessche**](https://github.com/mrvdries)
+[**Maxime Van Driessche**](https://github.com/mrvdries) - 
 Front-end developer
 
-[**Marie-Sophie Verwee**](https://github.com/MarieSophie4)
+[**Marie-Sophie Verwee**](https://github.com/MarieSophie4) - 
 Back-end developer
 
-[**Michael Viaene**](https://github.com/MichaelViaene)
+[**Michael Viaene**](https://github.com/MichaelViaene) - 
 Back-end developer
 
 
 ### The partners
-[Arteveldehogeschool](https://www.arteveldehogeschool.be/)
+[Arteveldehogeschool](https://www.arteveldehogeschool.be/) [Open Summer Of Code](http://2018.summerofcode.be/)
+![artvelde]()
