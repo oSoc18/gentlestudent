@@ -57,11 +57,11 @@ export const onceGetNonValidatedOpportunities = () =>
 export const validateOpportunity = (id) =>
   firestore.collection('Opportunities').doc(id).update({ blocked: false })
 
-export const createBadge = (data) =>
+export const createNewBadge = (data) =>
   firestore.collection('Badges').add(data)
 
-export const linkBadgeToOpportunity = (opportunityId, BadgeId) =>
-  firestore.collection('Opportunities').doc(opportunityId).update({ BadgeId: BadgeId })
+export const linkBadgeToOpportunity = (opportunityId, badgeId) =>
+  firestore.collection('Opportunities').doc(opportunityId).update({ badgeId: badgeId })
 
 export const onceGetCreatedOpportunities = (userId) =>
   firestore.collection('Opportunities').where('issuerId', '==', userId).get()
@@ -77,3 +77,6 @@ export const createNewAssertion = (data) =>
 
 export const createNewParticipant = (data) =>
   firestore.collection('Participants').add(data)
+
+export const linkBeaconToOpportunity = (opportunityId, beaconId) =>
+  firestore.collection('Opportunities').doc(opportunityId).update({ beaconId: beaconId })

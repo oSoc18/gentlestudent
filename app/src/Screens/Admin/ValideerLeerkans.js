@@ -86,7 +86,7 @@ class OpportunitiesList extends Component{
         badge["image"]= image;
         badge["criteria"]= opportunity.shortDescription;
         badge["issuerId"]= opportunity.issuerId;
-        firestore.createBadge(badge).then(function(docRef) {
+        firestore.createNewBadge(badge).then(function(docRef) {
             console.log("Document written with ID: ", docRef.id);
             firestore.linkBadgeToOpportunity(opportunityId, docRef.id);
           }).catch(function(error) {
@@ -95,7 +95,7 @@ class OpportunitiesList extends Component{
     }
 
       render() {
-        const { opportunities } = this.props;
+        const { opportunities, getOpportunities } = this.props;
     
         return (
             <React.Fragment>
@@ -105,19 +105,7 @@ class OpportunitiesList extends Component{
                         <h1>Valideer leerkans</h1>
                         <div className="card-container opportunities">
                             {Object.keys(opportunities).map(key =>
-                                <div className={`card-item leerkans ${ opportunities[key].category }`} key={opportunities[key].addressId}>
-                                    <img src={opportunities[key].oppImageUrl ? `https://gentlestudent-api.herokuapp.com/leerkansen/${opportunities[key].pinImageUrl}` : null} className="photo" alt={opportunities[key].title} />
-                                    <div style={{position: "relative"}}>
-                                    <img src={`https://api.badgr.io/public/badges/${opportunities[key].pinImageUrl}/image",`} className="badge" alt={opportunities[key].category + opportunities[key].difficulty} />
-                                    <h2>{opportunities[key].title}</h2>
-                                    <div className="meta-data">
-                                    <small>{opportunities[key].beginDate + ' - ' + opportunities[key].endDate}</small>
-                                    {/* <small>{opportunities[key].street + ' ' + opportunities[key].house_number + ', ' + opportunities[key].postal_code + ' ' + opportunities[key].city}</small> */}
-                                    </div>
-                                    <p>{opportunities[key].shortDescription}</p>
-                                    <button onClick={this.handleClick} id={key}>Accepteren</button>
-                                    </div>
-                                </div>
+                                <Opportunity opportunity={opportunities[key]} key={key} id={key} getOpportunities={ getOpportunities }/>
                             )}
                         </div>
                     </div>
@@ -126,7 +114,108 @@ class OpportunitiesList extends Component{
         );
     }
 }
+
+const byPropKey = (propertyName, value) => () => ({
+    [propertyName]: value,
+  });
+
+class Opportunity extends Component{
+    constructor(props){
+        super(props);
+
+        this.state = {beaconId: ""};
+
+        this.onSubmit = this.onSubmit.bind(this);
+        this.postNewBadge = this.postNewBadge.bind(this);
+      };
     
+      onSubmit(event) {
+        event.preventDefault();
+        const {beaconId} = this.state;
+        let opportunityId = this.props.id;
+        firestore.validateOpportunity(opportunityId).catch(function(error) {
+            console.error("Error validating opportunity: ", error);
+          });
+        // console.log(beaconId);
+        firestore.linkBeaconToOpportunity(opportunityId, beaconId).catch(function(error) {
+            console.error("Error linking beacon: ", error);
+          });
+        this.postNewBadge(opportunityId);
+        this.props.getOpportunities();
+      }
+
+      postNewBadge(opportunityId){
+        let opportunity = this.props.opportunity;
+        let badge = new Object();
+        let name = "";
+        let baseUrl = "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Badges%2F";
+        let image = baseUrl;
+        switch(opportunity.category){
+            case 0: {name = "Digitale Geletterdheid"; image += "badge_digitale-geletterdheid";}
+            case 1: {name = "Duurzaamheid"; image += "badge_duurzaamheid";}
+            case 2: {name = "Ondernemingszin"; image += "badge_ondernemingszin";}
+            case 3: {name = "Onderzoekende houding"; image += "badge_onderzoekende-houding";}
+            case 4: {name = "Wereldburgerschap"; image += "badge_wereldburgerschap";}
+        }
+        switch(opportunity.difficulty){
+            case 0: image+= "_1.png?alt=media";
+            case 1: image+= "_2.png?alt=media";
+            case 2: image+= "_3.png?alt=media";
+        }
+        badge["type"]= "BadgeClass";
+        badge["name"]= name;
+        badge["description"]= opportunity.longDescription;
+        badge["image"]= image;
+        badge["criteria"]= opportunity.shortDescription;
+        badge["issuerId"]= opportunity.issuerId;
+        console.log(badge);
+        firestore.createNewBadge(badge).then(function(docRef) {
+            console.log("Document written with ID: ", docRef.id);
+            firestore.linkBadgeToOpportunity(opportunityId, docRef.id);
+          }).catch(function(error) {
+            console.log("Error adding document: ", error);
+          });
+    }
+    render () {
+        const { opportunity, id } = this.props;
+        const { beaconId, error } = this.state;
+        const isInvalid =
+            beaconId === ""
+            ;
+
+        return(
+            <div className={`card-item leerkans ${ opportunity.category }`} key={opportunity.addressId}>
+                {/* <img src={opportunity.oppImageUrl ? `${opportunity.pinImageUrl}` : null} className="photo" alt={opportunity.title} /> */}
+                <div style={{position: "relative"}}>
+                    {/* <img src={opportunity.oppImageUrl ? `${opportunity.oppImageUrl}` : null} className="badge" /> */}
+                    <h2>{opportunity.title}</h2>
+                    <div className="meta-data">
+                        <small>{opportunity.beginDate + ' - ' + opportunity.endDate}</small>
+                        {/* <small>{opportunity.street + ' ' + opportunity.house_number + ', ' + opportunity.postal_code + ' ' + opportunity.city}</small> */}
+                    </div>
+                    <p>{opportunity.shortDescription}</p>
+                    <form onSubmit={this.onSubmit}>
+                        <div className="form-group">
+                            Beacon ID:
+                            <input
+                                value={beaconId}
+                                onChange={event => this.setState(byPropKey('beaconId', event.target.value))}
+                                type="text"
+                                placeholder="Beacon ID"
+                            />
+                        </div>
+                        <button disabled={isInvalid} type="submit">
+                            Accepteren
+                        </button>
+
+                        { error && <p>{error.message}</p> }
+                    </form>
+                </div>
+            </div>
+        )
+    }
+}
+
 
 const EmptyList = () =>
     <div>
