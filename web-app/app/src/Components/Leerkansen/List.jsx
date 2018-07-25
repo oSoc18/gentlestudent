@@ -21,9 +21,9 @@ const LeerkansenList = ({ opportunities }) =>
 		<div className="card-container leerkansen">
 			{Object.keys(opportunities).map(key =>
 				<a href={`/leerkansen/${key}`} className={`card-item leerkans ${ opportunities[key].category }`} key={opportunities[key].addressId}>
-					<img src={opportunities[key].oppImageUrl ? `https://gentlestudent-api.herokuapp.com/leerkansen/${opportunities[key].pinImageUrl}` : null} className="photo" alt={opportunities[key].title} />
+					<img src={opportunities[key].oppImageUrl ? `${opportunities[key].oppImageUrl}` : null} className="photo" alt="" />
 					<div style={{position: "relative"}}>
-					<img src={`https://api.badgr.io/public/badges/${opportunities[key].pinImageUrl}/image",`} className="badge" alt={opportunities[key].category + opportunities[key].difficulty} />
+					<img src={`${opportunities[key].pinImageUrl}`} className="badge" alt="" />
 					<h2>{opportunities[key].title}</h2>
 					<div className="meta-data">
 					<small>{opportunities[key].beginDate + ' - ' + opportunities[key].endDate}</small>

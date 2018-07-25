@@ -46,7 +46,7 @@ class Leerkansen extends Component {
 						</div>
 						<div className="content-right">
 							<div className="content">
-								<Maps />
+								<Maps opportunities={opportunities}/>
 							</div>
 						</div>
 					</div>
