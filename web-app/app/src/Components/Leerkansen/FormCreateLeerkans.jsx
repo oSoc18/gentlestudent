@@ -146,8 +146,8 @@ class FormCreateLeerkans extends React.Component {
     opportunity["beaconId"] = "";
     opportunity["beginDate"] = this.state.start_date;
     opportunity["blocked"] = true;
-    opportunity["category"] = this.state.category;
-    opportunity["difficulty"] = this.state.difficulty;
+    opportunity["category"] = parseInt(this.state.category);
+    opportunity["difficulty"] = parseInt(this.state.difficulty);
     opportunity["endDate"] = this.state.end_date;
     opportunity["international"] = false;
     opportunity["issuerId"] = auth.getUserId();

@@ -70,9 +70,14 @@ class ParticipantsList extends Component{
         let date = new Date();
         let today = date.getFullYear()+"-"+date.getMonth()+"-"+date.getDay();
         let assertion = new Object();
+        assertion["badge"] = badgeId;
         assertion["badgeId"] = badgeId;
+        assertion["id"] = "";
         assertion["issuedOn"] = today;
+        assertion["recipient"] = participantId;
         assertion["recipientId"] = participantId;
+        assertion["type"] = "Assertion";
+        assertion["verification"] = badgeId;
         firestore.createNewAssertion(assertion);
     }
     render() {
