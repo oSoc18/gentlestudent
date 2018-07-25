@@ -142,9 +142,7 @@ class NavigationAuth extends Component{
 				<li className="nav_item">
 					<NavLink to={routes.Leerkansen} activeClassName="active">Leerkansen</NavLink>
 				</li>
-				<li className="nav_item">
-					<NavLink to={routes.WordIssuer} activeClassName="active">Word Issuer</NavLink>
-				</li>
+				{ ! isIssuer && <WordIssuer/> }
 				<li className="nav_item">
 					<NavLink to={routes.Ervaringen}>Ervaringen</NavLink>
 				</li>
@@ -194,6 +192,11 @@ class NavigationAuth extends Component{
 		);
 	}
 }
+
+const WordIssuer = () =>
+	<li className="nav_item">
+		<NavLink to={routes.WordIssuer} activeClassName="active">Word Issuer</NavLink>
+	</li>
 
 const NavigationIssuer= () =>
 	<React.Fragment>
