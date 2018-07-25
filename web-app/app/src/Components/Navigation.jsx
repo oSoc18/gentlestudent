@@ -4,8 +4,8 @@ import { NavLink } from 'react-router-dom';
 
 
 import AuthUserContext from './AuthUserContext';
-import SignOutButton from './Auth/Logout';
-import { auth } from './Firebase';
+// import SignOutButton from './Auth/Logout';
+import { auth, firestore } from './Firebase';
 
 import logo from './../assets/logo.svg';
 
@@ -58,15 +58,41 @@ const NavigationNonAuth = () =>
 	</ul>
 
 class NavigationAuth extends Component{
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		
 		this.state = {
+			name: "",
+			participant: null,
 			showMenu: false,
+			userId: "",
 		};
 		
 		this.showMenu = this.showMenu.bind(this);
 		this.closeMenu = this.closeMenu.bind(this);
+	}
+
+	componentDidMount() {
+		let id = auth.getUserId()
+		this.setState(() => ({ userId: id }))
+		firestore.onceGetParticipant(id).then(doc => {
+			var res = new Object()
+			this.setState(() => ({ participant: doc.data() }))
+			this.setState(() => ({ name: doc.data().name.split(" ")[0] }))
+		})
+		.catch(err => {
+			console.log('Error getting documents', err);
+		});
+		// firestore.onceGetParticipant(AuthUserContext).then(snapshot => {
+		// 	var res = new Object()
+		// 	snapshot.forEach(doc => {
+		// 		res[doc.id] = doc.data();
+		// 	});
+		// 	this.setState(() => ({ opportunities: res }))
+		// })
+		// .catch(err => {
+		// 	console.log('Error getting documents', err);
+		// });
 	}
 	
 	showMenu(event) {
@@ -109,7 +135,7 @@ class NavigationAuth extends Component{
 				<li className="nav_item dropdown">
 					<div>
 						<button onClick={this.showMenu}>
-							Show menu
+							Welkom {this.state.name}!
 						<i className="fas fa-caret-down"></i></button>
 						
 						{
