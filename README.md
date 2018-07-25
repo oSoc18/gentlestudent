@@ -29,8 +29,4 @@ Back-end developer
 
 
 ### The partners
-[Arteveldehogeschool](https://www.arteveldehogeschool.be/) [Open Summer Of Code](http://2018.summerofcode.be/)
-
-![artvelde](arteveldelogo.png)
-
-![osoc](osoc.jpg)
+[![osoc](osoc.jpg)](http://2018.summerofcode.be/)  [![artvelde](arteveldelogo.png)](https://www.arteveldehogeschool.be/) 
