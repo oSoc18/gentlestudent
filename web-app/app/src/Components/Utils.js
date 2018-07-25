@@ -211,6 +211,7 @@ export const renderSelect = ({
   label,
   input,
   data,
+  id,
   meta: { asyncValidating, touched, error }
 }) => {
   return (
@@ -229,11 +230,13 @@ export const renderSelect = ({
           {...input}
           className="select"
           required
+          id={id}
         >
           <option value="">— Select an option —</option>
           {data.list.map((index, key) => {
             return (
               <option key={key} value={index.value} required>
+                {/* {index.value} */}
                 {index.display}
               </option>
             );
