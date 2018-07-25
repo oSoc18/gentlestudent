@@ -140,6 +140,7 @@ class FormCreateLeerkans extends React.Component {
     let opportunity = new Object();
     opportunity["addressId"] = addressId;
     opportunity["badgeId"] = this.state.badgeId;
+    opportunity["beaconId"] = "";
     opportunity["beginDate"] = this.state.start_date;
     opportunity["blocked"] = true;
     opportunity["category"] = this.state.category;
