@@ -20,6 +20,7 @@ const INITIAL_STATE = {
   email: '',
   passwordOne: '',
   passwordTwo: '',
+  accepted: false,
   error: null,
 };
 
@@ -45,6 +46,7 @@ class SignUpForm extends Component {
       education,
       institute,
       passwordOne,
+      accepted
     } = this.state;
 
     const {
@@ -95,6 +97,7 @@ class SignUpForm extends Component {
       institute,
       passwordOne,
       passwordTwo,
+      accepted,
       error,
     } = this.state;
 
@@ -107,6 +110,7 @@ class SignUpForm extends Component {
       || ! /^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/.test(birthday)
       || education === ''
       || institute === ''
+      || accepted == false
       ;
 
     return (
@@ -178,6 +182,15 @@ class SignUpForm extends Component {
             onChange={event => this.setState(byPropKey('passwordTwo', event.target.value))}
             type="password"
             placeholder="Herhaal Wachtwoord"
+          />
+        </div>
+        <div className="form-group">
+          Ik ga akkoord met het <a href="/privacy">privacybeleid</a>:
+          <input
+            value={accepted}
+            onChange={event => this.setState(byPropKey('accepted', event.target.value))}
+            type="checkbox"
+            placeholder="Instituut"
           />
         </div>
         <button disabled={isInvalid} type="submit">
