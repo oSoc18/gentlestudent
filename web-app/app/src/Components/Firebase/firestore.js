@@ -89,3 +89,12 @@ export const onceGetValidatedIssuer = (id) =>
 
 export const onceGetAdmin = (id) =>
   firestore.collection('Admins').doc(id).get()
+
+export const undoParticipation = (id) =>
+  firestore.collection('Participations').doc(id).update({status: 0})
+
+export const acceptParticipation = (id) =>
+  firestore.collection('Participations').doc(id).update({status: 1})
+
+export const rejectParticipation = (id) =>
+  firestore.collection('Participations').doc(id).update({status: 2})
