@@ -64,23 +64,23 @@ class FormCreateLeerkans extends React.Component {
   choosePin(){
     let baseUrl = "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Pins%2F";
     let url = baseUrl;
-    switch(this.state.category){
-      case 0: url += "pin_digitale-geletterdheid";
-      case 1: url += "pin_duurzaamheid";
-      case 2: url += "pin_ondernemingszin";
-      case 3: url += "pin_onderzoekende-houding";
-      case 4: url += "pin_wereldburgerschap";
+    switch(parseInt(this.state.category)){
+      case 0: url += "pin_digitale-geletterdheid"; break;
+      case 1: url += "pin_duurzaamheid"; break;
+      case 2: url += "pin_ondernemingszin"; break;
+      case 3: url += "pin_onderzoekende-houding"; break;
+      case 4: url += "pin_wereldburgerschap"; break;
     }
-    switch(this.state.difficulty){
-      case 0: url += "_1.png?alt=media";
-      case 1: url += "_2.png?alt=media";
-      case 2: url += "_3.png?alt=media";
+    switch(parseInt(this.state.difficulty)){
+      case 0: url += "_1.png?alt=media"; break;
+      case 1: url += "_2.png?alt=media"; break;
+      case 2: url += "_3.png?alt=media"; break;
     }
     this.setState({pinImageUrl: url});
   }
 
   handleChange(event) {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     this.setState({[event.target.id]: event.target.value});
     // console.log(event.target.id);
     // console.log(event.target.value);
@@ -254,12 +254,13 @@ class FormCreateLeerkans extends React.Component {
             data={{
               list: Object.keys(Category).map(key => {
                 return {
-                  value: Category.key,
+                  value: Category[`${key}`],
                   display: key
                 };
               })
             }}
             component={renderSelect}
+            onChange={this.handleChange}
           />
         </div>
         <div className="form-group">
@@ -270,12 +271,13 @@ class FormCreateLeerkans extends React.Component {
             data={{
               list: Object.keys(Difficulty).map(key => {
                 return {
-                  value: Difficulty.key,
+                  value: Difficulty[`${key}`],
                   display: key
                 };
               })
             }}
             component={renderSelect}
+            onChange={this.handleChange}
           />
         </div>
         <div className="form-group">
