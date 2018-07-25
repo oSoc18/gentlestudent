@@ -80,3 +80,9 @@ export const createNewParticipant = (id, data) =>
 
 export const linkBeaconToOpportunity = (opportunityId, beaconId) =>
   firestore.collection('Opportunities').doc(opportunityId).update({ beaconId: beaconId })
+
+export const onceGetValidatedIssuer = (id) =>
+  firestore.collection('Issuers').doc(id).get()
+
+export const onceGetAdmin = (id) =>
+  firestore.collection('Admins').doc(id).get()

@@ -66,6 +66,8 @@ class NavigationAuth extends Component{
 			participant: null,
 			showMenu: false,
 			userId: "",
+			isIssuer: false,
+			isAdmin: false
 		};
 		
 		this.showMenu = this.showMenu.bind(this);
@@ -84,6 +86,23 @@ class NavigationAuth extends Component{
 		})
 		.catch(err => {
 			console.log('Error getting documents', err);
+		});
+		firestore.onceGetValidatedIssuer(id).then(doc => {
+			if(doc.data()){
+				this.setState(() => ({ isIssuer: true }));
+			}
+		})
+		.catch(err => {
+			console.log('User is not an issuer', err);
+		});
+		firestore.onceGetAdmin(id).then(doc => {
+			var res = new Object();
+			if(doc.data()){
+				this.setState(() => ({ isAdmin: true }));
+			}
+		})
+		.catch(err => {
+			console.log('User is not an admin', err);
 		});
 		// firestore.onceGetParticipant(AuthUserContext).then(snapshot => {
 		// 	var res = new Object()
@@ -116,6 +135,8 @@ class NavigationAuth extends Component{
 	}
 
 	render() {
+		const { isAdmin, isIssuer } = this.state;
+
 		return (
 			<ul id="gs-nav">
 				<li className="nav_item">
@@ -150,10 +171,8 @@ class NavigationAuth extends Component{
 									}}
 									>
 									<NavLink to={routes.Profiel}>Profiel</NavLink>
-									<NavLink to={routes.AangemaakteLeerkansen}>Aangemaakte leerkansen</NavLink>
-									<NavLink to={routes.MaakLeerkans}>Maak leerkans</NavLink>
-									<NavLink to={routes.ValideerIssuer}>Valideer issuer</NavLink>
-									<NavLink to={routes.ValideerLeerkans}>Valideer leerkans</NavLink>
+									{ !! isIssuer && <NavigationIssuer/>}
+									{ !! isAdmin && <NavigationAdmin/>}
 								</div>
 							)
 							: (
@@ -176,5 +195,16 @@ class NavigationAuth extends Component{
 	}
 }
 
+const NavigationIssuer= () =>
+	<React.Fragment>
+		<NavLink to={routes.AangemaakteLeerkansen}>Aangemaakte leerkansen</NavLink>
+		<NavLink to={routes.MaakLeerkans}>Maak leerkans</NavLink>
+	</React.Fragment>
+
+const NavigationAdmin = () =>
+	<React.Fragment>
+		<NavLink to={routes.ValideerIssuer}>Valideer issuer</NavLink>
+		<NavLink to={routes.ValideerLeerkans}>Valideer leerkans</NavLink>
+	</React.Fragment>
 
 export default Navigation;
