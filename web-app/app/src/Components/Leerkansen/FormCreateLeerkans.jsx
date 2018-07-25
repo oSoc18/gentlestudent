@@ -155,7 +155,7 @@ class FormCreateLeerkans extends React.Component {
     opportunity["longDescription"] = this.state.description;
     opportunity["longitude"] = this.state.lng;
     opportunity["oppImageUrl"] = this.state.imageUrl;
-    opportunity["pinImageUrl"] = "";
+    opportunity["pinImageUrl"] = this.state.pinImageUrl;
     opportunity["shortDescription"] = this.state.synopsis;
     opportunity["title"] = this.state.title;
 
