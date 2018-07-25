@@ -128,7 +128,9 @@ class _BackPackPageState extends State<BackPackPage> {
                     opportunity.title,
                     style: new TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.black54,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black54,
                         fontSize: 16.0),
                   ),
                   subtitle: new Text(

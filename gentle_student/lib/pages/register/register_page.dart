@@ -312,7 +312,11 @@ class _RegisterPageState extends State<RegisterPage> {
     //LoginLabel widget
     final loginLabel = FlatButton(
       child: Text('Al een account? Log hier in!',
-          style: TextStyle(color: Colors.black54)),
+          style: TextStyle(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white
+                : Colors.black54,
+          )),
       onPressed: () {
         Navigator.of(context).pop();
       },

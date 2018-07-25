@@ -93,11 +93,13 @@ class _LoginPageState extends State<LoginPage> {
       autofocus: false,
       controller: emailController,
       decoration: InputDecoration(
-          labelText: 'E-mailadres',
-          hintText: 'naam@student.arteveldehs.be',
-          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+        labelText: 'E-mailadres',
+        hintText: 'naam@student.arteveldehs.be',
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
     );
 
     final password = TextField(
@@ -105,11 +107,15 @@ class _LoginPageState extends State<LoginPage> {
       obscureText: true,
       controller: passwordController,
       decoration: InputDecoration(
-          labelText: 'Wachtwoord',
-          hintText: '**********',
-          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+        fillColor: Colors.lightBlue,
+        labelText: 'Wachtwoord',
+        hintText: '**********',
+        //labelStyle: TextStyle(color: Colors.lightBlue),
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
     );
 
     final loginButton = Padding(
@@ -130,7 +136,11 @@ class _LoginPageState extends State<LoginPage> {
 
     final registerLabel = FlatButton(
       child: Text('Geen account? Klik hier!',
-          style: TextStyle(color: Colors.black54)),
+          style: TextStyle(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white
+                : Colors.black54,
+          )),
       onPressed: () {
         Navigator.of(context).pushNamed(RegisterPage.tag);
       },

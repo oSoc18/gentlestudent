@@ -103,7 +103,9 @@ class _MapPageState extends State<MapPage> {
                     opportunity.title,
                     style: new TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.black54,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black54,
                         fontSize: 16.0),
                   ),
                   subtitle: new Text(
@@ -204,7 +206,9 @@ class _MapPageState extends State<MapPage> {
             additionalOptions: {
               'accessToken':
                   'pk.eyJ1IjoiZ2VudGxlc3R1ZGVudCIsImEiOiJjampxdGI5cGExMjh2M3FudTVkYnl3aDlzIn0.Z3OSj_o97M8_7L8P5s3xIA',
-              'id': 'mapbox.streets',
+              'id': Theme.of(context).brightness == Brightness.dark
+                  ? 'mapbox.dark'
+                  : 'mapbox.streets',
             },
           ),
           new MarkerLayerOptions(
