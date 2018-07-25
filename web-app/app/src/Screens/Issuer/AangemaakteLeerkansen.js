@@ -45,7 +45,10 @@ class AangemaakteLeerkansen extends Component {
 		return (
 			<div>
 				<div className="content">
-					<SearchFilter />
+					{/* <SearchFilter /> */}
+					<div className="fixed">
+            			<h1>Mijn aangemaakte leerkansen</h1>
+					</div>
 					<div id="aangemaakte-leerkansen">
 						<div className="content-left">
 							<Switch>

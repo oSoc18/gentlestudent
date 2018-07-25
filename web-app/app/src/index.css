@@ -125,12 +125,16 @@ button.primary {
   .card-container {
     grid-template-columns: auto auto; }
     .card-container.leerkansen {
+      grid-template-columns: auto; }
+    .card-container.aangemaakte-leerkansen {
       grid-template-columns: auto; } }
 
 @media screen and (min-width: 960px) {
   .card-container {
     grid-template-columns: auto auto auto; }
     .card-container.leerkansen {
+      grid-template-columns: auto auto; }
+    .card-container.aangemaakte-leerkansen {
       grid-template-columns: auto auto; } }
 
 #recente-ervaringen h1 {
@@ -228,6 +232,54 @@ button.primary {
       color: #aeaeae;
       font-size: 12px; }
     #leerkansen .card-item.leerkans p {
+      color: #707070;
+      font-size: 14px; }
+
+#aangemaakte-leerkansen {
+  display: flex;
+  flex-direction: row; }
+  #aangemaakte-leerkansen h1.uitgelicht {
+    text-align: center; }
+  #aangemaakte-leerkansen .content-left {
+    width: 60%; }
+  #aangemaakte-leerkansen .content-right {
+    height: calc(100vh - 209px);
+    width: 40%;
+    margin-right: -15px;
+    width: calc(40% + 15px); }
+  #aangemaakte-leerkansen .card-item.leerkans {
+    border-radius: 15px;
+    border: 2px solid #F2F0ED;
+    transition: all 200ms ease-in-out; 
+    max-width: 33%;}
+    #aangemaakte-leerkansen .card-item.leerkans:hover {
+      box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26); }
+    #aangemaakte-leerkansen .card-item.leerkans.digitale-geletterdheid:hover {
+      border-color: #00AACC; }
+    #aangemaakte-leerkansen .card-item.leerkans.duurzaamheid:hover {
+      border-color: #BBCC00; }
+    #aangemaakte-leerkansen .card-item.leerkans.ons:hover {
+      border-color: #A8A8A8; }
+    #aangemaakte-leerkansen .card-item.leerkans.wbs:hover {
+      border-color: #EE9900; }
+    #aangemaakte-leerkansen .card-item.leerkans.ond:hover {
+      border-color: #CC0077; }
+    #aangemaakte-leerkansen .card-item.leerkans > img.photo {
+      margin: -15px -15px 0 -15px;
+      width: calc(100% + 30px); }
+    #aangemaakte-leerkansen .card-item.leerkans img.badge {
+      position: absolute;
+      width: 70px;
+      height: auto;
+      top: -60px;
+      right: 0; }
+    #aangemaakte-leerkansen .card-item.leerkans h2 {
+      color: #00AACC; }
+    #aangemaakte-leerkansen .card-item.leerkans .meta-data small {
+      display: block;
+      color: #aeaeae;
+      font-size: 12px; }
+    #aangemaakte-leerkansen .card-item.leerkans p {
       color: #707070;
       font-size: 14px; }
 
