@@ -342,10 +342,10 @@ export const validate = values => {
     errors.country = "Required";
   }
   if (!values.latitude){
-    errors.street = "Required";
+    errors.latitude = "Required";
   }
   if (!values.longitude){
-    errors.street = "Required";
+    errors.longitude = "Required";
   }
   return errors;
 };
