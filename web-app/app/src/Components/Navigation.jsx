@@ -154,30 +154,30 @@ class NavigationAuth extends Component{
 				</li>
 				<React.Fragment>
 				<li className="nav_item dropdown">
-					<div>
-						<button onClick={this.showMenu}>
-							Welkom {this.state.name}!
-						<i className="fas fa-caret-down"></i></button>
-						
-						{
-							this.state.showMenu
-							? (
-								<div
-									className="menu"
-									ref={(element) => {
-										this.dropdownMenu = element;
-									}}
-									>
+					<button className="nav_item primary" onClick={this.showMenu}>
+						Welkom {this.state.name}!
+					<i className="fas fa-caret-down"></i></button>
+					
+					{
+						this.state.showMenu
+						? (
+							<div
+								className="dropdown-menu"
+								ref={(element) => {
+									this.dropdownMenu = element;
+								}}
+								>
+								<div className="dropdown-menu-list">
 									<NavLink to={routes.Profiel}>Profiel</NavLink>
 									{ !! isIssuer && <NavigationIssuer/>}
 									{ !! isAdmin && <NavigationAdmin/>}
 								</div>
-							)
-							: (
-								null
-							)
-						}
-					</div>
+							</div>
+						)
+						: (
+							null
+						)
+					}
 					
 				</li>
 				<li className="nav_item primary">
