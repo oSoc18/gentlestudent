@@ -46,7 +46,7 @@ class FormCreateLeerkans extends React.Component {
       synopsis: "",
       title: "",
       image: "",
-      imageUrl: "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Opportunity%20Images%2FNederlandse%20Les.jpg?alt=media&token=7938b826-8407-4659-8cfa-ee6fb139d448",
+      imageUrl: "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Opportunityimages%2FNederlandse%20Les.jpg?alt=media&token=82cecaa7-4d6e-473d-b06a-a5eea35d8d4b",
       imageExtension: ""
     };
 
