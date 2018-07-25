@@ -13,6 +13,7 @@ import 'firebase/storage';
 import { Category, Difficulty} from './Constants';
 
 import { renderInput, renderAutomaticInput, renderTextarea, renderSelect, RenderDropzoneInput, validate } from './../Utils';
+import { FirebaseStorage } from '@firebase/storage-types';
 
 // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
@@ -35,9 +36,9 @@ class FormCreateLeerkans extends React.Component {
       difficulty: 0,
       address: '',
       street: "",
-      house_number: "",
+      house_number: 0,
       city: "",
-      postal_code: "",
+      postal_code: 0,
       country: "Belgium",
       start_date: "",
       end_date: "",
@@ -79,6 +80,7 @@ class FormCreateLeerkans extends React.Component {
   }
 
   handleChange(event) {
+    console.log(event.target.value);
     this.setState({[event.target.id]: event.target.value});
     // console.log(event.target.id);
     // console.log(event.target.value);
@@ -101,7 +103,7 @@ class FormCreateLeerkans extends React.Component {
     this.choosePin();
     if(this.state.image != ""){
       let fileName = this.state.title+"."+this.state.imageExtension;
-      let baseUrl = "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Opportunity%20Images%2F";
+      let baseUrl = "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Opportunityimages%2F";
       this.setState({imageUrl: baseUrl + encodeURIComponent(fileName)+"?alt=media"});
       this.uploadImage(fileName);
     }
@@ -110,7 +112,7 @@ class FormCreateLeerkans extends React.Component {
 
   uploadImage(fileName){
     console.log(fileName);
-    let path = "Opportunity Images/"+fileName;
+    let path = "Opportunityimages/"+fileName;
     let ref = firebase.storage().ref().child(path);
     ref.put(this.state.image).then(function(snapshot) {
       console.log('Uploaded file!');
@@ -123,8 +125,8 @@ class FormCreateLeerkans extends React.Component {
     let address = new Object();
     address["bus"] = "";
     address["city"] = this.state.city;
-    address["housenumber"] = this.state.house_number;
-    address["postalcode"] = this.state.postal_code;
+    address["housenumber"] = parseInt(this.state.house_number);
+    address["postalcode"] = parseInt(this.state.postal_code);
     address["street"] = this.state.street;
     address["country"] = this.state.country;
 
@@ -137,6 +139,7 @@ class FormCreateLeerkans extends React.Component {
   }
 
   postNewOpportunity(addressId){
+    console.log(this.state.start_date);
     let opportunity = new Object();
     opportunity["addressId"] = addressId;
     opportunity["badgeId"] = this.state.badgeId;

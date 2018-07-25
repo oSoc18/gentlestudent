@@ -7,12 +7,12 @@ export const onceGetOpportunities = () =>
   // db.ref('Opportunities').once('value');
   firestore.collection('Opportunities').get()
 
-export const createIssuer = (institution, longName, url, phonenumber,street, housenumber,bus, postalcode, city, userId, userEmail) => {
+export async function createIssuer(institution, longName, url, phonenumber,street, housenumber,bus, postalcode, city, userId, userEmail) {
     var addressdata = {
         bus: bus,
         city: city,
-        housenumber: housenumber,
-        postalcode: postalcode,
+        housenumber: parseInt(housenumber),
+        postalcode: parseInt(postalcode),
         street: street
     };
     var addressid;
