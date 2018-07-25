@@ -1,0 +1,16 @@
+export const FrontPage = '/';
+export const Leerkansen = '/leerkansen';
+export const WordIssuer = '/word-issuer';
+export const Ervaringen = '/ervaringen';
+export const Nieuws = '/nieuws';
+export const OverOns = '/overons';
+export const Register = '/Register';
+export const Login = '/login';
+export const RegistreerIssuer = '/word-issuer/registratie';
+export const Profiel = '/profiel';
+export const BOLeerkansen = '/backoffice/leerkansen';
+export const MaakLeerkans = '/issuer/maak-leerkans';
+export const IssueBadgeRecipient = '/issuer/issue-badge-recipient';
+export const ValideerIssuer = '/admin/valideer-issuer';
+export const ValideerLeerkans = '/admin/valideer-leerkans';
+export const AangemaakteLeerkansen = '/aangemaakte-leerkansen';
