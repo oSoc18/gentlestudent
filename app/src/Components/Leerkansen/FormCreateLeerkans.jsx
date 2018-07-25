@@ -13,7 +13,7 @@ import 'firebase/storage';
 import { Category, Difficulty} from './Constants';
 
 import { renderInput, renderAutomaticInput, renderTextarea, renderSelect, RenderDropzoneInput, validate } from './../Utils';
-import { FirebaseStorage } from '@firebase/storage-types';
+// import { FirebaseStorage } from '@firebase/storage-types';
 
 // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
