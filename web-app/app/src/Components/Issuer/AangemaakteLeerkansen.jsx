@@ -30,6 +30,7 @@ const LeerkansenList = ({ opportunities }) =>
                     {/* <small>{opportunities[key].street + ' ' + opportunities[key].house_number + ', ' + opportunities[key].postal_code + ' ' + opportunities[key].city}</small> */}
                     </div>
                     <p>{opportunities[key].shortDescription}</p>
+					<h2>Status: {opportunities[key].blocked ? `In afwachting` : `Geaccepteerd`}</h2>
                     </div>
                 </a>
 			)}

@@ -12,6 +12,8 @@ import 'firebase/storage';
 
 import { Category, Difficulty} from './Constants';
 
+import * as routes from '../../routes/routes';
+
 import { renderInput, renderAutomaticInput, renderTextarea, renderSelect, RenderDropzoneInput, validate } from './../Utils';
 // import { FirebaseStorage } from '@firebase/storage-types';
 
@@ -130,15 +132,17 @@ class FormCreateLeerkans extends React.Component {
     address["street"] = this.state.street;
     address["country"] = this.state.country;
 
+    var self = this;
+
     firestore.createAddress(address).then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
-      postNewOpportunity(docRef.id);
+      postNewOpportunity(docRef.id, self);
     }).catch(function(error) {
       console.error("Error adding document: ", error);
     });
   }
 
-  postNewOpportunity(addressId){
+  postNewOpportunity(addressId, self){
     console.log(this.state.start_date);
     let opportunity = new Object();
     opportunity["addressId"] = addressId;
@@ -160,6 +164,9 @@ class FormCreateLeerkans extends React.Component {
     opportunity["title"] = this.state.title;
 
     firestore.createOpportunity(opportunity)
+    .then(function(docRef){
+      self.props.history.push(routes.AangemaakteLeerkansen);
+    })
     .catch(function(error) {
       console.error("Error adding document: ", error);
       console.error(JSON.stringify(opportunity));

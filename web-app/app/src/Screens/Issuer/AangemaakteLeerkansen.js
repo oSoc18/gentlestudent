@@ -47,7 +47,8 @@ class AangemaakteLeerkansen extends Component {
 				<div className="content">
 					{/* <SearchFilter /> */}
 					<div className="fixed">
-            			<h1>Mijn aangemaakte leerkansen</h1>
+            			<h1>Aangemaakte leerkansen</h1>
+						<p> Deze leerkansen werden door jou aangemaakt:</p>
 					</div>
 					<div id="aangemaakte-leerkansen">
 						<div className="content-left">

@@ -65,7 +65,7 @@ class SignUpForm extends Component {
     auth.doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         console.log(auth.getUserId());
-        // self.setState(() => ({ ...INITIAL_STATE }));
+        self.setState(() => ({ ...INITIAL_STATE }));
       })
       .catch(error => {
         self.setState(byPropKey('error', error));
@@ -75,7 +75,7 @@ class SignUpForm extends Component {
       authUser
           ? firestore.createNewParticipant(authUser.uid, user)
           .then(res => {
-            // history.push(routes.FrontPage);
+            history.push(routes.FrontPage);
           })
           .catch(error => {
             console.log('Error: Could not create participant: ', error);

@@ -190,7 +190,7 @@ button.primary {
 
 #leerkansen {
   display: flex;
-  flex-direction: row; }
+  flex-direction: row;  }
   #leerkansen h1.uitgelicht {
     text-align: center; }
   #leerkansen .content-left {
@@ -203,7 +203,8 @@ button.primary {
   #leerkansen .card-item.leerkans {
     border-radius: 15px;
     border: 2px solid #F2F0ED;
-    transition: all 200ms ease-in-out; }
+    transition: all 200ms ease-in-out;
+    background-color: white;}
     #leerkansen .card-item.leerkans:hover {
       box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26); }
     #leerkansen .card-item.leerkans.digitale-geletterdheid:hover {
@@ -237,21 +238,22 @@ button.primary {
 
 #aangemaakte-leerkansen {
   display: flex;
-  flex-direction: row; }
+  /* flex-direction: row; */}
   #aangemaakte-leerkansen h1.uitgelicht {
     text-align: center; }
   #aangemaakte-leerkansen .content-left {
-    width: 60%; }
+    width: 100%; }
   #aangemaakte-leerkansen .content-right {
     height: calc(100vh - 209px);
-    width: 40%;
+    width: 0%;
     margin-right: -15px;
     width: calc(40% + 15px); }
   #aangemaakte-leerkansen .card-item.leerkans {
     border-radius: 15px;
     border: 2px solid #F2F0ED;
     transition: all 200ms ease-in-out; 
-    max-width: 33%;}
+    width: 500px;
+    background-color: white;}
     #aangemaakte-leerkansen .card-item.leerkans:hover {
       box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26); }
     #aangemaakte-leerkansen .card-item.leerkans.digitale-geletterdheid:hover {
@@ -426,7 +428,8 @@ nav {
 
 .content {
   position: relative;
-  padding: 15px; }
+  padding: 15px;
+  background-color: rgb(248, 248, 248); }
 
 footer {
   width: 100%;
