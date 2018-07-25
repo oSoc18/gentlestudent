@@ -204,7 +204,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                           color: Theme.of(context).brightness == Brightness.dark
                               ? Colors.white
                               : Colors.black54,
-                          fontSize: 21.0),
+                          fontSize: 20.0),
                     ),
                   ),
                 ),

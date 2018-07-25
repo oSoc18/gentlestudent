@@ -203,57 +203,59 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
         iconTheme: new IconThemeData(color: Colors.white),
       ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            color: color,
-            height: 240.0,
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 24.0),
-                _logoOrProfilePicture(),
-                SizedBox(height: 24.0),
-                name,
-              ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Container(
+              color: color,
+              height: 240.0,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: 24.0),
+                  _logoOrProfilePicture(),
+                  SizedBox(height: 24.0),
+                  name,
+                ],
+              ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 24.0, right: 24.0, top: 20.0),
-            decoration: new BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(5.0),
-              boxShadow: <BoxShadow>[
-                new BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 10.0,
-                  offset: new Offset(0.0, 10.0),
-                ),
-              ],
+            Container(
+              margin: EdgeInsets.only(left: 24.0, right: 24.0, top: 20.0),
+              decoration: new BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(5.0),
+                boxShadow: <BoxShadow>[
+                  new BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10.0,
+                    offset: new Offset(0.0, 10.0),
+                  ),
+                ],
+              ),
+              child: ListView(
+                shrinkWrap: true,
+                padding: EdgeInsets.only(bottom: 24.0),
+                children: <Widget>[
+                  SizedBox(height: 30.0),
+                  lblMail,
+                  SizedBox(height: 5.0),
+                  mail,
+                  SizedBox(height: 30.0),
+                  lblBirthdate,
+                  SizedBox(height: 5.0),
+                  birthdate,
+                  SizedBox(height: 30.0),
+                  lblInstitute,
+                  SizedBox(height: 5.0),
+                  institute,
+                  SizedBox(height: 30.0),
+                  lblEducation,
+                  SizedBox(height: 5.0),
+                  education,
+                ],
+              ),
             ),
-            child: ListView(
-              shrinkWrap: true,
-              padding: EdgeInsets.only(bottom: 24.0),
-              children: <Widget>[
-                SizedBox(height: 30.0),
-                lblMail,
-                SizedBox(height: 5.0),
-                mail,
-                SizedBox(height: 30.0),
-                lblBirthdate,
-                SizedBox(height: 5.0),
-                birthdate,
-                SizedBox(height: 30.0),
-                lblInstitute,
-                SizedBox(height: 5.0),
-                institute,
-                SizedBox(height: 30.0),
-                lblEducation,
-                SizedBox(height: 5.0),
-                education,
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
