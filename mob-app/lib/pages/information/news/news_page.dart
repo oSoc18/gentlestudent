@@ -7,22 +7,30 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
+//This page is a list of all news articles
 class NewsPage extends StatefulWidget {
+  //This tag allows us to navigate to the NewsPage
   static String tag = 'news-page';
+
   @override
   _NewsPageState createState() => _NewsPageState();
 }
 
 class _NewsPageState extends State<NewsPage> {
+  //Declaration of the variables
   List<News> _news = [];
   NewsApi _newsApi;
 
+  //This method gets called when the page is initializing
+  //We overwrite it to:
+  // - Load data from the Firebase
   @override
   void initState() {
     super.initState();
     _loadFromFirebase();
   }
 
+  //API call to load data from the Firebase
   _loadFromFirebase() async {
     final newsApi = new NewsApi();
     final news = await newsApi.getAllNews();
@@ -36,6 +44,8 @@ class _NewsPageState extends State<NewsPage> {
     }
   }
 
+  //API call to load data from the Firebase
+  //Used when a user refreshed the current page
   _reloadOpportunities() async {
     if (_newsApi != null) {
       final news = await _newsApi.getAllNews();
@@ -49,6 +59,7 @@ class _NewsPageState extends State<NewsPage> {
     }
   }
 
+  //Used to navigate to the details page of a news article
   _navigateToNewsDetails(News news) async {
     Navigator.push(
       context,
@@ -58,6 +69,7 @@ class _NewsPageState extends State<NewsPage> {
     );
   }
 
+  //Building one news article
   Widget _buildNewsItem(BuildContext context, int index) {
     News news = _news[index];
 
@@ -115,11 +127,13 @@ class _NewsPageState extends State<NewsPage> {
     );
   }
 
+  //Function that gets called when the page is being refreshed
   Future<Null> refresh() {
     _reloadOpportunities();
     return new Future<Null>.value();
   }
 
+  //Building all the news articles
   Widget _getListViewWidget() {
     return new Flexible(
       child: new RefreshIndicator(
@@ -132,6 +146,7 @@ class _NewsPageState extends State<NewsPage> {
     );
   }
 
+  //Build the body
   Widget _buildBody() {
     return new Container(
       margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),

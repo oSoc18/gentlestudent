@@ -12,13 +12,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+//This page contains all favorites of a user
 class FavoritesPage extends StatefulWidget {
+  //This tag allows us to navigate to the FavoritesPage
   static String tag = 'favorites-page';
+
   @override
   _FavoritesPageState createState() => _FavoritesPageState();
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {
+
+  //Declartation of the variables
   FirebaseUser firebaseUser;
   List<Opportunity> _opportunities = [];
   List<Badge> _badges = [];
@@ -39,12 +44,17 @@ class _FavoritesPageState extends State<FavoritesPage> {
       profilePicture: "",
       favorites: new List<String>());
 
+  //This method gets called when the page is initializing
+  //We overwrite it to:
+  // - Load the Firebase user
+  // - Load data from the Firebase
   @override
   void initState() {
     super.initState();
     _loadFromFirebase();
   }
 
+  //API call to get data from the Firebase
   _loadFromFirebase() async {
     FirebaseAuth.instance.onAuthStateChanged.listen((user) async {
       firebaseUser = user;
@@ -76,6 +86,8 @@ class _FavoritesPageState extends State<FavoritesPage> {
     });
   }
 
+  //API call to load data from the Firebase
+  //Used when a user refreshed the current page
   _reloadOpportunities() async {
     if (_opportunityApi != null &&
         _badgeApi != null &&
@@ -100,6 +112,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
     }
   }
 
+  //Used to navigate to the details page of an opportunity
   _navigateToOpportunityDetails(Opportunity opportunity, Badge badge,
       Issuer issuer, Address address) async {
     Navigator.push(
@@ -111,6 +124,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
     );
   }
 
+  //Building a favorite opportunity
   Widget _buildOpportunityItem(BuildContext context, int index) {
     String opportunityId = _participant.favorites[index];
     Opportunity opportunity =
@@ -165,6 +179,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
     );
   }
 
+  //Function to get the name of a difficulty in String form
   String _getDifficulty(Opportunity opportunity) {
     switch (opportunity.difficulty) {
       case Difficulty.BEGINNER:
@@ -177,6 +192,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
     return "Niveau 0";
   }
 
+  //Function to get the name of a category in String form
   String _getCategory(Opportunity opportunity) {
     switch (opportunity.category) {
       case Category.DIGITALEGELETTERDHEID:
@@ -192,12 +208,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
     }
     return "Algemeen";
   }
-
+  //Function that gets called when the page is being refreshed
   Future<Null> refresh() {
     _reloadOpportunities();
     return new Future<Null>.value();
   }
 
+  //Building all favorite opportunities
   Widget _getListViewWidget() {
     return new Flexible(
       child: new RefreshIndicator(
@@ -210,6 +227,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
     );
   }
 
+  //Building the body of the page
   Widget _buildBody() {
     return new Container(
       margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),

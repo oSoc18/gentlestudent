@@ -3,16 +3,24 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 
+//This page represents one experience
 class ExperiencesDetailPage extends StatefulWidget {
-  static String tag = 'experiences-detail-page';
+  //We need an Experience object to render this page
   final Experience experience;
+
+  //We pass the object to the constructor of this page
   ExperiencesDetailPage(this.experience);
+
+  //We pass the object to the state page
   @override
   _ExperiencesDetailPageState createState() => _ExperiencesDetailPageState(experience);
 }
 
 class _ExperiencesDetailPageState extends State<ExperiencesDetailPage> {
+  //Declaration of the variables
   Experience _experience;
+
+  //Constructor
   _ExperiencesDetailPageState(this._experience);
 
   @override
@@ -91,7 +99,7 @@ class _ExperiencesDetailPageState extends State<ExperiencesDetailPage> {
                     height: 6.0,
                   ),
 
-                  //Published
+                  //Published date
                   new Row(
                     children: <Widget>[
                       new Text(
@@ -155,6 +163,7 @@ class _ExperiencesDetailPageState extends State<ExperiencesDetailPage> {
     );
   }
 
+  //Function for making a date more readable
   static String _makeDate(DateTime date) {
     return formatDate(date, [dd, '/', mm, '/', yyyy]);
   }

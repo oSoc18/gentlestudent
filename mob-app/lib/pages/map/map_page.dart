@@ -13,19 +13,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 
+//This page represents the map with learning opportunities
 class MapPage extends StatefulWidget {
+  //This tag allows us to navigate to the MapPage
   static String tag = 'map-page';
+
   @override
   _MapPageState createState() => _MapPageState();
 }
 
 class _MapPageState extends State<MapPage> {
+
+  //Declaration of the variables
   List<Marker> _markers = [];
   List<Opportunity> _opportunities = [];
   List<Badge> _badges = [];
   List<Issuer> _issuers = [];
   List<Address> _addresses = [];
 
+  //Function for placing the markers of the opportunities on the map
   setMarkers() {
     for (int i = 0; i < _opportunities.length; i++) {
       _markers.add(
@@ -50,6 +56,9 @@ class _MapPageState extends State<MapPage> {
     return _markers;
   }
 
+  //This method gets called when the page is initializing
+  //We overwrite it to:
+  // - Load data from the Firebase
   _loadFromFirebase() async {
     final opportunityApi = new OpportunityApi();
     final badgeApi = new BadgeApi();
@@ -69,6 +78,8 @@ class _MapPageState extends State<MapPage> {
     }
   }
 
+  //Displays a message with details of an opportunity
+  //And a button to navigate to the details page of the opportunity
   Future<Null> _displayOpportunity(Opportunity opportunity) async {
     Badge badge =
         _badges.firstWhere((b) => b.openBadgeId == opportunity.badgeId);
@@ -162,6 +173,7 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
+  //Used to navigate to the details page of an opportunity
   _navigateToOpportunityDetails(Opportunity opportunity, Badge badge,
       Issuer issuer, Address address) async {
     Navigator.push(
@@ -173,15 +185,13 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
+  //This method gets called when the page is initializing
+  //We overwrite it to:
+  // - Load data from the Firebase
   @override
   initState() {
     super.initState();
     _loadFromFirebase();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
@@ -204,13 +214,16 @@ class _MapPageState extends State<MapPage> {
             urlTemplate: "https://api.tiles.mapbox.com/v4/"
                 "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
             additionalOptions: {
+              //Our MapBox token
               'accessToken':
                   'pk.eyJ1IjoiZ2VudGxlc3R1ZGVudCIsImEiOiJjampxdGI5cGExMjh2M3FudTVkYnl3aDlzIn0.Z3OSj_o97M8_7L8P5s3xIA',
+              //If the dark mode is on, display a dark map
               'id': Theme.of(context).brightness == Brightness.dark
                   ? 'mapbox.dark'
                   : 'mapbox.streets',
             },
           ),
+          //Placing our markers on the map
           new MarkerLayerOptions(
             markers: setMarkers(),
           ),
@@ -219,6 +232,7 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
+  //Function to get the name of a difficulty in String form
   String _getDifficulty(Opportunity opportunity) {
     switch (opportunity.difficulty) {
       case Difficulty.BEGINNER:
@@ -231,6 +245,7 @@ class _MapPageState extends State<MapPage> {
     return "Niveau 0";
   }
 
+  //Function to get the name of a category in String form
   String _getCategory(Opportunity opportunity) {
     switch (opportunity.category) {
       case Category.DIGITALEGELETTERDHEID:

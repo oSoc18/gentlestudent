@@ -1,8 +1,9 @@
 import 'package:Gentle_Student/models/status.dart';
 import 'package:meta/meta.dart';
 
-//This model represents an participation
+//This model represents a participation
 class Participation {
+
   //Declaration of the variables
   final String participationId;
   final String participantId;
@@ -10,6 +11,7 @@ class Participation {
   final String reason;
   final Status status;
 
+  //Constructor
   Participation({
     @required this.participationId,
     @required this.participantId,

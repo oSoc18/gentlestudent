@@ -12,7 +12,11 @@ import 'package:beacons/beacons.dart';
 import 'package:local_notifications/local_notifications.dart';
 import 'package:Gentle_Student/models/beacon.dart';
 
+//This page is going to be the first page users see after they log in
+//It consists out of 3 other pages but more of that in a bit
+//The state of this page may change so that's why we use a StatefulWidget
 class HomePage extends StatefulWidget {
+  //This tag allows us to navigate to the HomePage
   static String tag = 'home-page';
 
   @override
@@ -20,6 +24,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //Variables used for navigation using the bottom navigation bar
   int currentTab = 1; // Index of currently opened tab.
   InformationPage informationPage =
       new InformationPage(); // Page that corresponds with the first tab.
@@ -32,6 +37,7 @@ class _HomePageState extends State<HomePage> {
   // Index 0 represents the page for the 0th tab, index 1 represents the page for the 1st tab etc...
   Widget currentPage; // Page that is open at the moment.
 
+  //Declaration of the other variables
   List<IBeacon> _beaconList = [];
   List<String> _keyList = [];
   Opportunity _opportunity;
@@ -40,6 +46,7 @@ class _HomePageState extends State<HomePage> {
   Address _address;
   int _notId = 0;
 
+  //Creating a notification channel to send notification to phones with Android Oreo or newer
   static const AndroidNotificationChannel channel =
       const AndroidNotificationChannel(
           id: 'default_notification',
@@ -47,25 +54,30 @@ class _HomePageState extends State<HomePage> {
           description: 'Grant this app the ability to show notifications',
           importance: AndroidNotificationChannelImportance.HIGH);
 
+  //This method gets called when the page is initializing
+  //We overwrite it to:
+  // - Scan for beacons
+  // - Load beacons from Firebase
+  // - Load pages and the current page for navigation
   @override
   void initState() {
     super.initState();
-    _beaconRanging();//start scanning for beacons
-    _loadBeacons();//load all the beacons from the database into a list
-    pages = [informationPage, mapListPage, userPage]; // Populate our pages list.
-    currentPage = mapListPage; // Setting the first page that we'd like to show our user.
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
+    _beaconRanging(); //start scanning for beacons
+    _loadBeacons(); //load all the beacons from the database into a list
+    pages = [
+      informationPage,
+      mapListPage,
+      userPage
+    ]; // Populate our pages list.
+    currentPage =
+        mapListPage; // Setting the first page that we'd like to show our user.
   }
 
   @override
   Widget build(BuildContext context) {
     // Here we create our BottomNavigationBar.
     final BottomNavigationBar navBar = new BottomNavigationBar(
-      fixedColor: Colors.lightBlue,
+      fixedColor: Colors.lightBlue, //Color of the selected tab
       currentIndex:
           currentTab, // Our currentIndex will be the currentTab value. So we need to update this whenever we tab on a new page!
       onTap: (int numTab) {
@@ -103,18 +115,21 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  //API call to load the beacons from the Firebase
   _loadBeacons() async {
     final beaconApi = new BeaconApi();
     final beacons = await beaconApi.getAllBeacons();
-    setState(() {
-      _beaconList = beacons;
-      for(IBeacon beacon in _beaconList)
-        {
+    if (this.mounted) {
+      setState(() {
+        _beaconList = beacons;
+        for (IBeacon beacon in _beaconList) {
           _keyList.add(beacon.beaconId);
         }
-    });
+      });
+    }
   }
 
+  //API call to load data from the Firebase
   _loadFromFirebase(String beaconkey) async {
     final opportunityApi = new OpportunityApi();
     final beaconApi = new BeaconApi();
@@ -127,14 +142,18 @@ class _HomePageState extends State<HomePage> {
     final badge = await badgeApi.getBadgeById(opportunity.badgeId);
     final issuer = await issuerApi.getIssuerById(opportunity.issuerId);
     final address = await addressApi.getAddressById(opportunity.addressId);
-    setState(() {
-      _opportunity = opportunity;
-      _badge = badge;
-      _issuer = issuer;
-      _address = address;
-    });
+    if (this.mounted) {
+      setState(() {
+        _opportunity = opportunity;
+        _badge = badge;
+        _issuer = issuer;
+        _address = address;
+      });
+    }
   }
 
+  //When clicking on a notification from a beacon, the app opens the opportunity details page
+  //Of the opportunity of that beacon
   _navigateToOpportunityDetails(String payload) async {
     await LocalNotifications.removeNotification(int.parse(payload));
     Navigator.push(
@@ -146,6 +165,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  //Scanning for beacons
   _beaconRanging() {
     bool notified = false;
     _notId = 0;
@@ -153,6 +173,7 @@ class _HomePageState extends State<HomePage> {
         .ranging(
       region: new BeaconRegionIBeacon(
         identifier: 'Gentlestudent beacons',
+        //The ID all of our beacons share
         proximityUUID: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
       ),
       inBackground: true,
@@ -164,8 +185,8 @@ class _HomePageState extends State<HomePage> {
               result.beacons.first.ids[1] + result.beacons.first.ids[2];
           print(beaconKey);
 
-          if(_keyList.contains(beaconKey) ) {
-            if(!notified) {
+          if (_keyList.contains(beaconKey)) {
+            if (!notified) {
               notified = true;
 
               await _loadFromFirebase(beaconKey);

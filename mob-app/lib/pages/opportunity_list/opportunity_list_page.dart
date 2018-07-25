@@ -10,13 +10,18 @@ import 'package:Gentle_Student/pages/opportunity_details/opportunity_details_pag
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+//This page is a list of all the opportunities
 class OpportunityListPage extends StatefulWidget {
+  //This tag allows us to navigate to the OpportunityListPage
   static String tag = 'opportunity-list-page';
+
   @override
   _OpportunityListPageState createState() => _OpportunityListPageState();
 }
 
 class _OpportunityListPageState extends State<OpportunityListPage> {
+
+  //Declaration of the variables
   List<Opportunity> _opportunities = [];
   List<Badge> _badges = [];
   List<Issuer> _issuers = [];
@@ -26,12 +31,16 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
   IssuerApi _issuerApi;
   AddressApi _addressApi;
 
+  //This method gets called when the page is initializing
+  //We overwrite it to:
+  // - Load data from the Firebase
   @override
   void initState() {
     super.initState();
     _loadFromFirebase();
   }
 
+  //API call to load data from the Firebase
   _loadFromFirebase() async {
     final opportunityApi = new OpportunityApi();
     final badgeApi = new BadgeApi();
@@ -55,6 +64,8 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     }
   }
 
+  //API call to load data from the Firebase
+  //Used when a user refreshed the current page
   _reloadOpportunities() async {
     if (_opportunityApi != null &&
         _badgeApi != null &&
@@ -75,6 +86,7 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     }
   }
 
+  //Used to navigate to the details page of an opportunity
   _navigateToOpportunityDetails(Opportunity opportunity, Badge badge,
       Issuer issuer, Address address) async {
     Navigator.push(
@@ -86,6 +98,7 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     );
   }
 
+  //Build an opportunity
   Widget _buildOpportunityItem(BuildContext context, int index) {
     Opportunity opportunity = _opportunities[index];
     Badge badge =
@@ -138,6 +151,7 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     );
   }
 
+  //Function to get the name of a difficulty in String form
   String _getDifficulty(Opportunity opportunity) {
     switch (opportunity.difficulty) {
       case Difficulty.BEGINNER:
@@ -150,6 +164,7 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     return "Niveau 0";
   }
 
+  //Function to get the name of a category in String form
   String _getCategory(Opportunity opportunity) {
     switch (opportunity.category) {
       case Category.DIGITALEGELETTERDHEID:
@@ -166,11 +181,13 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     return "Algemeen";
   }
 
+  //Function that gets called when the page is being refreshed
   Future<Null> refresh() {
     _reloadOpportunities();
     return new Future<Null>.value();
   }
 
+  //Building all the opportunities
   Widget _getListViewWidget() {
     return new Flexible(
       child: new RefreshIndicator(
@@ -183,6 +200,7 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     );
   }
 
+  //Building the body of the page
   Widget _buildBody() {
     return new Container(
       margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),

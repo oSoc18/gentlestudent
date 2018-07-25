@@ -9,6 +9,7 @@ class Assertion {
   final String participantId;
   final DateTime issuedOn;
 
+  //Constructor
   Assertion({
     @required this.assertionId,
     @required this.openBadgeId,

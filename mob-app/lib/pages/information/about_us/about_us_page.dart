@@ -3,9 +3,12 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
 import 'package:flutter_html_view/flutter_html_view.dart';
 
+//This page displays the "AboutUs.txt" you can find in the assets folder
+//To change the text that's displayed on this page, simply change the text in that document
 class AboutUsPage extends StatefulWidget {
-  //Tag for navigation
+  //This tag allows us to navigate to the AboutUsPage
   static String tag = 'about-us-page';
+
   @override
   _AboutUsPageState createState() => _AboutUsPageState();
 }
@@ -13,7 +16,7 @@ class AboutUsPage extends StatefulWidget {
 class _AboutUsPageState extends State<AboutUsPage> {
   //Declaration of the variables
   var aboutUsController;
-  final String aboutUsLink = "assets/AboutUs.txt";
+  final String aboutUsLink = "assets/AboutUs.txt"; //This is the link to the "AboutUs.txt" file
   String aboutUs = "";
 
   //Constructor
@@ -21,7 +24,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
     aboutUsController = new TextEditingController();
   }
 
-  //Function that returns the text of a file
+  //Function that returns the text of a given file
   Future<String> getAboutUs(String path) async {
     return await rootBundle.loadString(path);
   }
@@ -34,14 +37,18 @@ class _AboutUsPageState extends State<AboutUsPage> {
     });
   }
 
-  //We need to dispose of our controller
+  //This method gets called when the page is disposing
+  //We overwrite it to:
+  // - Dispose of our controller
   @override
   void dispose() {
     aboutUsController.dispose();
     super.dispose();
   }
 
-  //When this page is initialized, we want to display the text
+  //This method gets called when the page is initializing
+  //We overwrite it to:
+  // - Load and display the text of the "AboutUs.txt" file
   @override
   void initState() {
     super.initState();
@@ -57,11 +64,13 @@ class _AboutUsPageState extends State<AboutUsPage> {
       ),
       backgroundColor: Colors.white,
       body: new SingleChildScrollView(
-          child: new Center(
+        child: new Center(
           //HtmlView takes the text, interprets the HTML tags and then displays it
-            child: new HtmlView(data: aboutUsController.text,),
+          child: new HtmlView(
+            data: aboutUsController.text,
           ),
         ),
+      ),
     );
   }
 }

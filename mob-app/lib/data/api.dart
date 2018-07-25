@@ -15,8 +15,14 @@ import 'package:Gentle_Student/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+//This file is for all communication with the database
+//Every model has an API
+//All functions return Futures because everything database related happens asynchronous
+
 //OPPORTUNITIES
 class OpportunityApi {
+
+  //Get all opportunities
   Future<List<Opportunity>> getAllOpportunities() async {
     return (await Firestore.instance
             .collection('Opportunities')
@@ -27,6 +33,7 @@ class OpportunityApi {
         .toList();
   }
 
+  //Get an opportunity by opportunityId
   Future<Opportunity> getOpportunityById(String opportunityId) async {
     return _fromDocumentSnapshot(await Firestore.instance
         .collection("Opportunities")
@@ -34,6 +41,7 @@ class OpportunityApi {
         .get());
   }
 
+  //Get an opportunity by beaconId
   Future<Opportunity> getOpportunityByBeaconId(String beaconId) async {
     return _fromDocumentSnapshot((await Firestore.instance
             .collection("Opportunities")
@@ -43,6 +51,7 @@ class OpportunityApi {
         .first);
   }
 
+  //Get an opportunity by badgeId
   Future<Opportunity> getOpportunityByBadgeId(String badgeId) async {
     return _fromDocumentSnapshot((await Firestore.instance
             .collection("Opportunities")
@@ -52,6 +61,8 @@ class OpportunityApi {
         .first);
   }
 
+  //Create an opportunity from a DocumentSnapshot of the Firebase
+  //Basically turning JSON code into an Opportunity object
   Opportunity _fromDocumentSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data;
 
@@ -76,6 +87,7 @@ class OpportunityApi {
     );
   }
 
+  //Function for turning the Integer in the database into a Difficulty
   Difficulty _dataToDifficulty(int difficulty) {
     switch (difficulty) {
       case 0:
@@ -88,6 +100,7 @@ class OpportunityApi {
     return Difficulty.BEGINNER;
   }
 
+  //Function for turning the Integer in the database into a Category
   Category _dataToCategory(int category) {
     switch (category) {
       case 0:
@@ -104,6 +117,9 @@ class OpportunityApi {
     return Category.DUURZAAMHEID;
   }
 }
+//This is the end of the OpportunityApi
+//All the other APIs are very similar so I didn't document them
+//If you understand the OpportunityApi, you will understand all the other APIs
 
 //PARTICIPATIONS
 class ParticipationApi {
@@ -185,8 +201,7 @@ class ParticipantApi {
     }).catchError((e) => print(e));
   }
 
-  Future<Null> changeFavorites(
-      String participantId, List<String> likes) async {
+  Future<Null> changeFavorites(String participantId, List<String> likes) async {
     Map<String, List<String>> data = <String, List<String>>{
       "favorites": likes,
     };

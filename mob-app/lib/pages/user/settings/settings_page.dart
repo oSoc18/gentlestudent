@@ -11,8 +11,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
+//A page containing all settings the user can change
 class SettingsPage extends StatefulWidget {
+  //This tag allows us to navigate to the SettingsPage
   static String tag = 'settings-page';
+
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
@@ -34,7 +37,7 @@ class _SettingsPageState extends State<SettingsPage> {
             : Brightness.dark);
   }
 
-  //Function to change switch value on page creation
+  //Function to change dark mode switch value on page creation
   void _setSwitchState() async {
     if (Theme.of(context).brightness == Brightness.dark)
       setState(() {
@@ -190,6 +193,9 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
+  //This method gets called when the page is initializing
+  //We overwrite it to:
+  // - Load the Firebase user
   @override
   void initState() {
     super.initState();
@@ -207,8 +213,11 @@ class _SettingsPageState extends State<SettingsPage> {
         iconTheme: new IconThemeData(color: Colors.white),
       ),
       key: scaffoldKey,
+      //A list containing all settings
       body: ListView(
         children: <Widget>[
+
+          //Profile picture setting
           Container(
             child: ListTile(
               trailing: Icon(Icons.arrow_forward_ios),
@@ -221,6 +230,8 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
           ),
+
+          //Dark mode setting
           Container(
             child: ListTile(
               trailing: Switch(
@@ -247,6 +258,8 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
           ),
+
+          //Location permission setting
           Container(
             child: ListTile(
               trailing: Icon(Icons.arrow_forward_ios),
@@ -259,6 +272,8 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
           ),
+
+          //Sign out setting
           Container(
             child: ListTile(
               trailing: Icon(Icons.arrow_forward_ios),

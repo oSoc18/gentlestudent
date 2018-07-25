@@ -1,6 +1,9 @@
 import 'package:meta/meta.dart';
 
+//This model represents an experience
 class Experience {
+
+  //Declaration of the variables
   final String experienceId;
   final String title;
   final String shortText;
@@ -9,6 +12,7 @@ class Experience {
   final DateTime published;
   final String imageUrl;
 
+  //Constructor
   Experience({
     @required this.experienceId,
     @required this.title,

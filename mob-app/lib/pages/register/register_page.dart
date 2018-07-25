@@ -8,15 +8,17 @@ import 'package:firebase_auth/firebase_auth.dart'
 import 'package:flutter/services.dart';
 import 'package:flutter_html_view/flutter_html_view.dart';
 
+//This page handles everything that's related to creating an account
 class RegisterPage extends StatefulWidget {
-  //This tag is used for navigation
+  //This tag allows us to navigate to the RegisterPage
   static String tag = 'register-page';
+
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  //Variables
+  //Declaration of the variables
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   FirebaseUser firebaseUser;
   var firstnameController;
@@ -43,13 +45,12 @@ class _RegisterPageState extends State<RegisterPage> {
     repeatPasswordController = new TextEditingController();
   }
 
-  //Functions
-  //Date formatter
+  //Formatting a date to be able to be used by Firebase
   static String _formatDate(DateTime date) {
     return formatDate(date, [yyyy, '-', mm, '-', dd]);
   }
 
-  //Register with Firebase
+  //Create account with Firebase
   void _register() async {
     try {
       firebaseUser = await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -63,7 +64,7 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  //Add user details to database
+  //Add user details (participant document) to Firebase
   void _addUserToDatabase() {
     Map<String, dynamic> data = <String, dynamic>{
       "name": firstnameController.text + " " + lastnameController.text,
@@ -81,7 +82,7 @@ class _RegisterPageState extends State<RegisterPage> {
     }).catchError((e) => print(e));
   }
 
-  //Custom form validation
+  //Custom form validation to check if all fields are filled in
   bool _allFieldsFilledIn() {
     return firstnameController.text != null &&
         firstnameController.text != "" &&
@@ -100,7 +101,7 @@ class _RegisterPageState extends State<RegisterPage> {
         repeatPasswordController.text != "";
   }
 
-  //Dialog for GDPR reasons
+  //Dialog containing the privacy policy for GDPR reasons
   Future<Null> _displayGDPRDialog() async {
     return showDialog<Null>(
       context: context,
@@ -133,10 +134,12 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+  //Function that returns the text of a given file
   Future<String> _getPrivacyPolicy(String path) async {
     return await rootBundle.loadString(path);
   }
 
+  //Function for loading the text from the file
   void _fillInPrivacyPolicy() async {
     String privacyPolicy = await _getPrivacyPolicy(privacyPolicyLink);
     setState(() {
@@ -152,13 +155,18 @@ class _RegisterPageState extends State<RegisterPage> {
     ));
   }
 
+  //This method gets called when the page is initializing
+  //We overwrite it to:
+  // - Load the text of the "PrivacyPolicy.txt" file
   @override
   void initState() {
     super.initState();
     _fillInPrivacyPolicy();
   }
 
-  //We need to dispose of our controllers
+  //This method gets called when the page is disposing
+  //We overwrite it to:
+  // - Dispose of our controllers
   @override
   void dispose() {
     firstnameController.dispose();
@@ -172,10 +180,10 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  //Creating the widgets and building the scaffold
   @override
   Widget build(BuildContext context) {
-    //Voornaam widget
+
+    //The firstname textfield
     final voornaam = TextField(
       controller: firstnameController,
       keyboardType: TextInputType.text,
@@ -187,7 +195,7 @@ class _RegisterPageState extends State<RegisterPage> {
               OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
     );
 
-    //Achternaam widget
+    //The lastname textfield
     final achternaam = TextField(
       controller: lastnameController,
       keyboardType: TextInputType.text,
@@ -199,7 +207,7 @@ class _RegisterPageState extends State<RegisterPage> {
               OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
     );
 
-    //Geboortedatum widget
+    //The birthdate DateTimePicker
     final geboortedatum = new _DateTimePicker(
       labelText: 'Geboortedatum',
       selectedDate: _birthdate,
@@ -212,7 +220,7 @@ class _RegisterPageState extends State<RegisterPage> {
       },
     );
 
-    //Onderwijsinstelling widget
+    //The institution textfield
     final onderwijsinstelling = TextField(
       controller: instituteController,
       keyboardType: TextInputType.text,
@@ -224,7 +232,7 @@ class _RegisterPageState extends State<RegisterPage> {
               OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
     );
 
-    //Onderwijsinstelling widget
+    //The education textfield
     final opleiding = TextField(
       controller: educationController,
       keyboardType: TextInputType.text,
@@ -236,7 +244,7 @@ class _RegisterPageState extends State<RegisterPage> {
               OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
     );
 
-    //E-mail widget
+    //The email textfield
     final email = TextField(
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
@@ -249,7 +257,7 @@ class _RegisterPageState extends State<RegisterPage> {
               OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
     );
 
-    //Wachtwoord widget
+    //The password textfield
     final wachtwoord = TextField(
       controller: passwordController,
       autofocus: false,
@@ -262,7 +270,7 @@ class _RegisterPageState extends State<RegisterPage> {
               OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
     );
 
-    //HerhaalWachtwoord widget
+    //The repeat password textfield
     final herhaalWachtwoord = TextField(
       controller: repeatPasswordController,
       autofocus: false,
@@ -275,7 +283,7 @@ class _RegisterPageState extends State<RegisterPage> {
               OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
     );
 
-    //RegisterButton widget
+    //The register button
     final registerButton = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Material(
@@ -286,9 +294,11 @@ class _RegisterPageState extends State<RegisterPage> {
           minWidth: 200.0,
           height: 42.0,
           onPressed: () {
+            //Form validation
             if (_allFieldsFilledIn()) {
               if (passwordController.text.toString().length >= 6) {
                 if (passwordController.text == repeatPasswordController.text) {
+                  //Display GDPR dialog
                   _displayGDPRDialog();
                 } else {
                   _showSnackBar(
@@ -309,7 +319,7 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
 
-    //LoginLabel widget
+    //The login button
     final loginLabel = FlatButton(
       child: Text('Al een account? Log hier in!',
           style: TextStyle(
@@ -322,7 +332,6 @@ class _RegisterPageState extends State<RegisterPage> {
       },
     );
 
-    //Using all the widgets and create an AppBar to build a scaffold
     return Scaffold(
       key: scaffoldKey,
       appBar: new AppBar(
@@ -331,11 +340,11 @@ class _RegisterPageState extends State<RegisterPage> {
         iconTheme: new IconThemeData(color: Colors.white),
       ),
       body: Center(
+        //A list containing all previously declared widgets
         child: ListView(
           shrinkWrap: true,
           padding: EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
-            //SizedBox leaves blank space to make the UI look cleaner
             SizedBox(height: 8.0),
             voornaam,
             SizedBox(height: 8.0),
@@ -362,6 +371,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 }
 
+//A helper class for the DateTimePicker
 class _InputDropdown extends StatelessWidget {
   const _InputDropdown(
       {Key key,
@@ -404,6 +414,7 @@ class _InputDropdown extends StatelessWidget {
   }
 }
 
+//Another helper class for the DateTimePicker
 class _DateTimePicker extends StatelessWidget {
   const _DateTimePicker({
     Key key,
@@ -446,7 +457,7 @@ class _DateTimePicker extends StatelessWidget {
     );
   }
 
-  //Date formatter
+  //Function for formatting the date to make it more readable
   static String _formatDate(DateTime date) {
     return formatDate(date, [dd, '/', mm, '/', yyyy]);
   }
