@@ -82,7 +82,16 @@ class ParticipantsList extends Component{
         let participantId = event.target.id;
         let badgeId = this.props.opportunity.badgeId;
         let date = new Date();
-        let today = date.getFullYear()+"-"+date.getMonth()+"-"+date.getDay();
+        let month = ""+(date.getMonth()+1);
+        if(month.length==1){
+            month="0"+month;
+        }
+        let day = ""+(date.getDate());
+        if(day.length==1){
+            day="0"+month;
+        }
+        let today = date.getFullYear()+"-"+month+"-"+day;
+        console.log(today);
         let assertion = new Object();
         assertion["badge"] = badgeId;
         assertion["badgeId"] = badgeId;
@@ -92,7 +101,7 @@ class ParticipantsList extends Component{
         assertion["recipientId"] = participantId;
         assertion["type"] = "Assertion";
         assertion["verification"] = badgeId;
-        firestore.createNewAssertion(assertion);
+        // firestore.createNewAssertion(assertion);
         this.props.loadParticipants();
     }
     accept(event) {
