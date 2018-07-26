@@ -9,6 +9,8 @@ The application uses open badges to reward students for completing learning oppo
 ## Where to find
 You can download the application on [Android](https://play.google.com/store/apps/details?id=gent.gentlestudent.gentlestudent) (Apple is on it's way!). You can also use the [web application](http://gentlestudent.gent/).
 
+[Here](https://osoc18.github.io/gentlestudent/) you can find our github page.
+
 ## Team
 | Member        | Function          |
 | ------------- |:-------------:| 
