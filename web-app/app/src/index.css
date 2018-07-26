@@ -449,8 +449,8 @@ nav {
 }
 .profile-page .profile{
   background-color: #FFF;
-  width: 800px;
-  height: 400px;
+  width: 80%;
+  height: 500px;
   margin: 10vh auto;
   position: relative;
   border-radius: 5px;
