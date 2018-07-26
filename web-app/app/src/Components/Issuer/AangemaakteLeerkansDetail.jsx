@@ -24,17 +24,17 @@ class AangemaakteLeerkansDetail extends Component {
         var self = this;
         firestore.onceGetParticipationsForOpportunity(this.props.match.params.id).then((participations) => {
 			participations.forEach(function (participation){
-                let participantid = participation.data().participantId;
+                let id = participation.data().participantId;
                 let status = participation.data().status;
                 let participationId = participation.id;
                 // console.log(id);
                 // if(status!=2){
-                    firestore.onceGetParticipant(participantid).then(participant => {
+                    firestore.onceGetParticipant(id).then(participant => {
                         // console.log(participant.id);
                         // console.log(participant.data());
-                        res[participant.participantid] = participant.data();
-                        res[participant.participantid]["participationStatus"] = status;
-                        res[participant.participantid]["participationId"] = participationId;
+                        res[participant.id] = participant.data();
+                        res[participant.id]["participationStatus"] = status;
+                        res[participant.id]["participationId"] = participationId;
                         self.setState(() => ({ participants: res }))
                     })
                     .catch(err => {
@@ -92,7 +92,7 @@ class ParticipantsList extends Component{
         assertion["recipientId"] = participantId;
         assertion["type"] = "Assertion";
         assertion["verification"] = badgeId;
-        firestore.createNewAssertion(assertion);
+        // firestore.createNewAssertion(assertion);
         this.props.loadParticipants();
     }
     accept(event) {
