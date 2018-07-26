@@ -30,7 +30,7 @@ class FrontPage extends Component {
 					<div className="container">
 						<div className="content">
 							<h1>Aan de slag met Gentlestudent</h1>
-							<h2>“Slagzin die aanzet tot actie en Gentlestudent voorstelt.”</h2>
+							<h2>“Verken je stad, help je buren.”</h2>
 							<form action="">
 								<div className="search-wrapper frontpage">
 									<i className="fas fa-search"></i>
