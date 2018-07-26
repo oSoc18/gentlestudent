@@ -59,6 +59,7 @@ class SignUpForm extends Component {
     user["birthday"] = birthday;
     user["education"] = education;
     user["institute"] = institute;
+    user["favorites"] = [];
 
     console.log(user);
 
