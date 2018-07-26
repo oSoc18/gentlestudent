@@ -185,7 +185,7 @@ class SignUpForm extends Component {
           />
         </div>
         <div className="form-group">
-          Ik ga akkoord met het <a href="/privacy">privacybeleid</a>:
+          Ik ga akkoord met het <a target="_blank" rel="noopener noreferrer" href="/privacy">privacybeleid</a>:
           <input
             value={accepted}
             onChange={event => this.setState(byPropKey('accepted', event.target.value))}

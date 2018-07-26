@@ -101,7 +101,7 @@ class ParticipantsList extends Component{
         assertion["recipientId"] = participantId;
         assertion["type"] = "Assertion";
         assertion["verification"] = badgeId;
-        // firestore.createNewAssertion(assertion);
+        firestore.createNewAssertion(assertion);
         this.props.loadParticipants();
     }
     accept(event) {
