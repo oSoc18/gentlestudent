@@ -101,7 +101,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
     bool participationExists =
         await _participationApi.participationExists(firebaseUser, opportunity);
     if (participationExists) {
-      _showSnackBar("U bent al ingeschreven voor deze leerkans.");
+      _showSnackBar("U bent al geregistreerd voor deze leerkans.");
     } else {
       Map<String, dynamic> data = <String, dynamic>{
         "participantId": firebaseUser.uid,
@@ -114,7 +114,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
       collection.add(data).whenComplete(() {
         print("Participation added");
       }).catchError((e) => print(e));
-      _showSnackBar("U bent succesvol ingeschreven voor deze leerkans.");
+      _showSnackBar("U bent succesvol geregistreerd voor deze leerkans.");
     }
   }
 

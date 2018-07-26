@@ -100,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
         child: CircleAvatar(
             backgroundColor: Colors.transparent,
             radius: 60.0,
-            child: Image.asset('assets/crest-gentlestudent.png')));
+            child: Image.asset('assets/icon/logo.png')));
 
     //The email textfield
     final email = TextField(

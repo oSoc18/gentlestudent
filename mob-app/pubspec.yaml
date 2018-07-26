@@ -36,15 +36,17 @@ dev_dependencies:
 flutter_icons:
   android: true 
   ios: "Gentlestudent"
-  image_path: "assets/icon/crest_gentlestudent.png"
-  image_path_android: "assets/icon/crest_gentlestudent.png"
-  image_path_ios: "assets/icon/crest_gentlestudent.png"
-  adaptive_icon_foreground: "assets/icon/crest_gentlestudent.png"
+  image_path: "assets/icon/app_logo.png"
+  image_path_android: "assets/icon/app_logo.png"
+  image_path_ios: "assets/icon/app_logo.png"
+  adaptive_icon_background: "#FFFAFAFA"
+  adaptive_icon_foreground: "assets/icon/app_logo.png"
 
 flutter:
   uses-material-design: true
   assets:
-    - assets/crest-gentlestudent.png
+    - assets/icon/app_logo.png
+    - assets/icon/logo.png
     - assets/PrivacyPolicy.txt
     - assets/AboutUs.txt
 
