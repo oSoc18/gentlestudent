@@ -40,29 +40,28 @@ const MapComponent = compose(
 			defaultCenter={{ lat: 51.0511164, lng: 3.7114566 }}
 			defaultOptions={{ styles: mapStyles }}
     >
-			{props.markers.map((lk, index)=> {
-				return (
-					<React.Fragment key={index}>
+			{Object.keys(props.opportunities).map(key =>
+					<React.Fragment key={key}>
 						<Marker
-							position={{ lat: lk.latitude, lng: lk.longitude }}
-							title={lk.title}
-							onClick={()=>{ props.showInfo(index)}}
+							position={{ lat: props.opportunities[key].latitude, lng:  props.opportunities[key].longitude }}
+							title={ props.opportunities[key].title}
+							onClick={()=>{ props.showInfo(key)}}
 						>
-							{props.showInfoIndex === index &&
+							{props.showInfoIndex === key &&
 								<InfoBox
 									onCloseClick={props.onToggleOpen}
 									options={{ closeBoxURL: ``, enableEventPropagation: true }}
 								>
 									<div style={{ backgroundColor: '#FFF', opacity: 0.95, padding: 15, width: 200 }}>
-										<span style={{ fontSize: 16 , fontWeight: 'bold', display: 'block' }}>{lk.title}</span>
-										<small>{lk.synopsis}</small>
+										<span style={{ fontSize: 16 , fontWeight: 'bold', display: 'block' }}>{props.opportunities[key].title}</span>
+										<small>{props.opportunities[key].synopsis}</small>
 									</div>
 								</InfoBox>
 							}
 						</Marker>
 					</React.Fragment>
 				)
-			})}
+			}
     </GoogleMap>
 ));
 
@@ -70,9 +69,9 @@ class Maps extends Component {
 	render() {
 		return (
 			<React.Fragment>
-				{/* {!this.props.leerkansen.loading &&
-					<MapComponent markers={this.props.leerkansen.items} />
-				} */}
+				{!! this.props.opportunities &&
+					<MapComponent opportunities={this.props.opportunities} />
+				}
 			</React.Fragment>
 		)
 	}

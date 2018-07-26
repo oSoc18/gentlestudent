@@ -66,7 +66,7 @@ class LeerkansenList extends Component{
             <React.Fragment>
                 <div className="container">
                     <div className="content">
-                        <Link to="/">Back</Link>
+                        <Link to="/" className="back">&lt; Terug</Link>
                         <h1>Valideer Issuer</h1>
                         <div className="card-container issuers">
                             {Object.keys(issuers).map(key =>

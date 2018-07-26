@@ -16,13 +16,8 @@ export const doSignInWithEmailAndPassword = (email, password) =>
 auth.onAuthStateChanged((user) => {
     if (user) {
         id = user.uid;
+        email = user.email;
     }
-});
-
-auth.onAuthStateChanged((user) => {
-  if (user) {
-    id = user.uid;
-  }
 });
 
 // Sign out

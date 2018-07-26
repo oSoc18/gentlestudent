@@ -4,7 +4,7 @@ import {
   withRouter,
 } from 'react-router-dom';
 
-import { auth, firestore } from '../Firebase';
+import { auth, firebase, firestore } from '../Firebase';
 
 import * as routes from '../../routes/routes';
 
@@ -20,6 +20,7 @@ const INITIAL_STATE = {
   email: '',
   passwordOne: '',
   passwordTwo: '',
+  accepted: false,
   error: null,
 };
 
@@ -35,6 +36,8 @@ class SignUpForm extends Component {
   }
 
   onSubmit = (event) => {
+    event.preventDefault();
+
     const {
       firstname,
       lastname,
@@ -43,6 +46,7 @@ class SignUpForm extends Component {
       education,
       institute,
       passwordOne,
+      accepted
     } = this.state;
 
     const {
@@ -55,24 +59,33 @@ class SignUpForm extends Component {
     user["birthday"] = birthday;
     user["education"] = education;
     user["institute"] = institute;
+    user["favorites"] = [];
+
+    console.log(user);
+
+    var self = this;
 
     auth.doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
-        this.setState(() => ({ ...INITIAL_STATE }));
+        console.log(auth.getUserId());
+        self.setState(() => ({ ...INITIAL_STATE }));
       })
       .catch(error => {
-        this.setState(byPropKey('error', error));
+        self.setState(byPropKey('error', error));
       });
-
-    firestore.createNewParticipant(user)
-    .then(res => {
-      history.push(routes.WordIssuer);
-    })
-    .catch(error => {
-      console.log('error', error);
+    
+    firebase.auth.onAuthStateChanged(authUser => {
+      authUser
+          ? firestore.createNewParticipant(authUser.uid, user)
+          .then(res => {
+            history.push(routes.FrontPage);
+          })
+          .catch(error => {
+            console.log('Error: Could not create participant: ', error);
+          })
+          : console.log("authUser is null");
     });
 
-    event.preventDefault();
   }
 
   render() {
@@ -85,6 +98,7 @@ class SignUpForm extends Component {
       institute,
       passwordOne,
       passwordTwo,
+      accepted,
       error,
     } = this.state;
 
@@ -97,6 +111,7 @@ class SignUpForm extends Component {
       || ! /^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/.test(birthday)
       || education === ''
       || institute === ''
+      || accepted == false
       ;
 
     return (
@@ -133,7 +148,7 @@ class SignUpForm extends Component {
           <input
             value={birthday}
             onChange={event => this.setState(byPropKey('birthday', event.target.value))}
-            type="text"
+            type="date"
             placeholder="YYYY-MM-DD"
           />
           </div>
@@ -168,6 +183,15 @@ class SignUpForm extends Component {
             onChange={event => this.setState(byPropKey('passwordTwo', event.target.value))}
             type="password"
             placeholder="Herhaal Wachtwoord"
+          />
+        </div>
+        <div className="form-group">
+          Ik ga akkoord met het <a target="_blank" rel="noopener noreferrer" href="/privacy">privacybeleid</a>:
+          <input
+            value={accepted}
+            onChange={event => this.setState(byPropKey('accepted', event.target.value))}
+            type="checkbox"
+            placeholder="Instituut"
           />
         </div>
         <button disabled={isInvalid} type="submit">

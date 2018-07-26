@@ -14,3 +14,4 @@ export const IssueBadgeRecipient = '/issuer/issue-badge-recipient';
 export const ValideerIssuer = '/admin/valideer-issuer';
 export const ValideerLeerkans = '/admin/valideer-leerkans';
 export const AangemaakteLeerkansen = '/aangemaakte-leerkansen';
+export const Privacy = '/privacy';

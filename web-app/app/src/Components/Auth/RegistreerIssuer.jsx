@@ -32,6 +32,7 @@ class RegistreerIssuer extends Component {
   }
 
   onSubmit = (event) => {
+    event.preventDefault();
     const {
         institution,
         longName,
@@ -49,11 +50,10 @@ class RegistreerIssuer extends Component {
     } = this.props;
     var userId = auth.getUserId();
     var userEmail = auth.getUserEmail();
-      event.preventDefault();
     firestore.createIssuer(institution, longName, url, phonenumber, street, housenumber, bus, postalcode, city, userId, userEmail)
       .then(authUser => {
         this.setState(() => ({ ...INITIAL_STATE }));
-        //history.push(routes.WordIssuer);
+        history.push(routes.FrontPage);
       })
       .catch(error => {
         this.setState(byPropKey('error', error));

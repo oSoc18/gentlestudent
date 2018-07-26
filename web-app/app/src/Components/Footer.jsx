@@ -26,7 +26,7 @@ class Footer extends Component {
                                     <li><a href="/">GDPR-beleid</a></li>
                                     <li><a href="/">Cookiebeleid</a></li>
                                     <li><a href="/">Voorwaarden</a></li>
-                                    <li><a href="/">Privacy</a></li>
+                                    <li><a href="/privacy">Privacy</a></li>
                                     <li><a href="/">NL <i className="fas fa-caret-down"></i></a></li>
                                 </ul>
                             </div>

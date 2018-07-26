@@ -101,7 +101,7 @@ class OpportunitiesList extends Component{
             <React.Fragment>
                 <div className="container">
                     <div className="content">
-                        <Link to="/">Back</Link>
+                        <Link to="/" className="back">&lt; Terug</Link>
                         <h1>Valideer leerkans</h1>
                         <div className="card-container opportunities">
                             {Object.keys(opportunities).map(key =>
@@ -136,10 +136,13 @@ class Opportunity extends Component{
         firestore.validateOpportunity(opportunityId).catch(function(error) {
             console.error("Error validating opportunity: ", error);
           });
-        // console.log(beaconId);
-        firestore.linkBeaconToOpportunity(opportunityId, beaconId).catch(function(error) {
-            console.error("Error linking beacon: ", error);
-          });
+        console.log(beaconId);
+        // firestore.linkBeaconToOpportunity(opportunityId, beaconId).catch(function(error) {
+        //     console.error("Error linking beacon: ", error);
+        //   });
+        let data = new Object();
+        data["opportunityId"] = opportunityId;
+        firestore.createNewBeacon(beaconId, data);
         this.postNewBadge(opportunityId);
         this.props.getOpportunities();
       }
@@ -150,17 +153,19 @@ class Opportunity extends Component{
         let name = "";
         let baseUrl = "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Badges%2F";
         let image = baseUrl;
+        console.log(opportunity.category);
+        console.log(opportunity.difficulty);
         switch(opportunity.category){
-            case 0: {name = "Digitale Geletterdheid"; image += "badge_digitale-geletterdheid";}
-            case 1: {name = "Duurzaamheid"; image += "badge_duurzaamheid";}
-            case 2: {name = "Ondernemingszin"; image += "badge_ondernemingszin";}
-            case 3: {name = "Onderzoekende houding"; image += "badge_onderzoekende-houding";}
-            case 4: {name = "Wereldburgerschap"; image += "badge_wereldburgerschap";}
+            case 0: name = "Digitale Geletterdheid"; image += "badge_digitale-geletterdheid"; break;
+            case 1: name = "Duurzaamheid"; image += "badge_duurzaamheid"; break;
+            case 2: name = "Ondernemingszin"; image += "badge_ondernemingszin"; break;
+            case 3: name = "Onderzoekende houding"; image += "badge_onderzoekende-houding"; break;
+            case 4: name = "Wereldburgerschap"; image += "badge_wereldburgerschap"; break;
         }
         switch(opportunity.difficulty){
-            case 0: image+= "_1.png?alt=media";
-            case 1: image+= "_2.png?alt=media";
-            case 2: image+= "_3.png?alt=media";
+            case 0: image+= "_1.png?alt=media"; break;
+            case 1: image+= "_2.png?alt=media"; break;
+            case 2: image+= "_3.png?alt=media"; break;
         }
         badge["type"]= "BadgeClass";
         badge["name"]= name;
@@ -168,7 +173,7 @@ class Opportunity extends Component{
         badge["image"]= image;
         badge["criteria"]= opportunity.shortDescription;
         badge["issuerId"]= opportunity.issuerId;
-        console.log(badge);
+        console.log(JSON.stringify(badge));
         firestore.createNewBadge(badge).then(function(docRef) {
             console.log("Document written with ID: ", docRef.id);
             firestore.linkBadgeToOpportunity(opportunityId, docRef.id);

@@ -27,6 +27,8 @@ import RegistreerIssuer from './Screens/RegistreerIssuer';
 import ValideerIssuer from './Screens/Admin/ValideerIssuer';
 import ValideerLeerkans from './Screens/Admin/ValideerLeerkans';
 import AangemaakteLeerkansen from './Screens/Issuer/AangemaakteLeerkansen';
+import Profiel from './Screens/Backoffice/Profiel';
+import Privacy from './Screens/Privacy';
 
 import Navigation from './Components/Navigation';
 import Footer from './Components/Footer';
@@ -61,6 +63,8 @@ class App extends Component {
 								<Route path={routes.ValideerIssuer} exact render={() => <ValideerIssuer />} />
 								<Route path={routes.ValideerLeerkans} exact render={() => <ValideerLeerkans />} />
 								<Route path={routes.AangemaakteLeerkansen} render={() => <AangemaakteLeerkansen />} />
+								<Route path={routes.Profiel} render={() => <Profiel />} />
+								<Route path={routes.Privacy} render={() => <Privacy />} />
 							{/* </Auth> */}
 						</Switch>
 						<Footer/>

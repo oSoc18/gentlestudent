@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import FormCreateLeerkans from './../../Components/Leerkansen/FormCreateLeerkans';
 
 import { firestore } from './../../Components/Firebase';
 
+const CreateLeerkansPage = ({ history }) =>
+  <div>
+    <CreateLeerkans history={history} />
+  </div>
+
 class CreateLeerkans extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     // this.submit = this.submit.bind(this);
     this.state = {
 		  badges: null,
@@ -53,16 +58,17 @@ class CreateLeerkans extends Component {
     })
   render() {
     const { badges } = this.state;
+    const { history } = this.props;
 
     return (
       <div>
         <div className="container">
           <div className="content">
-            <Link to="/backoffice/leerkansen">Back</Link>
+            <Link to="/aangemaakte-leerkansen" className="back">&lt; Terug</Link>
             <h1>Maak Leerkans</h1>
             <div className="form" id="create_leerkans">
               {/* <FormCreateLeerkans onSubmit={this.submit} badges={badges}/> */}
-              <FormCreateLeerkans badges={badges}/>
+              <FormCreateLeerkans badges={badges} history={history}/>
             </div>
           </div>
         </div>
@@ -71,4 +77,4 @@ class CreateLeerkans extends Component {
   }
 }
 
-export default CreateLeerkans;
+export default withRouter(CreateLeerkansPage);

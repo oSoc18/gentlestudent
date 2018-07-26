@@ -56,6 +56,56 @@ a {
       color: #00AACC !important;
       background-color: transparent; }
 
+.dropdown-menu-list {
+  display: block;
+  font-weight: 700;
+  font-family: 'Open Sans', Arial, 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  line-height: 22px;
+  text-decoration: none;
+  border-radius: 8px;
+  color: #707070 !important;
+  border: 2px solid #707070;
+  background-color: #FFFFFF;
+  white-space: nowrap;
+  position: absolute;
+}
+
+button.primary {
+  display: block;
+  font-weight: 700;
+  font-family: 'Open Sans', Arial, 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  padding: 5px 10px;
+  margin: 0 5px;
+  line-height: 22px;
+  height: 37px;
+  text-decoration: none;
+  border-radius: 8px;
+  color: #00AACC !important;
+  border: 2px solid #00AACC;
+  background-color: #FFFFFF; }
+  button.primary:hover {
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+    color: #00AACC !important;
+    background-color: transparent; }
+
+.back {
+  display: block;
+  font-weight: 700;
+  color: #707070;
+  padding: 5px 10px;
+  margin: 0 5px;
+  line-height: 22px;
+  height: 22px;
+  display:inline-block; }
+  back:hover {
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+    color: #00AACC !important;
+    background-color: transparent; }
+
 .card-container {
   display: grid;
   padding: 10px 0;
@@ -75,12 +125,16 @@ a {
   .card-container {
     grid-template-columns: auto auto; }
     .card-container.leerkansen {
+      grid-template-columns: auto; }
+    .card-container.aangemaakte-leerkansen {
       grid-template-columns: auto; } }
 
 @media screen and (min-width: 960px) {
   .card-container {
     grid-template-columns: auto auto auto; }
     .card-container.leerkansen {
+      grid-template-columns: auto auto; }
+    .card-container.aangemaakte-leerkansen {
       grid-template-columns: auto auto; } }
 
 #recente-ervaringen h1 {
@@ -136,7 +190,7 @@ a {
 
 #leerkansen {
   display: flex;
-  flex-direction: row; }
+  flex-direction: row;  }
   #leerkansen h1.uitgelicht {
     text-align: center; }
   #leerkansen .content-left {
@@ -149,7 +203,8 @@ a {
   #leerkansen .card-item.leerkans {
     border-radius: 15px;
     border: 2px solid #F2F0ED;
-    transition: all 200ms ease-in-out; }
+    transition: all 200ms ease-in-out;
+    background-color: white;}
     #leerkansen .card-item.leerkans:hover {
       box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26); }
     #leerkansen .card-item.leerkans.digitale-geletterdheid:hover {
@@ -178,6 +233,55 @@ a {
       color: #aeaeae;
       font-size: 12px; }
     #leerkansen .card-item.leerkans p {
+      color: #707070;
+      font-size: 14px; }
+
+#aangemaakte-leerkansen {
+  display: flex;
+  /* flex-direction: row; */}
+  #aangemaakte-leerkansen h1.uitgelicht {
+    text-align: center; }
+  #aangemaakte-leerkansen .content-left {
+    width: 100%; }
+  #aangemaakte-leerkansen .content-right {
+    height: calc(100vh - 209px);
+    width: 0%;
+    margin-right: -15px;
+    width: calc(40% + 15px); }
+  #aangemaakte-leerkansen .card-item.leerkans {
+    border-radius: 15px;
+    border: 2px solid #F2F0ED;
+    transition: all 200ms ease-in-out; 
+    width: 500px;
+    background-color: white;}
+    #aangemaakte-leerkansen .card-item.leerkans:hover {
+      box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26); }
+    #aangemaakte-leerkansen .card-item.leerkans.digitale-geletterdheid:hover {
+      border-color: #00AACC; }
+    #aangemaakte-leerkansen .card-item.leerkans.duurzaamheid:hover {
+      border-color: #BBCC00; }
+    #aangemaakte-leerkansen .card-item.leerkans.ons:hover {
+      border-color: #A8A8A8; }
+    #aangemaakte-leerkansen .card-item.leerkans.wbs:hover {
+      border-color: #EE9900; }
+    #aangemaakte-leerkansen .card-item.leerkans.ond:hover {
+      border-color: #CC0077; }
+    #aangemaakte-leerkansen .card-item.leerkans > img.photo {
+      margin: -15px -15px 0 -15px;
+      width: calc(100% + 30px); }
+    #aangemaakte-leerkansen .card-item.leerkans img.badge {
+      position: absolute;
+      width: 70px;
+      height: auto;
+      top: -60px;
+      right: 0; }
+    #aangemaakte-leerkansen .card-item.leerkans h2 {
+      color: #00AACC; }
+    #aangemaakte-leerkansen .card-item.leerkans .meta-data small {
+      display: block;
+      color: #aeaeae;
+      font-size: 12px; }
+    #aangemaakte-leerkansen .card-item.leerkans p {
       color: #707070;
       font-size: 14px; }
 
@@ -284,6 +388,7 @@ nav {
     width: 100%; }
     nav .nav ul#gs-nav {
       display: flex;
+      width: auto;
       position: absolute;
       right: 30px;
       padding: 22px 0; }
@@ -294,11 +399,13 @@ nav {
         nav .nav ul#gs-nav {
           flex-direction: row; } }
       nav .nav ul#gs-nav li {
-        list-style: none; }
+        list-style: none;
+        position: relative;
+        width: auto; }
         nav .nav ul#gs-nav li.nav_item .active {
           border-bottom: 2px solid #00AACC; }
         nav .nav ul#gs-nav li.nav_item.language {
-          font-size: 14px; }
+          font-size: 14px;}
         nav .nav ul#gs-nav li a {
           display: block;
           font-weight: 700;
@@ -322,6 +429,78 @@ nav {
 .content {
   position: relative;
   padding: 15px; }
+
+.leerkansen-content {
+  background-color: rgb(248, 248, 248);
+}
+
+.profile-page body{
+  margin: 0;
+  background-color: #ececec;
+  font-family: Roboto, Calibri;
+}
+.profile-page img{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+/*box-shadow: 0 1px 15px rgba(0,0,0,0.55);*/
+}
+.profile-page .profile{
+  background-color: #FFF;
+  width: 80%;
+  height: 500px;
+  margin: 10vh auto;
+  position: relative;
+  border-radius: 5px;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+.profile-page .half{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+}
+.profile-page .left{
+  position: absolute;
+  left: 0;
+  color: #00AACC;
+  background-color: #FFF;
+  border-radius: 5px 0 0 5px;
+  align-items: center;
+}
+.profile-page .right{
+  position: absolute;
+  right: 0;
+  color: #FFF;
+  background-color: #00AACC;
+  border-radius: 0 5px 5px 0;
+  align-items: flex-start;
+}
+.profile-page .name{
+  margin-top: 1em;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.profile-page .info{
+  width: 90%;
+  margin: auto;
+  flex-direction: column;
+  display: flex;
+}
+.profile-page .title{
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+}
+.profile-page .desc{
+  font-size: 0.9rem;
+  font-weight: 100;
+  letter-spacing: 0.3px;
+  margin: 0 1em 1em;
+}
 
 footer {
   width: 100%;

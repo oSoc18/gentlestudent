@@ -54,6 +54,9 @@ export const validateIssuer = (id) =>
 export const onceGetNonValidatedOpportunities = () =>
   firestore.collection('Opportunities').where('blocked', '==', true).get()
 
+export const onceGetValidatedOpportunities = () =>
+  firestore.collection('Opportunities').where('blocked', '==', false).get()
+
 export const validateOpportunity = (id) =>
   firestore.collection('Opportunities').doc(id).update({ blocked: false })
 
@@ -75,8 +78,29 @@ export const onceGetParticipant = (id) =>
 export const createNewAssertion = (data) =>
   firestore.collection('Assertions').add(data)
 
-export const createNewParticipant = (data) =>
-  firestore.collection('Participants').add(data)
+export const createNewParticipant = (id, data) =>
+  firestore.collection('Participants').doc(id).set(data);
 
 export const linkBeaconToOpportunity = (opportunityId, beaconId) =>
   firestore.collection('Opportunities').doc(opportunityId).update({ beaconId: beaconId })
+
+export const onceGetIssuer = (id) =>
+  firestore.collection('Issuers').doc(id).get()
+
+export const onceGetAdmin = (id) =>
+  firestore.collection('Admins').doc(id).get()
+
+export const undoParticipation = (id) =>
+  firestore.collection('Participations').doc(id).update({status: 0})
+
+export const acceptParticipation = (id) =>
+  firestore.collection('Participations').doc(id).update({status: 1})
+
+export const rejectParticipation = (id) =>
+  firestore.collection('Participations').doc(id).update({status: 2})
+
+export const onceGetAddress = (id) =>
+  firestore.collection('Addresses').doc(id).get()
+
+export const createNewBeacon = (id, data) => 
+  firestore.collection("Beacons").doc(id).set(data)

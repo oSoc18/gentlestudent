@@ -10,26 +10,37 @@ class AangemaakteLeerkansDetail extends Component {
 		super(props);
 	
 		this.state = {
-		  participants: null,
+          participants: null,
         };
+
+        this.loadParticipants = this.loadParticipants.bind(this);
 	  }
     componentDidMount() {
+        this.loadParticipants();
+    }
+    loadParticipants(){
+        this.state.participants = null;
         var res = new Object();
         var self = this;
         firestore.onceGetParticipationsForOpportunity(this.props.match.params.id).then((participations) => {
 			participations.forEach(function (participation){
                 let id = participation.data().participantId;
+                let status = participation.data().status;
+                let participationId = participation.id;
                 // console.log(id);
-                firestore.onceGetParticipant(id).then(participant => {
-                    // console.log(participant.id);
-                    // console.log(participant.data);
-                    res[participant.id] = participant.data();
-                    self.setState(() => ({ participants: res }))
-                    // console.log({[participant.id]: participant.data()});
-                })
-                .catch(err => {
-                    console.log('Error getting documents', err);
-                });
+                // if(status!=2){
+                    firestore.onceGetParticipant(id).then(participant => {
+                        // console.log(participant.id);
+                        // console.log(participant.data());
+                        res[participant.id] = participant.data();
+                        res[participant.id]["participationStatus"] = status;
+                        res[participant.id]["participationId"] = participationId;
+                        self.setState(() => ({ participants: res }))
+                    })
+                    .catch(err => {
+                        console.log('Error getting documents', err);
+                    });
+                // }
             })
             // console.log(this.state.participants);
 		})
@@ -45,7 +56,7 @@ class AangemaakteLeerkansDetail extends Component {
     return (
       <React.Fragment>
         { !! opportunities && <LeerkansDetail opportunity={ opportunities[id] } /> }
-        { !! participants && <ParticipantsList participants={ participants } opportunity={ opportunities[id] } />}
+        { !! participants && <ParticipantsList participants={ participants } opportunity={ opportunities[id] } loadParticipants={this.loadParticipants}/>}
             { ! opportunities && <EmptyList/> }
         </React.Fragment>
       
@@ -57,31 +68,85 @@ class ParticipantsList extends Component{
     constructor(props){
         super(props);
 
-        this.handleClick = this.handleClick.bind(this);
+        this.giveBadge = this.giveBadge.bind(this);
+        this.accept = this.accept.bind(this);
+        this.reject = this.reject.bind(this);
+        this.undo = this.undo.bind(this);
 
         this.state ={
 
         }
     }
-    handleClick(event) {
+    giveBadge(event) {
         event.preventDefault();
-        let participantId = event.target.id
+        let participantId = event.target.id;
         let badgeId = this.props.opportunity.badgeId;
         let date = new Date();
-        let today = date.getFullYear()+"-"+date.getMonth()+"-"+date.getDay();
+        let month = ""+(date.getMonth()+1);
+        if(month.length==1){
+            month="0"+month;
+        }
+        let day = ""+(date.getDate());
+        if(day.length==1){
+            day="0"+month;
+        }
+        let today = date.getFullYear()+"-"+month+"-"+day;
+        console.log(today);
         let assertion = new Object();
+        assertion["badge"] = badgeId;
         assertion["badgeId"] = badgeId;
+        assertion["id"] = "";
         assertion["issuedOn"] = today;
+        assertion["recipient"] = participantId;
         assertion["recipientId"] = participantId;
+        assertion["type"] = "Assertion";
+        assertion["verification"] = badgeId;
         firestore.createNewAssertion(assertion);
+        this.props.loadParticipants();
+    }
+    accept(event) {
+        event.preventDefault();
+        var self = this;
+        firestore.acceptParticipation(event.target.id)
+        .then( res =>{
+            // self.props.loadParticipants();
+        })
+        .catch(err => {
+            console.log("failed accepting participation:"+err);
+        });
+        self.props.loadParticipants();
+    }
+    reject(event) {
+        event.preventDefault();
+        var self = this;
+        firestore.rejectParticipation(event.target.id)
+        .then( res =>{
+            // self.props.loadParticipants();
+        })
+        .catch(err => {
+            console.log("failed rejecting participation:"+err);
+        });  
+        self.props.loadParticipants();
+    }
+    undo(event) {
+        event.preventDefault();
+        var self = this;
+        firestore.undoParticipation(event.target.id)
+        .then( res =>{
+            // self.props.loadParticipants();
+        })
+        .catch(err => {
+            console.log("failed rejecting participation:"+err);
+        });  
+        self.props.loadParticipants();
     }
     render() {
         const { participants } = this.props;
         return(
             <div>
-                <h1>DEELNEMERS:</h1>
+                <h1>Deelnemers:</h1>
                 {Object.keys(participants).map(key =>
-                    <div className='card-item participant'>
+                    <div className='card-item participant' key={key}>
                         <div>
                             <h3>Deelnemer: {participants[key].name}</h3>
                             <small>Geboortedatum: {participants[key].birthdate}</small>
@@ -90,7 +155,11 @@ class ParticipantsList extends Component{
                             <small>Institutie: {participants[key].institute}</small>
                             <img src={participants[key].image}/>
                         </div>
-                        <button onClick={this.handleClick} id={key}>Geef badge</button>
+                        { participants[key]["participationStatus"]===1 && <button onClick={this.giveBadge} id={key}>Geef badge</button>}
+                        { participants[key]["participationStatus"]===0 && <button onClick={this.accept} id={participants[key]["participationId"]}>Accepteer</button>}
+                        { participants[key]["participationStatus"]===0 && <button onClick={this.reject} id={participants[key]["participationId"]}>Weiger</button>}
+                        { participants[key]["participationStatus"]===2 && <p>Participatie geweigerd</p>}
+                        { participants[key]["participationStatus"]===2 && <button onClick={this.undo} id={participants[key]["participationId"]}>Maak ongedaan</button>}
                     </div>
                 )}
             </div>
@@ -100,7 +169,7 @@ class ParticipantsList extends Component{
 
 const LeerkansDetail = ({ opportunity }) =>
   <div>
-    <a href="/leerkansen">Back</a>
+    <a href="/aangemaakte-leerkansen" className="back">&lt; Terug</a>
     {/* {JSON.stringify(opportunity)} */}
     <h2>{opportunity.title}</h2>
     <p>{opportunity.shortDescription}</p>

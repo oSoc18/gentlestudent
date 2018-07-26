@@ -12,6 +12,8 @@ import 'firebase/storage';
 
 import { Category, Difficulty} from './Constants';
 
+import * as routes from '../../routes/routes';
+
 import { renderInput, renderAutomaticInput, renderTextarea, renderSelect, RenderDropzoneInput, validate } from './../Utils';
 // import { FirebaseStorage } from '@firebase/storage-types';
 
@@ -46,7 +48,7 @@ class FormCreateLeerkans extends React.Component {
       synopsis: "",
       title: "",
       image: "",
-      imageUrl: "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Opportunity%20Images%2FNederlandse%20Les.jpg?alt=media&token=7938b826-8407-4659-8cfa-ee6fb139d448",
+      imageUrl: "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Opportunityimages%2FNederlandse%20Les.jpg?alt=media&token=82cecaa7-4d6e-473d-b06a-a5eea35d8d4b",
       imageExtension: ""
     };
 
@@ -64,23 +66,23 @@ class FormCreateLeerkans extends React.Component {
   choosePin(){
     let baseUrl = "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Pins%2F";
     let url = baseUrl;
-    switch(this.state.category){
-      case 0: url += "pin_digitale-geletterdheid";
-      case 1: url += "pin_duurzaamheid";
-      case 2: url += "pin_ondernemingszin";
-      case 3: url += "pin_onderzoekende-houding";
-      case 4: url += "pin_wereldburgerschap";
+    switch(parseInt(this.state.category)){
+      case 0: url += "pin_digitale-geletterdheid"; break;
+      case 1: url += "pin_duurzaamheid"; break;
+      case 2: url += "pin_ondernemingszin"; break;
+      case 3: url += "pin_onderzoekende-houding"; break;
+      case 4: url += "pin_wereldburgerschap"; break;
     }
-    switch(this.state.difficulty){
-      case 0: url += "_1.png?alt=media";
-      case 1: url += "_2.png?alt=media";
-      case 2: url += "_3.png?alt=media";
+    switch(parseInt(this.state.difficulty)){
+      case 0: url += "_1.png?alt=media"; break;
+      case 1: url += "_2.png?alt=media"; break;
+      case 2: url += "_3.png?alt=media"; break;
     }
     this.setState({pinImageUrl: url});
   }
 
   handleChange(event) {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     this.setState({[event.target.id]: event.target.value});
     // console.log(event.target.id);
     // console.log(event.target.value);
@@ -130,15 +132,17 @@ class FormCreateLeerkans extends React.Component {
     address["street"] = this.state.street;
     address["country"] = this.state.country;
 
+    var self = this;
+
     firestore.createAddress(address).then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
-      postNewOpportunity(docRef.id);
+      postNewOpportunity(docRef.id, self);
     }).catch(function(error) {
       console.error("Error adding document: ", error);
     });
   }
 
-  postNewOpportunity(addressId){
+  postNewOpportunity(addressId, self){
     console.log(this.state.start_date);
     let opportunity = new Object();
     opportunity["addressId"] = addressId;
@@ -146,8 +150,8 @@ class FormCreateLeerkans extends React.Component {
     opportunity["beaconId"] = "";
     opportunity["beginDate"] = this.state.start_date;
     opportunity["blocked"] = true;
-    opportunity["category"] = this.state.category;
-    opportunity["difficulty"] = this.state.difficulty;
+    opportunity["category"] = parseInt(this.state.category);
+    opportunity["difficulty"] = parseInt(this.state.difficulty);
     opportunity["endDate"] = this.state.end_date;
     opportunity["international"] = false;
     opportunity["issuerId"] = auth.getUserId();
@@ -155,11 +159,14 @@ class FormCreateLeerkans extends React.Component {
     opportunity["longDescription"] = this.state.description;
     opportunity["longitude"] = this.state.lng;
     opportunity["oppImageUrl"] = this.state.imageUrl;
-    opportunity["pinImageUrl"] = "";
+    opportunity["pinImageUrl"] = this.state.pinImageUrl;
     opportunity["shortDescription"] = this.state.synopsis;
     opportunity["title"] = this.state.title;
 
     firestore.createOpportunity(opportunity)
+    .then(function(docRef){
+      self.props.history.push(routes.AangemaakteLeerkansen);
+    })
     .catch(function(error) {
       console.error("Error adding document: ", error);
       console.error(JSON.stringify(opportunity));
@@ -254,12 +261,13 @@ class FormCreateLeerkans extends React.Component {
             data={{
               list: Object.keys(Category).map(key => {
                 return {
-                  value: Category.key,
+                  value: Category[`${key}`],
                   display: key
                 };
               })
             }}
             component={renderSelect}
+            onChange={this.handleChange}
           />
         </div>
         <div className="form-group">
@@ -270,12 +278,13 @@ class FormCreateLeerkans extends React.Component {
             data={{
               list: Object.keys(Difficulty).map(key => {
                 return {
-                  value: Difficulty.key,
+                  value: Difficulty[`${key}`],
                   display: key
                 };
               })
             }}
             component={renderSelect}
+            onChange={this.handleChange}
           />
         </div>
         <div className="form-group">
