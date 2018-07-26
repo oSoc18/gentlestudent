@@ -16,6 +16,7 @@ class Profiel extends Component {
         email:"",
         institute:"",
         name:"",
+        pic:"",
         requestedIssuer:false,
         isIssuer:false,
         isAdmin:false,
@@ -35,6 +36,9 @@ class Profiel extends Component {
                     self.setState(() => ({ email: doc.data().email }));
                     self.setState(() => ({ institute: doc.data().institute }));
                     self.setState(() => ({ name: doc.data().name }));
+                    if(doc.data().profilePicture){
+                        self.setState(() => ({ pic: doc.data().profilePicture }));
+                    }
                 }
             })
             .catch(err => {
@@ -67,9 +71,35 @@ class Profiel extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="container">
-          <div className="content">
-            <h1>Mijn profiel</h1>
+        {/* <div className="container"> */}
+          <div className="profile-page">
+            <div class="profile">
+                <div class="half left">
+                    {this.state.pic!=="" && <img src={this.state.pic} alt="" />}
+                    <span class="name">{this.state.name}</span>
+                </div>
+                <div class="half right">
+                    <div class="info">
+                    <span class="title">Email</span>
+                    <i class="desc">{this.state.email}</i>
+                    <span class="title">Geboortedatum</span>
+                    <i class="desc">{this.state.birthdate}</i>
+                    <span class="title">Institutie</span>
+                    <i class="desc">{this.state.institute}</i>
+                    <span class="title">Educatie</span>
+                    <i class="desc">{this.state.education}</i>
+                    {(!!this.state.requestedIssuer || !!this.state.isIssuer || !!this.state.isAdmin) && 
+                        <React.Fragment>
+                            <span class="title">Rollen</span>
+                            {this.state.requestedIssuer && <i class="desc">Issuer status aangevraagd</i>}
+                            {this.state.isIssuer && <i class="desc">Gevalideerde issuer</i>}
+                            {this.state.isAdmin && <i class="desc">Admin</i>}
+                        </React.Fragment>
+                    }
+                    </div>
+                </div>
+            </div>
+            {/* <h1>Mijn profiel</h1>
             <ul>
                 <li>Naam: {this.state.name}</li>
                 <li>Geboortedatum: {this.state.birthdate}</li>
@@ -81,14 +111,12 @@ class Profiel extends Component {
 
                 {this.state.requestedIssuer && <li>Issuer status aangevraagd</li>}
                 {this.state.isIssuer && <li>Gevalideerde issuer</li>}
-                {/* {!this.state.isIssuer && !this.state.requestedIssuer && <li>Is issuer?: Neen</li>} */}
                 {this.state.isAdmin && <li>Admin</li>}
-                {/* {!this.state.isAdmin && <li>Is admin?: Neen</li>} */}
                 {!this.state.requestedIssuer && !this.state.isIssuer && !this.state.isAdmin && <li>Geen</li>}
                 </ul>
-            </ul>
+            </ul> */}
           </div>
-        </div>
+        {/* </div> */}
       </React.Fragment>
     )
   }
