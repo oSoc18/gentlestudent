@@ -100,4 +100,7 @@ export const rejectParticipation = (id) =>
   firestore.collection('Participations').doc(id).update({status: 2})
 
 export const onceGetAddress = (id) =>
-firestore.collection('Addresses').doc(id).get()
+  firestore.collection('Addresses').doc(id).get()
+
+export const createNewBeacon = (id, data) => 
+  firestore.collection("Beacons").doc(id).set(data)

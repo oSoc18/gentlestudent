@@ -137,9 +137,12 @@ class Opportunity extends Component{
             console.error("Error validating opportunity: ", error);
           });
         console.log(beaconId);
-        firestore.linkBeaconToOpportunity(opportunityId, beaconId).catch(function(error) {
-            console.error("Error linking beacon: ", error);
-          });
+        // firestore.linkBeaconToOpportunity(opportunityId, beaconId).catch(function(error) {
+        //     console.error("Error linking beacon: ", error);
+        //   });
+        let data = new Object();
+        data["opportunityId"] = opportunityId;
+        firestore.createNewBeacon(beaconId, data);
         this.postNewBadge(opportunityId);
         this.props.getOpportunities();
       }
