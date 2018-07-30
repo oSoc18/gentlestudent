@@ -244,9 +244,20 @@ class _MapPageState extends State<MapPage> {
             ),
             child: new RichText(
               text: new TextSpan(
-                children: [
-                  new TextSpan(
+                children: [new TextSpan(
                     text: '© ',
+                    style: new TextStyle(color: Colors.black),
+                  ),
+                  new TextSpan(
+                    text: 'Mapbox',
+                    style: new TextStyle(color: Colors.blue),
+                    recognizer: new TapGestureRecognizer()
+                      ..onTap = () {
+                        _launchURL('https://www.mapbox.com/about/maps/');
+                      },
+                    ),
+                  new TextSpan(
+                    text: ' © ',
                     style: new TextStyle(color: Colors.black),
                   ),
                   new TextSpan(
@@ -254,7 +265,7 @@ class _MapPageState extends State<MapPage> {
                     style: new TextStyle(color: Colors.blue),
                     recognizer: new TapGestureRecognizer()
                       ..onTap = () {
-                        _launchURL();
+                        _launchURL('https://www.openstreetmap.org/copyright');
                       },
                     ),
                   new TextSpan(
@@ -270,8 +281,7 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
-  void _launchURL() async {
-    const url = 'https://www.openstreetmap.org/copyright';
+  void _launchURL(url) async {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
