@@ -240,7 +240,7 @@ class _MapPageState extends State<MapPage> {
           child: new Container(
             decoration: new BoxDecoration(
               shape: BoxShape.rectangle,
-              color: Colors.white,
+              color: Color(0xB3ffffff),
             ),
             child: new RichText(
               text: new TextSpan(
