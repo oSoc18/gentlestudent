@@ -30,7 +30,7 @@ class ValideerLeerkans extends Component {
             snapshot.forEach(doc => {
                 res[doc.id] = doc.data();
             });
-            this.setState(() => ({ opportunities: res }))
+            this.setState(() => ({ opportunities: res }));
         })
         .catch(err => {
             console.log('Error getting documents', err);
@@ -46,7 +46,7 @@ class ValideerLeerkans extends Component {
                 }
             });
             res["MakeNew"] = {name: "> Maak een nieuwe beacon", beaconId: "MakeNewTrue"};
-            this.setState(() => ({ beacons: res }))
+            this.setState(() => ({ beacons: res }));
         })
         .catch(err => {
             console.log('Error getting documents', err);
