@@ -5,6 +5,9 @@ body {
   font-family: 'Open Sans', Arial, 'Helvetica Neue', sans-serif;
   line-height: 1.2em; }
 
+html, body, .main-content{
+  min-height:65vh;
+}
 h1, h2 {
   color: #707070; }
 
