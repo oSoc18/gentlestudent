@@ -227,7 +227,6 @@ class ParticipantApi {
         institute: data['institute'],
         education: data['education'],
         email: data['email'],
-        birthdate: DateTime.parse(data['birthdate']),
         profilePicture: data['profilePicture'],
         favorites: listStrings);
   }

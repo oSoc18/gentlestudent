@@ -39,7 +39,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
       institute: "",
       participantId: "0",
       email: "",
-      birthdate: DateTime.now(),
       education: "",
       profilePicture: "",
       favorites: new List<String>());

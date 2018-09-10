@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:Gentle_Student/data/api.dart';
 import 'package:Gentle_Student/models/user.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +24,6 @@ class _ProfilePageState extends State<ProfilePage> {
       institute: "",
       participantId: "0",
       email: "",
-      birthdate: DateTime.now(),
       education: "",
       profilePicture: "",
       favorites: new List<String>());
@@ -155,17 +153,6 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
 
-    //Birthdate label
-    final lblBirthdate = Text(
-      'Geboortedatum:',
-      textAlign: TextAlign.center,
-      style: new TextStyle(
-        fontWeight: FontWeight.bold,
-        color: Colors.black45,
-        fontSize: 16.0,
-      ),
-    );
-
     //Email of the user
     final mail = Text(
       _participant.email,
@@ -189,16 +176,6 @@ class _ProfilePageState extends State<ProfilePage> {
     //Institute of the user
     final institute = Text(
       _participant.institute,
-      textAlign: TextAlign.center,
-      style: new TextStyle(
-        color: Colors.black38,
-        fontSize: 14.0,
-      ),
-    );
-
-    //Birthdate of the user
-    final birthdate = Text(
-      _makeDate(_participant.birthdate),
       textAlign: TextAlign.center,
       style: new TextStyle(
         color: Colors.black38,
@@ -269,10 +246,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   SizedBox(height: 5.0),
                   mail,
                   SizedBox(height: 30.0),
-                  lblBirthdate,
-                  SizedBox(height: 5.0),
-                  birthdate,
-                  SizedBox(height: 30.0),
                   lblInstitute,
                   SizedBox(height: 5.0),
                   institute,
@@ -287,9 +260,5 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
     );
-  }
-
-  static String _makeDate(DateTime date) {
-    return formatDate(date, [dd, '/', mm, '/', yyyy]);
   }
 }

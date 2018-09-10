@@ -22,7 +22,6 @@ class BackPackPage extends StatefulWidget {
 }
 
 class _BackPackPageState extends State<BackPackPage> {
-  
   //Declaration of the variables
   FirebaseUser firebaseUser;
   List<Assertion> _assertions = [];
@@ -109,9 +108,7 @@ class _BackPackPageState extends State<BackPackPage> {
   }
 
   //Download the badge with the included metadata
-  void _downloadBadge() {
-
-  }
+  void _downloadBadge() {}
 
   //Displays a message with details of the pressed assertion
   Future<Null> _displayAssertionDetails(Assertion assertion,
@@ -141,22 +138,38 @@ class _BackPackPageState extends State<BackPackPage> {
                       radius: 28.0,
                     ),
                   ),
-                  title: new Text(
-                    opportunity.title,
-                    style: new TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.black54,
-                        fontSize: 16.0),
+                  title: new Padding(
+                    padding: EdgeInsets.only(
+                      left: 10.0,
+                      right: 10.0,
+                      top: 5.0,
+                      bottom: 5.0,
+                    ),
+                    child: new Text(
+                      opportunity.title,
+                      style: new TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black54,
+                          fontSize: 16.0),
+                    ),
                   ),
-                  subtitle: new Text(
-                    _getCategory(opportunity) +
-                        "\n" +
-                        _getDifficulty(opportunity) +
-                        "\n" +
-                        issuer.name,
-                    style: new TextStyle(fontSize: 12.0),
+                  subtitle: new Padding(
+                    padding: EdgeInsets.only(
+                      left: 10.0,
+                      right: 10.0,
+                      top: 5.0,
+                      bottom: 5.0,
+                    ),
+                    child: new Text(
+                      _getCategory(opportunity) +
+                          "\n" +
+                          _getDifficulty(opportunity) +
+                          "\n" +
+                          issuer.name,
+                      style: new TextStyle(fontSize: 12.0),
+                    ),
                   ),
                   isThreeLine: true,
                   dense: false,

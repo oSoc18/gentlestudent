@@ -43,7 +43,6 @@ class Participant {
   final String name;
   final String institute;
   final String education;
-  final DateTime birthdate;
   final String profilePicture;
   final List<String> favorites;
 
@@ -54,7 +53,6 @@ class Participant {
     @required this.email,
     @required this.education,
     @required this.name,
-    @required this.birthdate,
     @required this.profilePicture,
     @required this.favorites,
   });
