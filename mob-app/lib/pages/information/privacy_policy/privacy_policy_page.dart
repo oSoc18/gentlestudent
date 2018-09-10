@@ -62,7 +62,6 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
         title: new Text("Privacybeleid & voorwaarden", style: TextStyle(color: Colors.white)),
         iconTheme: new IconThemeData(color: Colors.white),
       ),
-      backgroundColor: Colors.white,
       body: new SingleChildScrollView(
           child: new Center(
             //HtmlView takes the text, interprets the HTML tags and then displays it
