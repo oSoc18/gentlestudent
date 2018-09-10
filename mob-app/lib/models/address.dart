@@ -1,13 +1,17 @@
 import 'package:meta/meta.dart';
 
+//This model represents an address
 class Address{
-  String addressId;
-  String street;
-  int housenumber;
-  int postalcode;
-  String city;
-  String bus;
 
+  //Declaration of the variables
+  final String addressId;
+  final String street;
+  final int housenumber;
+  final int postalcode;
+  final String city;
+  final String bus;
+
+  //Constructor
   Address({
     @required this.addressId,
     @required this.street,

@@ -6,22 +6,30 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:Gentle_Student/data/api.dart';
 
+//This page is a list of all the experiences
 class ExperiencesPage extends StatefulWidget {
+  //This tag allows us to navigate to the ExperiencesPage
   static String tag = 'experiences-page';
+
   @override
   State<StatefulWidget> createState() => _ExperiencesPageState();
 }
 
 class _ExperiencesPageState extends State<ExperiencesPage> {
+  //Declaration of the variables
   List<Experience> _experiences = [];
   ExperiencesApi _experienceApi;
 
+  //This method gets called when the page is initializing
+  //We overwrite it to:
+  // - Load data from the Firebase
   @override
   void initState() {
     super.initState();
     _loadFromFirebase();
   }
 
+  //API call to load data from the Firebase
   _loadFromFirebase() async {
     final experienceApi = new ExperiencesApi();
     final experiences = await experienceApi.getAllExperiences();
@@ -35,6 +43,8 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
     }
   }
 
+  //API call to load data from the Firebase
+  //Used when a user refreshed the current page
   _reloadOpportunities() async {
     if (_experienceApi != null) {
       final experiences = await _experienceApi.getAllExperiences();
@@ -48,6 +58,7 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
     }
   }
 
+  //Used to navigate to the details page of an experience
   _navigateToExperienceDetails(Experience experience) async {
     Navigator.push(
       context,
@@ -57,7 +68,8 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
     );
   }
 
-  Widget _buildNewsItem(BuildContext context, int index) {
+  //Building one experience
+  Widget _buildExperienceItem(BuildContext context, int index) {
     Experience experience = _experiences[index];
 
     return new Container(
@@ -114,11 +126,13 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
     );
   }
 
+  //Function that gets called when the page is being refreshed
   Future<Null> refresh() {
     _reloadOpportunities();
     return new Future<Null>.value();
   }
 
+  //Building all the experiences
   Widget _getListViewWidget() {
     return new Flexible(
       child: new RefreshIndicator(
@@ -126,11 +140,12 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
         child: new ListView.builder(
             physics: const AlwaysScrollableScrollPhysics(),
             itemCount: _experiences.length,
-            itemBuilder: _buildNewsItem),
+            itemBuilder: _buildExperienceItem),
       ),
     );
   }
 
+  //Build the body of the page
   Widget _buildBody() {
     return new Container(
       margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),

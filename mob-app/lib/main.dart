@@ -22,26 +22,34 @@ import 'pages/user/my_learning_opportunities/my_learning_opportunities_page.dart
 import 'pages/user/favorites/favorites_page.dart';
 import 'pages/user/settings/settings_page.dart';
 
+//The Singleton of the local database
 final db = new DatabaseHelper();
 
 void main() async {
+  //Getting the user from the database
   User localUser = await db.getUser();
   if (localUser != null) {
     try {
-      //Authentication via Firebase
+      //Authenticating the user via Firebase
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: localUser.username,
         password: localUser.password,
       );
+      //The authentication is succesful and the user will go to the HomePage
       runApp(new MyAppHome());
     } catch (Error) {
+      //If the login fails, the user doesn't have an internet connection
+      //Or the login credentials have changed
+      //The user will return to the LoginPage
       runApp(new MyApp());
     }
   } else {
+    //The user isn't logged in and will go to the LoginPage
     runApp(new MyApp());
   }
 }
 
+//The routes for navigation containing all pages apart from detail pages
 final routes = <String, WidgetBuilder>{
   HomePage.tag: (context) => HomePage(),
   MapListPage.tag: (context) => MapListPage(),
@@ -66,6 +74,7 @@ final routes = <String, WidgetBuilder>{
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //DynamicTheme allows us to switch between light and dark mode
     return new DynamicTheme(
       defaultBrightness: Brightness.light,
       data: (brightness) => new ThemeData(
@@ -74,6 +83,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'NeoSansPro',
           ),
       themedWidgetBuilder: (context, theme) {
+        //The root of our application
         return new MaterialApp(
             title: 'GentleStudent',
             debugShowCheckedModeBanner: false,
@@ -89,6 +99,7 @@ class MyApp extends StatelessWidget {
 class MyAppHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //DynamicTheme allows us to switch between light and dark mode
     return new DynamicTheme(
         defaultBrightness: Brightness.light,
         data: (brightness) => new ThemeData(
@@ -97,6 +108,7 @@ class MyAppHome extends StatelessWidget {
               fontFamily: 'NeoSansPro',
             ),
         themedWidgetBuilder: (context, theme) {
+          //The root of our application
           return new MaterialApp(
             title: 'GentleStudent',
             debugShowCheckedModeBanner: false,

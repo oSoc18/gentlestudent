@@ -14,8 +14,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+//This page contains all participations of a user
+//Divided into approved and requested participations
 class MyLearningOpportunitiesPage extends StatefulWidget {
+  //This tag allows us to navigate to the MyLearningOpportunitiesPage
   static String tag = 'my-learning-opportunities-page';
+
   @override
   _MyLearningOpportunitiesPageState createState() =>
       _MyLearningOpportunitiesPageState();
@@ -23,6 +27,8 @@ class MyLearningOpportunitiesPage extends StatefulWidget {
 
 class _MyLearningOpportunitiesPageState
     extends State<MyLearningOpportunitiesPage> {
+
+  //Declartion of the variables
   FirebaseUser firebaseUser;
   List<Participation> _participations = [];
   List<Opportunity> _opportunitiesApproved = [];
@@ -36,6 +42,10 @@ class _MyLearningOpportunitiesPageState
   IssuerApi _issuerApi;
   AddressApi _addressApi;
 
+  //This method gets called when the page is initializing
+  //We overwrite it to:
+  // - Load the Firebase user
+  // - Load data from the Firebase
   @override
   void initState() {
     super.initState();
@@ -45,6 +55,7 @@ class _MyLearningOpportunitiesPageState
     });
   }
 
+  //Function to get all approved participations
   Future<List<Opportunity>> _getApprovedOpportunities() async {
     List<Opportunity> list = [];
     Opportunity opportunity;
@@ -56,6 +67,7 @@ class _MyLearningOpportunitiesPageState
     return list;
   }
 
+  //Function to get all requested participations
   Future<List<Opportunity>> _getRequestedOpportunities() async {
     List<Opportunity> list = [];
     Opportunity opportunity;
@@ -67,6 +79,7 @@ class _MyLearningOpportunitiesPageState
     return list;
   }
 
+  //API call to get data from the Firebase
   _loadFromFirebase() async {
     final participationApi = new ParticipationApi();
     final opportunityApi = new OpportunityApi();
@@ -94,6 +107,8 @@ class _MyLearningOpportunitiesPageState
     }
   }
 
+  //API call to load data from the Firebase
+  //Used when a user refreshed the current page
   _reloadParticipations() async {
     if (_participationApi != null && _opportunityApi != null) {
       final participations =
@@ -113,6 +128,7 @@ class _MyLearningOpportunitiesPageState
     }
   }
 
+  //Loading the approved and requested participations
   _loadOpportunities() async {
     final approvedOpportunities = await _getApprovedOpportunities();
     final requestedOpportunities = await _getRequestedOpportunities();
@@ -124,11 +140,13 @@ class _MyLearningOpportunitiesPageState
     }
   }
 
+  //Function that gets called when the page is being refreshed
   Future<Null> refresh() {
     _reloadParticipations();
     return new Future<Null>.value();
   }
 
+  //Used to navigate to the details page of an opportunity
   _navigateToOpportunityDetails(
       Opportunity opportunity, Badge badge, Issuer issuer, Address address) {
     Navigator.push(
@@ -140,6 +158,7 @@ class _MyLearningOpportunitiesPageState
     );
   }
 
+  //Building an approved participation
   Widget _buildApprovedOpportunityItem(BuildContext context, int index) {
     Opportunity opportunity = _opportunitiesApproved[index];
     Badge badge =
@@ -194,6 +213,7 @@ class _MyLearningOpportunitiesPageState
     );
   }
 
+  //Building a requested participation
   Widget _buildRequestedOpportunityItem(BuildContext context, int index) {
     Opportunity opportunity = _opportunitiesRequested[index];
     Participation participation = _participations
@@ -249,6 +269,7 @@ class _MyLearningOpportunitiesPageState
     );
   }
 
+  //Building all the approved participations
   Widget _getApprovedListViewWidget() {
     return new Flexible(
       child: new RefreshIndicator(
@@ -261,6 +282,7 @@ class _MyLearningOpportunitiesPageState
     );
   }
 
+  //Building all the requested participations
   Widget _getRequestedListViewWidget() {
     return new Flexible(
       child: new RefreshIndicator(
@@ -273,6 +295,7 @@ class _MyLearningOpportunitiesPageState
     );
   }
 
+  //Building the body of the approved participations
   Widget _buildBodyApproved() {
     return new Container(
       margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
@@ -282,6 +305,7 @@ class _MyLearningOpportunitiesPageState
     );
   }
 
+  //Building the body of the requested participations
   Widget _buildBodyRequested() {
     return new Container(
       margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
@@ -293,6 +317,9 @@ class _MyLearningOpportunitiesPageState
 
   @override
   Widget build(BuildContext context) {
+    //Creating two tabs
+    //One for approved participations
+    //One for requested participations
     return new DefaultTabController(
       length: 2,
       child: new Scaffold(
@@ -331,6 +358,7 @@ class _MyLearningOpportunitiesPageState
     );
   }
 
+  //Function to get the name of a difficulty in String form
   String _getDifficulty(Opportunity opportunity) {
     switch (opportunity.difficulty) {
       case Difficulty.BEGINNER:
@@ -343,6 +371,7 @@ class _MyLearningOpportunitiesPageState
     return "Niveau 0";
   }
 
+  //Function to get the name of a category in String form
   String _getCategory(Opportunity opportunity) {
     switch (opportunity.category) {
       case Category.DIGITALEGELETTERDHEID:
@@ -359,6 +388,7 @@ class _MyLearningOpportunitiesPageState
     return "Algemeen";
   }
 
+  //Function to get the status of a category in String form
   String _getStatus(Participation participation) {
     switch (participation.status) {
       case Status.PENDING:
@@ -373,6 +403,7 @@ class _MyLearningOpportunitiesPageState
     return "In afwachting";
   }
 
+  //Function for displaying the reason of a participation, if there is one
   String _getReason(Participation participation) {
     if (participation.reason != "" && participation.reason != null)
       return "Reden: " + participation.reason;

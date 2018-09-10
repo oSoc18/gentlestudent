@@ -12,18 +12,26 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:date_format/date_format.dart';
 
+//This page show all the details of an opportunity
 class OpportunityDetailsPage extends StatefulWidget {
+  //We need these objects to render this page
   final Opportunity o;
   final Badge b;
   final Issuer i;
   final Address a;
+
+  //We pass the object to the constructor of this page
   OpportunityDetailsPage(this.o, this.b, this.i, this.a);
+
+  //We pass the objects to the state page
   @override
   _OpportunityDetailsPageState createState() =>
       _OpportunityDetailsPageState(o, b, i, a);
 }
 
 class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
+
+  //Declaration of the variables
   Opportunity opportunity;
   Badge badge;
   Issuer issuer;
@@ -38,6 +46,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
   );
   final scaffoldKey = new GlobalKey<ScaffoldState>();
 
+  //Constructor
   _OpportunityDetailsPageState(
       this.opportunity, this.badge, this.issuer, this.address);
 
@@ -49,6 +58,8 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
     ));
   }
 
+  //Displays a message which asks the user if they want to enlist
+  //In the opportunity
   Future<Null> _displayAlertDialog() async {
     return showDialog<Null>(
       context: context,
@@ -84,11 +95,13 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
     );
   }
 
+  //Function to create a participation
+  //It enlists the participant in an opportunity
   _enlistInOpportunity() async {
     bool participationExists =
         await _participationApi.participationExists(firebaseUser, opportunity);
     if (participationExists) {
-      _showSnackBar("U bent al ingeschreven voor deze leerkans.");
+      _showSnackBar("U bent al geregistreerd voor deze leerkans.");
     } else {
       Map<String, dynamic> data = <String, dynamic>{
         "participantId": firebaseUser.uid,
@@ -101,10 +114,11 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
       collection.add(data).whenComplete(() {
         print("Participation added");
       }).catchError((e) => print(e));
-      _showSnackBar("U bent succesvol ingeschreven voor deze leerkans.");
+      _showSnackBar("U bent succesvol geregistreerd voor deze leerkans.");
     }
   }
 
+  //Function to check whether the current user has already favorited this opportunity
   _checkIfUserAlreadyFavorited() async {
     _participant = await _participantApi.getParticipantById(firebaseUser.uid);
     if (_participant.favorites.contains(opportunity.opportunityId)) {
@@ -117,6 +131,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
     }
   }
 
+  //Change the status from favorited to unfavorited or the other way around
   _favoriteOrUnfavorite() async {
     if (_participant.favorites.contains(opportunity.opportunityId)) {
       _participant.favorites.remove(opportunity.opportunityId);
@@ -141,6 +156,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
     }
   }
 
+  //Build the stars displayed at the top of the page to indicate the difficulty of the opportunity
   Widget buildStars(BuildContext context, int index) {
     return new Icon(
       Icons.star,
@@ -148,6 +164,10 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
     );
   }
 
+  //This method gets called when the page is initializing
+  //We overwrite it to:
+  // - Load the Firebase user
+  // - Load data from the Firebase
   @override
   void initState() {
     super.initState();
@@ -175,7 +195,8 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
       key: scaffoldKey,
       body: ListView(
         children: <Widget>[
-          //Top row
+
+          //Top row of the page
           new Padding(
             padding: EdgeInsets.only(
               left: 20.0,
@@ -185,6 +206,8 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
             ),
             child: new Row(
               children: <Widget>[
+
+                //Badge icon
                 new Hero(
                   child: new CircleAvatar(
                     child: new Image(
@@ -194,6 +217,8 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                   ),
                   tag: "badge image",
                 ),
+
+                //Opportunity title
                 new Expanded(
                   child: new Padding(
                     padding: EdgeInsets.only(left: 16.0, right: 24.0),
@@ -204,14 +229,18 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                           color: Theme.of(context).brightness == Brightness.dark
                               ? Colors.white
                               : Colors.black54,
-                          fontSize: 21.0),
+                          fontSize: 20.0),
                     ),
                   ),
                 ),
+
+                //Stars
                 new Row(
                   children: new List.generate(opportunity.difficulty.index + 1,
                       (index) => buildStars(context, index)),
                 ),
+
+                //Heart icon
                 new IconButton(
                   onPressed: () => _favoriteOrUnfavorite(),
                   icon: heart,
@@ -408,10 +437,12 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
     );
   }
 
+  //Function for formatting the date to make it more readable
   static String _makeDate(DateTime date) {
     return formatDate(date, [dd, '/', mm, '/', yyyy]);
   }
 
+  //Function to get the name of a category in String form
   static String _getCategory(Opportunity opportunity) {
     switch (opportunity.category) {
       case Category.DIGITALEGELETTERDHEID:

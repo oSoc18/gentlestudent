@@ -3,16 +3,24 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 
+//This page represents one news article
 class NewsDetailPage extends StatefulWidget {
-  static String tag = 'news-detail-page';
+  //We need a News object to render this page
   final News news;
+
+  //We pass the object to the constructor of this page
   NewsDetailPage(this.news);
+
+  //We pass the object to the state page
   @override
   _NewsDetailPageState createState() => _NewsDetailPageState(news);
 }
 
 class _NewsDetailPageState extends State<NewsDetailPage> {
+  //Delcaration of the variables
   News _news;
+
+  //Constructor
   _NewsDetailPageState(this._news);
 
   @override
@@ -91,7 +99,7 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
                     height: 6.0,
                   ),
 
-                  //Published
+                  //Published date
                   new Row(
                     children: <Widget>[
                       new Text(
@@ -155,6 +163,7 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
     );
   }
 
+  //Function for making a date more readable
   static String _makeDate(DateTime date) {
     return formatDate(date, [dd, '/', mm, '/', yyyy]);
   }

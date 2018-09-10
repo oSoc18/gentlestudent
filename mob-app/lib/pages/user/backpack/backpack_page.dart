@@ -12,19 +12,27 @@ import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+//This page contains all badges of a user
 class BackPackPage extends StatefulWidget {
+  //This tag allows us to navigate to the BackpackPage
   static String tag = 'backpack-page';
+
   @override
   _BackPackPageState createState() => _BackPackPageState();
 }
 
 class _BackPackPageState extends State<BackPackPage> {
+  //Declaration of the variables
   FirebaseUser firebaseUser;
   List<Assertion> _assertions = [];
   List<Badge> _badges = [];
   List<Issuer> _issuers = [];
   List<Opportunity> _opportunities = [];
 
+  //This method gets called when the page is initializing
+  //We overwrite it to:
+  // - Load the Firebase user
+  // - Load data from the Firebase
   @override
   void initState() {
     super.initState();
@@ -34,6 +42,7 @@ class _BackPackPageState extends State<BackPackPage> {
     });
   }
 
+  //API call to get data from the Firebase
   _loadFromFirebase() async {
     final assertionApi = new AssertionApi();
     final badgeApi = new BadgeApi();
@@ -54,6 +63,7 @@ class _BackPackPageState extends State<BackPackPage> {
     }
   }
 
+  //Building an assertion (= badge of a user)
   Widget _buildAssertionItem(BuildContext context, int index) {
     Assertion assertion = _assertions[index];
     Badge badge =
@@ -97,6 +107,10 @@ class _BackPackPageState extends State<BackPackPage> {
     );
   }
 
+  //Download the badge with the included metadata
+  void _downloadBadge() {}
+
+  //Displays a message with details of the pressed assertion
   Future<Null> _displayAssertionDetails(Assertion assertion,
       Opportunity opportunity, Badge badge, Issuer issuer) async {
     return showDialog<Null>(
@@ -124,22 +138,38 @@ class _BackPackPageState extends State<BackPackPage> {
                       radius: 28.0,
                     ),
                   ),
-                  title: new Text(
-                    opportunity.title,
-                    style: new TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.black54,
-                        fontSize: 16.0),
+                  title: new Padding(
+                    padding: EdgeInsets.only(
+                      left: 10.0,
+                      right: 10.0,
+                      top: 5.0,
+                      bottom: 5.0,
+                    ),
+                    child: new Text(
+                      opportunity.title,
+                      style: new TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black54,
+                          fontSize: 16.0),
+                    ),
                   ),
-                  subtitle: new Text(
-                    _getCategory(opportunity) +
-                        "\n" +
-                        _getDifficulty(opportunity) +
-                        "\n" +
-                        issuer.name,
-                    style: new TextStyle(fontSize: 12.0),
+                  subtitle: new Padding(
+                    padding: EdgeInsets.only(
+                      left: 10.0,
+                      right: 10.0,
+                      top: 5.0,
+                      bottom: 5.0,
+                    ),
+                    child: new Text(
+                      _getCategory(opportunity) +
+                          "\n" +
+                          _getDifficulty(opportunity) +
+                          "\n" +
+                          issuer.name,
+                      style: new TextStyle(fontSize: 12.0),
+                    ),
                   ),
                   isThreeLine: true,
                   dense: false,
@@ -157,6 +187,27 @@ class _BackPackPageState extends State<BackPackPage> {
                         ".",
                     textAlign: TextAlign.center,
                     style: new TextStyle(fontSize: 14.0),
+                  ),
+                ),
+                new Padding(
+                  padding: EdgeInsets.only(
+                    left: 5.0,
+                    right: 5.0,
+                    top: 15.0,
+                    bottom: 20.0,
+                  ),
+                  child: Material(
+                    borderRadius: BorderRadius.circular(10.0),
+                    shadowColor: Colors.lightBlueAccent.shade100,
+                    elevation: 5.0,
+                    child: MaterialButton(
+                      minWidth: 200.0,
+                      height: 36.0,
+                      onPressed: () => _downloadBadge(),
+                      color: Colors.lightBlueAccent,
+                      child: Text('Download badge',
+                          style: TextStyle(color: Colors.white)),
+                    ),
                   ),
                 ),
               ],
@@ -187,10 +238,12 @@ class _BackPackPageState extends State<BackPackPage> {
     );
   }
 
+  //Formatting the date to be more readable
   static String _makeDate(DateTime date) {
     return formatDate(date, [dd, '/', mm, '/', yyyy]);
   }
 
+  //Function to get the name of a difficulty in String form
   static String _getDifficulty(Opportunity opportunity) {
     switch (opportunity.difficulty) {
       case Difficulty.BEGINNER:
@@ -203,6 +256,7 @@ class _BackPackPageState extends State<BackPackPage> {
     return "Niveau 0";
   }
 
+  //Function to get the name of a category in String form
   static String _getCategory(Opportunity opportunity) {
     switch (opportunity.category) {
       case Category.DIGITALEGELETTERDHEID:

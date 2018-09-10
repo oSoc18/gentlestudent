@@ -5,7 +5,9 @@ import 'package:Gentle_Student/pages/user/profile/profile_page.dart';
 import 'package:Gentle_Student/pages/user/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 
+//This page allows navigation to all user related pages
 class UserPage extends StatelessWidget {
+  //This tag allows us to navigate to the UserPage
   static String tag = 'user-page';
 
   @override
@@ -15,10 +17,12 @@ class UserPage extends StatelessWidget {
         title: new Text("Gebruiker", style: TextStyle(color: Colors.white)),
         iconTheme: new IconThemeData(color: Colors.white),
       ),
+      //List of all user related pages
       body: GridView.count(
         crossAxisCount: 3,
         children: [
-          //Profile page
+
+          //Navigate to the ProfilePage
           Center(
             child: GestureDetector(
               onTap: () => Navigator.of(context).pushNamed(ProfilePage.tag),
@@ -52,7 +56,7 @@ class UserPage extends StatelessWidget {
             ),
           ),
 
-          //BackPack page
+          //Navigate to the BackpackPage
           Center(
             child: GestureDetector(
               onTap: () => Navigator.of(context).pushNamed(BackPackPage.tag),
@@ -86,7 +90,7 @@ class UserPage extends StatelessWidget {
             ),
           ),
 
-          //MyLearningOpportunities page
+          //Navigate to the MyLearningOpportunitiesPage
           Center(
             child: GestureDetector(
               onTap: () => Navigator.of(context).pushNamed(MyLearningOpportunitiesPage.tag),
@@ -120,7 +124,7 @@ class UserPage extends StatelessWidget {
             ),
           ),
 
-          //Favorites page
+          //Navigate to the FavoritesPage
           Center(
             child: GestureDetector(
               onTap: () => Navigator.of(context).pushNamed(FavoritesPage.tag),
@@ -154,7 +158,7 @@ class UserPage extends StatelessWidget {
             ),
           ),
 
-          //Settings page
+          //Navigate to the SettingsPage
           Center(
             child: GestureDetector(
               onTap: () => Navigator.of(context).pushNamed(SettingsPage.tag),
