@@ -197,11 +197,11 @@ class _SettingsPageState extends State<SettingsPage> {
   //We overwrite it to:
   // - Load the Firebase user
   @override
-  void initState() {
+  initState() {
     super.initState();
-    _setSwitchState();
     FirebaseAuth.instance.onAuthStateChanged.listen((user) {
       firebaseUser = user;
+      _setSwitchState();
     });
   }
 
