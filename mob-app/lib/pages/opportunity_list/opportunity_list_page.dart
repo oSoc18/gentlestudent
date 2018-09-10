@@ -6,6 +6,7 @@ import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:Gentle_Student/models/user.dart';
+import 'package:Gentle_Student/pages/filter/filter_dialog.dart';
 import 'package:Gentle_Student/pages/opportunity_details/opportunity_details_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,6 @@ class OpportunityListPage extends StatefulWidget {
 }
 
 class _OpportunityListPageState extends State<OpportunityListPage> {
-
   //Declaration of the variables
   List<Opportunity> _opportunities = [];
   List<Badge> _badges = [];
@@ -30,6 +30,8 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
   BadgeApi _badgeApi;
   IssuerApi _issuerApi;
   AddressApi _addressApi;
+  String issuerNameFilter = "";
+  String categoryFilter = "Alles";
 
   //This method gets called when the page is initializing
   //We overwrite it to:
@@ -77,7 +79,18 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
       final addresses = await _addressApi.getAllAddresses();
       if (this.mounted) {
         setState(() {
-          _opportunities = opportunities;
+          _opportunities = opportunities.where(
+            (o) =>
+                (categoryFilter == "Alles" ||
+                    o.category == _getCategoryEnum(categoryFilter)) &&
+                _issuers.any(
+                  (i) =>
+                      i.issuerId == o.issuerId &&
+                      i.name.toLowerCase().contains(
+                            issuerNameFilter.toLowerCase(),
+                          ),
+                ),
+          ).toList();
           _badges = badges;
           _issuers = issuers;
           _addresses = addresses;
@@ -181,6 +194,29 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     return "Algemeen";
   }
 
+  //Function to get the name of a category in enum form
+  Category _getCategoryEnum(String category) {
+    Category value;
+    switch (category) {
+      case "Digitale geletterdheid":
+        value = Category.DIGITALEGELETTERDHEID;
+        break;
+      case "Duurzaamheid":
+        value = Category.DUURZAAMHEID;
+        break;
+      case "Ondernemingszin":
+        value = Category.ONDERNEMINGSZIN;
+        break;
+      case "Onderzoek":
+        value = Category.ONDERNEMINGSZIN;
+        break;
+      case "Wereldburgerschap":
+        value = Category.WERELDBURGERSCHAP;
+        break;
+    }
+    return value;
+  }
+
   //Function that gets called when the page is being refreshed
   Future<Null> refresh() {
     _reloadOpportunities();
@@ -210,10 +246,37 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     );
   }
 
+  //Opening the filter menu
+  Future _openFilterDialog() async {
+    List<String> filter = await Navigator.of(context).push(
+      new MaterialPageRoute<List<String>>(
+        builder: (BuildContext context) {
+          return new FilterDialog();
+        },
+        fullscreenDialog: true,
+      ),
+    );
+    if (filter != null) {
+      setState(() {
+        issuerNameFilter = filter[0];
+        categoryFilter = filter[1];
+      });
+      _reloadOpportunities();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _buildBody(),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.lightBlue,
+        child: Icon(
+          Icons.filter_list,
+          color: Colors.white,
+        ),
+        onPressed: () => _openFilterDialog(),
+      ),
     );
   }
 }
