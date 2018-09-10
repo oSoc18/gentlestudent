@@ -194,29 +194,6 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     return "Algemeen";
   }
 
-  //Function to get the name of a category in enum form
-  Category _getCategoryEnum(String category) {
-    Category value;
-    switch (category) {
-      case "Digitale geletterdheid":
-        value = Category.DIGITALEGELETTERDHEID;
-        break;
-      case "Duurzaamheid":
-        value = Category.DUURZAAMHEID;
-        break;
-      case "Ondernemingszin":
-        value = Category.ONDERNEMINGSZIN;
-        break;
-      case "Onderzoek":
-        value = Category.ONDERNEMINGSZIN;
-        break;
-      case "Wereldburgerschap":
-        value = Category.WERELDBURGERSCHAP;
-        break;
-    }
-    return value;
-  }
-
   //Function that gets called when the page is being refreshed
   Future<Null> refresh() {
     _reloadOpportunities();
@@ -263,6 +240,29 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
       });
       _reloadOpportunities();
     }
+  }
+
+  //Function to get the name of a category in enum form
+  Category _getCategoryEnum(String category) {
+    Category value;
+    switch (category) {
+      case "Digitale geletterdheid":
+        value = Category.DIGITALEGELETTERDHEID;
+        break;
+      case "Duurzaamheid":
+        value = Category.DUURZAAMHEID;
+        break;
+      case "Ondernemingszin":
+        value = Category.ONDERNEMINGSZIN;
+        break;
+      case "Onderzoek":
+        value = Category.ONDERNEMINGSZIN;
+        break;
+      case "Wereldburgerschap":
+        value = Category.WERELDBURGERSCHAP;
+        break;
+    }
+    return value;
   }
 
   @override
