@@ -41,7 +41,7 @@ class ValideerLeerkans extends Component {
             var res = new Object();
             snapshot.forEach(doc => {
                 // console.log("id:"+doc.data().beaconId);
-                if(doc.data().beaconId!==undefined && doc.data().name!==undefined){
+                if(doc.data().major!==undefined && doc.data().minor!==undefined && doc.data().name!==undefined){
                     res[doc.id] = doc.data();
                 }
             });
@@ -194,13 +194,14 @@ class Opportunity extends Component{
         let beacon = new Object();
         beacon["major"] = major;
         beacon["minor"] = minor;
-        beacon["range"] = undefined;
+        beacon["range"] = 0;
         beacon["addressId"] = addressId;
         beacon["opportunities"] = {};
         beacon["name"] = name;
+        let self = this;
         firestore.createNewBeacon(beacon).then(function(docRef) {
             console.log("Document written with ID: ", docRef.id);
-            this.validateOpportunity(docRef.id);
+            self.validateOpportunity(docRef.id);
           }).catch(function(error) {
             console.log("Error adding document: ", error);
           });
@@ -283,7 +284,7 @@ class Opportunity extends Component{
 
                         { error && <p>{error.message}</p> }
                     </form>
-                    {!!makeNew && <AddBeacon postNewBeacon={ postNewBeacon }/>}
+                    {!!makeNew && <AddBeacon postNewBeacon={ this.postNewBeacon }/>}
                 </div>
             </div>
         )
@@ -298,6 +299,7 @@ class AddBeacon extends Component{
 
         this.onSubmit = this.onSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        // this.postNewBeacon = this.postNewBeacon.bind(this);
     }
 
     handleChange(event) {
