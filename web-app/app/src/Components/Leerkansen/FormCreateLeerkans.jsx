@@ -127,10 +127,12 @@ class FormCreateLeerkans extends React.Component {
     let address = new Object();
     address["bus"] = "";
     address["city"] = this.state.city;
+    address["country"] = this.state.country;
     address["housenumber"] = parseInt(this.state.house_number);
+    address["latitude"] = this.state.lat;
+    address["longitude"] = this.state.lng;
     address["postalcode"] = parseInt(this.state.postal_code);
     address["street"] = this.state.street;
-    address["country"] = this.state.country;
 
     var self = this;
 
@@ -155,9 +157,7 @@ class FormCreateLeerkans extends React.Component {
     opportunity["endDate"] = this.state.end_date;
     opportunity["international"] = false;
     opportunity["issuerId"] = auth.getUserId();
-    opportunity["latitude"] = this.state.lat;
     opportunity["longDescription"] = this.state.description;
-    opportunity["longitude"] = this.state.lng;
     opportunity["oppImageUrl"] = this.state.imageUrl;
     opportunity["pinImageUrl"] = this.state.pinImageUrl;
     opportunity["shortDescription"] = this.state.synopsis;

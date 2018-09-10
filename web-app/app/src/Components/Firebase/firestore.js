@@ -102,5 +102,8 @@ export const rejectParticipation = (id) =>
 export const onceGetAddress = (id) =>
   firestore.collection('Addresses').doc(id).get()
 
+  export const onceGetAddresses = (id) =>
+  firestore.collection('Addresses').get()
+
 export const createNewBeacon = (id, data) => 
   firestore.collection("Beacons").doc(id).set(data)

@@ -16,6 +16,7 @@ class Leerkansen extends Component {
 	
 		this.state = {
 		  opportunities: null,
+		  addresses: null
 		};
 	  }
 	componentDidMount() {
@@ -29,9 +30,20 @@ class Leerkansen extends Component {
 		.catch(err => {
 			console.log('Error getting documents', err);
 		});
+		firestore.onceGetAddresses().then(snapshot => {
+			var res = new Object()
+			snapshot.forEach(doc => {
+				res[doc.id] = doc.data();
+			});
+			this.setState(() => ({ addresses: res }))
+		})
+		.catch(err => {
+			console.log('Error getting documents', err);
+		});
 	}
 	render() {
 		const { opportunities } = this.state;
+		const { addresses } = this.state;
 
 		return (
 			<div className="leerkansen-content">
@@ -46,7 +58,7 @@ class Leerkansen extends Component {
 						</div>
 						<div className="content-right">
 							<div className="content">
-								<Maps opportunities={opportunities}/>
+								<Maps opportunities={opportunities} addresses={addresses}/>
 							</div>
 						</div>
 					</div>
