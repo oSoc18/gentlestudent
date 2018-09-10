@@ -263,7 +263,7 @@ class Opportunity extends Component{
                             <Field
                                 id="beaconId"
                                 name="beaconId"
-                                label="Kies een bestaande beacon: "
+                                label="Kies een beacon: "
                                 data={{
                                 list: Object.keys(beacons).map(key => {
                                     return {
@@ -275,6 +275,7 @@ class Opportunity extends Component{
                                 component={renderSelect}
                                 onChange={this.handleChange}
                             />
+                            {!makeNew && <small>(Of maak een nieuwe beacon door de optie "> Maak een nieuwe beacon" te selecteren)</small>}
                         </div>
                         {!makeNew && <button disabled={isInvalid} type="submit">
                             Accepteren
@@ -358,7 +359,6 @@ class AddBeacon extends Component{
         )
     }
 }
-
 
 const EmptyList = () =>
     <div>
