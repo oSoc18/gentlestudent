@@ -507,6 +507,7 @@ nav {
 
 footer {
   width: 100%;
+  height: 160px;
   background-color: #F2F0ED; }
   footer ul {
     display: flex;
