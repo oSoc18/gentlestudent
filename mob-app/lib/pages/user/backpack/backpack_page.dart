@@ -108,6 +108,11 @@ class _BackPackPageState extends State<BackPackPage> {
     );
   }
 
+  //Download the badge with the included metadata
+  void _downloadBadge() {
+
+  }
+
   //Displays a message with details of the pressed assertion
   Future<Null> _displayAssertionDetails(Assertion assertion,
       Opportunity opportunity, Badge badge, Issuer issuer) async {
@@ -169,6 +174,27 @@ class _BackPackPageState extends State<BackPackPage> {
                         ".",
                     textAlign: TextAlign.center,
                     style: new TextStyle(fontSize: 14.0),
+                  ),
+                ),
+                new Padding(
+                  padding: EdgeInsets.only(
+                    left: 5.0,
+                    right: 5.0,
+                    top: 15.0,
+                    bottom: 20.0,
+                  ),
+                  child: Material(
+                    borderRadius: BorderRadius.circular(10.0),
+                    shadowColor: Colors.lightBlueAccent.shade100,
+                    elevation: 5.0,
+                    child: MaterialButton(
+                      minWidth: 200.0,
+                      height: 36.0,
+                      onPressed: () => _downloadBadge(),
+                      color: Colors.lightBlueAccent,
+                      child: Text('Download badge',
+                          style: TextStyle(color: Colors.white)),
+                    ),
                   ),
                 ),
               ],
