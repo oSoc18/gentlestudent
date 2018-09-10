@@ -12,3 +12,5 @@
 <p> - Michael Viaene</p>
 <p> - Maxime Van Driessche</p>
 <p> - Marie-Sophie Verwee</p>
+<p></p>
+<p>Voor de Map werd gebruik gemaakt van Mapbox en OpenStreetMaps.</p>

@@ -24,7 +24,6 @@ class _ProfilePageState extends State<ProfilePage> {
       institute: "",
       participantId: "0",
       email: "",
-      education: "",
       profilePicture: "",
       favorites: new List<String>());
 
@@ -131,17 +130,6 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
 
-    //Education label
-    final lblEducation = Text(
-      'Richting:',
-      textAlign: TextAlign.center,
-      style: new TextStyle(
-        fontWeight: FontWeight.bold,
-        color: Colors.black45,
-        fontSize: 16.0,
-      ),
-    );
-
     //Institute label
     final lblInstitute = Text(
       'Onderwijsinstelling:',
@@ -156,16 +144,6 @@ class _ProfilePageState extends State<ProfilePage> {
     //Email of the user
     final mail = Text(
       _participant.email,
-      textAlign: TextAlign.center,
-      style: new TextStyle(
-        color: Colors.black38,
-        fontSize: 14.0,
-      ),
-    );
-
-    //Education of the user
-    final education = Text(
-      _participant.education,
       textAlign: TextAlign.center,
       style: new TextStyle(
         color: Colors.black38,
@@ -249,10 +227,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   lblInstitute,
                   SizedBox(height: 5.0),
                   institute,
-                  SizedBox(height: 30.0),
-                  lblEducation,
-                  SizedBox(height: 5.0),
-                  education,
                 ],
               ),
             ),

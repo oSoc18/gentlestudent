@@ -225,7 +225,6 @@ class ParticipantApi {
         participantId: snapshot.documentID,
         name: data['name'],
         institute: data['institute'],
-        education: data['education'],
         email: data['email'],
         profilePicture: data['profilePicture'],
         favorites: listStrings);

@@ -42,7 +42,6 @@ class Participant {
   final String email;
   final String name;
   final String institute;
-  final String education;
   final String profilePicture;
   final List<String> favorites;
 
@@ -51,7 +50,6 @@ class Participant {
     @required this.participantId,
     @required this.institute,
     @required this.email,
-    @required this.education,
     @required this.name,
     @required this.profilePicture,
     @required this.favorites,

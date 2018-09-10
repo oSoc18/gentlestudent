@@ -23,7 +23,6 @@ class _RegisterPageState extends State<RegisterPage> {
   var firstnameController;
   var lastnameController;
   var instituteController;
-  var educationController;
   var emailController;
   var passwordController;
   var repeatPasswordController;
@@ -35,7 +34,6 @@ class _RegisterPageState extends State<RegisterPage> {
     firstnameController = new TextEditingController();
     lastnameController = new TextEditingController();
     instituteController = new TextEditingController();
-    educationController = new TextEditingController();
     emailController = new TextEditingController();
     passwordController = new TextEditingController();
     repeatPasswordController = new TextEditingController();
@@ -60,7 +58,6 @@ class _RegisterPageState extends State<RegisterPage> {
     Map<String, dynamic> data = <String, dynamic>{
       "name": firstnameController.text + " " + lastnameController.text,
       "institute": instituteController.text,
-      "education": educationController.text,
       "email": emailController.text,
       "profilePicture": "",
       "favorites": new List<String>(),
@@ -80,8 +77,6 @@ class _RegisterPageState extends State<RegisterPage> {
         lastnameController.text != "" &&
         instituteController.text != null &&
         instituteController.text != "" &&
-        educationController.text != null &&
-        educationController.text != "" &&
         emailController.text != null &&
         emailController.text != "" &&
         passwordController.text != null &&
@@ -161,7 +156,6 @@ class _RegisterPageState extends State<RegisterPage> {
     firstnameController.dispose();
     lastnameController.dispose();
     instituteController.dispose();
-    educationController.dispose();
     emailController.dispose();
     passwordController.dispose();
     repeatPasswordController.dispose();
@@ -202,18 +196,6 @@ class _RegisterPageState extends State<RegisterPage> {
       autofocus: false,
       decoration: InputDecoration(
           labelText: 'Onderwijsinstelling',
-          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
-    );
-
-    //The education textfield
-    final opleiding = TextField(
-      controller: educationController,
-      keyboardType: TextInputType.text,
-      autofocus: false,
-      decoration: InputDecoration(
-          labelText: 'Opleiding',
           contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
@@ -325,8 +307,6 @@ class _RegisterPageState extends State<RegisterPage> {
             achternaam,
             SizedBox(height: 8.0),
             onderwijsinstelling,
-            SizedBox(height: 8.0),
-            opleiding,
             SizedBox(height: 8.0),
             email,
             SizedBox(height: 8.0),

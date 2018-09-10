@@ -9,10 +9,8 @@ import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:Gentle_Student/models/user.dart';
 import 'package:Gentle_Student/pages/opportunity_details/opportunity_details_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 
@@ -235,58 +233,8 @@ class _MapPageState extends State<MapPage> {
             ],
           ),
         ),
-        new Align(
-          alignment: Alignment.bottomRight,
-          child: new Container(
-            decoration: new BoxDecoration(
-              shape: BoxShape.rectangle,
-              color: Color(0xB3ffffff),
-            ),
-            child: new RichText(
-              text: new TextSpan(
-                children: [new TextSpan(
-                    text: '© ',
-                    style: new TextStyle(color: Colors.black),
-                  ),
-                  new TextSpan(
-                    text: 'Mapbox',
-                    style: new TextStyle(color: Colors.blue),
-                    recognizer: new TapGestureRecognizer()
-                      ..onTap = () {
-                        _launchURL('https://www.mapbox.com/about/maps/');
-                      },
-                    ),
-                  new TextSpan(
-                    text: ' © ',
-                    style: new TextStyle(color: Colors.black),
-                  ),
-                  new TextSpan(
-                    text: 'OpenStreetMap',
-                    style: new TextStyle(color: Colors.blue),
-                    recognizer: new TapGestureRecognizer()
-                      ..onTap = () {
-                        _launchURL('https://www.openstreetmap.org/copyright');
-                      },
-                    ),
-                  new TextSpan(
-                    text: ' contributors',
-                    style: new TextStyle(color: Colors.black),
-                  ),
-                  ],
-                ),
-              ),
-            ),
-        )
       ]
     );
-  }
-
-  void _launchURL(url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 
   //Function to get the name of a difficulty in String form
