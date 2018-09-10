@@ -11,10 +11,11 @@ dependencies:
 
   cupertino_icons: ^0.1.2
 
-  firebase_core: ^0.2.5
-  firebase_auth: ^0.5.20
-  cloud_firestore: ^0.8.0
-  firebase_storage: ^1.0.2
+  firebase_core: 0.2.4
+  firebase_auth: 0.5.12
+  cloud_firestore: 0.7.3
+  firebase_storage: 1.0.1
+
   image_picker: any
   local_notifications: any
   flutter_local_notifications: any
