@@ -20,7 +20,9 @@ const LeerkansenList = ({ opportunities }) =>
 	<div class="l-container">
 	<ul>
 		{Object.keys(opportunities).map(key =>
+			<a href={`aangemaakte-leerkansen/${key}`}>
 			<li class="list">
+				
 				<div class="list__opportunity_title">
 					<div> <img src={opportunities[key].pinImageUrl ? `${opportunities[key].pinImageUrl}` : null}/> </div>
 					<div class="list__label">
@@ -49,6 +51,7 @@ const LeerkansenList = ({ opportunities }) =>
 				</div>
 				{!!opportunities[key].blocked && <div class="edit"><a href="#"><i class="fas fa-edit fa-lg"></i></a></div>}
 			</li>
+			</a>
 			// <a href={`aangemaakte-leerkansen/${key}`} className={`card-item leerkans ${ opportunities[key].category }`} key={opportunities[key].addressId}>
 			//     <img src={opportunities[key].oppImageUrl ? `${opportunities[key].oppImageUrl}` : null} className="photo" alt="" />
 			//     <div style={{position: "relative"}}>
