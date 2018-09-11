@@ -1,11 +1,12 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart'
     show FirebaseAuth, FirebaseUser;
 import 'package:flutter/services.dart';
-import 'package:flutter_html_view/flutter_html_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 //This page handles everything that's related to creating an account
 class RegisterPage extends StatefulWidget {
@@ -26,8 +27,6 @@ class _RegisterPageState extends State<RegisterPage> {
   var emailController;
   var passwordController;
   var repeatPasswordController;
-  final String privacyPolicyLink = "assets/PrivacyPolicy.txt";
-  String _privacyPolicy = "";
 
   //Constructor
   _RegisterPageState() {
@@ -37,6 +36,15 @@ class _RegisterPageState extends State<RegisterPage> {
     emailController = new TextEditingController();
     passwordController = new TextEditingController();
     repeatPasswordController = new TextEditingController();
+  }
+
+  //Function for launching an url into a browser of a smartphone
+  Future<Null> _launchInBrowser(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   //Create account with Firebase
@@ -93,9 +101,38 @@ class _RegisterPageState extends State<RegisterPage> {
       builder: (BuildContext context) {
         return new AlertDialog(
           title: new Text("Privacybeleid & voorwaarden"),
-          content: new SingleChildScrollView(
-            child: new HtmlView(
-              data: _privacyPolicy,
+          content: new RichText(
+            text: new TextSpan(
+              children: [
+                new TextSpan(
+                  text:
+                      'Door hieronder op de knop "Akkoord" te drukken, bevestigt u dat u ',
+                  style: new TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black),
+                ),
+                new TextSpan(
+                  text: 'de privacy voorwaarden van Gentlestustent',
+                  style: new TextStyle(color: Colors.blue),
+                  recognizer: new TapGestureRecognizer()
+                    ..onTap = () async {
+                      //New website
+                      //await _launchInBrowser('https://docs.flutter.io/flutter/services/UrlLauncher-class.html');
+
+                      //Old website
+                      await _launchInBrowser(
+                          "https://gentle-student.firebaseapp.com/privacy");
+                    },
+                ),
+                new TextSpan(
+                  text: ' gelezen heeft en er mee akkoord gaat.',
+                  style: new TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black),
+                ),
+              ],
             ),
           ),
           actions: <Widget>[
@@ -118,34 +155,12 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  //Function that returns the text of a given file
-  Future<String> _getPrivacyPolicy(String path) async {
-    return await rootBundle.loadString(path);
-  }
-
-  //Function for loading the text from the file
-  void _fillInPrivacyPolicy() async {
-    String privacyPolicy = await _getPrivacyPolicy(privacyPolicyLink);
-    setState(() {
-      _privacyPolicy = privacyPolicy;
-    });
-  }
-
   //Shows a given message at the bottom of the screen
   void _showSnackBar(String text) {
     scaffoldKey.currentState.showSnackBar(new SnackBar(
       content: new Text(text),
       duration: Duration(seconds: 4),
     ));
-  }
-
-  //This method gets called when the page is initializing
-  //We overwrite it to:
-  // - Load the text of the "PrivacyPolicy.txt" file
-  @override
-  void initState() {
-    super.initState();
-    _fillInPrivacyPolicy();
   }
 
   //This method gets called when the page is disposing
@@ -164,7 +179,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-
     //The firstname textfield
     final voornaam = TextField(
       controller: firstnameController,

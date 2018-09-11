@@ -161,7 +161,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                   //The badge gets added to the backpack of the user
                   await _claimBadgeCreateAssertion();
 
-                  _showSnackBar("U heeft de badge succesvol geclaimd!");
+                  _showSnackBar("U heeft de badge succesvol geclaimd! Hij is nu zichtbaar in uw backpack.");
 
                   setState(() {
                     _participation = new Participation(
@@ -173,7 +173,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                   });
                 } else {
                   _showSnackBar(
-                      "Je moet een boodschap meegeven om de badge te kunnen claimen.");
+                      "U moet een boodschap meegeven om de badge te kunnen claimen.");
                 }
                 Navigator.of(context).pop();
               },

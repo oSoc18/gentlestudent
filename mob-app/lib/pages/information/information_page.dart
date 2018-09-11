@@ -1,9 +1,7 @@
 import 'dart:async';
 
-import 'package:Gentle_Student/pages/information/about_us/about_us_page.dart';
 import 'package:Gentle_Student/pages/information/experiences/experiences_page.dart';
 import 'package:Gentle_Student/pages/information/news/news_page.dart';
-import 'package:Gentle_Student/pages/information/privacy_policy/privacy_policy_page.dart';
 import 'package:Gentle_Student/pages/information/tutorial/tutorial_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +30,6 @@ class InformationPage extends StatelessWidget {
       //List of all information related pages
       body: ListView(
         children: <Widget>[
-
           //Launch the Gentlestudent website
           Container(
               child: ListTile(
@@ -49,7 +46,15 @@ class InformationPage extends StatelessWidget {
                 trailing: Icon(Icons.arrow_forward_ios),
                 title: Text('Over ons'),
                 onTap: () {
-                  Navigator.of(context).pushNamed(AboutUsPage.tag);
+                  //Old "About us" page
+                  //Navigator.of(context).pushNamed(AboutUsPage.tag);
+
+                  //New website
+                  //_launchInBrowser("http://gentlestudent.gent/overons");
+
+                  //Old website
+                  _launchInBrowser(
+                      "https://gentle-student.firebaseapp.com/overons");
                 },
               ),
               decoration: new BoxDecoration(
@@ -103,7 +108,15 @@ class InformationPage extends StatelessWidget {
               trailing: Icon(Icons.arrow_forward_ios),
               title: Text('Privacybeleid & voorwaarden'),
               onTap: () {
-                Navigator.of(context).pushNamed(PrivacyPolicyPage.tag);
+                //Old "Privacy policy" page
+                //Navigator.of(context).pushNamed(PrivacyPolicyPage.tag);
+
+                //New website
+                //_launchInBrowser("http://gentlestudent.gent/privacy");
+
+                //Old website
+                _launchInBrowser(
+                    "https://gentle-student.firebaseapp.com/privacy");
               },
             ),
             decoration: new BoxDecoration(
