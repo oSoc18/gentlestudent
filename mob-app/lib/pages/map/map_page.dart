@@ -204,6 +204,8 @@ class _MapPageState extends State<MapPage> {
             options: new MapOptions(
               center: new LatLng(51.052233, 3.723653),
               zoom: 14.0,
+              maxZoom: 16.0,
+              minZoom: 12.0,
             ),
             layers: [
               //OPENSTREETMAP (FREE, BUT REALLY SLOW)
