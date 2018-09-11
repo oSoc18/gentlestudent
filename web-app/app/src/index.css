@@ -772,3 +772,18 @@ footer {
   background: linear-gradient(to right, #cb2d3e, #ef473a);
   color: white;
 }
+ul li.list:hover .edit {
+	visibility: visible;
+}
+
+.edit {
+	padding-top: 7px;	
+	padding-right: 7px;
+  visibility: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.edit a {
+	color: #00AACC;
+}

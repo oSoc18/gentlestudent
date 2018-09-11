@@ -4,30 +4,6 @@ import { connect } from 'react-redux';
 import Spinner from '../Spinner';
 
 class List extends Component {
-	constructor(props) {
-		super(props);
-	
-		this.state = {
-		};
-		this.getParticipations = this.getParticipations.bind(this);
-	  }
-	componentDidMount() {
-		Object.keys(opportunities).map(key => this.getParticipations(key));
-	}
-	getParticipations(key){
-		firestore.onceGetParticipationsForOpportunity(key).then(snapshot => {
-			// console.log(JSON.stringify(snapshot.data()));
-				if(this.props.opportunities[key]["participations"]){
-					this.props.opportunities[key]["participations"]++
-				}
-				else{
-					this.props.opportunities[key]["participations"]==1;
-				}	
-			})
-			.catch(err => {
-				console.log('Error getting documents', err);
-			});
-	}
 	render() {
 		const { opportunities } = this.props;
 
@@ -71,6 +47,7 @@ const LeerkansenList = ({ opportunities }) =>
 						{!opportunities[key].blocked && <div class="list__label--value">Geaccepteerd</div>}
 					</div>
 				</div>
+				{!!opportunities[key].blocked && <div class="edit"><a href="#"><i class="fas fa-edit fa-lg"></i></a></div>}
 			</li>
 			// <a href={`aangemaakte-leerkansen/${key}`} className={`card-item leerkans ${ opportunities[key].category }`} key={opportunities[key].addressId}>
 			//     <img src={opportunities[key].oppImageUrl ? `${opportunities[key].oppImageUrl}` : null} className="photo" alt="" />
