@@ -108,10 +108,11 @@ class LeerkansDetail extends Component {
                 <p>{opportunity.beginDate + ' -> ' + opportunity.endDate}</p>
                 <p>{opportunity.participations}</p>
               </div>
-              {/* <div class="content-image">
-                <img src={opportunity.pinImageUrl} height="120"/>
-              </div> */}
+              {/* <div class="badge"> */}
+                
+              {/* </div> */}
             </div>
+            <img class="badge" src={opportunity.pinImageUrl}/>
           </div>
           <br/>          
           <h3>Beschrijving</h3>

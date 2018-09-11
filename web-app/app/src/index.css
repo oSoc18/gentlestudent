@@ -959,6 +959,7 @@ ul li.list:hover .copy {
   border-width: 2px;
   border-radius: 25px;
   padding: 0px 20px 0px 20px;
+  position: relative;
 }
 .infobox-content{
   display: flex;
@@ -970,4 +971,11 @@ ul li.list:hover .copy {
 }
 .infobox .content-right{
   width: 70%;
+}
+.infobox img.badge{
+  position: absolute;
+  width: 160px;
+  height: auto;
+  top: -140px;
+  right: 0;
 }
