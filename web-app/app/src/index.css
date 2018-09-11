@@ -810,3 +810,8 @@ ul li.list:hover .copy {
 .copy:hover a {
 	color: rgb(0, 133, 160);
 }
+
+.map-container{
+  overflow: hidden;
+  object-fit: cover;
+}

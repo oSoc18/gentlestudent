@@ -57,7 +57,7 @@ class Leerkansen extends Component {
 							</Switch>
 						</div>
 						<div className="content-right">
-							<div className="content">
+							<div className="content map-container">
 								{!!opportunities && !!addresses && <Maps opportunities={opportunities} addresses={addresses}/>}
 							</div>
 						</div>

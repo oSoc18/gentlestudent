@@ -16,8 +16,8 @@ const MapComponent = compose(
 		loadingElement: <div style={{ height: `100%` }} />,
 		containerElement: <div style={{ 
 			height: `calc(100vh - 346px)`,
-			width: `calc(40% - 30px)`,
-			position: `fixed`,
+			width: `100%`,
+			position: `relative`,
 	}} />,
 		mapElement: <div style={{ height: `100%`, borderRadius: `8px` }} />
 	}),

@@ -4,7 +4,7 @@ class SearchFilters extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="relative searchfilters">
+        <div className="searchfilters">
           <div className="fixed">
             <h1>Leerkansen</h1>
             <form action="">
