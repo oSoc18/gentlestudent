@@ -46,9 +46,13 @@ class FilterDialogState extends State<FilterDialog> {
       ),
       body: Center(
         child: ListView(
+          physics: AlwaysScrollableScrollPhysics(
+            parent: null,
+          ),
           shrinkWrap: true,
           padding: EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
+            SizedBox(height: 14.0),
             //The issuer name textfield
             TextField(
               controller: issuerName,
@@ -66,6 +70,9 @@ class FilterDialogState extends State<FilterDialog> {
 
             //List of difficulties
             ListView(
+              physics: NeverScrollableScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics(),
+              ),
               shrinkWrap: true,
               children: <Widget>[
                 new ExpansionTile(
@@ -122,6 +129,9 @@ class FilterDialogState extends State<FilterDialog> {
 
             //List of categories
             ListView(
+              physics: NeverScrollableScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics(),
+              ),
               shrinkWrap: true,
               children: <Widget>[
                 new ExpansionTile(
@@ -205,7 +215,11 @@ class FilterDialogState extends State<FilterDialog> {
                   height: 42.0,
                   onPressed: () {
                     Navigator.of(context).pop(
-                      List.of([issuerName.text, groupvalueCategory, groupvalueDifficulty]),
+                      List.of([
+                        issuerName.text,
+                        groupvalueCategory,
+                        groupvalueDifficulty
+                      ]),
                     );
                   },
                   color: Colors.lightBlueAccent,
