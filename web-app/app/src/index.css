@@ -818,7 +818,7 @@ ul li.list:hover .copy {
 
 .opportunity-detail{
   background: rgb(248, 248, 248);
-  font-family:lato;
+  /* font-family:lato; */
 }
 
 .opportunity-detail h3{
