@@ -7,7 +7,8 @@ class FilterDialog extends StatefulWidget {
 
 class FilterDialogState extends State<FilterDialog> {
   //Declaration of the variables
-  String groupvalue = "Alles";
+  String groupvalueCategory = "Alles";
+  String groupvalueDifficulty = "Alles";
   TextEditingController issuerName;
 
   //Functions
@@ -22,34 +23,14 @@ class FilterDialogState extends State<FilterDialog> {
   }
 
   void _changeCategory(String e) {
-    String value;
-
-    switch (e) {
-      case "Alles":
-        value = "Alles";
-        break;
-      case "Digitale geletterdheid":
-        value = "Digitale geletterdheid";
-        break;
-      case "Duurzaamheid":
-        value = "Duurzaamheid";
-        break;
-      case "Ondernemingszin":
-        value = "Ondernemingszin";
-        break;
-      case "Onderzoek":
-        value = "Onderzoek";
-        break;
-      case "Wereldburgerschap":
-        value = "Wereldburgerschap";
-        break;
-      default:
-        value = "Alles";
-        break;
-    }
-
     setState(() {
-      groupvalue = value;
+      groupvalueCategory = e;
+    });
+  }
+
+  void _changeDifficulty(String e) {
+    setState(() {
+      groupvalueDifficulty = e;
     });
   }
 
@@ -81,6 +62,62 @@ class FilterDialogState extends State<FilterDialog> {
                 ),
               ),
             ),
+            SizedBox(height: 24.0),
+
+            //List of difficulties
+            ListView(
+              shrinkWrap: true,
+              children: <Widget>[
+                new ExpansionTile(
+                  initiallyExpanded: true,
+                  title: Text(
+                    'Niveaus',
+                    style: TextStyle(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black),
+                  ),
+                  children: <Widget>[
+                    ListTile(
+                      title: Text('Alles'),
+                      leading: new Radio(
+                        onChanged: (String e) => _changeDifficulty(e),
+                        activeColor: Colors.lightBlue,
+                        value: "Alles",
+                        groupValue: groupvalueDifficulty,
+                      ),
+                    ),
+                    ListTile(
+                      title: Text('Beginner'),
+                      leading: new Radio(
+                        onChanged: (String e) => _changeDifficulty(e),
+                        activeColor: Colors.lightBlue,
+                        value: "Beginner",
+                        groupValue: groupvalueDifficulty,
+                      ),
+                    ),
+                    ListTile(
+                      title: Text('Intermediate'),
+                      leading: new Radio(
+                        onChanged: (String e) => _changeDifficulty(e),
+                        activeColor: Colors.lightBlue,
+                        value: "Intermediate",
+                        groupValue: groupvalueDifficulty,
+                      ),
+                    ),
+                    ListTile(
+                      title: Text('Expert'),
+                      leading: new Radio(
+                        onChanged: (String e) => _changeDifficulty(e),
+                        activeColor: Colors.lightBlue,
+                        value: "Expert",
+                        groupValue: groupvalueDifficulty,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
             SizedBox(height: 8.0),
 
             //List of categories
@@ -88,7 +125,6 @@ class FilterDialogState extends State<FilterDialog> {
               shrinkWrap: true,
               children: <Widget>[
                 new ExpansionTile(
-                  initiallyExpanded: true,
                   title: Text(
                     'Categorieën',
                     style: TextStyle(
@@ -103,7 +139,7 @@ class FilterDialogState extends State<FilterDialog> {
                         onChanged: (String e) => _changeCategory(e),
                         activeColor: Colors.lightBlue,
                         value: "Alles",
-                        groupValue: groupvalue,
+                        groupValue: groupvalueCategory,
                       ),
                     ),
                     ListTile(
@@ -112,7 +148,7 @@ class FilterDialogState extends State<FilterDialog> {
                         onChanged: (String e) => _changeCategory(e),
                         activeColor: Colors.lightBlue,
                         value: "Digitale geletterdheid",
-                        groupValue: groupvalue,
+                        groupValue: groupvalueCategory,
                       ),
                     ),
                     ListTile(
@@ -121,7 +157,7 @@ class FilterDialogState extends State<FilterDialog> {
                         onChanged: (String e) => _changeCategory(e),
                         activeColor: Colors.lightBlue,
                         value: "Duurzaamheid",
-                        groupValue: groupvalue,
+                        groupValue: groupvalueCategory,
                       ),
                     ),
                     ListTile(
@@ -130,7 +166,7 @@ class FilterDialogState extends State<FilterDialog> {
                         onChanged: (String e) => _changeCategory(e),
                         activeColor: Colors.lightBlue,
                         value: "Ondernemingszin",
-                        groupValue: groupvalue,
+                        groupValue: groupvalueCategory,
                       ),
                     ),
                     ListTile(
@@ -139,7 +175,7 @@ class FilterDialogState extends State<FilterDialog> {
                         onChanged: (String e) => _changeCategory(e),
                         activeColor: Colors.lightBlue,
                         value: "Onderzoek",
-                        groupValue: groupvalue,
+                        groupValue: groupvalueCategory,
                       ),
                     ),
                     ListTile(
@@ -148,7 +184,7 @@ class FilterDialogState extends State<FilterDialog> {
                         onChanged: (String e) => _changeCategory(e),
                         activeColor: Colors.lightBlue,
                         value: "Wereldburgerschap",
-                        groupValue: groupvalue,
+                        groupValue: groupvalueCategory,
                       ),
                     ),
                   ],
@@ -169,7 +205,7 @@ class FilterDialogState extends State<FilterDialog> {
                   height: 42.0,
                   onPressed: () {
                     Navigator.of(context).pop(
-                      List.of([issuerName.text, groupvalue]),
+                      List.of([issuerName.text, groupvalueCategory, groupvalueDifficulty]),
                     );
                   },
                   color: Colors.lightBlueAccent,

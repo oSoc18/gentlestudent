@@ -32,6 +32,7 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
   AddressApi _addressApi;
   String issuerNameFilter = "";
   String categoryFilter = "Alles";
+  String difficultyFilter = "Alles";
 
   //This method gets called when the page is initializing
   //We overwrite it to:
@@ -79,18 +80,22 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
       final addresses = await _addressApi.getAllAddresses();
       if (this.mounted) {
         setState(() {
-          _opportunities = opportunities.where(
-            (o) =>
-                (categoryFilter == "Alles" ||
-                    o.category == _getCategoryEnum(categoryFilter)) &&
-                _issuers.any(
-                  (i) =>
-                      i.issuerId == o.issuerId &&
-                      i.name.toLowerCase().contains(
-                            issuerNameFilter.toLowerCase(),
-                          ),
-                ),
-          ).toList();
+          _opportunities = opportunities
+              .where(
+                (o) =>
+                    (categoryFilter == "Alles" ||
+                        o.category == _getCategoryEnum(categoryFilter)) &&
+                    (difficultyFilter == "Alles" ||
+                        o.difficulty == _getDifficultyEnum(difficultyFilter)) &&
+                    _issuers.any(
+                      (i) =>
+                          i.issuerId == o.issuerId &&
+                          i.name.toLowerCase().contains(
+                                issuerNameFilter.toLowerCase(),
+                              ),
+                    ),
+              )
+              .toList();
           _badges = badges;
           _issuers = issuers;
           _addresses = addresses;
@@ -237,6 +242,7 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
       setState(() {
         issuerNameFilter = filter[0];
         categoryFilter = filter[1];
+        difficultyFilter = filter[2];
       });
       _reloadOpportunities();
     }
@@ -260,6 +266,23 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
         break;
       case "Wereldburgerschap":
         value = Category.WERELDBURGERSCHAP;
+        break;
+    }
+    return value;
+  }
+
+  //Function to get the name of a difficulty in enum form
+  Difficulty _getDifficultyEnum(String difficulty) {
+    Difficulty value;
+    switch (difficulty) {
+      case "Beginner":
+        value = Difficulty.BEGINNER;
+        break;
+      case "Intermediate":
+        value = Difficulty.INTERMEDIATE;
+        break;
+      case "Expert":
+        value = Difficulty.EXPERT;
         break;
     }
     return value;
