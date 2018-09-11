@@ -46,24 +46,26 @@ class Leerkansen extends Component {
 		const { addresses } = this.state;
 
 		return (
-			<div className="leerkansen-content">
-				<div className="content">
-					<SearchFilter />
-					<div id="leerkansen">
-						<div className="content-left">
-							<Switch>
-								<Route path={'/leerkansen/:id'} render={({match}) => <Detail opportunities={opportunities}  match={match}/>} />
-								<Route path={'/leerkansen'} render={() => <List opportunities={opportunities} />} />
-							</Switch>
-						</div>
-						<div className="content-right">
-							<div className="content map-container">
-								{!!opportunities && !!addresses && <Maps opportunities={opportunities} addresses={addresses}/>}
+			<Switch>
+				<Route path={'/leerkansen/:id'} render={({match}) => <Detail opportunities={opportunities}  match={match}/>} />
+				<Route path={'/leerkansen'} render={() => 
+					<div className="leerkansen-content">
+						<div className="content">
+							<SearchFilter />
+							<div id="leerkansen">
+								<div className="content-left">
+									<List opportunities={opportunities} />
+								</div>
+								<div className="content-right">
+									<div className="content map-container">
+										{!!opportunities && !!addresses && <Maps opportunities={opportunities} addresses={addresses}/>}
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
+				} />
+			</Switch>
 		)
 	}
 }
