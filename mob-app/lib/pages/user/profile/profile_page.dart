@@ -2,9 +2,10 @@ import 'dart:async';
 
 import 'package:Gentle_Student/data/api.dart';
 import 'package:Gentle_Student/models/user.dart';
+import 'package:Gentle_Student/pages/edit_profile/edit_profile_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 
 //On this page users can view their profile
@@ -52,13 +53,68 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  //Function for launching an url into a browser of a smartphone
-  Future<Null> _launchInBrowser(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
+  //Change profile settings in the Firebase
+  Future<Null> _changeProfileSettings(String institute, String name) async {
+    Map<String, String> data = <String, String>{
+      "institute": institute,
+      "name": name,
+    };
+    await Firestore.instance
+        .collection("Participants")
+        .document(firebaseUser.uid)
+        .updateData(data)
+        .whenComplete(() {
+      print("Participant updated");
+    }).catchError((e) => print(e));
+
+    await _loadFromFirebase();
+  }
+
+  //Opening the editing profile page
+  Future _openEditProfilePageDialog() async {
+    List<String> settings = await Navigator.of(context).push(
+      new MaterialPageRoute<List<String>>(
+        builder: (BuildContext context) {
+          return new EditProfilePage(_participant.name, _participant.institute);
+        },
+        fullscreenDialog: true,
+      ),
+    );
+    if (settings != null) {
+      _showAlertDialog(settings[0], settings[1]);
     }
+  }
+
+  //Dialog containing the privacy policy for GDPR reasons
+  Future<Null> _showAlertDialog(String name, String institute) async {
+    return showDialog<Null>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return new AlertDialog(
+          title: new Text("Gegevens wijzigen"),
+          content: Text(
+            'U staat op het punt om uw gegevens te wijzigen. Bent u zeker dat u dit wilt doen?',
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text('Akkoord'),
+              onPressed: () async {
+                await _changeProfileSettings(institute, name);
+                await _loadFromFirebase();
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text('Niet akkoord'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -177,7 +233,7 @@ class _ProfilePageState extends State<ProfilePage> {
             icon: Icon(
               Icons.edit,
             ),
-            onPressed: () => _launchInBrowser("http://gentlestudent.gent"),
+            onPressed: () => _openEditProfilePageDialog(),
             tooltip: "Klik hier om uw gegevens aan te kunnen passen",
           ),
         ],
@@ -186,7 +242,6 @@ class _ProfilePageState extends State<ProfilePage> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            
             //Logo or ProfilePicture and Name of the user
             Container(
               color: color,
