@@ -86,7 +86,7 @@ class LeerkansDetail extends Component {
       // </div> 
       <div class="opportunity-detail">
         <div class="overlay"></div>
-        <div class="titlehead" style={{background: `url(${opportunity.oppImageUrl}) center center`}}>
+        <div class="titlehead" style={{backgroundImage: `url(${opportunity.oppImageUrl})`}}>
           <div class="opportunity-container">
               <h1>{opportunity.title}</h1>
           </div>
