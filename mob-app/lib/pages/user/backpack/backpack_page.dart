@@ -112,6 +112,22 @@ class _BackPackPageState extends State<BackPackPage> {
   //Download the badge with the included metadata
   void _downloadBadge() {}
 
+  Text _assertionCreatedDate(DateTime issuedOn) {
+    if (DateTime.parse("2000-01-01") == issuedOn) {
+      return Text(
+        "De issuer van deze leerkans heeft de badge nog niet aan u toegekend.",
+        textAlign: TextAlign.center,
+        style: new TextStyle(fontSize: 14.0),
+      );
+    } else {
+      return Text(
+        "U heeft deze badge behaald op " + _makeDate(issuedOn) + ".",
+        textAlign: TextAlign.center,
+        style: new TextStyle(fontSize: 14.0),
+      );
+    }
+  }
+
   //Displays a message with details of the pressed assertion
   Future<Null> _displayAssertionDetails(Assertion assertion,
       Opportunity opportunity, Badge badge, Issuer issuer) async {
@@ -183,13 +199,7 @@ class _BackPackPageState extends State<BackPackPage> {
                     top: 5.0,
                     bottom: 5.0,
                   ),
-                  child: new Text(
-                    "U heeft deze badge behaald op " +
-                        _makeDate(assertion.issuedOn) +
-                        ".",
-                    textAlign: TextAlign.center,
-                    style: new TextStyle(fontSize: 14.0),
-                  ),
+                  child: _assertionCreatedDate(assertion.issuedOn),
                 ),
                 new Padding(
                   padding: EdgeInsets.only(

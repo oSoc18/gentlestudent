@@ -4,7 +4,10 @@ import 'package:Gentle_Student/data/api.dart';
 import 'package:Gentle_Student/models/address.dart';
 import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/models/category.dart';
+import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
+import 'package:Gentle_Student/models/participation.dart';
+import 'package:Gentle_Student/models/status.dart';
 import 'package:Gentle_Student/models/user.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -30,16 +33,23 @@ class OpportunityDetailsPage extends StatefulWidget {
 }
 
 class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
-
   //Declaration of the variables
   Opportunity opportunity;
   Badge badge;
   Issuer issuer;
   Address address;
+  Participation _participation = new Participation(
+      opportunityId: "0",
+      participantId: "0",
+      participationId: "0",
+      reason: "0",
+      status: Status.REFUSED);
   ParticipationApi _participationApi;
   Participant _participant;
   ParticipantApi _participantApi;
   FirebaseUser firebaseUser;
+  bool _alreadyRegistered = false;
+  TextEditingController controller;
   Icon heart = Icon(
     Icons.favorite_border,
     color: Colors.red,
@@ -48,7 +58,9 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
 
   //Constructor
   _OpportunityDetailsPageState(
-      this.opportunity, this.badge, this.issuer, this.address);
+      this.opportunity, this.badge, this.issuer, this.address) {
+    controller = new TextEditingController();
+  }
 
   //Shows a given message at the bottom of the screen
   void _showSnackBar(String text) {
@@ -60,7 +72,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
 
   //Displays a message which asks the user if they want to enlist
   //In the opportunity
-  Future<Null> _displayAlertDialog() async {
+  Future<Null> _displayRegistrationAlertDialog() async {
     return showDialog<Null>(
       context: context,
       barrierDismissible: false,
@@ -95,11 +107,110 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
     );
   }
 
+  //Function to create an assertion
+  //When the user claims a badge
+  _claimBadgeCreateAssertion() async {
+    Map<String, dynamic> data = <String, dynamic>{
+      "badgeId": badge.openBadgeId,
+      "issuedOn": "2000-01-01",
+      "recipientId": firebaseUser.uid,
+    };
+    final CollectionReference collection =
+        Firestore.instance.collection("Assertions");
+    collection.add(data).whenComplete(() {
+      print("Assertion added");
+    }).catchError((e) => print(e));
+  }
+
+  //Displays a message when a user wants to claim a beginner's badge
+  Future<Null> _displayClaimAlertDialog() async {
+    return showDialog<Null>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return new AlertDialog(
+          title: new Text("Badge claimen"),
+          content: new SingleChildScrollView(
+            physics: NeverScrollableScrollPhysics(),
+            child: new ListBody(
+              children: <Widget>[
+                new Text(
+                    'Waarom denk jij in aanmerking te komen om deze badge te claimen? Laat het hieronder weten.'),
+                SizedBox(
+                  height: 8.0,
+                ),
+                new TextField(
+                  controller: controller,
+                  autofocus: true,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: 6,
+                )
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text('Claim badge'),
+              onPressed: () async {
+                if (controller.text != "" && controller.text != null) {
+                  //Status of the participation goes to accepted
+                  //Message of the participations becomes whatever the user filled into the textfield
+                  await _participationApi.updateParticipationAfterBadgeClaim(
+                      _participation, controller.text);
+
+                  //The badge gets added to the backpack of the user
+                  await _claimBadgeCreateAssertion();
+
+                  _showSnackBar("U heeft de badge succesvol geclaimd!");
+
+                  setState(() {
+                    _participation = new Participation(
+                        opportunityId: "0",
+                        participantId: "0",
+                        participationId: "0",
+                        reason: "0",
+                        status: Status.REFUSED);
+                  });
+                } else {
+                  _showSnackBar(
+                      "Je moet een boodschap meegeven om de badge te kunnen claimen.");
+                }
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text('Annuleer'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  //Function to check whether the current user has
+  //already been registered for the opportunity
+  Future<Null> _hasAlreadyBeenRegistered() async {
+    bool value =
+        await _participationApi.participationExists(firebaseUser, opportunity);
+    setState(() {
+      _alreadyRegistered = value;
+    });
+    if (_alreadyRegistered) {
+      Participation participation = await _participationApi
+          .getParticipantByUserAndOpportunity(firebaseUser, opportunity);
+      setState(() {
+        _participation = participation;
+      });
+    }
+  }
+
   //Function to create a participation
   //It enlists the participant in an opportunity
   _enlistInOpportunity() async {
-    bool participationExists =
-        await _participationApi.participationExists(firebaseUser, opportunity);
+    bool participationExists = _alreadyRegistered;
     if (participationExists) {
       _showSnackBar("U bent al geregistreerd voor deze leerkans.");
     } else {
@@ -108,12 +219,16 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
         "opportunityId": opportunity.opportunityId,
         "status": 0,
         "reason": "",
+        "message": "",
       };
       final CollectionReference collection =
           Firestore.instance.collection("Participations");
       collection.add(data).whenComplete(() {
         print("Participation added");
       }).catchError((e) => print(e));
+      setState(() {
+        _alreadyRegistered = true;
+      });
       _showSnackBar("U bent succesvol geregistreerd voor deze leerkans.");
     }
   }
@@ -156,12 +271,68 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
     }
   }
 
+  void _hasAlreadyClaimedBadge() {
+    if (_participation != null)
+      _displayClaimAlertDialog();
+    else
+      _showSnackBar(
+          "U heeft deze badge al geclaimd. Ga naar de backpack om hem te bekijken.");
+  }
+
   //Build the stars displayed at the top of the page to indicate the difficulty of the opportunity
   Widget buildStars(BuildContext context, int index) {
     return new Icon(
       Icons.star,
       color: Colors.yellow,
     );
+  }
+
+  Padding _showButton() {
+    if (_alreadyRegistered &&
+        opportunity.difficulty == Difficulty.BEGINNER &&
+        _participation.status == Status.PENDING) {
+      return Padding(
+        padding: EdgeInsets.only(
+          left: 20.0,
+          right: 20.0,
+          top: 10.0,
+          bottom: 16.0,
+        ),
+        child: Material(
+          borderRadius: BorderRadius.circular(10.0),
+          shadowColor: Colors.lightBlueAccent.shade100,
+          elevation: 5.0,
+          child: MaterialButton(
+            minWidth: 200.0,
+            height: 42.0,
+            onPressed: () => _hasAlreadyClaimedBadge(),
+            color: Colors.lightBlueAccent,
+            child: Text('Claim badge', style: TextStyle(color: Colors.white)),
+          ),
+        ),
+      );
+    } else {
+      return Padding(
+        padding: EdgeInsets.only(
+          left: 20.0,
+          right: 20.0,
+          top: 10.0,
+          bottom: 16.0,
+        ),
+        child: Material(
+          borderRadius: BorderRadius.circular(10.0),
+          shadowColor: Colors.lightBlueAccent.shade100,
+          elevation: 5.0,
+          child: MaterialButton(
+            minWidth: 200.0,
+            height: 42.0,
+            onPressed: () => _displayRegistrationAlertDialog(),
+            color: Colors.lightBlueAccent,
+            child: Text('Registreer', style: TextStyle(color: Colors.white)),
+          ),
+        ),
+      );
+    }
   }
 
   //This method gets called when the page is initializing
@@ -181,8 +352,15 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
           _participantApi = participantApi;
         });
         _checkIfUserAlreadyFavorited();
+        _hasAlreadyBeenRegistered();
       }
     });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -195,7 +373,6 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
       key: scaffoldKey,
       body: ListView(
         children: <Widget>[
-
           //Top row of the page
           new Padding(
             padding: EdgeInsets.only(
@@ -206,7 +383,6 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
             ),
             child: new Row(
               children: <Widget>[
-
                 //Badge icon
                 new Hero(
                   child: new CircleAvatar(
@@ -411,27 +587,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
           ),
 
           //Button
-          new Padding(
-            padding: EdgeInsets.only(
-              left: 20.0,
-              right: 20.0,
-              top: 10.0,
-              bottom: 16.0,
-            ),
-            child: Material(
-              borderRadius: BorderRadius.circular(10.0),
-              shadowColor: Colors.lightBlueAccent.shade100,
-              elevation: 5.0,
-              child: MaterialButton(
-                minWidth: 200.0,
-                height: 42.0,
-                onPressed: () => _displayAlertDialog(),
-                color: Colors.lightBlueAccent,
-                child:
-                    Text('Registreer', style: TextStyle(color: Colors.white)),
-              ),
-            ),
-          ),
+          _showButton(),
         ],
       ),
     );

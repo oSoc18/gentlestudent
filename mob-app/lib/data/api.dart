@@ -158,6 +158,29 @@ class ParticipationApi {
         0;
   }
 
+  Future<Null> updateParticipationAfterBadgeClaim (
+      Participation participation, String message) async {
+    Map<String, dynamic> data = <String, dynamic>{
+      "status": 1,
+      "message": message,
+    };
+    await Firestore.instance
+        .collection("Participations")
+        .document(participation.participationId)
+        .updateData(data)
+        .whenComplete(() {
+      print("Participation updated");
+    }).catchError((e) => print(e));
+  }
+
+  Future<Participation> getParticipantByUserAndOpportunity(FirebaseUser firebaseUser, Opportunity opportunity) async {
+    return _fromDocumentSnapshotParticipation((await Firestore.instance
+                .collection('Participations')
+                .where("participantId", isEqualTo: firebaseUser.uid)
+                .where("opportunityId", isEqualTo: opportunity.opportunityId)
+                .getDocuments()).documents.first);
+  }
+
   Status _dataToStatus(int status) {
     switch (status) {
       case 0:
