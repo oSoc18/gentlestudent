@@ -166,6 +166,8 @@ class ParticipationApi {
         return Status.APPROVED;
       case 2:
         return Status.REFUSED;
+      case 3:
+        return Status.ACCOMPLISHED;
     }
     return Status.PENDING;
   }

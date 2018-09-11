@@ -74,7 +74,7 @@ class _MyLearningOpportunitiesPageState
     for (int i = 0; i < _participations.length; i++) {
       opportunity = await _opportunityApi
           .getOpportunityById(_participations[i].opportunityId);
-      if (_participations[i].status != Status.APPROVED) list.add(opportunity);
+      if (_participations[i].status == Status.PENDING || _participations[i].status == Status.REFUSED) list.add(opportunity);
     }
     return list;
   }

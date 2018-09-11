@@ -94,8 +94,10 @@ class _BackPackPageState extends State<BackPackPage> {
                 padding: EdgeInsets.only(top: 10.0),
                 child: Text(
                   issuer.institution,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    fontSize: 15.0,
+                    fontSize: 14.0,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
