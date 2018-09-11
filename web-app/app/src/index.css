@@ -816,8 +816,8 @@ ul li.list:hover .copy {
   object-fit: cover;
 }
 
-.opportunity-detail body{
-  background: #ecf0f1;
+.opportunity-detail{
+  background: rgb(248, 248, 248);
   font-family:lato;
 }
 

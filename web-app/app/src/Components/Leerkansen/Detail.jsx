@@ -105,7 +105,7 @@ class LeerkansDetail extends Component {
               <div class="content-right">
                 {!!issuer && <p>{issuer.name}</p>}
                 {!!address && <p>{address.street} {address.housenumber}, {address.postalcode} {address["city"]}</p>}
-                <p>{opportunity.beginDate + ' -> ' + opportunity.endDate}</p>
+                <p>{opportunity.beginDate + ' tot en met ' + opportunity.endDate}</p>
                 <p>{opportunity.participations}</p>
               </div>
               {/* <div class="badge"> */}
