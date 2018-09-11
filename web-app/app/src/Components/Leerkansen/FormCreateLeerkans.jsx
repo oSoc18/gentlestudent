@@ -162,6 +162,7 @@ class FormCreateLeerkans extends React.Component {
     opportunity["pinImageUrl"] = this.state.pinImageUrl;
     opportunity["shortDescription"] = this.state.synopsis;
     opportunity["title"] = this.state.title;
+    opportunity["participations"] = 0;
 
     firestore.createOpportunity(opportunity)
     .then(function(docRef){

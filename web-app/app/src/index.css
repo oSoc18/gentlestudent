@@ -643,3 +643,132 @@ footer {
         color: white; }
       #download .content .right img {
         width: 150px; }
+.l-container ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+.l-container img {
+  width: 60px;
+  margin: 5px 5px 5px 5px;
+  border-radius: 5px;
+}
+
+/* LAYOUT ==================== */
+.l-nav {
+  display: flex;
+  position: fixed;
+  width: 100%;
+  height: 100px;
+  background-color: #242D33;
+}
+.l-nav__container, .l-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+}
+@media screen and (max-width: 1050px) {
+  .l-nav__container, .l-container {
+    width: 95%;
+  }
+}
+.l-nav__button {
+  color: #e0e0e0;
+  background-color: #3392CC;
+  padding: 10px;
+  text-align: center;
+  width: 30%;
+  border-radius: 5px;
+}
+.l-nav__button:hover {
+  background-color: #2e83b8;
+  color: white;
+}
+
+.l-container {
+  display: block;
+  padding-top: 115px;
+}
+
+/* MODULE ==================== */
+.list {
+  display: flex;
+  background-color: white;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.list:hover {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25), 0 5px 8px rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+}
+.list__opportunity_title {
+  display: flex;
+  flex-grow: 0.7;
+  text-align: left;
+  justify-content: flex-start;
+}
+.list__opportunity_data {
+  display: flex;
+  text-align: left;
+  justify-content: flex-end;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.list__opportunity_data img {
+  width: 100px;
+}
+.list__opportunity_data .list__label{
+  padding: 10px;
+  /* font-size: 15px; */
+}
+@media screen and (max-width: 400px) {
+  .list__opportunity_data img {
+    width: 75px;
+  }
+}
+.list__label {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+}
+.list__label--header {
+  color: #00AACC;
+  
+}
+.list__label--value {
+  font-size: 1.3em;
+  color: #707070;
+}
+@media screen and (max-width: 650px) {
+  .list {
+    flex-direction: column;
+  }
+  .list__opportunity_title {
+    justify-content: center;
+    margin: 10px;
+  }
+  .list__label {
+    width: 170px;
+  }
+  .list__opportunity_data {
+    justify-content: center;
+  }
+}
+
+/* STATE ==================== */
+.is-list-selected {
+  background: #cb2d3e;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #cb2d3e, #ef473a);
+  background: linear-gradient(to right, #cb2d3e, #ef473a);
+  color: white;
+}
