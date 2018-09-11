@@ -212,7 +212,6 @@ class ParticipantApi {
         .document(participantId)
         .updateData(data)
         .whenComplete(() {
-      print("Likes changed");
     }).catchError((e) => print(e));
   }
 
