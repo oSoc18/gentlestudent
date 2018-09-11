@@ -49,7 +49,8 @@ const LeerkansenList = ({ opportunities }) =>
 						{!opportunities[key].blocked && <div class="list__label--value">Geaccepteerd</div>}
 					</div>
 				</div>
-				{!!opportunities[key].blocked && <div class="edit"><a href="#"><i class="fas fa-edit fa-lg"></i></a></div>}
+				{!!opportunities[key].blocked && <div class="edit tooltip"><a href="#"><i class="fas fa-edit fa-lg"></i></a></div>}
+				<div class="copy tooltip"><a href="#"><i class="fas fa-plus fa-lg"></i></a></div>
 			</li>
 			</a>
 			// <a href={`aangemaakte-leerkansen/${key}`} className={`card-item leerkans ${ opportunities[key].category }`} key={opportunities[key].addressId}>

@@ -775,8 +775,11 @@ footer {
 ul li.list:hover .edit {
 	visibility: visible;
 }
+ul li.list:hover .copy {
+	visibility: visible;
+}
 
-.edit {
+.edit{
 	padding-top: 7px;	
 	padding-right: 7px;
   visibility: hidden;
@@ -786,4 +789,24 @@ ul li.list:hover .edit {
 
 .edit a {
 	color: #00AACC;
+}
+
+.edit:hover a {
+	color: rgb(0, 133, 160);
+}
+
+.copy{
+	padding-top: 7px;	
+	padding-right: 7px;
+  visibility: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.copy a {
+	color: #00AACC;
+}
+
+.copy:hover a {
+	color: rgb(0, 133, 160);
 }
