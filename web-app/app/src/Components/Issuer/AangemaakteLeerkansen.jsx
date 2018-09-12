@@ -53,6 +53,7 @@ const LeerkansenList = ({ opportunities }) =>
 				</div>
 				<div class="filler"/>
 				{!!opportunities[key].blocked && <div class="edit tooltip"><a href="#"><i class="fas fa-edit fa-2x"></i></a></div>}
+				<div class="delete tooltip"><a href="#"><i class="fas fa-trash-alt fa-2x"></i></a></div>
 				<div class="copy tooltip"><a href={routes.MaakLeerkans+"/"+key}><i class="fas fa-plus fa-2x"></i></a></div>
 			</li>
 			</a>

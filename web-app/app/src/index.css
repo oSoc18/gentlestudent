@@ -778,6 +778,9 @@ ul li.list:hover .edit {
 ul li.list:hover .copy {
 	visibility: visible;
 }
+ul li.list:hover .delete {
+	visibility: visible;
+}
 
 .edit{
 	padding-top: 7px;	
@@ -809,13 +812,32 @@ ul li.list:hover .copy {
   float: right;
 }
 
+.copy:hover a {
+	color: rgb(0, 133, 160);
+}
+
+.delete{
+	padding-top: 7px;	
+	padding-right: 7px;
+  visibility: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.delete a {
+  color: #00AACC;
+  float: right;
+}
+
+.delete:hover a {
+	color: rgb(0, 133, 160);
+}
+
 .filler{
   flex-grow: 1;
 }
 
-.copy:hover a {
-	color: rgb(0, 133, 160);
-}
+
 
 .map-container{
   overflow: hidden;
