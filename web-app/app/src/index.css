@@ -862,8 +862,8 @@ ul li.list:hover .copy {
   position: relative;
   color:#707070;
   background: #fff;
-  margin: -40px 20px 0px 20px;
-  padding: 20px;
+  margin: -40px 80px 0px 80px;
+  padding: 40px;
 /* -webkit-box-shadow: 0px 3px 10px 0px rgba(50, 50, 50, 0.5);
   -moz-box-shadow: 0px 3px 10px 0px rgba(50, 50, 50, 0.5); */
   box-shadow: 0px 3px 10px 0px rgba(50, 50, 50, 0.5);
