@@ -197,7 +197,7 @@ class _SettingsPageState extends State<SettingsPage> {
               children: <Widget>[
                 new Text(
                   'De plugin die gebruikt wordt voor de map heeft (voorlopig) geen gebruiker locatie ondersteuning. U hoeft de permissie tot uw locatie momenteel nog niet te geven.',
-                  textAlign: TextAlign.justify,
+                  textAlign: TextAlign.left,
                 ),
               ],
             ),

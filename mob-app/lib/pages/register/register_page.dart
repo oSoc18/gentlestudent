@@ -263,7 +263,6 @@ class _RegisterPageState extends State<RegisterPage> {
       child: Material(
         borderRadius: BorderRadius.circular(10.0),
         shadowColor: Colors.lightBlueAccent.shade100,
-        elevation: 5.0,
         child: MaterialButton(
           minWidth: 200.0,
           height: 42.0,
