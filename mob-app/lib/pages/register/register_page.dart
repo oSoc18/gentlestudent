@@ -102,31 +102,28 @@ class _RegisterPageState extends State<RegisterPage> {
         return new AlertDialog(
           title: new Text("Privacybeleid & voorwaarden"),
           content: new RichText(
+            textAlign: TextAlign.justify,
             text: new TextSpan(
               children: [
                 new TextSpan(
                   text:
-                      'Door hieronder op de knop "Akkoord" te drukken, bevestigt u dat u ',
+                      'Door hieronder op de knop "Akkoord" te drukken, bevestigt u dat u de ',
                   style: new TextStyle(
                       color: Theme.of(context).brightness == Brightness.dark
                           ? Colors.white
                           : Colors.black),
                 ),
                 new TextSpan(
-                  text: 'de privacy voorwaarden van Gentlestustent',
+                  text: 'privacy policy van Gentlestudent',
                   style: new TextStyle(color: Colors.blue),
                   recognizer: new TapGestureRecognizer()
                     ..onTap = () async {
-                      //New website
-                      //await _launchInBrowser('https://docs.flutter.io/flutter/services/UrlLauncher-class.html');
-
-                      //Old website
                       await _launchInBrowser(
-                          "https://gentle-student.firebaseapp.com/privacy");
+                          "https://gentlestudent.gent/privacy");
                     },
                 ),
                 new TextSpan(
-                  text: ' gelezen heeft en er mee akkoord gaat.',
+                  text: ' gelezen heeft en er tevens mee akkoord gaat.',
                   style: new TextStyle(
                       color: Theme.of(context).brightness == Brightness.dark
                           ? Colors.white
@@ -137,14 +134,20 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
           actions: <Widget>[
             new FlatButton(
-              child: new Text('Akkoord'),
+              child: new Text(
+                'Akkoord',
+                style: new TextStyle(color: Colors.lightBlue),
+              ),
               onPressed: () {
                 _register();
                 Navigator.of(context).pop();
               },
             ),
             new FlatButton(
-              child: new Text('Niet akkoord'),
+              child: new Text(
+                'Niet akkoord',
+                style: new TextStyle(color: Colors.lightBlue),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },

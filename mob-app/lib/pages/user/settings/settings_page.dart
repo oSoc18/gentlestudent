@@ -58,9 +58,9 @@ class _SettingsPageState extends State<SettingsPage> {
       _showSnackBar("Er is een fout opgetreden tijdens het afmelden.");
     }
     Navigator.of(context).pushNamedAndRemoveUntil(
-          LoginPage.tag,
-          (Route<dynamic> r) => false,
-        );
+      LoginPage.tag,
+      (Route<dynamic> r) => false,
+    );
   }
 
   //Dialog for signing out
@@ -80,14 +80,24 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           actions: <Widget>[
             new FlatButton(
-              child: new Text('Ja'),
+              child: new Text(
+                'Ja',
+                style: TextStyle(
+                  color: Colors.lightBlue,
+                ),
+              ),
               onPressed: () {
                 _signOut();
                 Navigator.of(context).pop();
               },
             ),
             new FlatButton(
-              child: new Text('Neen'),
+              child: new Text(
+                'Neen',
+                style: TextStyle(
+                  color: Colors.lightBlue,
+                ),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -115,17 +125,27 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           actions: <Widget>[
             new FlatButton(
-              child: new Text('Camera'),
-              onPressed: () {
+              child: new Text(
+                'Camera',
+                style: TextStyle(
+                  color: Colors.lightBlue,
+                ),
+              ),
+              onPressed: () async {
                 Navigator.of(context).pop();
-                getImage(ImageSource.camera);
+                await getImage(ImageSource.camera);
               },
             ),
             new FlatButton(
-              child: new Text('Gallerij'),
-              onPressed: () {
+              child: new Text(
+                'Gallerij',
+                style: TextStyle(
+                  color: Colors.lightBlue,
+                ),
+              ),
+              onPressed: () async {
                 Navigator.of(context).pop();
-                getImage(ImageSource.gallery);
+                await getImage(ImageSource.gallery);
               },
             ),
           ],
@@ -135,7 +155,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   //Let user take a picture or choose an existing picture from their gallery
-  Future getImage(ImageSource imageSource) async {
+  Future<Null> getImage(ImageSource imageSource) async {
     var image = await ImagePicker.pickImage(source: imageSource);
 
     setState(() {
@@ -176,13 +196,20 @@ class _SettingsPageState extends State<SettingsPage> {
             child: new ListBody(
               children: <Widget>[
                 new Text(
-                    'De plugin die gebruikt wordt voor de map heeft (voorlopig) geen gebruiker locatie ondersteuning. U hoeft de permissie tot uw locatie momenteel nog niet te geven.'),
+                  'De plugin die gebruikt wordt voor de map heeft (voorlopig) geen gebruiker locatie ondersteuning. U hoeft de permissie tot uw locatie momenteel nog niet te geven.',
+                  textAlign: TextAlign.justify,
+                ),
               ],
             ),
           ),
           actions: <Widget>[
             new FlatButton(
-              child: new Text('Oke'),
+              child: new Text(
+                'Oke',
+                style: TextStyle(
+                  color: Colors.lightBlue,
+                ),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -216,7 +243,6 @@ class _SettingsPageState extends State<SettingsPage> {
       //A list containing all settings
       body: ListView(
         children: <Widget>[
-
           //Profile picture setting
           Container(
             child: ListTile(

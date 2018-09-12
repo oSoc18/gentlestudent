@@ -35,7 +35,7 @@ class InformationPage extends StatelessWidget {
               child: ListTile(
                 trailing: Icon(Icons.arrow_forward_ios),
                 title: Text('Website'),
-                onTap: () => _launchInBrowser("http://gentlestudent.gent"),
+                onTap: () => _launchInBrowser("https://gentlestudent.gent"),
               ),
               decoration: new BoxDecoration(
                   border: new Border(bottom: new BorderSide()))),
@@ -50,11 +50,7 @@ class InformationPage extends StatelessWidget {
                   //Navigator.of(context).pushNamed(AboutUsPage.tag);
 
                   //New website
-                  //_launchInBrowser("http://gentlestudent.gent/overons");
-
-                  //Old website
-                  _launchInBrowser(
-                      "https://gentle-student.firebaseapp.com/overons");
+                  _launchInBrowser("https://gentlestudent.gent/overons");
                 },
               ),
               decoration: new BoxDecoration(
@@ -111,12 +107,7 @@ class InformationPage extends StatelessWidget {
                 //Old "Privacy policy" page
                 //Navigator.of(context).pushNamed(PrivacyPolicyPage.tag);
 
-                //New website
-                //_launchInBrowser("http://gentlestudent.gent/privacy");
-
-                //Old website
-                _launchInBrowser(
-                    "https://gentle-student.firebaseapp.com/privacy");
+                _launchInBrowser("https://gentlestudent.gent/privacy");
               },
             ),
             decoration: new BoxDecoration(

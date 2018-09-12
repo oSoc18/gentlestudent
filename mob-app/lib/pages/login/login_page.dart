@@ -110,6 +110,10 @@ class _LoginPageState extends State<LoginPage> {
       decoration: InputDecoration(
         labelText: 'E-mailadres',
         hintText: 'naam@student.arteveldehs.be',
+        labelStyle: TextStyle(
+          color: Colors.lightBlue,
+          decorationColor: Colors.lightBlue,
+        ),
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
