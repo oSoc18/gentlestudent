@@ -104,13 +104,13 @@ window.onload = function() {
 	window.onscroll = throttler(10, function() {
 	  var box = document.getElementById('stickybox'),
 		  scroll = getScrollTop();
-		console.log(scroll);
-	  if (scroll <= 100) {
+		// console.log(scroll);
+	  if (scroll <= 200) {
 		box.style.top = "0px";
 	  }
 	  else {
-		  if(scroll<=box.parentElement.clientHeight-300){
-			box.style.top = (scroll - 100) + "px";
+		  if(scroll<=box.parentElement.clientHeight-400){
+			box.style.top = (scroll - 200) + "px";
 		  }
 	  }
 	});
