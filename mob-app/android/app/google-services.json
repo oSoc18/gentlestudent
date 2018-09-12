@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:52934623602:android:265960dcf9b832ce",
         "android_client_info": {
-          "package_name": "gent.gentlestudent.gentlestudent"
+          "package_name": "gent.gentlestudent"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "52934623602-10af85pcba6o7k6jskfbe9ihpm30ubdn.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "gent.gentlestudent.gentlestudent",
+            "package_name": "gent.gentlestudent",
             "certificate_hash": "a5da31ac8db64ecd5d27390cb44dfc2c7d514a43"
           }
         },
@@ -47,7 +47,7 @@
               "client_id": "52934623602-6s5k4ns526joa3ffldknau0s4on6m9me.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "gent.gentlestudent.gentlestudent"
+                "bundle_id": "gent.gentlestudent"
               }
             }
           ]
