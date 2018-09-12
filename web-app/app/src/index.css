@@ -788,7 +788,8 @@ ul li.list:hover .copy {
 }
 
 .edit a {
-	color: #00AACC;
+  color: #00AACC;
+  float: right;
 }
 
 .edit:hover a {
@@ -804,7 +805,12 @@ ul li.list:hover .copy {
 }
 
 .copy a {
-	color: #00AACC;
+  color: #00AACC;
+  float: right;
+}
+
+.filler{
+  flex-grow: 1;
 }
 
 .copy:hover a {

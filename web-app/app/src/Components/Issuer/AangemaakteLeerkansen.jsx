@@ -31,6 +31,7 @@ const LeerkansenList = ({ opportunities }) =>
 						<div class="list__label--value"><h2> {opportunities[key].title}</h2> </div>
 					</div>
 				</div>
+				<div class="filler"/>
 				<div class="list__opportunity_data">
 					<div class="list__label">
 						<div class="list__label--header"> Begindatum </div>
@@ -50,6 +51,7 @@ const LeerkansenList = ({ opportunities }) =>
 						{!opportunities[key].blocked && <div class="list__label--value">Geaccepteerd</div>}
 					</div>
 				</div>
+				<div class="filler"/>
 				{!!opportunities[key].blocked && <div class="edit tooltip"><a href="#"><i class="fas fa-edit fa-2x"></i></a></div>}
 				<div class="copy tooltip"><a href={routes.MaakLeerkans+"/"+key}><i class="fas fa-plus fa-2x"></i></a></div>
 			</li>
