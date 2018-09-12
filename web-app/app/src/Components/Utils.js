@@ -118,7 +118,7 @@ export const Breadcrumbs = () => (
 // Components
 export const renderInput = ({
   label,
-  input,
+  input: { value, ...input },
   type,
   id,
   defaultValue,
@@ -139,6 +139,7 @@ export const renderInput = ({
         </label>
         <input
           {...input}
+          value={value}
           className="input"
           type={type}
           id={id}

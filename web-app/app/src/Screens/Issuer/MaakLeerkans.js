@@ -6,9 +6,11 @@ import FormCreateLeerkans from './../../Components/Leerkansen/FormCreateLeerkans
 
 import { firestore } from './../../Components/Firebase';
 
-const CreateLeerkansPage = ({ history }) =>
+import { Category, Difficulty} from '../../Components/Leerkansen/Constants';
+
+const CreateLeerkansPage = ({ history, match }) =>
   <div>
-    <CreateLeerkans history={history} />
+    <CreateLeerkans history={history} match={match}/>
   </div>
 
 class CreateLeerkans extends Component {
@@ -16,7 +18,8 @@ class CreateLeerkans extends Component {
     super(props);
     // this.submit = this.submit.bind(this);
     this.state = {
-		  badges: null,
+      badges: null,
+      initValues: null
 		};
   };
   componentDidMount() {
@@ -29,8 +32,43 @@ class CreateLeerkans extends Component {
 		})
 		.catch(err => {
 			console.log('Error getting documents', err);
-		});
-	}
+    });
+    var self = this;
+    if(this.props.match.params.id!=undefined){
+      firestore.onceGetOpportunity(this.props.match.params.id).then(snapshot => {
+        self.setState({
+          initValues: {
+            addressId: snapshot.data().addressId,
+            beginDate: snapshot.data().beginDate,
+            category: self.getEnumValue(Category, snapshot.data().category),
+            difficulty: self.getEnumValue(Difficulty, snapshot.data().difficulty),
+            endDate: snapshot.data().endDate,
+            longDescription: snapshot.data().longDescription,
+            oppImageUrl: snapshot.data().oppImageUrl,
+            shortDescription: snapshot.data().shortDescription,
+            title: snapshot.data().title
+          }
+        });
+        console.log(self.state.initValues);
+      }).catch(function(error) {
+        console.error("Error getting document: ", error);
+      });
+    }
+    else{
+      this.stateopportunity=new Object;
+    }    
+  }
+  getEnumValue(enumTable, i){
+    var keys = Object.keys(enumTable).sort(function(a, b){
+      return enumTable[a] - enumTable[b];
+    }); //sorting is required since the order of keys is not guaranteed.
+    
+    var getEnum = function(ordinal) {
+      return keys[ordinal];
+    }
+
+    return getEnum(i);
+  }
   // submit() {
   //   /* 
   //   * Get the badge from state
@@ -57,8 +95,8 @@ class CreateLeerkans extends Component {
       resolve()
     })
   render() {
-    const { badges } = this.state;
-    const { history } = this.props;
+    const { badges, initValues } = this.state;
+    const { history, match } = this.props;
 
     return (
       <div>
@@ -68,7 +106,9 @@ class CreateLeerkans extends Component {
             <h1>Maak Leerkans</h1>
             <div className="form" id="create_leerkans">
               {/* <FormCreateLeerkans onSubmit={this.submit} badges={badges}/> */}
-              <FormCreateLeerkans badges={badges} history={history}/>
+              {/* <FormCreateLeerkans badges={badges} history={history} opportunity={opportunity}/> */}
+              {!initValues && <FormCreateLeerkans badges={badges} history={history}/>}
+              {!!initValues && <FormCreateLeerkans badges={badges} history={history} initialValues={initValues}/>}
             </div>
           </div>
         </div>

@@ -59,6 +59,7 @@ class App extends Component {
 								{/* <Auth> */}
 									<Route path={routes.BOLeerkansen} exact render={() => <BOLeerkansen />} />
 									<Route path={routes.MaakLeerkans} exact render={() => <MaakLeerkans />} />
+									<Route path={routes.MaakLeerkans+'/:id'} exact render={({match}) => <MaakLeerkans match={match}/>} />
 									<Route path={routes.IssueBadgeRecipient} exact render={() => <IssueBadgeRecipient />} />
 									<Route path={routes.RegistreerIssuer} exact render={() => <RegistreerIssuer />} />
 									<Route path={routes.ValideerIssuer} exact render={() => <ValideerIssuer />} />

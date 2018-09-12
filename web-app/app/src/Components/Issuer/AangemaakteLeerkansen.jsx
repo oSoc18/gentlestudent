@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Spinner from '../Spinner';
+import * as routes from '../../routes/routes';
 
 class List extends Component {
 	render() {
@@ -50,7 +51,7 @@ const LeerkansenList = ({ opportunities }) =>
 					</div>
 				</div>
 				{!!opportunities[key].blocked && <div class="edit tooltip"><a href="#"><i class="fas fa-edit fa-lg"></i></a></div>}
-				<div class="copy tooltip"><a href="#"><i class="fas fa-plus fa-lg"></i></a></div>
+				<div class="copy tooltip"><a href={routes.MaakLeerkans+"/"+key}><i class="fas fa-plus fa-lg"></i></a></div>
 			</li>
 			</a>
 			// <a href={`aangemaakte-leerkansen/${key}`} className={`card-item leerkans ${ opportunities[key].category }`} key={opportunities[key].addressId}>

@@ -113,3 +113,6 @@ export const createNewBeacon = (data) =>
 
 export const onceGetBeacons = () =>
   firestore.collection('Beacons').get()
+
+export const onceGetOpportunity = (id) =>
+  firestore.collection('Opportunities').doc(id).get()
