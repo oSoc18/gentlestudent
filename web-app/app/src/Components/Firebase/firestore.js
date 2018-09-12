@@ -116,3 +116,6 @@ export const onceGetBeacons = () =>
 
 export const onceGetOpportunity = (id) =>
   firestore.collection('Opportunities').doc(id).get()
+
+export const onceGetPrivacyPage = () =>
+  firestore.collection('PrivacyPage').doc("PrivacyPage").get()
