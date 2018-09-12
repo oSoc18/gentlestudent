@@ -57,7 +57,7 @@ class Leerkansen extends Component {
 									<List opportunities={opportunities} />
 								</div>
 								<div className="content-right">
-									<div className="content map-container">
+									<div className="content map-container" id="stickybox">
 										{!!opportunities && !!addresses && <Maps opportunities={opportunities} addresses={addresses}/>}
 									</div>
 								</div>
@@ -69,5 +69,39 @@ class Leerkansen extends Component {
 		)
 	}
 }
+
+window.onload = function() {
+
+	function getScrollTop() {
+	  if (typeof window.pageYOffset !== 'undefined' ) {
+		// Most browsers
+		return window.pageYOffset;
+	  }
+  
+	  var d = document.documentElement;
+	  if (d.clientHeight) {
+		// IE in standards mode
+		return d.scrollTop;
+	  }
+  
+	  // IE in quirks mode
+	  return document.body.scrollTop;
+	}
+  
+	window.onscroll = function() {
+	  var box = document.getElementById('stickybox'),
+		  scroll = getScrollTop();
+		console.log(scroll);
+	  if (scroll <= 100) {
+		box.style.top = "0px";
+	  }
+	  else {
+		  if(scroll<=box.parentElement.clientHeight-300){
+			box.style.top = (scroll - 100) + "px";
+		  }
+	  }
+	};
+  
+  };
 
 export default Leerkansen;

@@ -199,7 +199,7 @@ button.primary {
   #leerkansen .content-left {
     width: 60%; }
   #leerkansen .content-right {
-    height: calc(100vh - 209px);
+    /* height: calc(100vh - 209px); */
     width: 40%;
     margin-right: -15px;
     width: calc(40% + 15px); }
@@ -1003,4 +1003,19 @@ ul li.list:hover .copy {
 }
 .privacycontent{
   padding: 0px 20px 0px 20px;
+}
+#stickybox {
+  /* Position absolutely, 30px down from the top */
+  /* position: absolute;
+  top: 30px; */
+
+  /* In my case I'm centering it in the window; do what you like */
+  /* margin-left: -100px;
+  left: 50%;
+  width: 200px; */
+
+  /* These are just for my example */
+  /* height: 1.25em;
+  border: 1px solid #bbb;
+  text-align: center; */
 }
