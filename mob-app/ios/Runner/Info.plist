@@ -35,19 +35,18 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Geef Gentlestudent toegang tot jouw camera.</string>
+	<string>Gentlestudent heeft toegang nodig tot jouw camera om je profielfoto te kunnen wijzigen.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Geef Gentlestudent toegang tot jouw locatie.</string>
+	<string>Gentlestudent heeft toegang nodig tot jouw locatie om leerkansen te kunnen ontdekken.</string>
 	<key>NSLocationAlwaysInUseUsageDescription</key>
-	<string>Geef Gentlestudent toegang tot jouw locatie.</string>
+	<string>Gentlestudent heeft toegang nodig tot jouw locatie om leerkansen te kunnen ontdekken.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Geef Gentlestudent toegang tot jouw locatie.</string>
+	<string>Gentlestudent heeft toegang nodig tot jouw locatie om leerkansen te kunnen ontdekken.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Geef Gentlestudent toegang tot jouw afbeeldingen.</string>
+	<string>Gentlestudent heeft toegang nodig tot jouw afbeeldingen om je profielfoto te kunnen wijzigen.</string>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>bluetooth-central</string>
-		<string>bluetooth-peripheral</string>
+		<string>bluetooth-le</string>
 		<string>location</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
