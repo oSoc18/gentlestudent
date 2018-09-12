@@ -70,7 +70,20 @@ class Leerkansen extends Component {
 	}
 }
 
+//the following code makes the div holding the google maps widget follow the scroll until the footer
 window.onload = function() {
+	//throttles a listener (like onscroll) to limit the amount of times the callback function gets called per second
+	function throttler(ms, callback) {
+		var timer;
+	
+		return function() {
+			var self = this, args = arguments;
+			clearTimeout(timer);
+			timer = setTimeout(function() {
+				callback.apply(self, args);
+			}, ms);
+		};
+	}
 
 	function getScrollTop() {
 	  if (typeof window.pageYOffset !== 'undefined' ) {
@@ -88,7 +101,7 @@ window.onload = function() {
 	  return document.body.scrollTop;
 	}
   
-	window.onscroll = function() {
+	window.onscroll = throttler(10, function() {
 	  var box = document.getElementById('stickybox'),
 		  scroll = getScrollTop();
 		console.log(scroll);
@@ -100,7 +113,7 @@ window.onload = function() {
 			box.style.top = (scroll - 100) + "px";
 		  }
 	  }
-	};
+	});
   
   };
 
