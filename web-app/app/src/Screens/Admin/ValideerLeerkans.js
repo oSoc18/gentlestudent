@@ -19,7 +19,6 @@ class ValideerLeerkans extends Component {
         };
         this.getOpportunities = this.getOpportunities.bind(this);
     };
-
     componentDidMount() {
         this.getOpportunities();
         this.getBeacons();
@@ -45,7 +44,7 @@ class ValideerLeerkans extends Component {
                     res[doc.id] = doc.data();
                 }
             });
-            res["MakeNew"] = {name: "> Maak een nieuwe beacon", beaconId: "MakeNewTrue"};
+            res["MakeNewTrue"] = {name: "> Maak een nieuwe beacon"};
             this.setState(() => ({ beacons: res }));
         })
         .catch(err => {
@@ -182,9 +181,6 @@ class Opportunity extends Component{
         firestore.linkOpportunityToBeacon(beaconId, opportunityId).catch(function(error) {
             console.error("Error linking opportunity: ", error);
           });
-        // let data = new Object();
-        // data["opportunityId"] = opportunityId;
-        // firestore.createNewBeacon(beaconId, data);
         this.postNewBadge(opportunityId);
         this.props.getOpportunities();
       }
@@ -268,7 +264,7 @@ class Opportunity extends Component{
                                 data={{
                                 list: Object.keys(beacons).map(key => {
                                     return {
-                                    value: beacons[key].beaconId,
+                                    value: key,
                                     display: beacons[key].name
                                     };
                                 })
