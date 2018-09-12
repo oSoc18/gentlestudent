@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:Gentle_Student/models/address.dart';
 import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/models/user.dart';
@@ -10,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:Gentle_Student/data/api.dart';
 import 'package:beacons/beacons.dart';
 import 'package:local_notifications/local_notifications.dart';
-import 'package:Gentle_Student/models/beacon.dart';
 
 //This page is going to be the first page users see after they log in
 //It consists out of 3 other pages but more of that in a bit
@@ -38,21 +39,12 @@ class _HomePageState extends State<HomePage> {
   Widget currentPage; // Page that is open at the moment.
 
   //Declaration of the other variables
-  List<IBeacon> _beaconList = [];
   List<String> _keyList = [];
+  Set<String> _notifiedKeyList = new Set<String>();
   Opportunity _opportunity;
   Badge _badge;
   Issuer _issuer;
   Address _address;
-  int _notId = 0;
-
-  //Creating a notification channel to send notification to phones with Android Oreo or newer
-  static const AndroidNotificationChannel channel =
-      const AndroidNotificationChannel(
-          id: 'default_notification',
-          name: 'Default',
-          description: 'Grant this app the ability to show notifications',
-          importance: AndroidNotificationChannelImportance.HIGH);
 
   //This method gets called when the page is initializing
   //We overwrite it to:
@@ -119,17 +111,24 @@ class _HomePageState extends State<HomePage> {
   _loadBeacons() async {
     final beaconApi = new BeaconApi();
     final beacons = await beaconApi.getAllBeacons();
+    final keyList = new List<String>();
+    beacons.forEach((beacon) => keyList.add(beacon.beaconId));
     if (this.mounted) {
       setState(() {
-        _beaconList = beacons;
-        for (IBeacon beacon in _beaconList) {
-          _keyList.add(beacon.beaconId);
-        }
+        _keyList = keyList;
       });
     }
   }
 
-  //API call to load data from the Firebase
+  //Creating a notification channel to send notification to phones with Android Oreo or newer
+  static const AndroidNotificationChannel channel =
+      const AndroidNotificationChannel(
+          id: 'default_notification',
+          name: 'Default',
+          description: 'Grant this app the ability to show notifications',
+          importance: AndroidNotificationChannelImportance.DEFAULT);
+
+  //API call to load an opportunity found by a beacon from the Firebase
   _loadFromFirebase(String beaconkey) async {
     final opportunityApi = new OpportunityApi();
     final beaconApi = new BeaconApi();
@@ -166,26 +165,26 @@ class _HomePageState extends State<HomePage> {
   }
 
   //Scanning for beacons
-  _beaconRanging() {
+  Future<Null> _beaconRanging() async {
     bool notified = false;
-    _notId = 0;
-    Beacons
-        .ranging(
+    int _notId = 0;
+    Beacons.ranging(
       region: new BeaconRegionIBeacon(
         identifier: 'Gentlestudent beacons',
         //The ID all of our beacons share
         proximityUUID: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
       ),
       inBackground: true,
-    )
-        .listen((result) async {
+    ).listen((result) async {
       if (result.isSuccessful) {
         if (result.beacons.isNotEmpty) {
           String beaconKey =
               result.beacons.first.ids[1] + result.beacons.first.ids[2];
-          print(beaconKey);
 
-          if (_keyList.contains(beaconKey)) {
+          if (_keyList.contains(beaconKey) &&
+              !_notifiedKeyList.contains(beaconKey)) {
+            _notifiedKeyList.add(beaconKey);
+            print(beaconKey);
             if (!notified) {
               notified = true;
 
@@ -217,8 +216,8 @@ class _HomePageState extends State<HomePage> {
             LocalNotifications.createAndroidNotificationChannel(
                 channel: channel);
             LocalNotifications.createNotification(
-                title: "out of range",
-                content: "In range of an opportunity!",
+                title: "Beacon buiten bereik",
+                content: "De leerkans is niet langer in de buurt",
                 id: _notId,
                 androidSettings: new AndroidSettings(channel: channel));
           }
