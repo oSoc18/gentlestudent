@@ -79,6 +79,8 @@ class MyApp extends StatelessWidget {
       defaultBrightness: Brightness.light,
       data: (brightness) => new ThemeData(
             primarySwatch: Colors.lightBlue,
+            accentColor: Colors.lightBlue,
+            textSelectionHandleColor: Colors.lightBlue,
             brightness: brightness,
             fontFamily: 'NeoSansPro',
           ),
@@ -104,6 +106,8 @@ class MyAppHome extends StatelessWidget {
         defaultBrightness: Brightness.light,
         data: (brightness) => new ThemeData(
               primarySwatch: Colors.lightBlue,
+              accentColor: Colors.lightBlue,
+              textSelectionHandleColor: Colors.lightBlue,
               brightness: brightness,
               fontFamily: 'NeoSansPro',
             ),
