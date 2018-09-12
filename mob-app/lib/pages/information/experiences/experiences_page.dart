@@ -63,7 +63,8 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
     Navigator.push(
       context,
       new MaterialPageRoute(
-        builder: (BuildContext context) => new ExperiencesDetailPage(experience),
+        builder: (BuildContext context) =>
+            new ExperiencesDetailPage(experience),
       ),
     );
   }
@@ -80,44 +81,51 @@ class _ExperiencesPageState extends State<ExperiencesPage> {
       child: new GestureDetector(
         onTap: () => _navigateToExperienceDetails(experience),
         child: Card(
-          child: new Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: new ListBody(
             children: <Widget>[
-              new CachedNetworkImage(
-                imageUrl: experience.imageUrl,
-                placeholder: new CircularProgressIndicator(),
-                errorWidget: new Icon(Icons.error),
+              new Column(
+                children: <Widget>[
+                  new CachedNetworkImage(
+                    imageUrl: experience.imageUrl,
+                    placeholder: new CircularProgressIndicator(),
+                    errorWidget: new Icon(Icons.error),
+                  ),
+                ],
               ),
               new SizedBox(
                 height: 10.0,
               ),
-              new Padding(
-                padding: EdgeInsets.only(
-                  left: 20.0,
-                  right: 20.0,
-                  top: 5.0,
-                ),
-                child: new Text(
-                  experience.title,
-                  style: new TextStyle(
-                    fontSize: 21.0,
+              new Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  new Padding(
+                    padding: EdgeInsets.only(
+                      left: 20.0,
+                      right: 20.0,
+                      top: 5.0,
+                    ),
+                    child: new Text(
+                      experience.title,
+                      style: new TextStyle(
+                        fontSize: 21.0,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              new Padding(
-                padding: EdgeInsets.only(
-                  left: 20.0,
-                  right: 20.0,
-                  top: 10.0,
-                  bottom: 8.0,
-                ),
-                child: new Text(
-                  experience.shortText,
-                  style: new TextStyle(
-                    fontSize: 14.0,
+                  new Padding(
+                    padding: EdgeInsets.only(
+                      left: 20.0,
+                      right: 20.0,
+                      top: 10.0,
+                      bottom: 8.0,
+                    ),
+                    child: new Text(
+                      experience.shortText,
+                      style: new TextStyle(
+                        fontSize: 14.0,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ],
           ),
