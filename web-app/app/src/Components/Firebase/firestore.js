@@ -122,3 +122,6 @@ export const onceGetPrivacyPage = () =>
 
 export const softDeleteOpportunity = (id) =>
   firestore.collection('Opportunities').doc(id).update({authority: 2})
+
+export const onceGetVoorwaarden = () =>
+  firestore.collection('Voorwaarden').doc("Voorwaarden").get()
