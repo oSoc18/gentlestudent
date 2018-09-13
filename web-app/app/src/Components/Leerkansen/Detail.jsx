@@ -125,7 +125,7 @@ class LeerkansDetail extends Component {
       <div class="opportunity-detail">
         {!!opportunity.authority==0 && 
           <div class="opportunity-page-warning">
-            <p>Dit is een preview van hoe de detailpagina van jouw leerkans er zal uitzien. 
+            <p><i class="fas fa-exclamation"></i> Dit is een preview van hoe de detailpagina van jouw leerkans er zal uitzien. 
               Mogelijke deelnemers zullen deze pagina pas kunnen zien wanneer de leerkans goedgekeurd is.</p>
           </div>
         }
