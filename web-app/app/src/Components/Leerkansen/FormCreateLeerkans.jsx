@@ -48,6 +48,7 @@ class FormCreateLeerkans extends React.Component {
       description: "",
       synopsis: "",
       title: "",
+      contact: "",
       image: "",
       imageUrl: "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Opportunityimages%2FNederlandse%20Les.jpg?alt=media&token=82cecaa7-4d6e-473d-b06a-a5eea35d8d4b",
       imageExtension: ""
@@ -84,6 +85,7 @@ class FormCreateLeerkans extends React.Component {
         street: this.props.initValues.street,
         synopsis: this.props.initValues.synopsis,
         title: this.props.initValues.title,
+        contact: this.props.initValues.contact
       });
     }
     // this.setState({title: "skjsd"});
@@ -231,6 +233,7 @@ class FormCreateLeerkans extends React.Component {
     opportunity["pinImageUrl"] = this.state.pinImageUrl;
     opportunity["shortDescription"] = this.state.synopsis;
     opportunity["title"] = this.state.title;
+    opportunity["contact"] = this.state.contact;
     opportunity["participations"] = 0;
 
     firestore.createOpportunity(opportunity)
@@ -297,6 +300,19 @@ class FormCreateLeerkans extends React.Component {
             defaultValue="Titel"
             placeholder="Titel"
             value={this.state.title}
+            onChange={ this.handleChange }
+          />
+        </div>
+        <div className="form-group">
+          <Field
+            label="Contact"
+            type="text"
+            name="contact"
+            id="contact"
+            component={renderInput}
+            defaultValue="E-mailadres contactpersoon"
+            placeholder="E-mailadres contactpersoon"
+            value={this.state.contact}
             onChange={ this.handleChange }
           />
         </div>
@@ -576,7 +592,7 @@ class BeaconLocationPicker extends Component {
 FormCreateLeerkans = reduxForm({
   form: 'createLeerkansForm',
   validate,
-  fields: ['title', 'synopsis'],
+  // fields: ['title', 'synopsis'],
   enableReinitialize: true
   // initialValues: {
   //   title: "test"
