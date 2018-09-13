@@ -42,7 +42,7 @@ class SignUpForm extends Component {
       firstname,
       lastname,
       email,
-      birthday,
+      // birthday,
       education,
       institute,
       passwordOne,
@@ -56,7 +56,7 @@ class SignUpForm extends Component {
     let user = new Object();
     user["name"] = firstname+" "+lastname;
     user["email"] = email;
-    user["birthday"] = birthday;
+    // user["birthday"] = birthday;
     user["education"] = education;
     user["institute"] = institute;
     user["favorites"] = [];
@@ -93,7 +93,7 @@ class SignUpForm extends Component {
       firstname,
       lastname,
       email,
-      birthday,
+      // birthday,
       education,
       institute,
       passwordOne,
@@ -108,7 +108,7 @@ class SignUpForm extends Component {
       || email === ''
       || firstname === ''
       || lastname === ''
-      || ! /^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/.test(birthday)
+      // || ! /^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/.test(birthday)
       || education === ''
       || institute === ''
       || accepted == false
@@ -143,7 +143,7 @@ class SignUpForm extends Component {
             placeholder="Achternaam"
           />
         </div>
-        <div className="form-group">
+        {/* <div className="form-group">
           Geboortedatum:
           <input
             value={birthday}
@@ -151,7 +151,7 @@ class SignUpForm extends Component {
             type="date"
             placeholder="YYYY-MM-DD"
           />
-          </div>
+          </div> */}
         <div className="form-group">
           Educatie:
           <input

@@ -45,27 +45,30 @@ class App extends Component {
 					<div>
 						<Navigation/>
 						<Switch>
-							<Route path={routes.FrontPage} exact render={() => <FrontPage />} />
-							<Route path={routes.Leerkansen} render={() => <Leerkansen />} />
-							<Route path={routes.WordIssuer} exact render={() => <WordIssuer />} />
-							<Route path={routes.Ervaringen} exact render={() => <Ervaringen />} />
-							<Route path={routes.Nieuws} exact render={() => <Nieuws />} />
-							<Route path={routes.OverOns} exact render={() => <OverOns />} />
-							<Route path={routes.Register} render={() => <Register />} />
-							<Route path={routes.Login} render={() => <Login />} />
-							{/* <Route path="/login" render={() => <Login />} /> */}
-							{/* BACKOFFICE */}
-							{/* <Auth> */}
-								<Route path={routes.BOLeerkansen} exact render={() => <BOLeerkansen />} />
-								<Route path={routes.MaakLeerkans} exact render={() => <MaakLeerkans />} />
-								<Route path={routes.IssueBadgeRecipient} exact render={() => <IssueBadgeRecipient />} />
-								<Route path={routes.RegistreerIssuer} exact render={() => <RegistreerIssuer />} />
-								<Route path={routes.ValideerIssuer} exact render={() => <ValideerIssuer />} />
-								<Route path={routes.ValideerLeerkans} exact render={() => <ValideerLeerkans />} />
-								<Route path={routes.AangemaakteLeerkansen} render={() => <AangemaakteLeerkansen />} />
-								<Route path={routes.Profiel} render={() => <Profiel />} />
-								<Route path={routes.Privacy} render={() => <Privacy />} />
-							{/* </Auth> */}
+							<div class="main-content">
+								<Route path={routes.FrontPage} exact render={() => <FrontPage />} />
+								<Route path={routes.Leerkansen} render={() => <Leerkansen />} />
+								<Route path={routes.WordIssuer} exact render={() => <WordIssuer />} />
+								<Route path={routes.Ervaringen} exact render={() => <Ervaringen />} />
+								<Route path={routes.Nieuws} exact render={() => <Nieuws />} />
+								<Route path={routes.OverOns} exact render={() => <OverOns />} />
+								<Route path={routes.Register} render={() => <Register />} />
+								<Route path={routes.Login} render={() => <Login />} />
+								{/* <Route path="/login" render={() => <Login />} /> */}
+								{/* BACKOFFICE */}
+								{/* <Auth> */}
+									<Route path={routes.BOLeerkansen} exact render={() => <BOLeerkansen />} />
+									<Route path={routes.MaakLeerkans} exact render={() => <MaakLeerkans />} />
+									<Route path={routes.MaakLeerkans+'/:id'} exact render={({match}) => <MaakLeerkans match={match}/>} />
+									<Route path={routes.IssueBadgeRecipient} exact render={() => <IssueBadgeRecipient />} />
+									<Route path={routes.RegistreerIssuer} exact render={() => <RegistreerIssuer />} />
+									<Route path={routes.ValideerIssuer} exact render={() => <ValideerIssuer />} />
+									<Route path={routes.ValideerLeerkans} exact render={() => <ValideerLeerkans />} />
+									<Route path={routes.AangemaakteLeerkansen} render={() => <AangemaakteLeerkansen />} />
+									<Route path={routes.Profiel} render={() => <Profiel />} />
+									<Route path={routes.Privacy} render={() => <Privacy />} />
+								{/* </Auth> */}
+							</div>
 						</Switch>
 						<Footer/>
 					</div>

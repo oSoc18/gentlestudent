@@ -16,6 +16,7 @@ class Leerkansen extends Component {
 	
 		this.state = {
 		  opportunities: null,
+		  addresses: null
 		};
 	  }
 	componentDidMount() {
@@ -29,29 +30,42 @@ class Leerkansen extends Component {
 		.catch(err => {
 			console.log('Error getting documents', err);
 		});
+		firestore.onceGetAddresses().then(snapshot => {
+			var res = new Object()
+			snapshot.forEach(doc => {
+				res[doc.id] = doc.data();
+			});
+			this.setState(() => ({ addresses: res }))
+		})
+		.catch(err => {
+			console.log('Error getting documents', err);
+		});
 	}
 	render() {
 		const { opportunities } = this.state;
+		const { addresses } = this.state;
 
 		return (
-			<div className="leerkansen-content">
-				<div className="content">
-					<SearchFilter />
-					<div id="leerkansen">
-						<div className="content-left">
-							<Switch>
-								<Route path={'/leerkansen/:id'} render={({match}) => <Detail opportunities={opportunities}  match={match}/>} />
-								<Route path={'/leerkansen'} render={() => <List opportunities={opportunities} />} />
-							</Switch>
-						</div>
-						<div className="content-right">
-							<div className="content">
-								<Maps opportunities={opportunities}/>
+			<Switch>
+				<Route path={'/leerkansen/:id'} render={({match}) => <Detail opportunities={opportunities}  match={match}/>} />
+				<Route path={'/leerkansen'} render={() => 
+					<div className="leerkansen-content">
+						<div className="content">
+							<SearchFilter />
+							<div id="leerkansen">
+								<div className="content-left">
+									<List opportunities={opportunities} />
+								</div>
+								<div className="content-right">
+									<div className="content map-container" id="stickybox">
+										{!!opportunities && !!addresses && <Maps opportunities={opportunities} addresses={addresses}/>}
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
+				} />
+			</Switch>
 		)
 	}
 }

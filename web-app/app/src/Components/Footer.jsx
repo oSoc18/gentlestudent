@@ -5,7 +5,7 @@ class Footer extends Component {
     render() {
         return (
             <footer>
-                <div className="container">
+                <div className="container footer">
                     <div className="content">
                         <ul className="first">
                             <li><a href="/">Leerkansen</a></li>

@@ -57,8 +57,8 @@ export const onceGetNonValidatedOpportunities = () =>
 export const onceGetValidatedOpportunities = () =>
   firestore.collection('Opportunities').where('blocked', '==', false).get()
 
-export const validateOpportunity = (id) =>
-  firestore.collection('Opportunities').doc(id).update({ blocked: false })
+export const validateOpportunity = (opportunityId) =>
+  firestore.collection('Opportunities').doc(opportunityId).update({ blocked: false })
 
 export const createNewBadge = (data) =>
   firestore.collection('Badges').add(data)
@@ -84,6 +84,9 @@ export const createNewParticipant = (id, data) =>
 export const linkBeaconToOpportunity = (opportunityId, beaconId) =>
   firestore.collection('Opportunities').doc(opportunityId).update({ beaconId: beaconId })
 
+export const linkOpportunityToBeacon = (beaconId, opportunityId) =>
+  firestore.collection('Beacons').doc(beaconId).set({ opportunities: {[opportunityId]: true} }, { merge: true })
+
 export const onceGetIssuer = (id) =>
   firestore.collection('Issuers').doc(id).get()
 
@@ -102,5 +105,17 @@ export const rejectParticipation = (id) =>
 export const onceGetAddress = (id) =>
   firestore.collection('Addresses').doc(id).get()
 
-export const createNewBeacon = (id, data) => 
-  firestore.collection("Beacons").doc(id).set(data)
+export const onceGetAddresses = () =>
+  firestore.collection('Addresses').get()
+
+export const createNewBeacon = (data) => 
+  firestore.collection("Beacons").add(data)
+
+export const onceGetBeacons = () =>
+  firestore.collection('Beacons').get()
+
+export const onceGetOpportunity = (id) =>
+  firestore.collection('Opportunities').doc(id).get()
+
+export const onceGetPrivacyPage = () =>
+  firestore.collection('PrivacyPage').doc("PrivacyPage").get()

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { firestore } from './../Components/Firebase';
 
 
 class Privacy extends Component {
@@ -8,15 +9,27 @@ class Privacy extends Component {
     super(props)
 
     this.state={
+        text: ""
     }
-  }
+    }
     componentDidMount() {
-
+        var self = this;
+        firestore.onceGetPrivacyPage().then(snapshot => {
+            console.log("content:");
+            console.log(snapshot.data().content);
+            self.setState({text: snapshot.data().content});
+        }).catch(function(error) {
+            console.error("Error getting document: ", error);
+        });
     }
     render() {
+        const {text} = this.state;
         return (
             <React.Fragment>
-                <div className="container">
+                <div class="content">
+                    <div class="privacycontent" dangerouslySetInnerHTML={{ __html: this.state.text }} />
+                </div>
+                {/* <div className="container">
                     <div className="content">
                         <h1>Privacy</h1>
                         <p>This page informs you of our policies regarding the collection, use and disclosure of Personal Information we receive from users of the Site.</p>
@@ -45,7 +58,7 @@ class Privacy extends Component {
 
                         <p>Last updated: 1/1/2018</p>
                     </div>
-                </div>
+                </div> */}
             </React.Fragment>
         )
     }
