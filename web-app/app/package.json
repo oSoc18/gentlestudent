@@ -12,6 +12,7 @@
 		"jsonwebtoken": "^8.3.0",
 		"node-sass-chokidar": "^1.2.2",
 		"react": "^16.3.0",
+		"react-confirm-alert": "^2.0.5",
 		"react-dom": "^16.3.0",
 		"react-dropzone": "^4.2.13",
 		"react-geocode": "^0.1.2",

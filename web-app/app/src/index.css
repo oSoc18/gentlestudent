@@ -781,6 +781,9 @@ ul li.list:hover .copy {
 ul li.list:hover .delete {
 	visibility: visible;
 }
+.icon-option{
+  padding-left: 5px;
+}
 
 .edit{
 	padding-top: 7px;	
@@ -1040,4 +1043,32 @@ ul li.list:hover .delete {
   /* height: 1.25em;
   border: 1px solid #bbb;
   text-align: center; */
+}
+.confirm-delete{
+  text-align: center;
+}
+.confirm-delete .content{
+  display: flex;
+}
+.confirm-delete button{
+  border-radius: 8px;
+  color: #FFFFFF !important;
+  border: 2px solid #00AACC;
+  background-color: #00AACC;
+  cursor: pointer;
+  font-size: 20px;
+}
+.confirm-delete .content-left{
+  width: 50%;
+  margin-right: 20px;
+}
+.confirm-delete .content-left button{
+  float: right;
+}
+.confirm-delete .content-right{
+  width: 50%;
+  margin-left: 20px;
+}
+.confirm-delete .content-right button{
+  float: left;
 }
