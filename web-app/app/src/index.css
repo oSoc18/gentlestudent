@@ -701,6 +701,7 @@ footer {
   margin: 10px;
   padding: 5px;
   border-radius: 5px;
+  position: relative;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.2);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
@@ -710,7 +711,9 @@ footer {
 }
 .list__opportunity_title {
   display: flex;
-  flex-grow: 0.7;
+  /* flex-grow: 0.7; */
+  overflow: hidden;
+  width:30%;
   text-align: left;
   justify-content: flex-start;
 }
@@ -718,6 +721,7 @@ footer {
   display: flex;
   text-align: left;
   justify-content: flex-end;
+  width:60%;
   overflow: hidden;
   white-space: nowrap;
 }
@@ -747,6 +751,7 @@ footer {
 .list__label--value {
   font-size: 1.3em;
   color: #707070;
+  overflow: hidden;
 }
 @media screen and (max-width: 650px) {
   .list {
@@ -794,7 +799,7 @@ ul li.list:hover .delete {
   z-index: 1;
 }
 .icon-container i{
-  margin:0px 5px 5px 5px;
+  margin:2px;
 }
 .icon-container:hover{
   color: rgb(0, 133, 160);
@@ -802,6 +807,16 @@ ul li.list:hover .delete {
 
 .filler{
   flex-grow: 1;
+}
+
+.icon-options{
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.icon-options a{
+  width: 34%;
 }
 
 .map-container{
@@ -1033,4 +1048,7 @@ ul li.list:hover .delete {
 }
 .confirm-delete .content-right button{
   float: left;
+}
+.opp-list-page p{
+  /* text-align: center; */
 }

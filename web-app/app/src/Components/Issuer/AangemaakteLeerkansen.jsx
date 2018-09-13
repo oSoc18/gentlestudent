@@ -83,15 +83,11 @@ class LeerkansenList extends Component {
 								<div class="list__label--value"><h2> {opportunities[key].title}</h2> </div>
 							</div>
 						</div>
-						<div class="filler"/>
+						{/* <div class="filler"/> */}
 						<div class="list__opportunity_data">
 							<div class="list__label">
-								<div class="list__label--header"> Begindatum </div>
-								<div class="list__label--value">{opportunities[key].beginDate}</div>
-							</div>
-							<div class="list__label">
-								<div class="list__label--header"> Einddatum </div>
-								<div class="list__label--value">{opportunities[key].endDate}</div>
+								<div class="list__label--header"> Periode </div>
+								<div class="list__label--value">van {opportunities[key].beginDate}<br/>tot {opportunities[key].endDate}</div>
 							</div>
 							<div class="list__label">
 								<div class="list__label--header"> Aantal deelnemers </div>
@@ -104,9 +100,16 @@ class LeerkansenList extends Component {
 							</div>
 						</div>
 						{/* <div class="filler"/> */}
-						{!!(opportunities[key].authority==0) && <a href="#"><div class="edit icon-container"><i class="fas fa-edit fa-2x"></i></div></a>}
-						<a href="#" onClick={this.confirmDelete}><div class="delete icon-container"><i class="fas fa-trash-alt fa-2x" id={key}></i></div></a>
-						<a href={routes.MaakLeerkans+"/"+key}><div class="copy icon-container"><i class="fas fa-plus fa-2x"></i></div></a>
+						<div class="icon-options">
+							{!!(opportunities[key].authority==0) && <a href="#"><div class="edit icon-container"><i class="fas fa-edit fa-lg"></i></div></a>}
+							{!(opportunities[key].authority==0) && <div class="edit icon-container"><i class="fas fa-edit fa-lg" style={{visibility:'hidden'}}></i></div>}
+							<a href="#" onClick={this.confirmDelete}><div class="delete icon-container"><i class="fas fa-trash-alt fa-lg" id={key}></i></div></a>
+							<a href={routes.MaakLeerkans+"/"+key}><div class="copy icon-container"><i class="fas fa-plus fa-lg"></i></div></a>
+						</div>
+						{/* {!!(opportunities[key].authority==0) && <a href="#"><div class="edit icon-container"><i class="fas fa-edit fa-lg"></i></div></a>}
+						{!(opportunities[key].authority==0) && <div class="edit icon-container"><i class="fas fa-edit fa-lg" style={{visibility:'hidden'}}></i></div>}
+						<a href="#" onClick={this.confirmDelete}><div class="delete icon-container"><i class="fas fa-trash-alt fa-lg" id={key}></i></div></a>
+						<a href={routes.MaakLeerkans+"/"+key}><div class="copy icon-container"><i class="fas fa-plus fa-lg"></i></div></a> */}
 					</li>
 					</a>
 					// <a href={`aangemaakte-leerkansen/${key}`} className={`card-item leerkans ${ opportunities[key].category }`} key={opportunities[key].addressId}>

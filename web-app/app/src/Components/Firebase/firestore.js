@@ -5,7 +5,7 @@ export const createOpportunity = (data) =>
 
 export const onceGetOpportunities = () =>
   // db.ref('Opportunities').once('value');
-  firestore.collection('Opportunities').get()
+  firestore.collection('Opportunities').where('authority', '<', 2).get()
 
 export async function createIssuer(institution, longName, url, phonenumber,street, housenumber,bus, postalcode, city, userId, userEmail) {
     var addressdata = {

@@ -18,7 +18,8 @@ class AangemaakteLeerkansen extends Component {
 	
 		this.state = {
 		  opportunities: null,
-		  userId: ""
+		  userId: "",
+		  isAdmin: false
 		};
 
 		this.getOpportunities = this.getOpportunities.bind(this);
@@ -26,27 +27,56 @@ class AangemaakteLeerkansen extends Component {
 	componentDidMount() {
         auth.onAuthStateChanged((user) => {
             if (user) {
-                this.state.userId = user.uid;
+				this.state.userId = user.uid;
+				firestore.onceGetAdmin(this.state.userId).then(doc => {
+					var res = new Object();
+					if(doc.data()){
+						this.setState(() => ({ isAdmin: true }));
+					}
+					this.getOpportunities();
+				})
+				.catch(err => {
+					console.log('User is not an admin', err);
+					this.getOpportunities();
+				});
                 // console.log(id);
-                this.getOpportunities();
             }
         });
 	}
 	getOpportunities(){
 		let id = this.state.userId;
-		firestore.onceGetCreatedOpportunities(id).then(snapshot => {
-			var res = new Object();
-			snapshot.forEach(doc => {
-				if(doc.data().authority!=2){
-					res[doc.id] = doc.data();
-				}
+		if(this.state.isAdmin){
+			console.log("user is admin, fetching all opportunities");
+			firestore.onceGetOpportunities().then(snapshot => {
+				var res = new Object();
+				snapshot.forEach(doc => {
+					if(doc.data().authority!=2){
+						res[doc.id] = doc.data();
+					}
+				});
+				this.setState(() => ({ opportunities: res }));
+				// console.log(JSON.stringify(this.state.opportunities));
+			})
+			.catch(err => {
+				console.log('Error getting documents', err);
 			});
-			this.setState(() => ({ opportunities: res }));
-			// console.log(JSON.stringify(this.state.opportunities));
-		})
-		.catch(err => {
-			console.log('Error getting documents', err);
-		});
+		}
+		else{
+			console.log("user is not an admin, fetching only the opportunities made by the user")
+			firestore.onceGetCreatedOpportunities(id).then(snapshot => {
+				var res = new Object();
+				snapshot.forEach(doc => {
+					if(doc.data().authority!=2){
+						res[doc.id] = doc.data();
+					}
+				});
+				this.setState(() => ({ opportunities: res }));
+				// console.log(JSON.stringify(this.state.opportunities));
+			})
+			.catch(err => {
+				console.log('Error getting documents', err);
+			});
+		}
 	}
 	render() {
 		const { opportunities } = this.state;
@@ -55,7 +85,7 @@ class AangemaakteLeerkansen extends Component {
 			<div className="leerkansen-content">
 				<div className="content">
 					{/* <SearchFilter /> */}
-					<div className="fixed">
+					<div className="fixed opp-list-page">
             			<h1>Aangemaakte leerkansen</h1>
 						<p> Deze leerkansen werden door jou aangemaakt:</p>
 					</div>
