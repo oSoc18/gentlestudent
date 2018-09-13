@@ -101,27 +101,6 @@ class LeerkansDetail extends Component {
     const { address, cat, diff, issuer, userHasRights } = this.state;
 
     return (
-      // <div className="card-container leerkansen">
-      //   <a href="/leerkansen" className="back">&lt; Terug</a>
-      //   <div className="card-item leerkans">
-      //     <h1>{opportunity.title}</h1>
-      //     <img src={opportunity.oppImageUrl ? `${opportunity.oppImageUrl}` : null} className="photo" alt="" />
-      //     <div style={{position: "relative"}}>
-      //       <img src={`${opportunity.pinImageUrl}`} className="badge" alt="" />
-      //       {/* <h2>{opportunity.title}</h2> */}
-            // <div className="meta-data">
-            //   <small>{opportunity.beginDate + ' - ' + opportunity.endDate}</small>
-            //   {!!address && <Address address={address}/>}
-            //   {/* <small>{opportunity.street + ' ' + opportunity.house_number + ', ' + opportunity.postal_code + ' ' + opportunity.city}</small> */}
-            // </div>
-      //       <p>Categorie: {cat}, Moeilijkheidsgraad: {diff}</p>
-      //       <h3>Beschrijving:</h3>
-      //       <p>{opportunity.longDescription}</p>
-      //       <h3>Wat wordt er verwacht?</h3>
-      //       <p>{opportunity.shortDescription}</p>
-      //     </div>
-      //   </div>
-      // </div> 
       <div class="opportunity-detail">
         {!!opportunity.authority==0 && 
           <div class="opportunity-page-warning">

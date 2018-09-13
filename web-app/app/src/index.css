@@ -1023,6 +1023,7 @@ ul li.list:hover .delete {
 }
 .confirm-delete{
   text-align: center;
+  overflow: scroll;
 }
 .confirm-delete .content{
   display: flex;
