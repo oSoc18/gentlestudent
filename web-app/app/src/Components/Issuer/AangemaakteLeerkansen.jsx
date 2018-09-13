@@ -35,6 +35,7 @@ class LeerkansenList extends Component {
 		this.state = {};
 	}
 	confirmDelete = (event) => {
+		event.preventDefault();
 		var click = event.target;
 		confirmAlert({
 			customUI: ({ onClose }) => {
