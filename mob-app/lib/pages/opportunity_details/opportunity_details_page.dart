@@ -224,6 +224,8 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
       final CollectionReference collection =
           Firestore.instance.collection("Participations");
       collection.add(data).whenComplete(() {
+        final count = Firestore.instance.collection("Opportunities").doc(opportunity.opportunityId).get("participations")+1;
+        Firestore.instance.collection("Opportunities").doc(opportunity.opportunityId).setData({ "participations": count} );
         print("Participation added");
       }).catchError((e) => print(e));
       setState(() {

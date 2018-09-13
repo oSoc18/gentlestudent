@@ -15,9 +15,10 @@ const MapComponent = compose(
 			`https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=3.exp&libraries=geometry,drawing,places`,
 		loadingElement: <div style={{ height: `100%` }} />,
 		containerElement: <div style={{ 
-			height: `calc(100vh - 346px)`,
-			width: `calc(40% - 30px)`,
-			position: `fixed`,
+			// height: `calc(100vh - 346px)`,
+			height: `calc(100vh - 150px)`,
+			width: `100%`,
+			position: `relative`,
 	}} />,
 		mapElement: <div style={{ height: `100%`, borderRadius: `8px` }} />
 	}),
@@ -43,7 +44,7 @@ const MapComponent = compose(
 			{Object.keys(props.opportunities).map(key =>
 					<React.Fragment key={key}>
 						<Marker
-							position={{ lat: props.opportunities[key].latitude, lng:  props.opportunities[key].longitude }}
+							position={{ lat: props.addresses[props.opportunities[key].addressId].latitude, lng:  props.addresses[props.opportunities[key].addressId].longitude }}
 							title={ props.opportunities[key].title}
 							onClick={()=>{ props.showInfo(key)}}
 						>
@@ -70,11 +71,59 @@ class Maps extends Component {
 		return (
 			<React.Fragment>
 				{!! this.props.opportunities &&
-					<MapComponent opportunities={this.props.opportunities} />
+					<MapComponent opportunities={this.props.opportunities} addresses={this.props.addresses}/>
 				}
 			</React.Fragment>
 		)
 	}
+}
+
+//the following code makes the div holding the google maps widget follow the scroll until the footer
+window.onload = function() {
+	//throttles a listener (like onscroll) to limit the amount of times the callback function gets called per second
+	function throttler(ms, callback) {
+		var timer;
+	
+		return function() {
+			var self = this, args = arguments;
+			clearTimeout(timer);
+			timer = setTimeout(function() {
+				callback.apply(self, args);
+			}, ms);
+		};
+	}
+
+	function getScrollTop() {
+	  if (typeof window.pageYOffset !== 'undefined' ) {
+		// Most browsers
+		return window.pageYOffset;
+	  }
+  
+	  var d = document.documentElement;
+	  if (d.clientHeight) {
+		// IE in standards mode
+		return d.scrollTop;
+	  }
+  
+	  // IE in quirks mode
+	  return document.body.scrollTop;
+	}
+	
+	window.onscroll = throttler(10, function() {
+		var box = document.getElementById('stickybox'),
+			scroll = getScrollTop();
+		if(document.getElementById('stickybox')!=null){
+			// console.log(scroll);
+			if (scroll <= 200) {
+				box.style.top = "0px";
+			}
+			else {
+				if(scroll<=box.parentElement.clientHeight-400){
+					box.style.top = (scroll - 200) + "px";
+				}
+			}
+		}
+	});
 }
 
 export default Maps;

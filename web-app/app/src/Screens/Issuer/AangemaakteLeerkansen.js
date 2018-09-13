@@ -51,18 +51,11 @@ class AangemaakteLeerkansen extends Component {
 						<p> Deze leerkansen werden door jou aangemaakt:</p>
 					</div>
 					<div id="aangemaakte-leerkansen">
-						<div className="content-left">
-							<Switch>
-                                {/* <Route path={'/aangemaakte-leerkansen/:id'} render={({match}) => <Detail opportunities={opportunities}  match={match}/>} /> */}
-								<Route path={'/aangemaakte-leerkansen/:id'} render={({match}) => <AangemaakteLeerkansDetail opportunities={opportunities}  match={match}/>} />
-								<Route path={'/aangemaakte-leerkansen'} render={() => <List opportunities={opportunities} />} />
-							</Switch>
-						</div>
-						<div className="content-right">
-							<div className="content">
-								<Maps />
-							</div>
-						</div>
+						<Switch>
+							{/* <Route path={'/aangemaakte-leerkansen/:id'} render={({match}) => <Detail opportunities={opportunities}  match={match}/>} /> */}
+							<Route path={'/aangemaakte-leerkansen/:id'} render={({match}) => <AangemaakteLeerkansDetail opportunities={opportunities}  match={match}/>} />
+							<Route path={'/aangemaakte-leerkansen'} render={() => <List opportunities={opportunities} />} />
+						</Switch>
 					</div>
 				</div>
 			</div>

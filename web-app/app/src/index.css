@@ -5,6 +5,9 @@ body {
   font-family: 'Open Sans', Arial, 'Helvetica Neue', sans-serif;
   line-height: 1.2em; }
 
+html, body, .main-content{
+  min-height:65vh;
+}
 h1, h2 {
   color: #707070; }
 
@@ -196,7 +199,7 @@ button.primary {
   #leerkansen .content-left {
     width: 60%; }
   #leerkansen .content-right {
-    height: calc(100vh - 209px);
+    /* height: calc(100vh - 209px); */
     width: 40%;
     margin-right: -15px;
     width: calc(40% + 15px); }
@@ -224,7 +227,7 @@ button.primary {
       position: absolute;
       width: 70px;
       height: auto;
-      top: -60px;
+      top: -75px;
       right: 0; }
     #leerkansen .card-item.leerkans h2 {
       color: #00AACC; }
@@ -504,6 +507,7 @@ nav {
 
 footer {
   width: 100%;
+  height: 160px;
   background-color: #F2F0ED; }
   footer ul {
     display: flex;
@@ -639,3 +643,379 @@ footer {
         color: white; }
       #download .content .right img {
         width: 150px; }
+.l-container ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+.l-container img {
+  width: 60px;
+  margin: 5px 5px 5px 5px;
+  border-radius: 5px;
+}
+
+/* LAYOUT ==================== */
+.l-nav {
+  display: flex;
+  position: fixed;
+  width: 100%;
+  height: 100px;
+  background-color: #242D33;
+}
+.l-nav__container, .l-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+}
+@media screen and (max-width: 1050px) {
+  .l-nav__container, .l-container {
+    width: 95%;
+  }
+}
+.l-nav__button {
+  color: #e0e0e0;
+  background-color: #3392CC;
+  padding: 10px;
+  text-align: center;
+  width: 30%;
+  border-radius: 5px;
+}
+.l-nav__button:hover {
+  background-color: #2e83b8;
+  color: white;
+}
+
+.l-container {
+  display: block;
+  padding-top: 115px;
+}
+
+/* MODULE ==================== */
+.list {
+  display: flex;
+  background-color: white;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.list:hover {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25), 0 5px 8px rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+}
+.list__opportunity_title {
+  display: flex;
+  flex-grow: 0.7;
+  text-align: left;
+  justify-content: flex-start;
+}
+.list__opportunity_data {
+  display: flex;
+  text-align: left;
+  justify-content: flex-end;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.list__opportunity_data img {
+  width: 100px;
+}
+.list__opportunity_data .list__label{
+  padding: 10px;
+  /* font-size: 15px; */
+}
+@media screen and (max-width: 400px) {
+  .list__opportunity_data img {
+    width: 75px;
+  }
+}
+.list__label {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+}
+.list__label--header {
+  color: #00AACC;
+  
+}
+.list__label--value {
+  font-size: 1.3em;
+  color: #707070;
+}
+@media screen and (max-width: 650px) {
+  .list {
+    flex-direction: column;
+  }
+  .list__opportunity_title {
+    justify-content: center;
+    margin: 10px;
+  }
+  .list__label {
+    width: 170px;
+  }
+  .list__opportunity_data {
+    justify-content: center;
+  }
+}
+
+/* STATE ==================== */
+.is-list-selected {
+  background: #cb2d3e;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #cb2d3e, #ef473a);
+  background: linear-gradient(to right, #cb2d3e, #ef473a);
+  color: white;
+}
+ul li.list:hover .edit {
+	visibility: visible;
+}
+ul li.list:hover .copy {
+	visibility: visible;
+}
+
+.edit{
+	padding-top: 7px;	
+	padding-right: 7px;
+  visibility: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.edit a {
+  color: #00AACC;
+  float: right;
+}
+
+.edit:hover a {
+	color: rgb(0, 133, 160);
+}
+
+.copy{
+	padding-top: 7px;	
+	padding-right: 7px;
+  visibility: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.copy a {
+  color: #00AACC;
+  float: right;
+}
+
+.filler{
+  flex-grow: 1;
+}
+
+.copy:hover a {
+	color: rgb(0, 133, 160);
+}
+
+.map-container{
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.opportunity-detail{
+  background: rgb(248, 248, 248);
+  /* font-family:lato; */
+}
+
+.opportunity-detail h3{
+  font-weight:700;
+}
+
+.opportunity-detail h1{
+    position: absolute;
+    top: 90px;
+    font-size: 70px;
+    color: #fff;
+    z-index: 10;
+}
+
+.opportunity-detail .overlay{
+  position:absolute;
+  top: 0px;
+  width:100%;
+  height:150px;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0.65+0,0+100;Neutral+Density */
+  /* background: -moz-linear-gradient(top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%); FF3.6-15 */
+  /* background: -webkit-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); Chrome10-25,Safari5.1-6 */
+  /* background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); IE6-9 */
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+    /* background-size: auto; */
+  z-index:1;
+}
+
+.opportunity-detail .titlehead{
+  width:100%;
+  height:250px;
+  background-size:cover;
+  padding: 10px;
+}
+
+.opportunity-detail #page.opportunity-container{
+  position: relative;
+  color:#707070;
+  background: #fff;
+  margin: -40px 80px 0px 80px;
+  padding: 40px;
+/* -webkit-box-shadow: 0px 3px 10px 0px rgba(50, 50, 50, 0.5);
+  -moz-box-shadow: 0px 3px 10px 0px rgba(50, 50, 50, 0.5); */
+  box-shadow: 0px 3px 10px 0px rgba(50, 50, 50, 0.5);
+}
+
+.opportunity-detail #menu-button{
+  position:fixed;
+  left:20px;
+  top:20px;
+  width:30px;
+  height:30px;
+  z-index:100;
+  background:transparent;
+  border:0px; 
+  padding:0px;
+}
+
+.opportunity-detail #menu-button span{
+  width:28px;
+  height:4px;
+  margin:6px 0;
+  border-radius:2px;
+  background:#fff;
+  display:block;
+}
+
+.opportunity-detail #menu{
+  position:fixed;
+  left:0px;
+  top:0px;
+  right:0px;
+  bottom:0px;
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  background:rgba(0,0,0,.6);
+  transform:scale(0);
+  z-index:99;
+   opacity:0;
+     -webkit-transition: all cubic-bezier(.32, -0.6, .68, 1.6) .3s;
+    -moz-transition: all cubic-bezier(.32, -0.6, .68, 1.6) .3s;
+    -ms-transition: all cubic-bezier(.32, -0.6, .68, 1.6) .3s;
+    -o-transition: all cubic-bezier(.32, -0.6, .68, 1.6) .3s;
+    transition: all cubic-bezier(.32, -0.6, .68, 1.6) .3s; 
+}
+
+.opportunity-detail .showmenu{
+    transform:scale(1) !important;
+    border-radius:0% !important;
+  opacity:1 !important;
+     -webkit-transition: all cubic-bezier(.32, -0.6, .68, 1.6) .3s;
+    -moz-transition: all cubic-bezier(.32, -0.6, .68, 1.6) .3s;
+    -ms-transition: all cubic-bezier(.32, -0.6, .68, 1.6) .3s;
+    -o-transition: all cubic-bezier(.32, -0.6, .68, 1.6) .3s;
+    transition: all cubic-bezier(.32, -0.6, .68, 1.6) .3s; 
+} 
+
+
+.opportunity-detail #page{
+  border-radius: 40px;
+    webkit-transition: all ease-out .3s;
+    -moz-transition: all ease-out .3s;
+    -ms-transition: all ease-out .3s;
+    -o-transition: all ease-out .3s;
+    transition: all ease-out .3s; 
+  
+}
+
+.opportunity-detail ul{
+  width:100%;
+  text-align:center;
+  max-width:400px;
+  color: #fff;
+  list-style:none;
+  margin: 0 auto;
+  padding :0px !important;
+  position:relative;
+  top:50%;
+  transform:translateY(-50%);
+  ;
+}
+.opportunity-detail ul li{
+  width:100%;
+  margin:0; padding:10px;
+  font-size: 2em;
+}
+
+.opportunity-detail .btn:focus {
+  outline: none;
+}
+.opportunity-detail .btn:focus,.btn:active:focus,.btn.active:focus,
+.opportunity-detail .btn.focus,.btn:active.focus,.btn.active.focus {
+    outline: none;
+}
+
+.infobox{
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 25px;
+  padding: 0px 20px 0px 20px;
+  margin: 0px 20px 0px 20px;
+  /* width: 50%; */
+  /* margin: 0px 24%; */
+  /* margin: 0px 180px 0px 180px; */
+  /* position: relative; */
+}
+.infobox-content{
+  display: flex;
+  padding-left: 20px;
+  padding-bottom: 20px;
+}
+.infobox td{
+  padding-right: 20px;
+}
+.opportunity-container img.badge{
+  position: absolute;
+  width: 160px;
+  height: auto;
+  top: -120px;
+  right: 0;
+}
+.opportunity-container .content{
+  display: flex;
+}
+.opportunity-container .content-left{
+  width: 50%;
+}
+.opportunity-container .content-right{
+  width: 50%;
+  padding: 0px 20px 0px 20px;
+}
+.privacycontent{
+  padding: 0px 20px 0px 20px;
+}
+#stickybox {
+  /* Position absolutely, 30px down from the top */
+  /* position: absolute;
+  top: 30px; */
+
+  /* In my case I'm centering it in the window; do what you like */
+  /* margin-left: -100px;
+  left: 50%;
+  width: 200px; */
+
+  /* These are just for my example */
+  /* height: 1.25em;
+  border: 1px solid #bbb;
+  text-align: center; */
+}

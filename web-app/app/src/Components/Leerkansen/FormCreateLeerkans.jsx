@@ -3,7 +3,7 @@ import LocationPicker from 'react-location-picker';
 import Geocode from "react-geocode";
 
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form/immutable';
 import Spinner from '../Spinner';
 
 import { auth, firestore } from './../Firebase';
@@ -46,7 +46,7 @@ class FormCreateLeerkans extends React.Component {
       end_date: "",
       description: "",
       synopsis: "",
-      title: "",
+      title: "dfsfd",
       image: "",
       imageUrl: "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Opportunityimages%2FNederlandse%20Les.jpg?alt=media&token=82cecaa7-4d6e-473d-b06a-a5eea35d8d4b",
       imageExtension: ""
@@ -61,6 +61,52 @@ class FormCreateLeerkans extends React.Component {
     this.postNewOpportunity = this.postNewOpportunity.bind(this);
     this.uploadImage = this.uploadImage.bind(this);
     this.choosePin = this.choosePin.bind(this);
+    // this.componentDidMount = this.componentDidMount.bind(this);
+  }
+
+  // componentDidMount() {
+  //   this.setState({title: "skjsd"});
+  //   var self = this;
+    // if(this.props.match!=undefined){
+    //   try{
+    //     const id = this.props.match.params.id;
+    //     console.log("fetching opportunity data");
+    //     firestore.onceGetOpportunity(id).then(snapshot => {
+    //       console.log(JSON.stringify(snapshot.data()));
+    //       if(snapshot.data()==undefined){
+    //           throw "Could not fetch data";
+    //       }
+    //       self.setState(() => ({ 
+            // addressId: snapshot.data().addressId,
+            // beginDate: snapshot.data().beginDate,
+            // category: self.getEnumValue(Category, snapshot.data().category),
+            // difficulty: self.getEnumValue(Difficulty, snapshot.data().difficulty),
+            // endDate: snapshot.data().endDate,
+            // longDescription: snapshot.data().longDescription,
+            // oppImageUrl: snapshot.data().oppImageUrl,
+            // shortDescription: snapshot.data().shortDescription,
+            // title: snapshot.data().shortDescription,
+    //       }));
+    //     }).catch(function(error) {
+    //       console.error("Error getting document: ", error);
+    //     });
+    //   }
+    //   catch(e){
+    //     console.log("error fetching opportunity", e)
+    //   }
+    // }
+  // }
+
+  getEnumValue(enumTable, i){
+    var keys = Object.keys(enumTable).sort(function(a, b){
+      return enumTable[a] - enumTable[b];
+    }); //sorting is required since the order of keys is not guaranteed.
+    
+    var getEnum = function(ordinal) {
+      return keys[ordinal];
+    }
+
+    return getEnum(i);
   }
 
   choosePin(){
@@ -84,6 +130,7 @@ class FormCreateLeerkans extends React.Component {
   handleChange(event) {
     // console.log(event.target.value);
     this.setState({[event.target.id]: event.target.value});
+    // this.event.target.props.change(value, )
     // console.log(event.target.id);
     // console.log(event.target.value);
     if(event.target.id=="street" 
@@ -127,10 +174,12 @@ class FormCreateLeerkans extends React.Component {
     let address = new Object();
     address["bus"] = "";
     address["city"] = this.state.city;
+    address["country"] = this.state.country;
     address["housenumber"] = parseInt(this.state.house_number);
+    address["latitude"] = this.state.lat;
+    address["longitude"] = this.state.lng;
     address["postalcode"] = parseInt(this.state.postal_code);
     address["street"] = this.state.street;
-    address["country"] = this.state.country;
 
     var self = this;
 
@@ -155,13 +204,12 @@ class FormCreateLeerkans extends React.Component {
     opportunity["endDate"] = this.state.end_date;
     opportunity["international"] = false;
     opportunity["issuerId"] = auth.getUserId();
-    opportunity["latitude"] = this.state.lat;
     opportunity["longDescription"] = this.state.description;
-    opportunity["longitude"] = this.state.lng;
     opportunity["oppImageUrl"] = this.state.imageUrl;
     opportunity["pinImageUrl"] = this.state.pinImageUrl;
     opportunity["shortDescription"] = this.state.synopsis;
     opportunity["title"] = this.state.title;
+    opportunity["participations"] = 0;
 
     firestore.createOpportunity(opportunity)
     .then(function(docRef){
@@ -211,6 +259,7 @@ class FormCreateLeerkans extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         {/* <h2>(Loop all the fields before submitting -- will be fixed soon!)</h2> */}
+        {this.state.title}
         <div className="form-group">
           <Field
             label="Titel"
@@ -500,7 +549,11 @@ class BeaconLocationPicker extends Component {
 FormCreateLeerkans = reduxForm({
   form: 'createLeerkansForm',
   validate,
-  fields: ['title', 'synopsis']
+  // fields: ['title', 'synopsis'],
+  enableReinitialize: true
+  // initialValues: {
+  //   title: "test"
+  // }
 })(FormCreateLeerkans);
 
 export default FormCreateLeerkans;
