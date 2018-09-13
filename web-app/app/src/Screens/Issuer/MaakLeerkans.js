@@ -37,8 +37,10 @@ class CreateLeerkans extends Component {
     if(this.props.match.params.id!=undefined){
       firestore.onceGetOpportunity(this.props.match.params.id).then(snapshot => {
         var start_date= snapshot.data().beginDate;
-        var category= self.getEnumValue(Category, snapshot.data().category);
-        var difficulty= self.getEnumValue(Difficulty, snapshot.data().difficulty);
+        // var category= self.getEnumValue(Category, snapshot.data().category);
+        var category= snapshot.data().category;
+        // var difficulty= self.getEnumValue(Difficulty, snapshot.data().difficulty);
+        var difficulty = snapshot.data().difficulty;
         var end_date= snapshot.data().endDate;
         var description= snapshot.data().longDescription;
         var oppImageUrl= snapshot.data().oppImageUrl;
