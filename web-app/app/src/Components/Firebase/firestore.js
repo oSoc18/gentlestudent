@@ -52,13 +52,13 @@ export const validateIssuer = (id) =>
   firestore.collection('Issuers').doc(id).update({ validated: true })
 
 export const onceGetNonValidatedOpportunities = () =>
-  firestore.collection('Opportunities').where('blocked', '==', true).get()
+  firestore.collection('Opportunities').where('authority', '==', 0).get()
 
 export const onceGetValidatedOpportunities = () =>
-  firestore.collection('Opportunities').where('blocked', '==', false).get()
+  firestore.collection('Opportunities').where('authority', '==', 1).get()
 
 export const validateOpportunity = (opportunityId) =>
-  firestore.collection('Opportunities').doc(opportunityId).update({ blocked: false })
+  firestore.collection('Opportunities').doc(opportunityId).update({ authority: 1 })
 
 export const createNewBadge = (data) =>
   firestore.collection('Badges').add(data)

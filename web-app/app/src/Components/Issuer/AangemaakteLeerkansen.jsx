@@ -47,12 +47,12 @@ const LeerkansenList = ({ opportunities }) =>
 					</div>
 					<div class="list__label">
 						<div class="list__label--header"> Status </div>
-						{!!opportunities[key].blocked && <div class="list__label--value">In afwachting</div>}
-						{!opportunities[key].blocked && <div class="list__label--value">Geaccepteerd</div>}
+						{!!(opportunities[key].authority==0) && <div class="list__label--value">In afwachting</div>}
+						{!(opportunities[key].authority==0) && <div class="list__label--value">Geaccepteerd</div>}
 					</div>
 				</div>
 				<div class="filler"/>
-				{!!opportunities[key].blocked && <div class="edit tooltip"><a href="#"><i class="fas fa-edit fa-2x"></i></a></div>}
+				{!!(opportunities[key].authority==0) && <div class="edit tooltip"><a href="#"><i class="fas fa-edit fa-2x"></i></a></div>}
 				<div class="delete tooltip"><a href="#"><i class="fas fa-trash-alt fa-2x"></i></a></div>
 				<div class="copy tooltip"><a href={routes.MaakLeerkans+"/"+key}><i class="fas fa-plus fa-2x"></i></a></div>
 			</li>
@@ -67,7 +67,7 @@ const LeerkansenList = ({ opportunities }) =>
 			//     {/* <small>{opportunities[key].street + ' ' + opportunities[key].house_number + ', ' + opportunities[key].postal_code + ' ' + opportunities[key].city}</small> */}
 			//     </div>
 			//     <p>{opportunities[key].shortDescription}</p>
-			// 	<h2>Status: {opportunities[key].blocked ? `In afwachting` : `Geaccepteerd`}</h2>
+			// 	<h2>Status: {(opportunities[key].authority==0) ? `In afwachting` : `Geaccepteerd`}</h2>
 			//     </div>
 			// </a>
 		)}

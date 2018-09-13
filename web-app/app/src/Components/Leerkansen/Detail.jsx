@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Spinner from '../Spinner';
 
-import { firestore } from './../Firebase';
+import { auth, firestore } from './../Firebase';
 
 class Detail extends Component {
   render() {
@@ -27,10 +27,26 @@ class LeerkansDetail extends Component {
       address: null,
       cat: "",
       diff: "",
-      issuer: null
+      issuer: null,
+      userHasRights: false,
 		};
   }
   componentDidMount() {
+    let userId= auth.getUserId();
+    if(userId!=""){
+      if(this.props.opportunity.issuerId == userId){this.setState(() => ({ userHasRights: true }));}
+      else{
+        firestore.onceGetAdmin(userId).then(doc => {
+          var res = new Object();
+          if(doc.data()){
+            this.setState(() => ({ userHasRights: true }));
+          }
+        })
+        .catch(err => {
+          console.log('User is not an admin', err);
+        });
+      }
+    }    
     switch(this.props.opportunity.category){
       case 0: this.setState({cat: "Digitale Geletterdheid"}); break;
       case 1: this.setState({cat: "Duurzaamheid"}); break;
@@ -60,7 +76,7 @@ class LeerkansDetail extends Component {
   }
   render() {
     const { opportunity } = this.props;
-    const { address, cat, diff, issuer } = this.state;
+    const { address, cat, diff, issuer, userHasRights } = this.state;
 
     return (
       // <div className="card-container leerkansen">
@@ -131,10 +147,10 @@ class LeerkansDetail extends Component {
                       <td><b>Periode:</b></td>
                       <td>{opportunity.beginDate + ' tot en met ' + opportunity.endDate}</td>
                     </tr>
-                    <tr>
+                    {!!userHasRights && <tr>
                       <td><b>Aantal deelnemers:</b></td>
                       <td>{opportunity.participations}</td>
-                    </tr>
+                    </tr>}
                   </table>
                 </div>
               </div>
