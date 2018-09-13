@@ -6,14 +6,36 @@ import Spinner from '../Spinner';
 import { auth, firestore } from './../Firebase';
 
 class Detail extends Component {
+  constructor(props){
+    super(props);
+
+    this.state={
+      opportunity: null,
+      id: this.props.match.params.id
+    };
+  }
+  componentDidMount(){
+    if(this.props.opportunities==undefined){
+      firestore.onceGetOpportunity(this.state.id).then(doc => {
+        if(doc.data()){
+          this.setState(() => ({ opportunity: doc.data() }));
+        }
+      })
+      .catch(err => {
+        console.log('Could not fetch opportunity data: ', err);
+      });
+    }
+    else{
+      this.setState(() => ({ opportunity: this.props.opportunities[this.state.id] }));
+    }
+  }
   render() {
-    const { opportunities } = this.props;
-    const id = this.props.match.params.id;
+    const {opportunity} = this.state;
 
     return (
       <React.Fragment>
-        { !! opportunities && <LeerkansDetail opportunity={ opportunities[id] } /> }
-				{ ! opportunities && <EmptyList/> }
+        { !! opportunity && <LeerkansDetail opportunity={ opportunity }/> }
+				{ ! opportunity && <EmptyList/> }
 			</React.Fragment>
       
     )
@@ -108,7 +130,7 @@ class LeerkansDetail extends Component {
           </div>
         </div>
         <div id="page" class="opportunity-container">
-          <a href="/leerkansen" className="back">&lt; Terug</a>
+          {/* <a href="/leerkansen" className="back">&lt; Terug</a> */}
           <img class="badge" src={opportunity.pinImageUrl}/>
           <div class="content">
             <div class="content-left">

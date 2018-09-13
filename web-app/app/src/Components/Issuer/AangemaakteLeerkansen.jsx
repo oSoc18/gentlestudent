@@ -74,7 +74,7 @@ class LeerkansenList extends Component {
 			<div class="l-container">
 			<ul>
 				{Object.keys(opportunities).map(key =>
-					<a href={`aangemaakte-leerkansen/${key}`}>
+					<a href={`leerkansen/${key}`}>
 					<li class="list">
 						<div class="list__opportunity_title">
 							<div> <img src={opportunities[key].pinImageUrl ? `${opportunities[key].pinImageUrl}` : null}/> </div>
