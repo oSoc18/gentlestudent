@@ -167,6 +167,11 @@ class LeerkansDetail extends Component {
                       <td><b>Eigenaar:</b></td>
                       <td>{issuer.name}</td>
                     </tr>}
+                    <tr>
+                      <td><b>Contact:</b></td>
+                      <td>{opportunity.contact}</td>
+                    </tr>
+                    <br/>
                     {!!address && <tr>
                       <td><b>Locatie:</b></td>
                       <td>{address.street} {address.housenumber}, {address.postalcode} {address["city"]}</td>
@@ -175,6 +180,7 @@ class LeerkansDetail extends Component {
                       <td><b>Periode:</b></td>
                       <td>{opportunity.beginDate + ' tot en met ' + opportunity.endDate}</td>
                     </tr>
+                    <br/>
                     {!!userHasRights && <tr>
                       <td><b>Status:</b></td>
                       {!!opportunity.authority==0 && <td>In afwachting</td>}
