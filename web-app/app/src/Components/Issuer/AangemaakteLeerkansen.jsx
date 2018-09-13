@@ -20,8 +20,9 @@ class List extends Component {
 
 		return (
 			<React.Fragment>
-				{ !! opportunities && <LeerkansenList opportunities={ opportunities } getOpportunities={getOpportunities}/> }
-				{ ! opportunities && <EmptyList/> }
+				{ !! opportunities && Object.keys(opportunities).length!=0 && <LeerkansenList opportunities={ opportunities } getOpportunities={getOpportunities}/> }
+				{ !! opportunities && Object.keys(opportunities).length==0 && <EmptyList/> }
+				{ ! opportunities && <LoadingList/> }
 			</React.Fragment>
 		)
 	}
@@ -186,7 +187,13 @@ class LeerkansenList extends Component {
 // 	</div>
 
 const EmptyList = () =>
-	<div>
+	<div class="container">
+		<p>Je hebt nog geen leerkansen aangemaakt.</p>
+		<p><a href={routes.MaakLeerkans}>Klik hier </a>om een nieuwe leerkans aan te maken.</p>
+	</div>
+
+const LoadingList = () =>
+	<div class="container">
 		<Spinner />
 	</div>
 
