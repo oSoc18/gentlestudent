@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:Gentle_Student/models/address.dart';
 import 'package:Gentle_Student/models/assertion.dart';
+import 'package:Gentle_Student/models/authority.dart';
 import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/models/beacon.dart';
 import 'package:Gentle_Student/models/category.dart';
@@ -26,7 +27,7 @@ class OpportunityApi {
   Future<List<Opportunity>> getAllOpportunities() async {
     return (await Firestore.instance
             .collection('Opportunities')
-            .where("blocked", isEqualTo: false)
+            .where("authority", isEqualTo: 1)
             .getDocuments())
         .documents
         .map((snapshot) => _fromDocumentSnapshot(snapshot))
@@ -61,6 +62,21 @@ class OpportunityApi {
         .first);
   }
 
+  //Update opportunity after participation creation.
+  Future<Null> updateOpportunityAfterParticipationCreation (
+      Opportunity opportunity, int participations) async {
+    Map<String, int> data = <String, int>{
+      "participations": participations + 1,
+    };
+    await Firestore.instance
+        .collection("Opportunities")
+        .document(opportunity.opportunityId)
+        .updateData(data)
+        .whenComplete(() {
+      print("Opportunity updated");
+    }).catchError((e) => print(e));
+  }
+
   //Create an opportunity from a DocumentSnapshot of the Firebase
   //Basically turning JSON code into an Opportunity object
   Opportunity _fromDocumentSnapshot(DocumentSnapshot snapshot) {
@@ -69,7 +85,6 @@ class OpportunityApi {
     return new Opportunity(
       opportunityId: snapshot.documentID,
       beginDate: DateTime.parse(data['beginDate']),
-      blocked: data['blocked'],
       category: _dataToCategory(data['category']),
       difficulty: _dataToDifficulty(data['difficulty']),
       endDate: DateTime.parse(data['endDate']),
@@ -84,6 +99,8 @@ class OpportunityApi {
       latitude: data['latitude'],
       longitude: data['longitude'],
       pinImageUrl: data['pinImageUrl'],
+      participations: data['participations'],
+      authority: _dataToAuthority(data['authority']),
     );
   }
 
@@ -98,6 +115,19 @@ class OpportunityApi {
         return Difficulty.EXPERT;
     }
     return Difficulty.BEGINNER;
+  }
+
+  //Function for turning the Integer in the database into an Authority
+  Authority _dataToAuthority(int authority) {
+    switch (authority) {
+      case 0:
+        return Authority.BLOCKED;
+      case 1:
+        return Authority.APPROVED;
+      case 2:
+        return Authority.DELETED;
+    }
+    return Authority.APPROVED;
   }
 
   //Function for turning the Integer in the database into a Category

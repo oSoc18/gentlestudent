@@ -1,3 +1,4 @@
+import 'package:Gentle_Student/models/authority.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:meta/meta.dart';
@@ -16,13 +17,14 @@ class Opportunity {
   final DateTime beginDate;
   final DateTime endDate;
   final bool international;
-  final bool blocked;
   final String addressId;
   final String badgeId;
   final String issuerId;
   final double latitude;
   final double longitude;
   final String pinImageUrl;
+  final int participations;
+  final Authority authority;
 
   //Constructor
   Opportunity({
@@ -36,12 +38,13 @@ class Opportunity {
     @required this.beginDate,
     @required this.endDate,
     @required this.international,
-    @required this.blocked,
     @required this.addressId,
     @required this.badgeId,
     @required this.issuerId,
     @required this.latitude,
     @required this.longitude,
     @required this.pinImageUrl,
+    @required this.participations,
+    @required this.authority,
   });
 }

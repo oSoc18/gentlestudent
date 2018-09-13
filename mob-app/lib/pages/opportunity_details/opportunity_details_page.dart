@@ -47,6 +47,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
   ParticipationApi _participationApi;
   Participant _participant;
   ParticipantApi _participantApi;
+  OpportunityApi _opportunityApi;
   FirebaseUser firebaseUser;
   bool _alreadyRegistered = false;
   TextEditingController controller;
@@ -224,8 +225,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
       final CollectionReference collection =
           Firestore.instance.collection("Participations");
       collection.add(data).whenComplete(() {
-        final count = Firestore.instance.collection("Opportunities").doc(opportunity.opportunityId).get("participations")+1;
-        Firestore.instance.collection("Opportunities").doc(opportunity.opportunityId).setData({ "participations": count} );
+        _opportunityApi.updateOpportunityAfterParticipationCreation(opportunity, opportunity.participations);
         print("Participation added");
       }).catchError((e) => print(e));
       setState(() {
@@ -346,10 +346,12 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
       firebaseUser = user;
       final participationApi = new ParticipationApi();
       final participantApi = new ParticipantApi();
+      final opportunityApi = new OpportunityApi();
       if (this.mounted) {
         setState(() {
           _participationApi = participationApi;
           _participantApi = participantApi;
+          _opportunityApi = opportunityApi;
         });
         _checkIfUserAlreadyFavorited();
         _hasAlreadyBeenRegistered();
