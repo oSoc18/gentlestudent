@@ -3,7 +3,7 @@ import LocationPicker from 'react-location-picker';
 import Geocode from "react-geocode";
 
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form/immutable';
+import { Field, reduxForm } from 'redux-form';
 import Spinner from '../Spinner';
 
 import { auth, firestore } from './../Firebase';
@@ -31,6 +31,7 @@ class FormCreateLeerkans extends React.Component {
     super(props);
 
     this.state = {
+      initialised: false,
       lat: 51.0511164,
       lng: 3.7114566,
       badgeId: "",
@@ -46,7 +47,7 @@ class FormCreateLeerkans extends React.Component {
       end_date: "",
       description: "",
       synopsis: "",
-      title: "dfsfd",
+      title: "",
       image: "",
       imageUrl: "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Opportunityimages%2FNederlandse%20Les.jpg?alt=media&token=82cecaa7-4d6e-473d-b06a-a5eea35d8d4b",
       imageExtension: ""
@@ -64,9 +65,29 @@ class FormCreateLeerkans extends React.Component {
     // this.componentDidMount = this.componentDidMount.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.setState({title: "skjsd"});
-  //   var self = this;
+  componentDidUpdate() {
+    if(!this.state.initialised && this.props.initValues){
+      this.setState({
+        initialised: true,
+        start_date: this.props.initValues.start_date,
+        category: this.props.initValues.category,
+        city: this.props.initValues.city,
+        country: this.props.initValues.country,
+        difficulty: this.props.initValues.difficulty,
+        end_date: this.props.initValues.end_date,
+        description: this.props.initValues.description,
+        house_number: this.props.initValues.house_number,
+        lat: this.props.initValues.latitude,
+        lng: this.props.initValues.longitude,
+        oppImageUrl: this.props.initValues.oppImageUrl,
+        postal_code: this.props.initValues.postal_code,
+        street: this.props.initValues.street,
+        synopsis: this.props.initValues.synopsis,
+        title: this.props.initValues.title,
+      });
+    }
+    // this.setState({title: "skjsd"});
+    // var self = this;
     // if(this.props.match!=undefined){
     //   try{
     //     const id = this.props.match.params.id;
@@ -77,15 +98,15 @@ class FormCreateLeerkans extends React.Component {
     //           throw "Could not fetch data";
     //       }
     //       self.setState(() => ({ 
-            // addressId: snapshot.data().addressId,
-            // beginDate: snapshot.data().beginDate,
-            // category: self.getEnumValue(Category, snapshot.data().category),
-            // difficulty: self.getEnumValue(Difficulty, snapshot.data().difficulty),
-            // endDate: snapshot.data().endDate,
-            // longDescription: snapshot.data().longDescription,
-            // oppImageUrl: snapshot.data().oppImageUrl,
-            // shortDescription: snapshot.data().shortDescription,
-            // title: snapshot.data().shortDescription,
+    //         addressId: snapshot.data().addressId,
+    //         beginDate: snapshot.data().beginDate,
+    //         category: self.getEnumValue(Category, snapshot.data().category),
+    //         difficulty: self.getEnumValue(Difficulty, snapshot.data().difficulty),
+    //         endDate: snapshot.data().endDate,
+    //         longDescription: snapshot.data().longDescription,
+    //         oppImageUrl: snapshot.data().oppImageUrl,
+    //         shortDescription: snapshot.data().shortDescription,
+    //         title: snapshot.data().shortDescription,
     //       }));
     //     }).catch(function(error) {
     //       console.error("Error getting document: ", error);
@@ -95,7 +116,8 @@ class FormCreateLeerkans extends React.Component {
     //     console.log("error fetching opportunity", e)
     //   }
     // }
-  // }
+
+  }
 
   getEnumValue(enumTable, i){
     var keys = Object.keys(enumTable).sort(function(a, b){
@@ -259,7 +281,7 @@ class FormCreateLeerkans extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         {/* <h2>(Loop all the fields before submitting -- will be fixed soon!)</h2> */}
-        {this.state.title}
+        {/* {this.state.title} */}
         <div className="form-group">
           <Field
             label="Titel"
@@ -305,7 +327,7 @@ class FormCreateLeerkans extends React.Component {
         <div className="form-group">
           <Field
             id="category"
-            name="Category"
+            name="category"
             label="Categorie"
             data={{
               list: Object.keys(Category).map(key => {
@@ -322,7 +344,7 @@ class FormCreateLeerkans extends React.Component {
         <div className="form-group">
           <Field
             id="difficulty"
-            name="Difficulty"
+            name="difficulty"
             label="Moeilijkheidsgraad"
             data={{
               list: Object.keys(Difficulty).map(key => {
@@ -549,7 +571,7 @@ class BeaconLocationPicker extends Component {
 FormCreateLeerkans = reduxForm({
   form: 'createLeerkansForm',
   validate,
-  // fields: ['title', 'synopsis'],
+  fields: ['title', 'synopsis'],
   enableReinitialize: true
   // initialValues: {
   //   title: "test"
