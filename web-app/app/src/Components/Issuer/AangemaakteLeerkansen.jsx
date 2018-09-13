@@ -104,9 +104,9 @@ class LeerkansenList extends Component {
 							</div>
 						</div>
 						{/* <div class="filler"/> */}
-						{!!(opportunities[key].authority==0) && <div class="edit icon-option tooltip"><a href="#"><i class="fas fa-edit fa-2x"></i></a></div>}
-						<div class="delete icon-option tooltip"><a href="#" onClick={this.confirmDelete}><i class="fas fa-trash-alt fa-2x" id={key}></i></a></div>
-						<div class="copy icon-option tooltip"><a href={routes.MaakLeerkans+"/"+key}><i class="fas fa-plus fa-2x"></i></a></div>
+						{!!(opportunities[key].authority==0) && <a href="#"><div class="edit icon-container"><i class="fas fa-edit fa-2x"></i></div></a>}
+						<a href="#" onClick={this.confirmDelete}><div class="delete icon-container"><i class="fas fa-trash-alt fa-2x" id={key}></i></div></a>
+						<a href={routes.MaakLeerkans+"/"+key}><div class="copy icon-container"><i class="fas fa-plus fa-2x"></i></div></a>
 					</li>
 					</a>
 					// <a href={`aangemaakte-leerkansen/${key}`} className={`card-item leerkans ${ opportunities[key].category }`} key={opportunities[key].addressId}>

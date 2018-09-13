@@ -781,66 +781,28 @@ ul li.list:hover .copy {
 ul li.list:hover .delete {
 	visibility: visible;
 }
-.icon-option{
+/* .icon-option{
   padding-left: 15px;
-}
-
-.edit{
-	padding-top: 7px;	
+} */
+.icon-container{
+  color: #00AACC;
+  float: right;
+  padding-top: 7px;	
 	padding-right: 7px;
   visibility: hidden;
   position: relative;
   z-index: 1;
 }
-
-.edit a {
-  color: #00AACC;
-  float: right;
+.icon-container i{
+  margin:0px 5px 5px 5px;
 }
-
-.edit:hover a {
-	color: rgb(0, 133, 160);
-}
-
-.copy{
-	padding-top: 7px;	
-	padding-right: 7px;
-  visibility: hidden;
-  position: relative;
-  z-index: 1;
-}
-
-.copy a {
-  color: #00AACC;
-  float: right;
-}
-
-.copy:hover a {
-	color: rgb(0, 133, 160);
-}
-
-.delete{
-	padding-top: 7px;	
-	padding-right: 7px;
-  visibility: hidden;
-  position: relative;
-  z-index: 1;
-}
-
-.delete a {
-  color: #00AACC;
-  float: right;
-}
-
-.delete:hover a {
-	color: rgb(0, 133, 160);
+.icon-container:hover{
+  color: rgb(0, 133, 160);
 }
 
 .filler{
   flex-grow: 1;
 }
-
-
 
 .map-container{
   overflow: hidden;
