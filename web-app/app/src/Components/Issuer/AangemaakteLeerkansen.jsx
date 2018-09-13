@@ -103,7 +103,7 @@ class LeerkansenList extends Component {
 								{!(opportunities[key].authority==0) && <div class="list__label--value">Geaccepteerd</div>}
 							</div>
 						</div>
-						<div class="filler"/>
+						{/* <div class="filler"/> */}
 						{!!(opportunities[key].authority==0) && <div class="edit icon-option tooltip"><a href="#"><i class="fas fa-edit fa-2x"></i></a></div>}
 						<div class="delete icon-option tooltip"><a href="#" onClick={this.confirmDelete}><i class="fas fa-trash-alt fa-2x" id={key}></i></a></div>
 						<div class="copy icon-option tooltip"><a href={routes.MaakLeerkans+"/"+key}><i class="fas fa-plus fa-2x"></i></a></div>
