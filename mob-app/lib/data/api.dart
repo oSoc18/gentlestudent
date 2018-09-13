@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:Gentle_Student/models/address.dart';
 import 'package:Gentle_Student/models/assertion.dart';
@@ -378,11 +379,14 @@ class BeaconApi {
         .toList();
   }
 
-  Future<IBeacon> getBeaconById(String beaconId) async {
-    return _fromDocumentSnapshot(await Firestore.instance
-        .collection("Beacons")
-        .document(beaconId)
-        .get());
+  Future<IBeacon> getBeaconById(String major, String minor) async {
+    return _fromDocumentSnapshot((await Firestore.instance
+            .collection('Beacons')
+            .where("major", isEqualTo: major)
+            .where("minor", isEqualTo: minor)
+            .getDocuments())
+        .documents
+        .first);
   }
 
   IBeacon _fromDocumentSnapshot(DocumentSnapshot snapshot) {
@@ -390,7 +394,12 @@ class BeaconApi {
 
     return new IBeacon(
       beaconId: snapshot.documentID,
-      opportunityId: data['opportunityId'],
+      addressId: data['addressId'],
+      major: data['major'],
+      minor: data['minor'],
+      name: data['name'],
+      opportunities: new LinkedHashMap<String, bool>.from(data['opportunities']),
+      range: data['range'],
     );
   }
 }

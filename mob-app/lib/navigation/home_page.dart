@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:Gentle_Student/models/address.dart';
 import 'package:Gentle_Student/models/badge.dart';
+import 'package:Gentle_Student/models/beacon.dart';
 import 'package:Gentle_Student/models/user.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:Gentle_Student/navigation/map_list_page.dart';
@@ -41,10 +43,18 @@ class _HomePageState extends State<HomePage> {
   //Declaration of the other variables
   List<String> _keyList = [];
   Set<String> _notifiedKeyList = new Set<String>();
-  Opportunity _opportunity;
-  Badge _badge;
-  Issuer _issuer;
-  Address _address;
+  BeaconApi _beaconApi;
+  OpportunityApi _opportunityApi;
+  BadgeApi _badgeApi;
+  IssuerApi _issuerApi;
+  AddressApi _addressApi;
+  List<Opportunity> _opportunities;
+  List<Badge> _badges;
+  List<Issuer> _issuers;
+  List<Address> _addresses;
+  int _notId = 0;
+  HashMap<int, Opportunity> _notIdOpportunity = new HashMap();
+  HashMap<String, int> _beaconNumberOfOpp = new HashMap();
 
   //This method gets called when the page is initializing
   //We overwrite it to:
@@ -54,8 +64,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _beaconRanging(); //start scanning for beacons
     _loadBeacons(); //load all the beacons from the database into a list
+    _beaconRanging(); //start scanning for beacons
     pages = [
       informationPage,
       mapListPage,
@@ -109,12 +119,21 @@ class _HomePageState extends State<HomePage> {
 
   //API call to load the beacons from the Firebase
   _loadBeacons() async {
+    final opportunityApi = new OpportunityApi();
     final beaconApi = new BeaconApi();
+    final badgeApi = new BadgeApi();
+    final issuerApi = new IssuerApi();
+    final addressApi = new AddressApi();
     final beacons = await beaconApi.getAllBeacons();
     final keyList = new List<String>();
     beacons.forEach((beacon) => keyList.add(beacon.beaconId));
     if (this.mounted) {
       setState(() {
+        _beaconApi = beaconApi;
+        _badgeApi = badgeApi;
+        _issuerApi = issuerApi;
+        _addressApi = addressApi;
+        _opportunityApi = opportunityApi;
         _keyList = keyList;
       });
     }
@@ -128,25 +147,71 @@ class _HomePageState extends State<HomePage> {
           description: 'Grant this app the ability to show notifications',
           importance: AndroidNotificationChannelImportance.DEFAULT);
 
+  //Get all opportunities linked to a beacon
+  Future<List<Opportunity>> getBeaconOpportunitiesReady(IBeacon beacon) async {
+    List<Opportunity> opportunities =
+        _opportunities == null ? new List<Opportunity>() : _opportunities;
+    Opportunity opportunity;
+    for (int i = 0; i < beacon.opportunities.length; i++) {
+      opportunity = await _opportunityApi
+          .getOpportunityById(beacon.opportunities.keys.toList()[i]);
+      opportunities.add(opportunity);
+      print(opportunity.title);
+      _notIdOpportunity[_notId] = opportunity;
+      print(_notIdOpportunity[_notId].title);
+      _notId++;
+    }
+    return opportunities;
+  }
+
+  //Get all addresses from opportunities linked to a beacon
+  Future<List<Address>> getAddressesFromBeaconOpportunities(
+      List<Opportunity> opportunities) async {
+    List<Address> addresses =
+        _addresses == null ? new List<Address>() : _addresses;
+    for (int i = 0; i < opportunities.length; i++) {
+      addresses
+          .add(await _addressApi.getAddressById(opportunities[i].addressId));
+    }
+    return addresses;
+  }
+
+  //Get all badges from opportunities linked to a beacon
+  Future<List<Badge>> getBadgesFromBeaconOpportunities(
+      List<Opportunity> opportunities) async {
+    List<Badge> badges = _badges == null ? new List<Badge>() : _badges;
+    for (int i = 0; i < opportunities.length; i++) {
+      badges.add(await _badgeApi.getBadgeById(opportunities[i].badgeId));
+    }
+    return badges;
+  }
+
+  //Get all issuers from opportunities linked to a beacon
+  Future<List<Issuer>> getIssuersFromBeaconOpportunities(
+      List<Opportunity> opportunities) async {
+    List<Issuer> issuers = _issuers == null ? new List<Issuer>() : _issuers;
+    for (int i = 0; i < opportunities.length; i++) {
+      issuers.add(await _issuerApi.getIssuerById(opportunities[i].issuerId));
+    }
+    return issuers;
+  }
+
   //API call to load an opportunity found by a beacon from the Firebase
-  _loadFromFirebase(String beaconkey) async {
-    final opportunityApi = new OpportunityApi();
-    final beaconApi = new BeaconApi();
-    final badgeApi = new BadgeApi();
-    final issuerApi = new IssuerApi();
-    final addressApi = new AddressApi();
-    final beacon = await beaconApi.getBeaconById(beaconkey);
-    final opportunity =
-        await opportunityApi.getOpportunityById(beacon.opportunityId);
-    final badge = await badgeApi.getBadgeById(opportunity.badgeId);
-    final issuer = await issuerApi.getIssuerById(opportunity.issuerId);
-    final address = await addressApi.getAddressById(opportunity.addressId);
+  _loadFromFirebase(String major, String minor) async {
+    final beacon = await _beaconApi.getBeaconById(major, minor);
+    _notifiedKeyList.add(major + minor);
+    final opportunities = await getBeaconOpportunitiesReady(beacon);
+    final addresses = await getAddressesFromBeaconOpportunities(opportunities);
+    final badges = await getBadgesFromBeaconOpportunities(opportunities);
+    final issuers = await getIssuersFromBeaconOpportunities(opportunities);
+
     if (this.mounted) {
       setState(() {
-        _opportunity = opportunity;
-        _badge = badge;
-        _issuer = issuer;
-        _address = address;
+        _beaconNumberOfOpp[major+minor] = beacon.opportunities.length;
+        _opportunities = opportunities;
+        _badges = badges;
+        _issuers = issuers;
+        _addresses = addresses;
       });
     }
   }
@@ -155,11 +220,20 @@ class _HomePageState extends State<HomePage> {
   //Of the opportunity of that beacon
   _navigateToOpportunityDetails(String payload) async {
     await LocalNotifications.removeNotification(int.parse(payload));
+
+    Opportunity opportunity = _notIdOpportunity[int.parse(payload)];
+    Badge badge = _badges.where((b) => b.openBadgeId == opportunity.badgeId).first;
+    Issuer issuer = _issuers.where((i) => i.issuerId == opportunity.issuerId).first;
+    Address address = _addresses.where((a) => a.addressId == opportunity.addressId).first;
+
     Navigator.push(
       context,
       new MaterialPageRoute(
-        builder: (BuildContext context) =>
-            new OpportunityDetailsPage(_opportunity, _badge, _issuer, _address),
+        builder: (BuildContext context) => new OpportunityDetailsPage(
+            opportunity,
+            badge,
+            issuer,
+            address),
       ),
     );
   }
@@ -183,21 +257,21 @@ class _HomePageState extends State<HomePage> {
 
           if (_keyList.contains(beaconKey) &&
               !_notifiedKeyList.contains(beaconKey)) {
-            _notifiedKeyList.add(beaconKey);
             print(beaconKey);
             if (!notified) {
-              notified = true;
-
-              await _loadFromFirebase(beaconKey);
+              await _loadFromFirebase(
+                  result.beacons.first.ids[1], result.beacons.first.ids[2]);
 
               await LocalNotifications.createAndroidNotificationChannel(
                   channel: channel);
 
-              await LocalNotifications.createNotification(
+              for (int i = 0; i < _beaconNumberOfOpp[beaconKey]; i++) {
+                Badge badge = _badges.where((b) => b.openBadgeId == _notIdOpportunity[_notId].badgeId).first;
+                await LocalNotifications.createNotification(
                   title: "Beacon gevonden",
                   content: "Er is een leerkans in de buurt!",
                   id: _notId,
-                  imageUrl: _badge.image,
+                  imageUrl: badge.image,
                   androidSettings: new AndroidSettings(
                     channel: channel,
                   ),
@@ -205,10 +279,16 @@ class _HomePageState extends State<HomePage> {
                     presentWhileAppOpen: true,
                   ),
                   onNotificationClick: new NotificationAction(
-                      actionText: "some action",
-                      callback: _navigateToOpportunityDetails,
-                      payload: _notId.toString()));
-              _notId++;
+                    actionText: "some action",
+                    callback: _navigateToOpportunityDetails,
+                    payload: _notId.toString(),
+                  ),
+                );
+
+                _notId++;
+              }
+
+              notified = true;
             }
           }
         } else {
