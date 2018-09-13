@@ -123,6 +123,12 @@ class LeerkansDetail extends Component {
       //   </div>
       // </div> 
       <div class="opportunity-detail">
+        {!!opportunity.authority==0 && 
+          <div class="opportunity-page-warning">
+            <p>Dit is een preview van hoe de detailpagina van jouw leerkans er zal uitzien. 
+              Mogelijke deelnemers zullen deze pagina pas kunnen zien wanneer de leerkans goedgekeurd is.</p>
+          </div>
+        }
         <div class="overlay"></div>
         <div class="titlehead" style={{backgroundImage: `url(${opportunity.oppImageUrl})`}}>
           <div class="opportunity-container">
@@ -169,6 +175,12 @@ class LeerkansDetail extends Component {
                       <td><b>Periode:</b></td>
                       <td>{opportunity.beginDate + ' tot en met ' + opportunity.endDate}</td>
                     </tr>
+                    {!!userHasRights && <tr>
+                      <td><b>Status:</b></td>
+                      {!!opportunity.authority==0 && <td>In afwachting</td>}
+                      {!!opportunity.authority==1 && <td>Goedgekeurd</td>}
+                      {!!opportunity.authority==2 && <td>Verwijderd</td>}
+                    </tr>}
                     {!!userHasRights && <tr>
                       <td><b>Aantal deelnemers:</b></td>
                       <td>{opportunity.participations}</td>

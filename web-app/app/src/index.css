@@ -838,7 +838,7 @@ ul li.list:hover .delete {
     top: 90px;
     font-size: 70px;
     color: #fff;
-    z-index: 10;
+    z-index: 1;
 }
 
 .opportunity-detail .overlay{
@@ -1051,4 +1051,18 @@ ul li.list:hover .delete {
 }
 .opp-list-page p{
   /* text-align: center; */
+}
+.opportunity-page-warning{
+  color: red;
+  position: fixed;
+  background: white;
+  width: 100%;
+  z-index: 5;
+  opacity: 0.9;
+  padding: 0px 20px 0px 20px;
+}
+.nav-dropdown-ext{
+  border-top: 2px solid #707070;
+  margin-top: 2px;
+  padding-top: 1px;
 }

@@ -235,12 +235,17 @@ class FormCreateLeerkans extends React.Component {
 
     firestore.createOpportunity(opportunity)
     .then(function(docRef){
-      self.props.history.push(routes.AangemaakteLeerkansen);
+      self.redirect(docRef);
     })
     .catch(function(error) {
       console.error("Error adding document: ", error);
       console.error(JSON.stringify(opportunity));
     });
+  }
+
+  redirect(id){
+    this.props.history.push(routes.AangemaakteLeerkansen);
+    // this.props.history.push(routes.Leerkansen+"/"+id);
   }
 
   changeLat(newLat) {
