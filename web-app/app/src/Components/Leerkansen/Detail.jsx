@@ -126,7 +126,7 @@ class LeerkansDetail extends Component {
         {!!opportunity.authority==0 && 
           <div class="opportunity-page-warning">
             <p><i class="fas fa-exclamation"></i> Dit is een preview van hoe de detailpagina van jouw leerkans er zal uitzien. 
-              Mogelijke deelnemers zullen deze pagina pas kunnen zien wanneer de leerkans goedgekeurd is.</p>
+              Andere gebruikers zullen deze pagina pas kunnen zien wanneer de leerkans goedgekeurd is.</p>
           </div>
         }
         <div class="overlay"></div>
@@ -171,7 +171,7 @@ class LeerkansDetail extends Component {
                       <td><b>Contact:</b></td>
                       <td>{opportunity.contact}</td>
                     </tr>
-                    <br/>
+                    {!!address && <br/>}
                     {!!address && <tr>
                       <td><b>Locatie:</b></td>
                       <td>{address.street} {address.housenumber}, {address.postalcode} {address["city"]}</td>
@@ -180,7 +180,7 @@ class LeerkansDetail extends Component {
                       <td><b>Periode:</b></td>
                       <td>{opportunity.beginDate + ' tot en met ' + opportunity.endDate}</td>
                     </tr>
-                    <br/>
+                    {!!userHasRights && <br/>}
                     {!!userHasRights && <tr>
                       <td><b>Status:</b></td>
                       {!!opportunity.authority==0 && <td>In afwachting</td>}
