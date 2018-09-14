@@ -125,3 +125,6 @@ export const softDeleteOpportunity = (id) =>
 
 export const onceGetVoorwaarden = () =>
   firestore.collection('Voorwaarden').doc("Voorwaarden").get()
+
+export const onceGetLatestOpportunities = () =>
+  firestore.collection('Opportunities').where('authority', '==', 1).limit(3).get()
