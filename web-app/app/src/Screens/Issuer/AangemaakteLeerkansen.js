@@ -83,7 +83,7 @@ class AangemaakteLeerkansen extends Component {
 
 		return (
 			<div className="leerkansen-content">
-				<div className="content">
+				<div className="content content-with-padding">
 					{/* <SearchFilter /> */}
 					<div className="fixed opp-list-page">
             			<h1>Aangemaakte leerkansen</h1>
