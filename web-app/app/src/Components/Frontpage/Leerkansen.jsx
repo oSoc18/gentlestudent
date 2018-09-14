@@ -65,7 +65,7 @@ class Leerkansen extends Component {
 												<img src={opportunities[key].pinImageUrl} className="badge" alt="badge" />
 												<h2>{opportunities[key].title}</h2>
 												<div className="meta-data">
-													<small>{opportunities[key].startDate + ' - ' + opportunities[key].endDate}</small>
+													<small>{opportunities[key].beginDate + ' tot ' + opportunities[key].endDate}</small>
 													{/* <small>{address}</small> */}
 												</div>
 												<p>{opportunities[key].shortDescription}</p>
