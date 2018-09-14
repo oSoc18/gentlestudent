@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
   List<Badge> _badges;
   List<Issuer> _issuers;
   List<Address> _addresses;
-  int _notId = 0;
+  int _notIdExtra = 0;
   HashMap<int, Opportunity> _notIdOpportunity = new HashMap();
   HashMap<String, int> _beaconNumberOfOpp = new HashMap();
 
@@ -156,10 +156,8 @@ class _HomePageState extends State<HomePage> {
       opportunity = await _opportunityApi
           .getOpportunityById(beacon.opportunities.keys.toList()[i]);
       opportunities.add(opportunity);
-      print(opportunity.title);
-      _notIdOpportunity[_notId] = opportunity;
-      print(_notIdOpportunity[_notId].title);
-      _notId++;
+      _notIdOpportunity[_notIdExtra] = opportunity;
+      _notIdExtra++;
     }
     return opportunities;
   }
@@ -304,6 +302,9 @@ class _HomePageState extends State<HomePage> {
 
           notified = false;
           _notId++;
+
+          _notIdOpportunity[_notIdExtra] = _notIdOpportunity[_notIdExtra - 1];
+          _notIdExtra++;
         }
       }
     });
