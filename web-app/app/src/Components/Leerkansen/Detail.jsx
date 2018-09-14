@@ -122,41 +122,41 @@ class LeerkansDetail extends Component {
       //     </div>
       //   </div>
       // </div> 
-      <div class="opportunity-detail content-with-padding">
+      <div className="opportunity-detail">
         {!!opportunity.authority==0 && 
-          <div class="opportunity-page-warning">
-            <p><i class="fas fa-exclamation"></i> Dit is een preview van hoe de detailpagina van jouw leerkans er zal uitzien. 
+          <div className="opportunity-page-warning">
+            <p><i className="fas fa-exclamation"></i> Dit is een preview van hoe de detailpagina van jouw leerkans er zal uitzien. 
               Andere gebruikers zullen deze pagina pas kunnen zien wanneer de leerkans goedgekeurd is.</p>
           </div>
         }
-        <div class="overlay"></div>
-        <div class="titlehead" style={{backgroundImage: `url(${opportunity.oppImageUrl})`}}>
-          <div class="opportunity-container">
+        <div className="overlay"></div>
+        <div className="titlehead" style={{backgroundImage: `url(${opportunity.oppImageUrl})`}}>
+          <div className="opportunity-container">
               <h1>{opportunity.title}</h1>
           </div>
         </div>
-        <div id="page" class="opportunity-container">
+        <div id="page" className="opportunity-container">
           {/* <a href="/leerkansen" className="back">&lt; Terug</a> */}
-          <img class="badge" src={opportunity.pinImageUrl}/>
-          <div class="content">
-            <div class="content-left">
+          <img className="badge" src={opportunity.pinImageUrl}/>
+          <div className="content">
+            <div className="content-left">
               <h3>Beschrijving</h3>
               <p>{opportunity.longDescription}</p>
               <h3>Wat wordt er verwacht?</h3>
               <p>{opportunity.shortDescription}</p>
             </div>
-            <div class="content-right">
+            <div className="content-right">
               <br/>
-              <div class="infobox">
+              <div className="infobox">
                 <h3>Info:</h3>
-                <div class="infobox-content">
-                  {/* <div class="content-left">
+                <div className="infobox-content">
+                  {/* <div className="content-left">
                     {!!issuer && <p><b>Eigenaar:</b><br/></p>}
                     {!!address && <p><b>Locatie:</b><br/></p>}
                     <p><b>Periode:</b><br/></p>
                     <p><b>Aantal deelnemers:</b><br/></p>
                   </div>
-                  <div class="content-right">
+                  <div className="content-right">
                     {!!issuer && <p>{issuer.name}<br/></p>}
                     {!!address && <p>{address.street} {address.housenumber}, {address.postalcode} {address["city"]}<br/></p>}
                     <p>{opportunity.beginDate + ' tot en met ' + opportunity.endDate}<br/></p>
