@@ -171,8 +171,14 @@ class NavigationAuth extends Component{
 								>
 								<div className="dropdown-menu-list">
 									<NavLink to={routes.Profiel}>Profiel</NavLink>
-									{ !! isIssuer && <NavigationIssuer/>}
-									{ !! isAdmin && <NavigationAdmin/>}
+									{/* <div class="separator">-----------------</div> */}
+									<div class="nav-dropdown-ext">
+										{ !! isIssuer && <NavigationIssuer/>}
+									</div>
+									{/* <div class="separator">-----------------</div> */}
+									<div class="nav-dropdown-ext">
+										{ !! isAdmin && <NavigationAdmin/>}
+									</div>
 								</div>
 							</div>
 						)

@@ -117,6 +117,7 @@ button.primary {
   .card-container .card-item {
     position: relative;
     background-color: transparent;
+    max-height: 500px;
     padding: 15px;
     overflow: hidden; }
 
@@ -507,7 +508,7 @@ nav {
 
 footer {
   width: 100%;
-  height: 160px;
+  height: 175px;
   background-color: #F2F0ED; }
   footer ul {
     display: flex;
@@ -691,7 +692,7 @@ footer {
 
 .l-container {
   display: block;
-  padding-top: 115px;
+  /* padding-top: 115px; */
 }
 
 /* MODULE ==================== */
@@ -701,6 +702,7 @@ footer {
   margin: 10px;
   padding: 5px;
   border-radius: 5px;
+  position: relative;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.2);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
@@ -710,7 +712,9 @@ footer {
 }
 .list__opportunity_title {
   display: flex;
-  flex-grow: 0.7;
+  /* flex-grow: 0.7; */
+  overflow: hidden;
+  width:30%;
   text-align: left;
   justify-content: flex-start;
 }
@@ -718,6 +722,7 @@ footer {
   display: flex;
   text-align: left;
   justify-content: flex-end;
+  width:60%;
   overflow: hidden;
   white-space: nowrap;
 }
@@ -747,6 +752,7 @@ footer {
 .list__label--value {
   font-size: 1.3em;
   color: #707070;
+  overflow: hidden;
 }
 @media screen and (max-width: 650px) {
   .list {
@@ -778,43 +784,40 @@ ul li.list:hover .edit {
 ul li.list:hover .copy {
 	visibility: visible;
 }
-
-.edit{
-	padding-top: 7px;	
+ul li.list:hover .delete {
+	visibility: visible;
+}
+/* .icon-option{
+  padding-left: 15px;
+} */
+.icon-container{
+  color: #00AACC;
+  float: right;
+  padding-top: 7px;	
 	padding-right: 7px;
   visibility: hidden;
   position: relative;
   z-index: 1;
 }
-
-.edit a {
-  color: #00AACC;
-  float: right;
+.icon-container i{
+  margin:2px;
 }
-
-.edit:hover a {
-	color: rgb(0, 133, 160);
-}
-
-.copy{
-	padding-top: 7px;	
-	padding-right: 7px;
-  visibility: hidden;
-  position: relative;
-  z-index: 1;
-}
-
-.copy a {
-  color: #00AACC;
-  float: right;
+.icon-container:hover{
+  color: rgb(0, 133, 160);
 }
 
 .filler{
   flex-grow: 1;
 }
 
-.copy:hover a {
-	color: rgb(0, 133, 160);
+.icon-options{
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.icon-options a{
+  width: 34%;
 }
 
 .map-container{
@@ -834,9 +837,11 @@ ul li.list:hover .copy {
 .opportunity-detail h1{
     position: absolute;
     top: 90px;
-    font-size: 70px;
+    font-size: 60px;
     color: #fff;
-    z-index: 10;
+    /* text-shadow: -1px 0 #707070, 0 1px #707070, 0px 0 #707070, 0 -0px #707070; */
+    text-shadow: 0 0px 10px rgba(0, 0, 0, 0.26);
+    z-index: 1;
 }
 
 .opportunity-detail .overlay{
@@ -862,6 +867,7 @@ ul li.list:hover .copy {
   height:250px;
   background-size:cover;
   padding: 10px;
+  background-position: center center;
 }
 
 .opportunity-detail #page.opportunity-container{
@@ -1018,4 +1024,62 @@ ul li.list:hover .copy {
   /* height: 1.25em;
   border: 1px solid #bbb;
   text-align: center; */
+}
+.confirm-delete{
+  text-align: center;
+  /* overflow: scroll; */
+}
+.confirm-delete .content{
+  display: flex;
+}
+.confirm-delete button{
+  border-radius: 8px;
+  color: #FFFFFF !important;
+  border: 2px solid #00AACC;
+  background-color: #00AACC;
+  cursor: pointer;
+  font-size: 20px;
+}
+.confirm-delete .content-left{
+  width: 50%;
+  margin-right: 20px;
+}
+.confirm-delete .content-left button{
+  float: right;
+}
+.confirm-delete .content-right{
+  width: 50%;
+  margin-left: 20px;
+}
+.confirm-delete .content-right button{
+  float: left;
+}
+.opp-list-page p{
+  /* text-align: center; */
+}
+.opportunity-page-warning{
+  color: red;
+  position: fixed;
+  background: white;
+  width: 100%;
+  z-index: 5;
+  opacity: 0.9;
+  padding: 0px 20px 0px 20px;
+}
+.nav-dropdown-ext{
+  border-top: 2px dotted #ddd;
+  margin-top: 5px;
+  padding-top: 1px;
+}
+.crop-opp-img{
+  max-height: 200px;
+  overflow: hidden;
+  margin: -15px -15px 0px -15px;
+}
+.crop-opp-img img{
+  width: 100%;
+}
+.content-with-padding{
+  padding-left: 7%;
+  padding-right: 7%;
 }

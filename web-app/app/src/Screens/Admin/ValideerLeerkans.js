@@ -212,11 +212,11 @@ class Opportunity extends Component{
         console.log(opportunity.category);
         console.log(opportunity.difficulty);
         switch(opportunity.category){
-            case 0: name = "Digitale Geletterdheid"; image += "badge_digitale-geletterdheid"; break;
-            case 1: name = "Duurzaamheid"; image += "badge_duurzaamheid"; break;
-            case 2: name = "Ondernemingszin"; image += "badge_ondernemingszin"; break;
-            case 3: name = "Onderzoekende houding"; image += "badge_onderzoekende-houding"; break;
-            case 4: name = "Wereldburgerschap"; image += "badge_wereldburgerschap"; break;
+            case 0: name = "Digitale Geletterdheid"; image += "badge_digital-literacy"; break;
+            case 1: name = "Duurzaamheid"; image += "badge_sustainability"; break;
+            case 2: name = "Ondernemingszin"; image += " badge_entrepreneurial-spirit"; break;
+            case 3: name = "Onderzoekende houding"; image += "badge_research"; break;
+            case 4: name = "Wereldburgerschap"; image += "badge_global-citizenship"; break;
         }
         switch(opportunity.difficulty){
             case 0: image+= "_1.png?alt=media"; break;

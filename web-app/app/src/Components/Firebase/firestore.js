@@ -5,7 +5,7 @@ export const createOpportunity = (data) =>
 
 export const onceGetOpportunities = () =>
   // db.ref('Opportunities').once('value');
-  firestore.collection('Opportunities').get()
+  firestore.collection('Opportunities').where('authority', '<', 2).get()
 
 export async function createIssuer(institution, longName, url, phonenumber,street, housenumber,bus, postalcode, city, userId, userEmail) {
     var addressdata = {
@@ -52,13 +52,13 @@ export const validateIssuer = (id) =>
   firestore.collection('Issuers').doc(id).update({ validated: true })
 
 export const onceGetNonValidatedOpportunities = () =>
-  firestore.collection('Opportunities').where('blocked', '==', true).get()
+  firestore.collection('Opportunities').where('authority', '==', 0).get()
 
 export const onceGetValidatedOpportunities = () =>
-  firestore.collection('Opportunities').where('blocked', '==', false).get()
+  firestore.collection('Opportunities').where('authority', '==', 1).get()
 
 export const validateOpportunity = (opportunityId) =>
-  firestore.collection('Opportunities').doc(opportunityId).update({ blocked: false })
+  firestore.collection('Opportunities').doc(opportunityId).update({ authority: 1 })
 
 export const createNewBadge = (data) =>
   firestore.collection('Badges').add(data)
@@ -119,3 +119,12 @@ export const onceGetOpportunity = (id) =>
 
 export const onceGetPrivacyPage = () =>
   firestore.collection('PrivacyPage').doc("PrivacyPage").get()
+
+export const softDeleteOpportunity = (id) =>
+  firestore.collection('Opportunities').doc(id).update({authority: 2})
+
+export const onceGetVoorwaarden = () =>
+  firestore.collection('Voorwaarden').doc("Voorwaarden").get()
+
+export const onceGetLatestOpportunities = () =>
+  firestore.collection('Opportunities').where('authority', '==', 1).limit(3).get()

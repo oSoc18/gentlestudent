@@ -21,7 +21,9 @@ const LeerkansenList = ({ opportunities }) =>
 		<div className="card-container leerkansen">
 			{Object.keys(opportunities).map(key =>
 				<a href={`/leerkansen/${key}`} className={`card-item leerkans ${ opportunities[key].category }`} key={opportunities[key].addressId}>
-					<img src={opportunities[key].oppImageUrl ? `${opportunities[key].oppImageUrl}` : null} className="photo" alt="" />
+					<div className="crop-opp-img">
+						<img src={opportunities[key].oppImageUrl ? `${opportunities[key].oppImageUrl}` : null} className="photo" alt="" />
+					</div>
 					<div style={{position: "relative"}}>
 					<img src={`${opportunities[key].pinImageUrl}`} className="badge" alt="" />
 					<h2>{opportunities[key].title}</h2>

@@ -26,8 +26,8 @@ class Privacy extends Component {
         const {text} = this.state;
         return (
             <React.Fragment>
-                <div class="content">
-                    <div class="privacycontent" dangerouslySetInnerHTML={{ __html: this.state.text }} />
+                <div className="content content-with-padding">
+                    <div className="privacycontent" dangerouslySetInnerHTML={{ __html: this.state.text }} />
                 </div>
                 {/* <div className="container">
                     <div className="content">

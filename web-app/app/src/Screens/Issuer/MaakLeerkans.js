@@ -36,18 +36,38 @@ class CreateLeerkans extends Component {
     var self = this;
     if(this.props.match.params.id!=undefined){
       firestore.onceGetOpportunity(this.props.match.params.id).then(snapshot => {
-        self.setState({
-          initValues: {
-            addressId: snapshot.data().addressId,
-            beginDate: snapshot.data().beginDate,
-            category: self.getEnumValue(Category, snapshot.data().category),
-            difficulty: self.getEnumValue(Difficulty, snapshot.data().difficulty),
-            endDate: snapshot.data().endDate,
-            longDescription: snapshot.data().longDescription,
-            oppImageUrl: snapshot.data().oppImageUrl,
-            shortDescription: snapshot.data().shortDescription,
-            title: snapshot.data().title
-          }
+        var start_date= snapshot.data().beginDate;
+        // var category= self.getEnumValue(Category, snapshot.data().category);
+        var category= snapshot.data().category;
+        // var difficulty= self.getEnumValue(Difficulty, snapshot.data().difficulty);
+        var difficulty = snapshot.data().difficulty;
+        var end_date= snapshot.data().endDate;
+        var description= snapshot.data().longDescription;
+        var oppImageUrl= snapshot.data().oppImageUrl;
+        var synopsis= snapshot.data().shortDescription;
+        var title= snapshot.data().title;
+        firestore.onceGetAddress(snapshot.data().addressId).then(snapshot => {
+          self.setState({
+            initValues: {
+              start_date: start_date,
+              category: category,
+              city: snapshot.data().city,
+              country: snapshot.data().country,
+              difficulty: difficulty,
+              end_date: end_date,
+              description: description,
+              house_number: snapshot.data().housenumber,
+              latitude: snapshot.data().latitude,
+              longitude: snapshot.data().longitude,
+              oppImageUrl: oppImageUrl,
+              postal_code: snapshot.data().postalcode,
+              street: snapshot.data().street,
+              synopsis: synopsis,
+              title: title
+            }
+          });
+        }).catch(function(error) {
+          console.error("Error getting document: ", error);
         });
         console.log(self.state.initValues);
       }).catch(function(error) {
@@ -107,8 +127,9 @@ class CreateLeerkans extends Component {
             <div className="form" id="create_leerkans">
               {/* <FormCreateLeerkans onSubmit={this.submit} badges={badges}/> */}
               {/* <FormCreateLeerkans badges={badges} history={history} opportunity={opportunity}/> */}
-              {!initValues && <FormCreateLeerkans badges={badges} history={history}/>}
-              {!!initValues && <FormCreateLeerkans badges={badges} history={history} initialValues={initValues}/>}
+              {/* {!initValues && <FormCreateLeerkans badges={badges} history={history}/>} */}
+              {/* {!!initValues && <FormCreateLeerkans badges={badges} history={history} initialValues={initValues}/>} */}
+              <FormCreateLeerkans badges={badges} history={history} initialValues={initValues} initValues={initValues}/>
             </div>
           </div>
         </div>

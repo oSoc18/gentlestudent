@@ -23,7 +23,7 @@ class Register extends Component {
 		return (
 			<React.Fragment>
         <div className="container">
-          <div className="content">
+          <div className="content content-with-padding">
             <h1>Register</h1>
             <div className="form" id="register_user">
               <FormRegisterUser onSubmit={this.handleSubmit}/>

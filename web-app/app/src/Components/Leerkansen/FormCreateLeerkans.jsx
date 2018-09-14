@@ -3,7 +3,7 @@ import LocationPicker from 'react-location-picker';
 import Geocode from "react-geocode";
 
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form/immutable';
+import { Field, reduxForm } from 'redux-form';
 import Spinner from '../Spinner';
 
 import { auth, firestore } from './../Firebase';
@@ -31,6 +31,7 @@ class FormCreateLeerkans extends React.Component {
     super(props);
 
     this.state = {
+      initialised: false,
       lat: 51.0511164,
       lng: 3.7114566,
       badgeId: "",
@@ -46,7 +47,8 @@ class FormCreateLeerkans extends React.Component {
       end_date: "",
       description: "",
       synopsis: "",
-      title: "dfsfd",
+      title: "",
+      contact: "",
       image: "",
       imageUrl: "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Opportunityimages%2FNederlandse%20Les.jpg?alt=media&token=82cecaa7-4d6e-473d-b06a-a5eea35d8d4b",
       imageExtension: ""
@@ -64,9 +66,30 @@ class FormCreateLeerkans extends React.Component {
     // this.componentDidMount = this.componentDidMount.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.setState({title: "skjsd"});
-  //   var self = this;
+  componentDidUpdate() {
+    if(!this.state.initialised && this.props.initValues){
+      this.setState({
+        initialised: true,
+        start_date: this.props.initValues.start_date,
+        category: this.props.initValues.category,
+        city: this.props.initValues.city,
+        country: this.props.initValues.country,
+        difficulty: this.props.initValues.difficulty,
+        end_date: this.props.initValues.end_date,
+        description: this.props.initValues.description,
+        house_number: this.props.initValues.house_number,
+        lat: this.props.initValues.latitude,
+        lng: this.props.initValues.longitude,
+        oppImageUrl: this.props.initValues.oppImageUrl,
+        postal_code: this.props.initValues.postal_code,
+        street: this.props.initValues.street,
+        synopsis: this.props.initValues.synopsis,
+        title: this.props.initValues.title,
+        contact: this.props.initValues.contact
+      });
+    }
+    // this.setState({title: "skjsd"});
+    // var self = this;
     // if(this.props.match!=undefined){
     //   try{
     //     const id = this.props.match.params.id;
@@ -77,15 +100,15 @@ class FormCreateLeerkans extends React.Component {
     //           throw "Could not fetch data";
     //       }
     //       self.setState(() => ({ 
-            // addressId: snapshot.data().addressId,
-            // beginDate: snapshot.data().beginDate,
-            // category: self.getEnumValue(Category, snapshot.data().category),
-            // difficulty: self.getEnumValue(Difficulty, snapshot.data().difficulty),
-            // endDate: snapshot.data().endDate,
-            // longDescription: snapshot.data().longDescription,
-            // oppImageUrl: snapshot.data().oppImageUrl,
-            // shortDescription: snapshot.data().shortDescription,
-            // title: snapshot.data().shortDescription,
+    //         addressId: snapshot.data().addressId,
+    //         beginDate: snapshot.data().beginDate,
+    //         category: self.getEnumValue(Category, snapshot.data().category),
+    //         difficulty: self.getEnumValue(Difficulty, snapshot.data().difficulty),
+    //         endDate: snapshot.data().endDate,
+    //         longDescription: snapshot.data().longDescription,
+    //         oppImageUrl: snapshot.data().oppImageUrl,
+    //         shortDescription: snapshot.data().shortDescription,
+    //         title: snapshot.data().shortDescription,
     //       }));
     //     }).catch(function(error) {
     //       console.error("Error getting document: ", error);
@@ -95,7 +118,8 @@ class FormCreateLeerkans extends React.Component {
     //     console.log("error fetching opportunity", e)
     //   }
     // }
-  // }
+
+  }
 
   getEnumValue(enumTable, i){
     var keys = Object.keys(enumTable).sort(function(a, b){
@@ -198,7 +222,7 @@ class FormCreateLeerkans extends React.Component {
     opportunity["badgeId"] = this.state.badgeId;
     opportunity["beaconId"] = "";
     opportunity["beginDate"] = this.state.start_date;
-    opportunity["blocked"] = true;
+    opportunity["authority"] = 0;
     opportunity["category"] = parseInt(this.state.category);
     opportunity["difficulty"] = parseInt(this.state.difficulty);
     opportunity["endDate"] = this.state.end_date;
@@ -209,16 +233,22 @@ class FormCreateLeerkans extends React.Component {
     opportunity["pinImageUrl"] = this.state.pinImageUrl;
     opportunity["shortDescription"] = this.state.synopsis;
     opportunity["title"] = this.state.title;
+    opportunity["contact"] = this.state.contact;
     opportunity["participations"] = 0;
 
     firestore.createOpportunity(opportunity)
     .then(function(docRef){
-      self.props.history.push(routes.AangemaakteLeerkansen);
+      self.redirect(docRef);
     })
     .catch(function(error) {
       console.error("Error adding document: ", error);
       console.error(JSON.stringify(opportunity));
     });
+  }
+
+  redirect(id){
+    this.props.history.push(routes.AangemaakteLeerkansen);
+    // this.props.history.push(routes.Leerkansen+"/"+id);
   }
 
   changeLat(newLat) {
@@ -259,7 +289,7 @@ class FormCreateLeerkans extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         {/* <h2>(Loop all the fields before submitting -- will be fixed soon!)</h2> */}
-        {this.state.title}
+        {/* {this.state.title} */}
         <div className="form-group">
           <Field
             label="Titel"
@@ -270,6 +300,19 @@ class FormCreateLeerkans extends React.Component {
             defaultValue="Titel"
             placeholder="Titel"
             value={this.state.title}
+            onChange={ this.handleChange }
+          />
+        </div>
+        <div className="form-group">
+          <Field
+            label="Contact"
+            type="text"
+            name="contact"
+            id="contact"
+            component={renderInput}
+            defaultValue="E-mailadres contactpersoon"
+            placeholder="E-mailadres contactpersoon"
+            value={this.state.contact}
             onChange={ this.handleChange }
           />
         </div>
@@ -305,7 +348,7 @@ class FormCreateLeerkans extends React.Component {
         <div className="form-group">
           <Field
             id="category"
-            name="Category"
+            name="category"
             label="Categorie"
             data={{
               list: Object.keys(Category).map(key => {
@@ -322,7 +365,7 @@ class FormCreateLeerkans extends React.Component {
         <div className="form-group">
           <Field
             id="difficulty"
-            name="Difficulty"
+            name="difficulty"
             label="Moeilijkheidsgraad"
             data={{
               list: Object.keys(Difficulty).map(key => {
