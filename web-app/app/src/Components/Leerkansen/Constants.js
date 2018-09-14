@@ -11,3 +11,9 @@ export const Difficulty = {
     INTERMEDIATE: 1,
     EXPERT: 2
 }
+
+export const Authority = {
+    BLOCKED: 0,
+    APPROVED: 1,
+    DELETED: 2
+}

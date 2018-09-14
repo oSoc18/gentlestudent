@@ -23,7 +23,7 @@ class RegistreerIssuer extends Component {
 		return (
 			<React.Fragment>
         <div className="container">
-          <div className="content">
+          <div className="content content-with-padding">
             <h1>Word issuer</h1>
             <div className="form" id="register_user">
               <FormRegisterUser onSubmit={this.handleSubmit}/>

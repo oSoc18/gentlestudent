@@ -5,7 +5,7 @@ class OverOns extends Component {
         return (
             <div>
                 <div className="container">
-                    <div className="content">
+                    <div className="content content-with-padding">
                         <h1>Over Ons</h1>
                     </div>
                 </div>

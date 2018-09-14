@@ -101,62 +101,41 @@ class LeerkansDetail extends Component {
     const { address, cat, diff, issuer, userHasRights } = this.state;
 
     return (
-      // <div className="card-container leerkansen">
-      //   <a href="/leerkansen" className="back">&lt; Terug</a>
-      //   <div className="card-item leerkans">
-      //     <h1>{opportunity.title}</h1>
-      //     <img src={opportunity.oppImageUrl ? `${opportunity.oppImageUrl}` : null} className="photo" alt="" />
-      //     <div style={{position: "relative"}}>
-      //       <img src={`${opportunity.pinImageUrl}`} className="badge" alt="" />
-      //       {/* <h2>{opportunity.title}</h2> */}
-            // <div className="meta-data">
-            //   <small>{opportunity.beginDate + ' - ' + opportunity.endDate}</small>
-            //   {!!address && <Address address={address}/>}
-            //   {/* <small>{opportunity.street + ' ' + opportunity.house_number + ', ' + opportunity.postal_code + ' ' + opportunity.city}</small> */}
-            // </div>
-      //       <p>Categorie: {cat}, Moeilijkheidsgraad: {diff}</p>
-      //       <h3>Beschrijving:</h3>
-      //       <p>{opportunity.longDescription}</p>
-      //       <h3>Wat wordt er verwacht?</h3>
-      //       <p>{opportunity.shortDescription}</p>
-      //     </div>
-      //   </div>
-      // </div> 
-      <div className="opportunity-detail">
+      <div class="opportunity-detail">
         {!!opportunity.authority==0 && 
-          <div className="opportunity-page-warning">
-            <p><i className="fas fa-exclamation"></i> Dit is een preview van hoe de detailpagina van jouw leerkans er zal uitzien. 
+          <div class="opportunity-page-warning">
+            <p><i class="fas fa-exclamation"></i> Dit is een preview van hoe de detailpagina van jouw leerkans er zal uitzien. 
               Andere gebruikers zullen deze pagina pas kunnen zien wanneer de leerkans goedgekeurd is.</p>
           </div>
         }
-        <div className="overlay"></div>
-        <div className="titlehead" style={{backgroundImage: `url(${opportunity.oppImageUrl})`}}>
-          <div className="opportunity-container">
+        <div class="overlay"></div>
+        <div class="titlehead" style={{backgroundImage: `url(${opportunity.oppImageUrl})`}}>
+          <div class="opportunity-container">
               <h1>{opportunity.title}</h1>
           </div>
         </div>
-        <div id="page" className="opportunity-container">
+        <div id="page" class="opportunity-container">
           {/* <a href="/leerkansen" className="back">&lt; Terug</a> */}
-          <img className="badge" src={opportunity.pinImageUrl}/>
-          <div className="content">
-            <div className="content-left">
+          <img class="badge" src={opportunity.pinImageUrl}/>
+          <div class="content">
+            <div class="content-left">
               <h3>Beschrijving</h3>
               <p>{opportunity.longDescription}</p>
               <h3>Wat wordt er verwacht?</h3>
               <p>{opportunity.shortDescription}</p>
             </div>
-            <div className="content-right">
+            <div class="content-right">
               <br/>
-              <div className="infobox">
+              <div class="infobox">
                 <h3>Info:</h3>
-                <div className="infobox-content">
-                  {/* <div className="content-left">
+                <div class="infobox-content">
+                  {/* <div class="content-left">
                     {!!issuer && <p><b>Eigenaar:</b><br/></p>}
                     {!!address && <p><b>Locatie:</b><br/></p>}
                     <p><b>Periode:</b><br/></p>
                     <p><b>Aantal deelnemers:</b><br/></p>
                   </div>
-                  <div className="content-right">
+                  <div class="content-right">
                     {!!issuer && <p>{issuer.name}<br/></p>}
                     {!!address && <p>{address.street} {address.housenumber}, {address.postalcode} {address["city"]}<br/></p>}
                     <p>{opportunity.beginDate + ' tot en met ' + opportunity.endDate}<br/></p>
