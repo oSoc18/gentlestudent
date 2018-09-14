@@ -3,7 +3,8 @@ import 'package:Gentle_Student/models/user.dart';
 import 'package:Gentle_Student/navigation/home_page.dart';
 import 'package:Gentle_Student/pages/information/tutorial/tutorial_page.dart';
 import 'package:Gentle_Student/pages/register/register_page.dart';
-import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
+import 'package:firebase_auth/firebase_auth.dart'
+    show FirebaseAuth, FirebaseUser;
 import 'package:flutter/material.dart';
 
 //This page is the first page the user will see after installing the app
@@ -34,29 +35,34 @@ class _LoginPageState extends State<LoginPage> {
     if (_allFieldsFilledIn()) {
       try {
         //Authentication via Firebase
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
+        FirebaseUser firebaseUser =
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text,
           password: passwordController.text,
         );
-
-        //Storing the user in the local database
-        User huidigeUser = await db.getUser();
-        if (huidigeUser == null) {
-          await db.saveUser(
-              new User(emailController.text, passwordController.text));
-          //Navigating to the TutorialPage
-          Navigator.pushReplacement(
-            context,
-            new MaterialPageRoute(
-              builder: (BuildContext context) => new TutorialPage(true),
-            ),
-          );
+        if (firebaseUser.isEmailVerified) {
+          //Storing the user in the local database
+          User huidigeUser = await db.getUser();
+          if (huidigeUser == null) {
+            await db.saveUser(
+                new User(emailController.text, passwordController.text));
+            //Navigating to the TutorialPage
+            Navigator.pushReplacement(
+              context,
+              new MaterialPageRoute(
+                builder: (BuildContext context) => new TutorialPage(true),
+              ),
+            );
+          } else {
+            await db.updateUser(
+                new User(emailController.text, passwordController.text));
+            //If there is already is a user in tvhe database,
+            //Skip the TutorialPage and proceed to the HomePage
+            Navigator.of(context).pushReplacementNamed(HomePage.tag);
+          }
         } else {
-          await db.updateUser(
-              new User(emailController.text, passwordController.text));
-          //If there is already is a user in the database,
-          //Skip the TutorialPage and proceed to the HomePage
-          Navigator.of(context).pushReplacementNamed(HomePage.tag);
+          await FirebaseAuth.instance.signOut();
+          _showSnackBar("Gelieve uw e-mailadres te verifiëren via de verzonden e-mail.");
         }
       } catch (Error) {
         _showSnackBar("Er is iets fout gelopen tijdens het aanmelden.");

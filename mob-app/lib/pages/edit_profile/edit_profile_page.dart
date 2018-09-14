@@ -53,7 +53,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     //Message about changing email address and password
     final boodschap = Text(
-      "Uw e-mailadres en/of wachtwoord wijzigen kan voorlopig enkel gebeuren via de website.",
+      "Uw e-mailadres en/of wachtwoord wijzigen kan voorlopig nog niet.",
       style: TextStyle(
         color: Theme.of(context).brightness == Brightness.dark
             ? Colors.white

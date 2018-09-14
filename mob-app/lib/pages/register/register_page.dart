@@ -54,6 +54,7 @@ class _RegisterPageState extends State<RegisterPage> {
         email: emailController.text,
         password: passwordController.text,
       );
+      await firebaseUser.sendEmailVerification();
       _addUserToDatabase();
       Navigator.of(context).pop();
     } catch (Error) {
