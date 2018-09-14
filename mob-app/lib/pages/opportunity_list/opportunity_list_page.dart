@@ -262,7 +262,7 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
         value = Category.ONDERNEMINGSZIN;
         break;
       case "Onderzoek":
-        value = Category.ONDERNEMINGSZIN;
+        value = Category.ONDERZOEK;
         break;
       case "Wereldburgerschap":
         value = Category.WERELDBURGERSCHAP;

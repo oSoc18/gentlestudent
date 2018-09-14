@@ -24,7 +24,6 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-
   //Declaration of the variables
   List<Marker> _markers = [];
   List<Opportunity> _opportunities = [];
@@ -34,13 +33,15 @@ class _MapPageState extends State<MapPage> {
 
   //Function for placing the markers of the opportunities on the map
   setMarkers() {
+    Address address;
     for (int i = 0; i < _opportunities.length; i++) {
+      address = _addresses
+          .firstWhere((a) => _opportunities[i].addressId == a.addressId);
       _markers.add(
         new Marker(
           width: 100.0,
           height: 100.0,
-          point: new LatLng(
-              _opportunities[i].latitude, _opportunities[i].longitude),
+          point: new LatLng(address.latitude, address.longitude),
           builder: (context) => new GestureDetector(
                 child: new Container(
                   child: new CachedNetworkImage(
@@ -101,7 +102,10 @@ class _MapPageState extends State<MapPage> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 new ListTile(
-                  contentPadding: EdgeInsets.only(left: 6.0),
+                  contentPadding: EdgeInsets.only(
+                    left: 6.0,
+                    right: 6.0,
+                  ),
                   leading: new Hero(
                     tag: "badge image",
                     child: new CircleAvatar(
@@ -196,46 +200,44 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Stack(
-      children: <Widget>[
-        Scaffold(
-          body: new FlutterMap(
-            options: new MapOptions(
-              center: new LatLng(51.052233, 3.723653),
-              zoom: 14.0,
-              maxZoom: 16.0,
-              minZoom: 12.0,
-            ),
-            layers: [
-              //OPENSTREETMAP (FREE, BUT REALLY SLOW)
-              //new TileLayerOptions(
-              //urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-              //subdomains: ['a', 'b', 'c'],
-              //),
-
-              //MAPBOX (FREE IN THE BEGINNING)
-              new TileLayerOptions(
-                urlTemplate: "https://api.tiles.mapbox.com/v4/"
-                    "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
-                additionalOptions: {
-                  //Our MapBox token
-                  'accessToken':
-                      'pk.eyJ1IjoiZ2VudGxlc3R1ZGVudCIsImEiOiJjampxdGI5cGExMjh2M3FudTVkYnl3aDlzIn0.Z3OSj_o97M8_7L8P5s3xIA',
-                  //If the dark mode is on, display a dark map
-                  'id': Theme.of(context).brightness == Brightness.dark
-                      ? 'mapbox.dark'
-                      : 'mapbox.streets',
-                },
-              ),
-              //Placing our markers on the map
-              new MarkerLayerOptions(
-                markers: setMarkers(),
-              ),
-            ],
+    return new Stack(children: <Widget>[
+      Scaffold(
+        body: new FlutterMap(
+          options: new MapOptions(
+            center: new LatLng(51.052233, 3.723653),
+            zoom: 14.0,
+            maxZoom: 16.0,
+            minZoom: 12.0,
           ),
+          layers: [
+            //OPENSTREETMAP (FREE, BUT REALLY SLOW)
+            //new TileLayerOptions(
+            //urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            //subdomains: ['a', 'b', 'c'],
+            //),
+
+            //MAPBOX (FREE IN THE BEGINNING)
+            new TileLayerOptions(
+              urlTemplate: "https://api.tiles.mapbox.com/v4/"
+                  "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
+              additionalOptions: {
+                //Our MapBox token
+                'accessToken':
+                    'pk.eyJ1IjoiZ2VudGxlc3R1ZGVudCIsImEiOiJjampxdGI5cGExMjh2M3FudTVkYnl3aDlzIn0.Z3OSj_o97M8_7L8P5s3xIA',
+                //If the dark mode is on, display a dark map
+                'id': Theme.of(context).brightness == Brightness.dark
+                    ? 'mapbox.dark'
+                    : 'mapbox.streets',
+              },
+            ),
+            //Placing our markers on the map
+            new MarkerLayerOptions(
+              markers: setMarkers(),
+            ),
+          ],
         ),
-      ]
-    );
+      ),
+    ]);
   }
 
   //Function to get the name of a difficulty in String form

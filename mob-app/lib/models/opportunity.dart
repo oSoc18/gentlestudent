@@ -20,8 +20,6 @@ class Opportunity {
   final String addressId;
   final String badgeId;
   final String issuerId;
-  final double latitude;
-  final double longitude;
   final String pinImageUrl;
   final int participations;
   final Authority authority;
@@ -41,8 +39,6 @@ class Opportunity {
     @required this.addressId,
     @required this.badgeId,
     @required this.issuerId,
-    @required this.latitude,
-    @required this.longitude,
     @required this.pinImageUrl,
     @required this.participations,
     @required this.authority,

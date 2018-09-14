@@ -23,7 +23,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 //OPPORTUNITIES
 class OpportunityApi {
-
   //Get all opportunities
   Future<List<Opportunity>> getAllOpportunities() async {
     return (await Firestore.instance
@@ -64,7 +63,7 @@ class OpportunityApi {
   }
 
   //Update opportunity after participation creation.
-  Future<Null> updateOpportunityAfterParticipationCreation (
+  Future<Null> updateOpportunityAfterParticipationCreation(
       Opportunity opportunity, int participations) async {
     Map<String, int> data = <String, int>{
       "participations": participations + 1,
@@ -97,8 +96,6 @@ class OpportunityApi {
       title: data['title'],
       addressId: data['addressId'],
       badgeId: data['badgeId'],
-      latitude: data['latitude'],
-      longitude: data['longitude'],
       pinImageUrl: data['pinImageUrl'],
       participations: data['participations'],
       authority: _dataToAuthority(data['authority']),
@@ -189,7 +186,7 @@ class ParticipationApi {
         0;
   }
 
-  Future<Null> updateParticipationAfterBadgeClaim (
+  Future<Null> updateParticipationAfterBadgeClaim(
       Participation participation, String message) async {
     Map<String, dynamic> data = <String, dynamic>{
       "status": 1,
@@ -204,12 +201,15 @@ class ParticipationApi {
     }).catchError((e) => print(e));
   }
 
-  Future<Participation> getParticipantByUserAndOpportunity(FirebaseUser firebaseUser, Opportunity opportunity) async {
+  Future<Participation> getParticipantByUserAndOpportunity(
+      FirebaseUser firebaseUser, Opportunity opportunity) async {
     return _fromDocumentSnapshotParticipation((await Firestore.instance
-                .collection('Participations')
-                .where("participantId", isEqualTo: firebaseUser.uid)
-                .where("opportunityId", isEqualTo: opportunity.opportunityId)
-                .getDocuments()).documents.first);
+            .collection('Participations')
+            .where("participantId", isEqualTo: firebaseUser.uid)
+            .where("opportunityId", isEqualTo: opportunity.opportunityId)
+            .getDocuments())
+        .documents
+        .first);
   }
 
   Status _dataToStatus(int status) {
@@ -265,8 +265,8 @@ class ParticipantApi {
         .collection("Participants")
         .document(participantId)
         .updateData(data)
-        .whenComplete(() {
-    }).catchError((e) => print(e));
+        .whenComplete(() {})
+        .catchError((e) => print(e));
   }
 
   Participant _fromDocumentSnapshot(DocumentSnapshot snapshot) {
@@ -306,12 +306,15 @@ class AddressApi {
     final data = snapshot.data;
 
     return new Address(
-        addressId: snapshot.documentID,
-        bus: data['bus'],
-        city: data['city'],
-        housenumber: data['housenumber'],
-        postalcode: data['postalcode'],
-        street: data['street']);
+      addressId: snapshot.documentID,
+      bus: data['bus'],
+      city: data['city'],
+      housenumber: data['housenumber'],
+      postalcode: data['postalcode'],
+      street: data['street'],
+      latitude: data['latitude'],
+      longitude: data['longitude'],
+    );
   }
 }
 
@@ -398,7 +401,8 @@ class BeaconApi {
       major: data['major'],
       minor: data['minor'],
       name: data['name'],
-      opportunities: new LinkedHashMap<String, bool>.from(data['opportunities']),
+      opportunities:
+          new LinkedHashMap<String, bool>.from(data['opportunities']),
       range: data['range'],
     );
   }

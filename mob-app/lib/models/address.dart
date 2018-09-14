@@ -10,6 +10,8 @@ class Address{
   final int postalcode;
   final String city;
   final String bus;
+  final double latitude;
+  final double longitude;
 
   //Constructor
   Address({
@@ -19,5 +21,7 @@ class Address{
     @required this.postalcode,
     @required this.housenumber,
     @required this.bus,
+    @required this.latitude,
+    @required this.longitude,
   });
 }
