@@ -11,8 +11,8 @@ class Profiel extends Component {
     super(props)
 
     this.state={
-        birthdate:"",
-        education:"",
+        // birthdate:"",
+        // education:"",
         email:"",
         institute:"",
         name:"",
@@ -31,8 +31,8 @@ class Profiel extends Component {
             firestore.onceGetParticipant(id).then(doc => {
                 var res = new Object();
                 if(doc.data()){
-                    self.setState(() => ({ birthdate: doc.data().birthdate }));
-                    self.setState(() => ({ education: doc.data().education }));
+                    // self.setState(() => ({ birthdate: doc.data().birthdate }));
+                    // self.setState(() => ({ education: doc.data().education }));
                     self.setState(() => ({ email: doc.data().email }));
                     self.setState(() => ({ institute: doc.data().institute }));
                     self.setState(() => ({ name: doc.data().name }));
@@ -82,12 +82,12 @@ class Profiel extends Component {
                     <div class="info">
                     <span class="title">Email</span>
                     <i class="desc">{this.state.email}</i>
-                    <span class="title">Geboortedatum</span>
-                    <i class="desc">{this.state.birthdate}</i>
+                    {/* <span class="title">Geboortedatum</span> */}
+                    {/* <i class="desc">{this.state.birthdate}</i> */}
                     <span class="title">Institutie</span>
                     <i class="desc">{this.state.institute}</i>
-                    <span class="title">Educatie</span>
-                    <i class="desc">{this.state.education}</i>
+                    {/* <span class="title">Educatie</span> */}
+                    {/* <i class="desc">{this.state.education}</i> */}
                     {(!!this.state.requestedIssuer || !!this.state.isIssuer || !!this.state.isAdmin) && 
                         <React.Fragment>
                             <span class="title">Rollen</span>
