@@ -221,11 +221,11 @@ class FormCreateLeerkans extends React.Component {
     opportunity["addressId"] = addressId;
     opportunity["badgeId"] = this.state.badgeId;
     opportunity["beaconId"] = "";
-    opportunity["beginDate"] = this.state.start_date;
+    opportunity["beginDate"] = this.checkDate(this.state.start_date);
     opportunity["authority"] = 0;
     opportunity["category"] = parseInt(this.state.category);
     opportunity["difficulty"] = parseInt(this.state.difficulty);
-    opportunity["endDate"] = this.state.end_date;
+    opportunity["endDate"] = this.checkDate(this.state.end_date);
     opportunity["international"] = false;
     opportunity["issuerId"] = auth.getUserId();
     opportunity["longDescription"] = this.state.description;
@@ -244,6 +244,16 @@ class FormCreateLeerkans extends React.Component {
       console.error("Error adding document: ", error);
       console.error(JSON.stringify(opportunity));
     });
+  }
+
+  checkDate(s){
+    if(/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))$/.test(s)){
+      return s;
+    }
+    let day = s.split("-")[0];
+    let month = s.split("-")[1];
+    let year = s.split("-")[2];
+    return year+"-"+month+"-"+day;
   }
 
   redirect(id){
