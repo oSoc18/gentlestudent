@@ -11,6 +11,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 //This page contains all badges of a user
 class BackPackPage extends StatefulWidget {
@@ -109,8 +110,19 @@ class _BackPackPageState extends State<BackPackPage> {
     );
   }
 
+  //Function for launching an url into a browser of a smartphone
+  Future<Null> _launchInBrowser(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   //Download the badge with the included metadata
-  void _downloadBadge() {}
+  void _downloadBadge() {
+    _launchInBrowser("https://gentlestudent.gent/backpack");
+  }
 
   Text _assertionCreatedDate(DateTime issuedOn) {
     if (DateTime.parse("2000-01-01") == issuedOn) {
@@ -214,9 +226,12 @@ class _BackPackPageState extends State<BackPackPage> {
                     child: MaterialButton(
                       minWidth: 200.0,
                       height: 36.0,
-                      onPressed: () => _downloadBadge(),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        _downloadBadge();
+                      },
                       color: Colors.lightBlueAccent,
-                      child: Text('Download badge',
+                      child: Text('Bekijk op het web',
                           style: TextStyle(color: Colors.white)),
                     ),
                   ),

@@ -67,6 +67,10 @@ class _ProfilePageState extends State<ProfilePage> {
       print("Participant updated");
     }).catchError((e) => print(e));
 
+    UserUpdateInfo userUpdateInfo = new UserUpdateInfo();
+    userUpdateInfo.displayName = name;
+    await FirebaseAuth.instance.updateProfile(userUpdateInfo);
+
     await _loadFromFirebase();
   }
 

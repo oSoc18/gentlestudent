@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart'
-    show FirebaseAuth, FirebaseUser;
+    show FirebaseAuth, FirebaseUser, UserUpdateInfo;
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -54,6 +54,9 @@ class _RegisterPageState extends State<RegisterPage> {
         email: emailController.text,
         password: passwordController.text,
       );
+      UserUpdateInfo userUpdateInfo = new UserUpdateInfo();
+      userUpdateInfo.displayName = firstnameController.text + " " + lastnameController.text;
+      await FirebaseAuth.instance.updateProfile(userUpdateInfo);
       await firebaseUser.sendEmailVerification();
       _addUserToDatabase();
       Navigator.of(context).pop();
