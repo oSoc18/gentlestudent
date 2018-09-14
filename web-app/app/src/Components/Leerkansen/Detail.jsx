@@ -179,7 +179,7 @@ class LeerkansDetail extends Component {
               </div>
             </div>
           </div>
-          <List opportunity={ opportunity } id={ id }/>
+          {!!userHasRights && <List opportunity={ opportunity } id={ id }/>}
         </div>
         <br/>
         <br/>
