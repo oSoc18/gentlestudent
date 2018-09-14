@@ -9,7 +9,7 @@ import { auth, firebase, firestore } from '../Firebase';
 import * as routes from '../../routes/routes';
 
 const SignUpPage = ({ history }) =>
-  <div>
+  <div className="content content-with-padding">
     <h1>SignUp</h1>
     <SignUpForm history={history} />
   </div>

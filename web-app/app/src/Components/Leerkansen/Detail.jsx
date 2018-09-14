@@ -122,7 +122,7 @@ class LeerkansDetail extends Component {
       //     </div>
       //   </div>
       // </div> 
-      <div class="opportunity-detail">
+      <div class="opportunity-detail content-with-padding">
         {!!opportunity.authority==0 && 
           <div class="opportunity-page-warning">
             <p><i class="fas fa-exclamation"></i> Dit is een preview van hoe de detailpagina van jouw leerkans er zal uitzien. 

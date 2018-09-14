@@ -5,7 +5,7 @@ class Nieuws extends Component {
         return (
             <div>
                 <div className="container">
-                    <div className="content">
+                    <div className="content content-with-padding">
                         <h1>Nieuws</h1>
                     </div>
                 </div>

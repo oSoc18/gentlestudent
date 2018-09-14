@@ -7,7 +7,7 @@ import { auth } from '../Firebase';
 import * as routes from '../../routes/routes';
 
 const SignInPage = ({ history }) =>
-  <div>
+  <div className="content content-with-padding">
     <h1>SignIn</h1>
     <SignInForm history={history} />
     <SignUpLink />

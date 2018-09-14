@@ -26,7 +26,7 @@ class Voorwaarden extends Component {
         const {text} = this.state;
         return (
             <React.Fragment>
-                <div class="content">
+                <div class="content content-with-padding">
                     <div class="privacycontent" dangerouslySetInnerHTML={{ __html: this.state.text }} />
                 </div>
             </React.Fragment>

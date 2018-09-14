@@ -837,9 +837,10 @@ ul li.list:hover .delete {
 .opportunity-detail h1{
     position: absolute;
     top: 90px;
-    font-size: 70px;
+    font-size: 60px;
     color: #fff;
-    text-shadow: -1px 0 #707070, 0 1px #707070, 1px 0 #707070, 0 -1px #707070;
+    /* text-shadow: -1px 0 #707070, 0 1px #707070, 0px 0 #707070, 0 -0px #707070; */
+    text-shadow: 0 0px 10px rgba(0, 0, 0, 0.26);
     z-index: 1;
 }
 
@@ -1077,4 +1078,8 @@ ul li.list:hover .delete {
 }
 .crop-opp-img img{
   width: 100%;
+}
+.content-with-padding{
+  padding-left: 7%;
+  padding-right: 7%;
 }
