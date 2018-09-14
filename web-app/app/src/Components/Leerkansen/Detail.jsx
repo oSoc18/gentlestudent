@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import List from '../Issuer/Deelnemers';
+
 import Spinner from '../Spinner';
 
 import { auth, firestore } from './../Firebase';
@@ -30,11 +32,13 @@ class Detail extends Component {
     }
   }
   render() {
-    const {opportunity} = this.state;
+    const {opportunity, id} = this.state;
 
     return (
       <React.Fragment>
-        { !! opportunity && <LeerkansDetail opportunity={ opportunity }/> }
+        { !! opportunity &&
+            <LeerkansDetail opportunity={ opportunity } id={ id } />
+        }
 				{ ! opportunity && <EmptyList/> }
 			</React.Fragment>
       
@@ -97,31 +101,10 @@ class LeerkansDetail extends Component {
 		});
   }
   render() {
-    const { opportunity } = this.props;
+    const { opportunity, id } = this.props;
     const { address, cat, diff, issuer, userHasRights } = this.state;
 
     return (
-      // <div className="card-container leerkansen">
-      //   <a href="/leerkansen" className="back">&lt; Terug</a>
-      //   <div className="card-item leerkans">
-      //     <h1>{opportunity.title}</h1>
-      //     <img src={opportunity.oppImageUrl ? `${opportunity.oppImageUrl}` : null} className="photo" alt="" />
-      //     <div style={{position: "relative"}}>
-      //       <img src={`${opportunity.pinImageUrl}`} className="badge" alt="" />
-      //       {/* <h2>{opportunity.title}</h2> */}
-            // <div className="meta-data">
-            //   <small>{opportunity.beginDate + ' - ' + opportunity.endDate}</small>
-            //   {!!address && <Address address={address}/>}
-            //   {/* <small>{opportunity.street + ' ' + opportunity.house_number + ', ' + opportunity.postal_code + ' ' + opportunity.city}</small> */}
-            // </div>
-      //       <p>Categorie: {cat}, Moeilijkheidsgraad: {diff}</p>
-      //       <h3>Beschrijving:</h3>
-      //       <p>{opportunity.longDescription}</p>
-      //       <h3>Wat wordt er verwacht?</h3>
-      //       <p>{opportunity.shortDescription}</p>
-      //     </div>
-      //   </div>
-      // </div> 
       <div className="opportunity-detail">
         {!!opportunity.authority==0 && 
           <div className="opportunity-page-warning">
@@ -138,7 +121,7 @@ class LeerkansDetail extends Component {
         <div id="page" className="opportunity-container">
           {/* <a href="/leerkansen" className="back">&lt; Terug</a> */}
           <img className="badge" src={opportunity.pinImageUrl}/>
-          <div className="content">
+          <div className="content content-flex">
             <div className="content-left">
               <h3>Beschrijving</h3>
               <p>{opportunity.longDescription}</p>
@@ -196,6 +179,7 @@ class LeerkansDetail extends Component {
               </div>
             </div>
           </div>
+          <List opportunity={ opportunity } id={ id }/>
         </div>
         <br/>
         <br/>

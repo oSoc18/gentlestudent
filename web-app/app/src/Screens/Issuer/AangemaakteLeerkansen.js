@@ -8,7 +8,7 @@ import { auth } from './../../Components/Firebase/firebase';
 import Maps from './../../Components/Leerkansen/Maps';
 import SearchFilter from './../../Components/Leerkansen/SearchFilters';
 
-import AangemaakteLeerkansDetail from './../../Components/Issuer/AangemaakteLeerkansDetail';
+// import AangemaakteLeerkansDetail from './../../Components/Issuer/AangemaakteLeerkansDetail';
 import List from './../../Components/Issuer/AangemaakteLeerkansen';
 // import Detail from './../../Components/Leerkansen/Detail';
 
@@ -92,7 +92,7 @@ class AangemaakteLeerkansen extends Component {
 					<div id="aangemaakte-leerkansen">
 						<Switch>
 							{/* <Route path={'/aangemaakte-leerkansen/:id'} render={({match}) => <Detail opportunities={opportunities}  match={match}/>} /> */}
-							<Route path={'/aangemaakte-leerkansen/:id'} render={({match}) => <AangemaakteLeerkansDetail opportunities={opportunities}  match={match}/>} />
+							{/* <Route path={'/aangemaakte-leerkansen/:id'} render={({match}) => <AangemaakteLeerkansDetail opportunities={opportunities}  match={match}/>} /> */}
 							<Route path={'/aangemaakte-leerkansen'} render={() => <List opportunities={opportunities} getOpportunities={this.getOpportunities}/>} />
 						</Switch>
 					</div>

@@ -102,6 +102,9 @@ export const acceptParticipation = (id) =>
 export const rejectParticipation = (id) =>
   firestore.collection('Participations').doc(id).update({status: 2})
 
+export const completeParticipation = (id) =>
+  firestore.collection('Participations').doc(id).update({status: 3})
+
 export const onceGetAddress = (id) =>
   firestore.collection('Addresses').doc(id).get()
 
