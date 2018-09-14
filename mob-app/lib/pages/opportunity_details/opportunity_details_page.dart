@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:Gentle_Student/data/api.dart';
+import 'package:Gentle_Student/data/email_helper.dart';
 import 'package:Gentle_Student/models/address.dart';
 import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/models/category.dart';
@@ -162,7 +163,8 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                   //The badge gets added to the backpack of the user
                   await _claimBadgeCreateAssertion();
 
-                  _showSnackBar("U heeft de badge succesvol geclaimd! Hij is nu zichtbaar in uw backpack.");
+                  _showSnackBar(
+                      "U heeft de badge succesvol geclaimd! Hij is nu zichtbaar in uw backpack.");
 
                   setState(() {
                     _participation = new Participation(
@@ -225,14 +227,24 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
       final CollectionReference collection =
           Firestore.instance.collection("Participations");
       collection.add(data).whenComplete(() {
-        _opportunityApi.updateOpportunityAfterParticipationCreation(opportunity, opportunity.participations);
+        _opportunityApi.updateOpportunityAfterParticipationCreation(
+            opportunity, opportunity.participations);
         print("Participation added");
       }).catchError((e) => print(e));
       setState(() {
         _alreadyRegistered = true;
       });
       _showSnackBar("U bent succesvol geregistreerd voor deze leerkans.");
+
+      await _sendMailToIssuer();
     }
+  }
+
+  //Sends a mail to an issuer when a participant is registered for the opportunity
+  _sendMailToIssuer() async {
+    ParticipantApi participantApi = new ParticipantApi();
+    Participant participant = await participantApi.getParticipantById(firebaseUser.uid);
+    new EmailHelper(issuer, participant, opportunity);
   }
 
   //Function to check whether the current user has already favorited this opportunity

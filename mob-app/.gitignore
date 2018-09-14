@@ -6,4 +6,6 @@
 
 build/
 
+lib/data/secrets.dart
+
 .flutter-plugins

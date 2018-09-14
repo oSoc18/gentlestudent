@@ -27,6 +27,7 @@ dependencies:
   cached_network_image: any
   url_launcher: any
   sqflite: any
+  mailer2: any
 
 dev_dependencies:
   flutter_test:
