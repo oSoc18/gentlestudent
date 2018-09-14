@@ -839,6 +839,7 @@ ul li.list:hover .delete {
     top: 90px;
     font-size: 70px;
     color: #fff;
+    text-shadow: -1px 0 #707070, 0 1px #707070, 1px 0 #707070, 0 -1px #707070;
     z-index: 1;
 }
 
@@ -865,6 +866,7 @@ ul li.list:hover .delete {
   height:250px;
   background-size:cover;
   padding: 10px;
+  background-position: center center;
 }
 
 .opportunity-detail #page.opportunity-container{
