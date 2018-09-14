@@ -235,7 +235,7 @@ class SignUpForm extends Component {
               placeholder="Instituut"
             />
           </div> */}
-          <div id="tc-bx">Je gaat akkoord met onze <a href="#">voorwaarden</a> &amp; <a href="#">privacy beleid</a>.</div>
+          <div id="tc-bx">Je gaat akkoord met onze <a href={routes.Voorwaarden}>voorwaarden</a> &amp; <a href={routes.Privacy}>privacy beleid</a>.</div>
           <div id="s-btn" class="mrg25t"><input type="submit" value="Sign up" class="b3"/></div>
           { error && <p>{error.message}</p> }
         </form>
