@@ -745,6 +745,9 @@ footer {
   align-items: center;
   margin-top: 15px;
 }
+.list__label__title {
+  align-items: flex-start;
+}
 .list__label--header {
   color: #00AACC;
   
@@ -753,6 +756,7 @@ footer {
   font-size: 1.3em;
   color: #707070;
   overflow: hidden;
+  float: left;
 }
 @media screen and (max-width: 650px) {
   .list {

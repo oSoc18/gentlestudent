@@ -182,7 +182,7 @@ class SignUpForm extends Component {
             />
             </div> */}
           <div className="form-group">
-            <label class="cl-wh f-lb">Organisatie/Onderwijsinstelling:</label>
+            <label class="cl-wh f-lb">Organisatie/onderwijsinstelling:</label>
             <div class="f-i-bx b3 mrg3b">
               <div class="tb">
                 <div class="td icon"><i class="fas fa-building"></i></div>
@@ -191,7 +191,7 @@ class SignUpForm extends Component {
                     value={institute}
                     onChange={event => this.setState(byPropKey('institute', event.target.value))}
                     type="text"
-                    placeholder="Organisatie/Onderwijsinstelling"
+                    placeholder="Organisatie/onderwijsinstelling"
                   />
                 </div>
               </div>
@@ -220,7 +220,7 @@ class SignUpForm extends Component {
                     value={passwordTwo}
                     onChange={event => this.setState(byPropKey('passwordTwo', event.target.value))}
                     type="password"
-                    placeholder="Herhaal Wachtwoord"
+                    placeholder="Herhaal wachtwoord"
                   />
                 </div>
               </div>

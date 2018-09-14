@@ -79,7 +79,7 @@ class LeerkansenList extends Component {
 					<li class="list">
 						<div class="list__opportunity_title">
 							<div> <img src={opportunities[key].pinImageUrl ? `${opportunities[key].pinImageUrl}` : null}/> </div>
-							<div class="list__label">
+							<div class="list__label list__label__title">
 								{/* <div class="list__label--header"> Leerkans </div> */}
 								<div class="list__label--value"><h2> {opportunities[key].title}</h2> </div>
 							</div>
