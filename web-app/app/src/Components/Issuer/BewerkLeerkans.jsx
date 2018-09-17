@@ -5,7 +5,7 @@ import Spinner from '../Spinner';
 
 import { auth, firestore } from './../Firebase';
 
-class Detail extends Component {
+class BewerkLeerkans extends Component {
   constructor(props){
     super(props);
 
@@ -189,4 +189,4 @@ const EmptyList = () =>
 	</div>
 
 
-export default Detail;
+export default BewerkLeerkans;

@@ -102,7 +102,7 @@ class LeerkansenList extends Component {
 						</div>
 						{/* <div class="filler"/> */}
 						<div class="icon-options">
-							{!!(opportunities[key].authority==0) && <a href="#"><div class="edit icon-container"><i class="fas fa-edit fa-lg"></i></div></a>}
+							{!!(opportunities[key].authority==0) && <a href={routes.BewerkLeerkans+"/"+key}><div class="edit icon-container"><i class="fas fa-edit fa-lg"></i></div></a>}
 							{!(opportunities[key].authority==0) && <div class="edit icon-container"><i class="fas fa-edit fa-lg" style={{visibility:'hidden'}}></i></div>}
 							<a href="#" onClick={this.confirmDelete}><div class="delete icon-container"><i class="fas fa-trash-alt fa-lg" id={key}></i></div></a>
 							<a href={routes.MaakLeerkans+"/"+key}><div class="copy icon-container"><i class="fas fa-plus fa-lg"></i></div></a>
