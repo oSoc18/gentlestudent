@@ -564,7 +564,7 @@ footer {
 #startpage {
   position: relative;
   width: 100% !important;
-  height: 85vh !important;
+  height: 90vh !important;
   min-height: 550px !important;
   max-height: 900px !important;
   overflow: hidden !important;
@@ -572,7 +572,7 @@ footer {
   #startpage .eyecather-wrapper {
     width: 100% !important;
     position: absolute !important;
-    height: 85vh !important;
+    height: 90vh !important;
     min-height: 550px !important;
     max-height: 900px !important;
     overflow: hidden !important;

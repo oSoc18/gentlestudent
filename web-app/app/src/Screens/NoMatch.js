@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router'
+import { withRouter } from 'react-router-dom'
 
 import Leerkansen from './../Components/Frontpage/Leerkansen';
 import RecenteErvaringen from './../Components/Frontpage/RecenteErvaringen';
@@ -46,13 +46,16 @@ class NoMatch extends Component {
 						</div>
 					</div>
 				</div>
-				{!!redirect && <Redirect to='/' />}
+				{!!redirect && <DelayedRedirect />}
 			</div>
 		);
 	}
 }
 
-const DelayedRedirect = () =>
-	<Redirect refresh='5' to='/' />
+const DelayedRedirect = withRouter(({ history }) => (
+	<React.Fragment>
+		{ history.push('/') }
+	</React.Fragment>
+  ))
   
 export default NoMatch;
