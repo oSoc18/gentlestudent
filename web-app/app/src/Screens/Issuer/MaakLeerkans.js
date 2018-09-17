@@ -23,6 +23,7 @@ class CreateLeerkans extends Component {
 		};
   };
   componentDidMount() {
+    window.scrollTo(0, 0);
 		firestore.onceGetBadges().then(snapshot => {
 			var res = new Object();
 			snapshot.forEach(doc => {

@@ -18,6 +18,7 @@ class ValideerIssuer extends Component {
 
     componentDidMount() {
         this.getIssuers();
+        window.scrollTo(0, 0);
     }
     getIssuers() {
         firestore.onceGetNonValidatedIssuers().then(snapshot => {

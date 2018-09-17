@@ -23,6 +23,7 @@ class Profiel extends Component {
     }
   }
   componentDidMount() {
+    window.scrollTo(0, 0);
       var self = this
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {

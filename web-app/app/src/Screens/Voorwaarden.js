@@ -13,6 +13,7 @@ class Voorwaarden extends Component {
     }
     }
     componentDidMount() {
+        window.scrollTo(0, 0);
         var self = this;
         firestore.onceGetVoorwaarden().then(snapshot => {
             console.log("content:");

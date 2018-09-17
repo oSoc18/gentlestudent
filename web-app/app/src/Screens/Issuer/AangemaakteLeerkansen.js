@@ -25,6 +25,7 @@ class AangemaakteLeerkansen extends Component {
 		this.getOpportunities = this.getOpportunities.bind(this);
 	  }
 	componentDidMount() {
+		window.scrollTo(0, 0);
         auth.onAuthStateChanged((user) => {
             if (user) {
 				this.state.userId = user.uid;

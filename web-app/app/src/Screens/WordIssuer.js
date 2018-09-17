@@ -9,6 +9,9 @@ import StepsIssuer from './../Components/Issuer/Steps';
 import { Breadcrumbs } from './../Components/Utils';
 
 class WordIssuer extends Component {
+  componentDidMount(){
+    window.scrollTo(0, 0);
+  }
   render() {
     return (
       <div>

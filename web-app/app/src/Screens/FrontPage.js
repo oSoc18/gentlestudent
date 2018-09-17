@@ -18,8 +18,9 @@ const newStyle = {
 
 class FrontPage extends Component {
 	componentDidMount() {
-    // this.props.check();
-  }
+		// this.props.check();
+		window.scrollTo(0, 0);
+	}
 	render() {
 		return (
 			<div>

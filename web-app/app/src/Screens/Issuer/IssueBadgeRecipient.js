@@ -9,6 +9,7 @@ class IssueBadgeRecipient extends Component {
 		this.submit = this.submit.bind(this);
 	};
 	componentDidMount() {
+		window.scrollTo(0, 0);
 		this.props.badgeFetchList();
 	}
 	submit() {

@@ -8,6 +8,9 @@ class Register extends Component {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  componentDidMount(){
+    window.scrollTo(0, 0);
+  }
   handleSubmit() {
     console.log('credentials: ', {...this.props.form.registerUser.values});
     this.props.registerUser(

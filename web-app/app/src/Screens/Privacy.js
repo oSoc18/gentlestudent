@@ -6,13 +6,14 @@ import { firestore } from './../Components/Firebase';
 
 class Privacy extends Component {
   constructor(props) {
-    super(props)
+        super(props)
 
-    this.state={
-        text: ""
-    }
+        this.state={
+            text: ""
+        }
     }
     componentDidMount() {
+        window.scrollTo(0, 0);
         var self = this;
         firestore.onceGetPrivacyPage().then(snapshot => {
             console.log("content:");

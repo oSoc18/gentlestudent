@@ -26,10 +26,11 @@ class NoMatch extends Component {
 		}
 	}
 	componentDidMount() {
-	// this.props.check();
-	setInterval(() => {
-		this.setState({redirect: true});
-	}, 5000);
+		window.scrollTo(0, 0);
+		// this.props.check();
+		setInterval(() => {
+			this.setState({redirect: true});
+		}, 5000);
   }
 	render() {
 		const { redirect } = this.state;
