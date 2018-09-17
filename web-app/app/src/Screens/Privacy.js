@@ -24,7 +24,6 @@ class Privacy extends Component {
         });
     }
     render() {
-        const {text} = this.state;
         return (
             <React.Fragment>
                 <div className="content content-with-padding">

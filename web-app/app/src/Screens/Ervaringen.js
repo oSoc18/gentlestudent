@@ -8,7 +8,7 @@ class Ervaringen extends Component {
         return (
             <div>
                 <div className="container">
-                    <div className="content">
+                    <div className="content content-with-padding">
                         <h1>Ervaringen</h1>
                     </div>
                 </div>
