@@ -48,6 +48,8 @@ class FormCreateLeerkans extends React.Component {
       description: "",
       synopsis: "",
       title: "",
+      moreInfo: "",
+      website: "",
       contact: "",
       image: "",
       imageUrl: "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Opportunityimages%2FNederlandse%20Les.jpg?alt=media&token=82cecaa7-4d6e-473d-b06a-a5eea35d8d4b",
@@ -85,6 +87,8 @@ class FormCreateLeerkans extends React.Component {
         street: this.props.initValues.street,
         synopsis: this.props.initValues.synopsis,
         title: this.props.initValues.title,
+        moreInfo: this.props.initValues.moreInfo,
+        website: this.props.initValues.website,
         contact: this.props.initValues.contact
       });
     }
@@ -233,6 +237,8 @@ class FormCreateLeerkans extends React.Component {
     opportunity["pinImageUrl"] = this.state.pinImageUrl;
     opportunity["shortDescription"] = this.state.synopsis;
     opportunity["title"] = this.state.title;
+    opportunity["moreInfo"] = this.state.moreInfo;
+    opportunity["website"] = this.state.website;
     opportunity["contact"] = this.state.contact;
     opportunity["participations"] = 0;
 
@@ -315,27 +321,19 @@ class FormCreateLeerkans extends React.Component {
         </div>
         <div className="form-group">
           <Field
-            label="Contact"
-            type="text"
-            name="contact"
-            id="contact"
-            component={renderInput}
-            defaultValue="E-mailadres contactpersoon"
-            placeholder="E-mailadres contactpersoon"
-            value={this.state.contact}
-            onChange={ this.handleChange }
-          />
-        </div>
-        <div className="form-group">
-          <Field
-            label="Verwachtingen"
-            type="text"
-            name="synopsis"
-            id="synopsis"
-            component={renderTextarea}
-            placeholder="Korte beschrijving van wat er verwacht wordt"
-            value={this.state.synopsis}
-            onChange={ this.handleChange }
+            id="category"
+            name="category"
+            label="Domein"
+            data={{
+              list: Object.keys(Category).map(key => {
+                return {
+                  value: Category[`${key}`],
+                  display: key
+                };
+              })
+            }}
+            component={renderSelect}
+            onChange={this.handleChange}
           />
         </div>
         <div className="form-group">
@@ -349,27 +347,16 @@ class FormCreateLeerkans extends React.Component {
             onChange={ this.handleChange }
           />
         </div>
-        {/* <div className="form-group">
-          <React.Fragment>
-            { !! badges && <BadgesList badges={ badges } /> }
-            { ! badges && <EmptyList/> }
-          </React.Fragment>
-        </div> */}
         <div className="form-group">
           <Field
-            id="category"
-            name="category"
-            label="Categorie"
-            data={{
-              list: Object.keys(Category).map(key => {
-                return {
-                  value: Category[`${key}`],
-                  display: key
-                };
-              })
-            }}
-            component={renderSelect}
-            onChange={this.handleChange}
+            label="Verwachtingen"
+            type="text"
+            name="synopsis"
+            id="synopsis"
+            component={renderTextarea}
+            placeholder="Korte beschrijving van wat er verwacht wordt"
+            value={this.state.synopsis}
+            onChange={ this.handleChange }
           />
         </div>
         <div className="form-group">
@@ -389,6 +376,51 @@ class FormCreateLeerkans extends React.Component {
             onChange={this.handleChange}
           />
         </div>
+        <div className="form-group">
+          <Field
+            label="Meer info"
+            type="text"
+            name="moreInfo"
+            id="moreInfo"
+            component={renderInput}
+            defaultValue="Meer info"
+            placeholder="Meer info"
+            value={this.state.moreInfo}
+            onChange={ this.handleChange }
+          />
+        </div>
+        <div className="form-group">
+          <Field
+            label="Contact"
+            type="text"
+            name="contact"
+            id="contact"
+            component={renderInput}
+            defaultValue="E-mailadres contactpersoon"
+            placeholder="E-mailadres contactpersoon"
+            value={this.state.contact}
+            onChange={ this.handleChange }
+          />
+        </div>
+        <div className="form-group">
+          <Field
+            label="Website"
+            type="text"
+            name="website"
+            id="website"
+            component={renderInput}
+            defaultValue="Website"
+            placeholder="Website"
+            value={this.state.website}
+            onChange={ this.handleChange }
+          />
+        </div>
+        {/* <div className="form-group">
+          <React.Fragment>
+            { !! badges && <BadgesList badges={ badges } /> }
+            { ! badges && <EmptyList/> }
+          </React.Fragment>
+        </div> */}
         <div className="form-group">
           <Field
             label="Start datum"
