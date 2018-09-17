@@ -127,6 +127,8 @@ class LeerkansDetail extends Component {
               <p>{opportunity.longDescription}</p>
               <h3>Wat wordt er verwacht?</h3>
               <p>{opportunity.shortDescription}</p>
+              {!!opportunity.moreInfo && <h3>Meer weten?</h3>}
+              <p>{opportunity.moreInfo}</p>
             </div>
             <div className="content-right">
               <br/>
@@ -150,6 +152,10 @@ class LeerkansDetail extends Component {
                       <td><b>Eigenaar:</b></td>
                       <td>{issuer.name}</td>
                     </tr>}
+                    <tr>
+                      <td><b>Website:</b></td>
+                      <td>{opportunity.website}</td>
+                    </tr>
                     <tr>
                       <td><b>Contact:</b></td>
                       <td>{opportunity.contact}</td>
