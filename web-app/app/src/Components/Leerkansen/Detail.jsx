@@ -128,7 +128,7 @@ class LeerkansDetail extends Component {
               <h3>Wat wordt er verwacht?</h3>
               <p>{opportunity.shortDescription}</p>
               {!!opportunity.moreInfo && <h3>Meer weten?</h3>}
-              <p>{opportunity.moreInfo}</p>
+              <p> <a href={opportunity.moreInfo}>Klik hier</a> om meer te weten.</p>
             </div>
             <div className="content-right">
               <br/>

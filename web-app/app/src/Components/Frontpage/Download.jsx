@@ -16,10 +16,10 @@ class Download extends Component {
                         <div className="right">
                             <h1>Download de mobile app</h1>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            <a href="/">
+                            <a href="https://itunes.apple.com/us/app/gentlestudent/id1417851918?mt=8&ign-mpt=uo%3D4">
                                 <img src={downloadiOS} alt="download-button-ios" />
                             </a>
-                            <a href="/">
+                            <a href="http://play.google.com/store/apps/details?id=gent.gentlestudent">
                                 <img src={downloadAndroid} alt="download-button-android" />
                             </a>
                         </div>
