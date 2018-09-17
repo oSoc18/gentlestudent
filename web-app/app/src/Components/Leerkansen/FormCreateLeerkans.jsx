@@ -438,6 +438,7 @@ class FormCreateLeerkans extends React.Component {
             placeholder="DD/MM/JJJJ"
             value={this.state.start_date}
             onChange={ this.handleChange }
+            required
           />
         </div>
         <div className="form-group">

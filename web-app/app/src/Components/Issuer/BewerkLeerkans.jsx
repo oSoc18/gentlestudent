@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
 
 import Spinner from '../Spinner';
 
-import { renderInput, renderAutomaticInput, renderTextarea, renderSelect, RenderDropzoneInput, validate } from './../Utils';
+import FormBewerkLeerkans from './FormBewerkLeerkans';
 
 import { auth, firestore } from './../Firebase';
 
@@ -16,17 +15,58 @@ class BewerkLeerkans extends Component {
 
     this.state={
       opportunity: null,
-      id: this.props.match.params.id
+      id: this.props.match.params.id,
+      initValues: {}
     };
   }
   componentDidMount(){
+    var self = this;
     if(this.props.opportunities==undefined){
       firestore.onceGetOpportunity(this.state.id).then(doc => {
         if(doc.data() && doc.data().authority==0){
           this.setState(() => ({ opportunity: doc.data() }));
+          var start_date= doc.data().beginDate;
+          // var category= self.getEnumValue(Category, doc.data().category);
+          var category= doc.data().category;
+          // var difficulty= self.getEnumValue(Difficulty, doc.data().difficulty);
+          var difficulty = doc.data().difficulty;
+          var end_date= doc.data().endDate;
+          var description= doc.data().longDescription;
+          var oppImageUrl= doc.data().oppImageUrl;
+          var synopsis= doc.data().shortDescription;
+          var title= doc.data().title;
+          var moreInfo= doc.data().moreInfo;
+          var website= doc.data().website;
+          firestore.onceGetAddress(doc.data().addressId).then(snapshot => {
+            self.setState({
+              initValues: {
+                address: snapshot.data().street+" "+snapshot.data().housenumber+
+                ", "+snapshot.data().postalcode+" "+snapshot.data().city,
+                start_date: start_date,
+                category: category,
+                city: snapshot.data().city,
+                country: snapshot.data().country,
+                difficulty: difficulty,
+                end_date: end_date,
+                description: description,
+                house_number: snapshot.data().housenumber,
+                latitude: snapshot.data().latitude,
+                longitude: snapshot.data().longitude,
+                oppImageUrl: oppImageUrl,
+                postal_code: snapshot.data().postalcode,
+                street: snapshot.data().street,
+                synopsis: synopsis,
+                title: title,
+                moreInfo: moreInfo,
+                website: website
+              }
+            });
+          }).catch(function(error) {
+            console.error("Error getting document: ", error);
+          });
         }
         else{
-          throw new Error("Opportunity does not exist or has incorrect authority.")
+          throw new Error("Opportunity does not exist, has incorrect data or has elevated authority.")
         }
       })
       .catch(err => {
@@ -39,11 +79,11 @@ class BewerkLeerkans extends Component {
     }
   }
   render() {
-    const {opportunity} = this.state;
+    const {opportunity, initValues} = this.state;
 
     return (
       <React.Fragment>
-        { !! opportunity && <LeerkansDetail opportunity={ opportunity }/> }
+        { !! opportunity && <LeerkansDetail opportunity={ opportunity } initValues={ initValues } /> }
 				{ ! opportunity && <EmptyList/> }
 			</React.Fragment>
       
@@ -106,7 +146,7 @@ class LeerkansDetail extends Component {
 		});
   }
   render() {
-    const { opportunity } = this.props;
+    const { opportunity, initValues } = this.props;
     const { address, issuer } = this.state;
 
     return (
@@ -120,13 +160,13 @@ class LeerkansDetail extends Component {
         <div className="overlay"></div>
         <div className="titlehead" style={{backgroundImage: `url(${opportunity.oppImageUrl})`}}>
           <div className="opportunity-container">
-              <h1>{opportunity.title}</h1>
+              <h1>Bewerk leerkans: {opportunity.title}</h1>
           </div>
         </div>
         <div id="page" className="opportunity-container">
           {/* <a href="/leerkansen" className="back">&lt; Terug</a> */}
           <img className="badge" src={opportunity.pinImageUrl}/>
-          <FormBewerkLeerkans opportunity={opportunity} address={address} issuer={issuer}/>
+          <FormBewerkLeerkans opportunity={opportunity} address={address} issuer={issuer} initialValues={ initValues} />
           {/* {!!userHasRights && <List opportunity={ opportunity } id={ id }/>} */}
         </div>
         <br/>
@@ -136,122 +176,9 @@ class LeerkansDetail extends Component {
   }
 }
 
-class FormBewerkLeerkans extends Component{
-  constructor(props){
-    super(props);
-
-    this.state={
-      title: ""
-    }
-  }
-  render() {
-    const { opportunity, address, issuer, submitting, pristine } = this.props;
-
-    return (
-      <React.Fragment>
-        <form onSubmit={this.handleSubmit}>
-          <div className="content content-flex">
-            <div className="content-left">
-              <div className="form-group">
-                <Field
-                  type="text"
-                  name="title"
-                  id="title"
-                  info="Schrijf hier een motiverende en uitdagende titel voor jouw leerkans"
-                  component={renderInput}
-                  defaultValue="Titel"
-                  placeholder="Titel"
-                  value={this.state.title}
-                  onChange={ this.handleChange }
-                />
-              </div>
-              <h3>Beschrijving</h3>
-              <p>{opportunity.longDescription}</p>
-              <h3>Wat wordt er verwacht?</h3>
-              <p>{opportunity.shortDescription}</p>
-              <h3>Meer weten?</h3>
-              <p> <a href={opportunity.moreInfo}>Klik hier</a> om meer te weten.</p>
-            </div>
-            <div className="content-right">
-              <br/>
-              <div className="infobox">
-                <h3>Info:</h3>
-                <div className="infobox-content">
-                  {/* <div className="content-left">
-                    {!!issuer && <p><b>Eigenaar:</b><br/></p>}
-                    {!!address && <p><b>Locatie:</b><br/></p>}
-                    <p><b>Periode:</b><br/></p>
-                    <p><b>Aantal deelnemers:</b><br/></p>
-                  </div>
-                  <div className="content-right">
-                    {!!issuer && <p>{issuer.name}<br/></p>}
-                    {!!address && <p>{address.street} {address.housenumber}, {address.postalcode} {address["city"]}<br/></p>}
-                    <p>{opportunity.beginDate + ' tot en met ' + opportunity.endDate}<br/></p>
-                    <p>{opportunity.participations}<br/></p>
-                  </div> */}
-                  <table>
-                    {!!issuer && <tr>
-                      <td><b>Eigenaar:</b></td>
-                      <td>{issuer.name}</td>
-                    </tr>}
-                    <tr>
-                      <td><b>Website:</b></td>
-                      <td>{opportunity.website}</td>
-                    </tr>
-                    <tr>
-                      <td><b>Contact:</b></td>
-                      <td>{opportunity.contact}</td>
-                    </tr>
-                    {!!address && <br/>}
-                    {!!address && <tr>
-                      <td><b>Locatie:</b></td>
-                      <td>{address.street} {address.housenumber}, {address.postalcode} {address["city"]}</td>
-                    </tr>}
-                    <tr>
-                      <td><b>Periode:</b></td>
-                      <td>{opportunity.beginDate + ' tot en met ' + opportunity.endDate}</td>
-                    </tr>
-                    <br/>
-                    <tr>
-                      <td><b>Status:</b></td>
-                      {!!opportunity.authority==0 && <td>In afwachting</td>}
-                      {!!opportunity.authority==1 && <td>Goedgekeurd</td>}
-                      {!!opportunity.authority==2 && <td>Verwijderd</td>}
-                    </tr>
-                    <tr>
-                      <td><b>Aantal deelnemers:</b></td>
-                      <td>{opportunity.participations}</td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <br/>
-          <div className="form-group">
-            <button type="submit" disabled={submitting || pristine}>
-              Bewaar
-            </button>
-          </div>
-        </form>
-      </React.Fragment>
-    )
-  }
-}
-
 const EmptyList = () =>
 	<div>
 		<Spinner />
 	</div>
-
-BewerkLeerkans = reduxForm({
-  form: 'BewerkLeerkans',
-  validate,
-  // fields: ['title', 'synopsis'],
-  enableReinitialize: true
-  // initialValues: {
-  //   title: "test"
-  // }
-})(BewerkLeerkans);
 
 export default withRouter(BewerkLeerkans);
