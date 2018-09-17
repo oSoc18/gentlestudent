@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
+
 import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
 
 import Spinner from '../Spinner';
+
+import { renderInput, renderAutomaticInput, renderTextarea, renderSelect, RenderDropzoneInput, validate } from './../Utils';
 
 import { auth, firestore } from './../Firebase';
 
@@ -122,9 +126,7 @@ class LeerkansDetail extends Component {
         <div id="page" className="opportunity-container">
           {/* <a href="/leerkansen" className="back">&lt; Terug</a> */}
           <img className="badge" src={opportunity.pinImageUrl}/>
-          <div className="content content-flex">
-            <FormBewerkLeerkans opportunity={opportunity} address={address} issuer={issuer}/>
-          </div>
+          <FormBewerkLeerkans opportunity={opportunity} address={address} issuer={issuer}/>
           {/* {!!userHasRights && <List opportunity={ opportunity } id={ id }/>} */}
         </div>
         <br/>
@@ -135,73 +137,103 @@ class LeerkansDetail extends Component {
 }
 
 class FormBewerkLeerkans extends Component{
+  constructor(props){
+    super(props);
+
+    this.state={
+      title: ""
+    }
+  }
   render() {
-    const { opportunity, address, issuer } = this.props;
+    const { opportunity, address, issuer, submitting, pristine } = this.props;
 
     return (
       <React.Fragment>
-        <div className="content-left">
-          <h3>Beschrijving</h3>
-          <p>{opportunity.longDescription}</p>
-          <h3>Wat wordt er verwacht?</h3>
-          <p>{opportunity.shortDescription}</p>
-          {!!opportunity.moreInfo && <h3>Meer weten?</h3>}
-          {!!opportunity.moreInfo && <p> <a href={opportunity.moreInfo}>Klik hier</a> om meer te weten.</p>}
-        </div>
-        <div className="content-right">
-          <br/>
-          <div className="infobox">
-            <h3>Info:</h3>
-            <div className="infobox-content">
-              {/* <div className="content-left">
-                {!!issuer && <p><b>Eigenaar:</b><br/></p>}
-                {!!address && <p><b>Locatie:</b><br/></p>}
-                <p><b>Periode:</b><br/></p>
-                <p><b>Aantal deelnemers:</b><br/></p>
+        <form onSubmit={this.handleSubmit}>
+          <div className="content content-flex">
+            <div className="content-left">
+              <div className="form-group">
+                <Field
+                  type="text"
+                  name="title"
+                  id="title"
+                  info="Schrijf hier een motiverende en uitdagende titel voor jouw leerkans"
+                  component={renderInput}
+                  defaultValue="Titel"
+                  placeholder="Titel"
+                  value={this.state.title}
+                  onChange={ this.handleChange }
+                />
               </div>
-              <div className="content-right">
-                {!!issuer && <p>{issuer.name}<br/></p>}
-                {!!address && <p>{address.street} {address.housenumber}, {address.postalcode} {address["city"]}<br/></p>}
-                <p>{opportunity.beginDate + ' tot en met ' + opportunity.endDate}<br/></p>
-                <p>{opportunity.participations}<br/></p>
-              </div> */}
-              <table>
-                {!!issuer && <tr>
-                  <td><b>Eigenaar:</b></td>
-                  <td>{issuer.name}</td>
-                </tr>}
-                <tr>
-                  <td><b>Website:</b></td>
-                  <td>{opportunity.website}</td>
-                </tr>
-                <tr>
-                  <td><b>Contact:</b></td>
-                  <td>{opportunity.contact}</td>
-                </tr>
-                {!!address && <br/>}
-                {!!address && <tr>
-                  <td><b>Locatie:</b></td>
-                  <td>{address.street} {address.housenumber}, {address.postalcode} {address["city"]}</td>
-                </tr>}
-                <tr>
-                  <td><b>Periode:</b></td>
-                  <td>{opportunity.beginDate + ' tot en met ' + opportunity.endDate}</td>
-                </tr>
-                <br/>
-                <tr>
-                  <td><b>Status:</b></td>
-                  {!!opportunity.authority==0 && <td>In afwachting</td>}
-                  {!!opportunity.authority==1 && <td>Goedgekeurd</td>}
-                  {!!opportunity.authority==2 && <td>Verwijderd</td>}
-                </tr>
-                <tr>
-                  <td><b>Aantal deelnemers:</b></td>
-                  <td>{opportunity.participations}</td>
-                </tr>
-              </table>
+              <h3>Beschrijving</h3>
+              <p>{opportunity.longDescription}</p>
+              <h3>Wat wordt er verwacht?</h3>
+              <p>{opportunity.shortDescription}</p>
+              <h3>Meer weten?</h3>
+              <p> <a href={opportunity.moreInfo}>Klik hier</a> om meer te weten.</p>
+            </div>
+            <div className="content-right">
+              <br/>
+              <div className="infobox">
+                <h3>Info:</h3>
+                <div className="infobox-content">
+                  {/* <div className="content-left">
+                    {!!issuer && <p><b>Eigenaar:</b><br/></p>}
+                    {!!address && <p><b>Locatie:</b><br/></p>}
+                    <p><b>Periode:</b><br/></p>
+                    <p><b>Aantal deelnemers:</b><br/></p>
+                  </div>
+                  <div className="content-right">
+                    {!!issuer && <p>{issuer.name}<br/></p>}
+                    {!!address && <p>{address.street} {address.housenumber}, {address.postalcode} {address["city"]}<br/></p>}
+                    <p>{opportunity.beginDate + ' tot en met ' + opportunity.endDate}<br/></p>
+                    <p>{opportunity.participations}<br/></p>
+                  </div> */}
+                  <table>
+                    {!!issuer && <tr>
+                      <td><b>Eigenaar:</b></td>
+                      <td>{issuer.name}</td>
+                    </tr>}
+                    <tr>
+                      <td><b>Website:</b></td>
+                      <td>{opportunity.website}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Contact:</b></td>
+                      <td>{opportunity.contact}</td>
+                    </tr>
+                    {!!address && <br/>}
+                    {!!address && <tr>
+                      <td><b>Locatie:</b></td>
+                      <td>{address.street} {address.housenumber}, {address.postalcode} {address["city"]}</td>
+                    </tr>}
+                    <tr>
+                      <td><b>Periode:</b></td>
+                      <td>{opportunity.beginDate + ' tot en met ' + opportunity.endDate}</td>
+                    </tr>
+                    <br/>
+                    <tr>
+                      <td><b>Status:</b></td>
+                      {!!opportunity.authority==0 && <td>In afwachting</td>}
+                      {!!opportunity.authority==1 && <td>Goedgekeurd</td>}
+                      {!!opportunity.authority==2 && <td>Verwijderd</td>}
+                    </tr>
+                    <tr>
+                      <td><b>Aantal deelnemers:</b></td>
+                      <td>{opportunity.participations}</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+          <br/>
+          <div className="form-group">
+            <button type="submit" disabled={submitting || pristine}>
+              Bewaar
+            </button>
+          </div>
+        </form>
       </React.Fragment>
     )
   }
@@ -212,5 +244,14 @@ const EmptyList = () =>
 		<Spinner />
 	</div>
 
+BewerkLeerkans = reduxForm({
+  form: 'BewerkLeerkans',
+  validate,
+  // fields: ['title', 'synopsis'],
+  enableReinitialize: true
+  // initialValues: {
+  //   title: "test"
+  // }
+})(BewerkLeerkans);
 
 export default withRouter(BewerkLeerkans);
