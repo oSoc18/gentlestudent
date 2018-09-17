@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
 import Spinner from '../Spinner';
@@ -17,12 +18,16 @@ class BewerkLeerkans extends Component {
   componentDidMount(){
     if(this.props.opportunities==undefined){
       firestore.onceGetOpportunity(this.state.id).then(doc => {
-        if(doc.data()){
+        if(doc.data() && doc.data().authority==0){
           this.setState(() => ({ opportunity: doc.data() }));
+        }
+        else{
+          throw new Error("Opportunity does not exist or has incorrect authority.")
         }
       })
       .catch(err => {
         console.log('Could not fetch opportunity data: ', err);
+        this.props.history.push("/404");
       });
     }
     else{
@@ -98,87 +103,106 @@ class LeerkansDetail extends Component {
   }
   render() {
     const { opportunity } = this.props;
-    const { address, cat, diff, issuer, userHasRights } = this.state;
+    const { address, issuer } = this.state;
 
     return (
-      <div class="opportunity-detail">
-        {!!opportunity.authority==0 && 
-          <div class="opportunity-page-warning">
-            <p><i class="fas fa-exclamation"></i> Dit is een preview van hoe de detailpagina van jouw leerkans er zal uitzien. 
+      <div className="opportunity-detail">
+        {/* {!!opportunity.authority==0 && 
+          <div className="opportunity-page-warning">
+            <p><i className="fas fa-exclamation"></i> Dit is een preview van hoe de detailpagina van jouw leerkans er zal uitzien. 
               Andere gebruikers zullen deze pagina pas kunnen zien wanneer de leerkans goedgekeurd is.</p>
           </div>
-        }
-        <div class="overlay"></div>
-        <div class="titlehead" style={{backgroundImage: `url(${opportunity.oppImageUrl})`}}>
-          <div class="opportunity-container">
+        } */}
+        <div className="overlay"></div>
+        <div className="titlehead" style={{backgroundImage: `url(${opportunity.oppImageUrl})`}}>
+          <div className="opportunity-container">
               <h1>{opportunity.title}</h1>
           </div>
         </div>
-        <div id="page" class="opportunity-container">
+        <div id="page" className="opportunity-container">
           {/* <a href="/leerkansen" className="back">&lt; Terug</a> */}
-          <img class="badge" src={opportunity.pinImageUrl}/>
-          <div class="content">
-            <div class="content-left">
-              <h3>Beschrijving</h3>
-              <p>{opportunity.longDescription}</p>
-              <h3>Wat wordt er verwacht?</h3>
-              <p>{opportunity.shortDescription}</p>
-            </div>
-            <div class="content-right">
-              <br/>
-              <div class="infobox">
-                <h3>Info:</h3>
-                <div class="infobox-content">
-                  {/* <div class="content-left">
-                    {!!issuer && <p><b>Eigenaar:</b><br/></p>}
-                    {!!address && <p><b>Locatie:</b><br/></p>}
-                    <p><b>Periode:</b><br/></p>
-                    <p><b>Aantal deelnemers:</b><br/></p>
-                  </div>
-                  <div class="content-right">
-                    {!!issuer && <p>{issuer.name}<br/></p>}
-                    {!!address && <p>{address.street} {address.housenumber}, {address.postalcode} {address["city"]}<br/></p>}
-                    <p>{opportunity.beginDate + ' tot en met ' + opportunity.endDate}<br/></p>
-                    <p>{opportunity.participations}<br/></p>
-                  </div> */}
-                  <table>
-                    {!!issuer && <tr>
-                      <td><b>Eigenaar:</b></td>
-                      <td>{issuer.name}</td>
-                    </tr>}
-                    <tr>
-                      <td><b>Contact:</b></td>
-                      <td>{opportunity.contact}</td>
-                    </tr>
-                    {!!address && <br/>}
-                    {!!address && <tr>
-                      <td><b>Locatie:</b></td>
-                      <td>{address.street} {address.housenumber}, {address.postalcode} {address["city"]}</td>
-                    </tr>}
-                    <tr>
-                      <td><b>Periode:</b></td>
-                      <td>{opportunity.beginDate + ' tot en met ' + opportunity.endDate}</td>
-                    </tr>
-                    {!!userHasRights && <br/>}
-                    {!!userHasRights && <tr>
-                      <td><b>Status:</b></td>
-                      {!!opportunity.authority==0 && <td>In afwachting</td>}
-                      {!!opportunity.authority==1 && <td>Goedgekeurd</td>}
-                      {!!opportunity.authority==2 && <td>Verwijderd</td>}
-                    </tr>}
-                    {!!userHasRights && <tr>
-                      <td><b>Aantal deelnemers:</b></td>
-                      <td>{opportunity.participations}</td>
-                    </tr>}
-                  </table>
-                </div>
-              </div>
-            </div>
+          <img className="badge" src={opportunity.pinImageUrl}/>
+          <div className="content content-flex">
+            <FormBewerkLeerkans opportunity={opportunity} address={address} issuer={issuer}/>
           </div>
+          {/* {!!userHasRights && <List opportunity={ opportunity } id={ id }/>} */}
         </div>
         <br/>
         <br/>
       </div>
+    )
+  }
+}
+
+class FormBewerkLeerkans extends Component{
+  render() {
+    const { opportunity, address, issuer } = this.props;
+
+    return (
+      <React.Fragment>
+        <div className="content-left">
+          <h3>Beschrijving</h3>
+          <p>{opportunity.longDescription}</p>
+          <h3>Wat wordt er verwacht?</h3>
+          <p>{opportunity.shortDescription}</p>
+          {!!opportunity.moreInfo && <h3>Meer weten?</h3>}
+          {!!opportunity.moreInfo && <p> <a href={opportunity.moreInfo}>Klik hier</a> om meer te weten.</p>}
+        </div>
+        <div className="content-right">
+          <br/>
+          <div className="infobox">
+            <h3>Info:</h3>
+            <div className="infobox-content">
+              {/* <div className="content-left">
+                {!!issuer && <p><b>Eigenaar:</b><br/></p>}
+                {!!address && <p><b>Locatie:</b><br/></p>}
+                <p><b>Periode:</b><br/></p>
+                <p><b>Aantal deelnemers:</b><br/></p>
+              </div>
+              <div className="content-right">
+                {!!issuer && <p>{issuer.name}<br/></p>}
+                {!!address && <p>{address.street} {address.housenumber}, {address.postalcode} {address["city"]}<br/></p>}
+                <p>{opportunity.beginDate + ' tot en met ' + opportunity.endDate}<br/></p>
+                <p>{opportunity.participations}<br/></p>
+              </div> */}
+              <table>
+                {!!issuer && <tr>
+                  <td><b>Eigenaar:</b></td>
+                  <td>{issuer.name}</td>
+                </tr>}
+                <tr>
+                  <td><b>Website:</b></td>
+                  <td>{opportunity.website}</td>
+                </tr>
+                <tr>
+                  <td><b>Contact:</b></td>
+                  <td>{opportunity.contact}</td>
+                </tr>
+                {!!address && <br/>}
+                {!!address && <tr>
+                  <td><b>Locatie:</b></td>
+                  <td>{address.street} {address.housenumber}, {address.postalcode} {address["city"]}</td>
+                </tr>}
+                <tr>
+                  <td><b>Periode:</b></td>
+                  <td>{opportunity.beginDate + ' tot en met ' + opportunity.endDate}</td>
+                </tr>
+                <br/>
+                <tr>
+                  <td><b>Status:</b></td>
+                  {!!opportunity.authority==0 && <td>In afwachting</td>}
+                  {!!opportunity.authority==1 && <td>Goedgekeurd</td>}
+                  {!!opportunity.authority==2 && <td>Verwijderd</td>}
+                </tr>
+                <tr>
+                  <td><b>Aantal deelnemers:</b></td>
+                  <td>{opportunity.participations}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </React.Fragment>
     )
   }
 }
@@ -189,4 +213,4 @@ const EmptyList = () =>
 	</div>
 
 
-export default BewerkLeerkans;
+export default withRouter(BewerkLeerkans);

@@ -36,12 +36,12 @@ class NoMatch extends Component {
 		const { redirect } = this.state;
 		return (
 			<div>
-				<div id="startpage">
-					<div className="eyecather-wrapper">
+				<div>
+					{/* <div className="eyecather-wrapper">
 						<img src={eyecather} id="eyecather" alt="eyecather" />
-					</div>
+					</div> */}
 					<div className="container">
-						<div className="content">
+						<div className="content content-with-padding">
 							<h1>Oeps, er is iets misgelopen</h1>
 							<p>Je wordt teruggestuurd naar de <a href="/">voorpagina</a> in enkele seconden..</p>
 						</div>
