@@ -564,7 +564,7 @@ footer {
 #startpage {
   position: relative;
   width: 100% !important;
-  height: 80vh !important;
+  height: 85vh !important;
   min-height: 550px !important;
   max-height: 900px !important;
   overflow: hidden !important;
@@ -572,7 +572,7 @@ footer {
   #startpage .eyecather-wrapper {
     width: 100% !important;
     position: absolute !important;
-    height: 80vh !important;
+    height: 85vh !important;
     min-height: 550px !important;
     max-height: 900px !important;
     overflow: hidden !important;
@@ -592,7 +592,7 @@ footer {
     max-height: 840px !important;
     overflow: hidden !important;
     contain: strict !important; }
-    #startpage .content h1, #startpage .content h2 {
+    #startpage .content h1, #startpage .content h2, #startpage .content p {
       color: #FFFFFF;
       text-shadow: 0 0px 10px rgba(0, 0, 0, 0.26); }
     #startpage .content h1 {
