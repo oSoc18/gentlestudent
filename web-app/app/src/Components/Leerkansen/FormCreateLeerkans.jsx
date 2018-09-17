@@ -312,6 +312,7 @@ class FormCreateLeerkans extends React.Component {
             type="text"
             name="title"
             id="title"
+            info="Schrijf hier een motiverende en uitdagende titel voor jouw leerkans"
             component={renderInput}
             defaultValue="Titel"
             placeholder="Titel"
@@ -324,6 +325,7 @@ class FormCreateLeerkans extends React.Component {
             id="category"
             name="category"
             label="Domein"
+            info="Duid aan binnen welk domein je leerkans valt. Hier vind je een uitgebreide omschrijving van de verschillende categorieën."
             data={{
               list: Object.keys(Category).map(key => {
                 return {
@@ -340,6 +342,7 @@ class FormCreateLeerkans extends React.Component {
           <Field
             label="Beschrijving"
             id="description"
+            info="Vul hier de algemene beschrijving in over de leerkans die je als organisatie wil aanbieden. Geef in deze omschrijving ook wat achtergrondinformatie over je instelling mee om zo de leerkans te kunnen kaderen binnen de algemene werking van je organisatie."
             name="description"
             component={renderTextarea}
             placeholder="Volledige beschrijving van de leerkans"
@@ -353,6 +356,7 @@ class FormCreateLeerkans extends React.Component {
             type="text"
             name="synopsis"
             id="synopsis"
+            info="In dit veld vul je in wat je verwacht dat de student voor jouw organisatie kan betekenen. Wat moet de student kennen, kunnen of doen om de leerkans tot een goed einde te brengen? Stem deze verwachtingen en criteria zeker goed af met het niveau (zie verder)."
             component={renderTextarea}
             placeholder="Korte beschrijving van wat er verwacht wordt"
             value={this.state.synopsis}
@@ -362,8 +366,9 @@ class FormCreateLeerkans extends React.Component {
         <div className="form-group">
           <Field
             id="difficulty"
+            info="Duid aan binnen welke moeilijkheidsgraad de leerkans valt. Hier vind je een uitgebreide omschrijving van de verschillende moeilijkheidsgraden."
             name="difficulty"
-            label="Moeilijkheidsgraad"
+            label="Niveau"
             data={{
               list: Object.keys(Difficulty).map(key => {
                 return {
@@ -382,6 +387,7 @@ class FormCreateLeerkans extends React.Component {
             type="text"
             name="moreInfo"
             id="moreInfo"
+            info="Indien je binnen je organisatie een weblink naar meer informatie hebt over dit initiatief dan kan je die link hier toevoegen (optioneel)"
             component={renderInput}
             defaultValue="Meer info"
             placeholder="Meer info"
