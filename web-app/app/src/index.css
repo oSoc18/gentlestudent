@@ -1449,7 +1449,7 @@ article.post:last-of-type {
   right: 0;
   bottom: 0;
   left: 0;
-  background: linear-gradient(90deg,rgba(100,100,100,.03),rgb(100, 100, 100, 0.20));
+  background: linear-gradient(90deg,rgba(255, 255, 255, 0.03),rgb(100, 100, 100, 0.20));
 }
 article.post h1 {
   font-size: 26px;
