@@ -115,7 +115,7 @@ class SignUpForm extends Component {
       ;
 
     return (
-      <div id="register-form">
+      <div className="register-form">
         <div class="cl-wh" id="f-mlb">Maak een account</div>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">

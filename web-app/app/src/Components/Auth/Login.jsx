@@ -64,7 +64,7 @@ class SignInForm extends Component {
       email === '';
 
     return (
-      <div id="register-form">
+      <div className="register-form login-page">
         <div class="cl-wh" id="f-mlb">Log in</div>
         <br/>
         <form onSubmit={this.onSubmit}>

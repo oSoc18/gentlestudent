@@ -30,21 +30,23 @@ class NoMatch extends Component {
 		// this.props.check();
 		setInterval(() => {
 			this.setState({redirect: true});
-		}, 5000);
+		}, 10000);
   }
 	render() {
 		const { redirect } = this.state;
 		return (
-			<div>
-				<div>
-					{/* <div className="eyecather-wrapper">
-						<img src={eyecather} id="eyecather" alt="eyecather" />
-					</div> */}
-					<div className="container">
-						<div className="content content-with-padding">
-							<h1>Oeps, er is iets misgelopen</h1>
-							<p>Je wordt teruggestuurd naar de <a href="/">voorpagina</a> in enkele seconden..</p>
-						</div>
+			<div id="fourOhFour">
+				{/* <div className="eyecather-wrapper">
+					<img src={eyecather} id="eyecather" alt="eyecather" />
+				</div> */}
+				<div className="container">
+					<div className="content content-with-padding">
+						<h1>404</h1>
+						<h2>Oeps, er is iets misgelopen =(</h2>
+						<p>Geen paniek, we hebben het onder controle.
+						Je zal worden teruggebracht naar de <a href="/">voorpagina</a> in enkele seconden..</p>
+						{/* <p>Heb je een verkeerde url gebruikt of iets proberen doen wat niet mag? </p>
+						<p>Indien niet verontschuldigen onze developers zich. Ze weten niet beter. </p> */}
 					</div>
 				</div>
 				{!!redirect && <DelayedRedirect />}

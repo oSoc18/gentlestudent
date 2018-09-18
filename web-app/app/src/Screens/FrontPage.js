@@ -8,7 +8,7 @@ import eyecather from './../assets/eyecatcher.jpg';
 import newImage from './../assets/wat-is-er-nieuw.png';
 
 const newStyle = {
-	width: '100vw',
+	width: '100%',
 	height: '100%',
 	minHeight: '300px',
 	backgroundImage: `url(${newImage})`,
