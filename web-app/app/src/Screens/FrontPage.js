@@ -32,13 +32,15 @@ class FrontPage extends Component {
 						<div className="content">
 							<h1>Aan de slag met Gentlestudent</h1>
 							<h2>“Verken je stad, help je buren.”</h2>
-							<form action="">
+							{/* <form action="">
 								<div className="search-wrapper frontpage">
 									<i className="fas fa-search"></i>
 									<input type="text" placeholder="Probeer “Gent Korenmarkt”"/>
 									<button type="submit">Zoeken</button>
 								</div>
-							</form>
+							</form> */}
+							<p>In de stad valt veel te leren, ontdek als <b>student</b> waar je je allemaal kunt verrijken. Vul je leven en geest en laat anderen meegenieten van je Gentle-talent.</p>
+							<p>Laat van je missie horen en betrek als <b>organisatie of buurt</b> studenten bij jullie projecten en geef ze de kans om ervaringen op te doen in een authentieke setting.</p>
 						</div>
 					</div>
 				</div>
