@@ -6,7 +6,7 @@ export const $gray3 = '#A8A8A8';
 
 export const $white = '#FFFFFF';
 export const $gray = '#707070';
-export const $grayD = '#252525';
+export const $grayD = '#25252533';
 export const $grayL = '#EAEAEA';
 
 export const $transition = 'all 200ms ease-in-out';

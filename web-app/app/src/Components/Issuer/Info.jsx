@@ -11,19 +11,19 @@ class Eyecatcher extends Component {
 						<div className="card-item">
 							<h3>Wat is een issuer</h3>
 							<p>
-								Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Cras ultricies ligula sed magna dictum porta.
+								Een Issuer formuleert een leerkans voor de student. Het kan gaan over het volgen van een eenmalige activiteit tot een langdurig engagement binnen de organisatie. Als issuer maak je de student(en) warm voor een maatschappelijk relevante leerkans.
 							</p>
 						</div>
 						<div className="card-item">
 							<h3>Jij bepaalt</h3>
 							<p>
-								Vivamus suscipit tortor eget felis porttitor volutpat. Cras ultricies ligula sed magna dictum porta. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.
+								Wat kan de student doen voor jou of jouw organisatie waarmee hij kan bijleren op vlak van duurzaamheid, ondernemingszin, digitale geletterdheid, onderzoek of wereldburgerschap.
 							</p>
 						</div>
 						<div className="card-item">
 							<h3>Waarom zou ik een issuer worden?</h3>
 							<p>
-								Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Donec sollicitudin molestie malesuada. Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec rutrum congue leo eget malesuada.
+								Als issuer breng je de studenten dichter bij de buurt, je leert ze kennismaken met een authentieke context en laat hen een bijdrage leveren aan de organisatie. Je bent de brugfiguur tussen studenten en hun buurt/ jouw organisatie.
 							</p>
 						</div>
 					</div>

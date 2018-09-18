@@ -53,7 +53,7 @@ class Steps extends Component {
 								<div>
 									<h3>Registreer als gebruiker</h3>
 									<p>
-										Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
+										Jouw organisatie of jouw initiatief is op zoek naar studenten met een Gentle-engagement? Maak eerst een gebruikersprofiel aan.
 									</p>
 								</div>
 								<img src={step1} alt="step1" height={150} width={270} />
@@ -67,7 +67,7 @@ class Steps extends Component {
 								<div>
 									<h3>Registreer als issuer</h3>
 									<p>
-										Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus suscipit tortor eget felis porttitor volutpat.
+										Zodra je als geregistreerde gebruiker ingelogd bent kan je klikken op de knop “word issuer” zodat je je als organisatie kan registreren op het platform.
 									</p>
 								</div>
 								<img src={step2} alt="step2" height={150} width={270} />
@@ -81,7 +81,7 @@ class Steps extends Component {
 								<div>
 									<h3>Wacht op goedkeuring</h3>
 									<p>
-										Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Cras ultricies ligula sed magna dictum porta.
+									De admin van Gentlestudent zal je aanvraag om issuer te worden goedkeuren. Je ontvangt een bevestigingsmail zodra je aan de slag kan gaan met het aanbieden van leerkansen.
 									</p>
 								</div>
 								<img src={step3} alt="step3" height={150} width={270} />
