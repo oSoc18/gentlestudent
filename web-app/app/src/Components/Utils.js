@@ -121,6 +121,7 @@ export const renderInput = ({
   input: { value, ...input },
   type,
   id,
+  info,
   defaultValue,
   placeholder,
   meta: { asyncValidating, touched, error }
@@ -137,6 +138,7 @@ export const renderInput = ({
         <label htmlFor={input.name}>
           {label}
         </label>
+        {!!info && <small className="input-info">{info}</small>}
         <input
           {...input}
           value={value}
@@ -159,6 +161,7 @@ export const renderAutomaticInput = ({
   input,
   type,
   id,
+  info,
   defaultValue,
   placeholder,
   meta: { asyncValidating, touched, error }
@@ -175,6 +178,7 @@ export const renderAutomaticInput = ({
         <label htmlFor={input.name}>
           {label}
         </label>
+        {!!info && <small className="input-info">{info}</small>}
         <input
           {...input}
           className="input"
@@ -192,11 +196,12 @@ export const renderAutomaticInput = ({
   );
 };
 
-export const renderCheckbox = ({ label, input, type, id }) => {
+export const renderCheckbox = ({ label, input, info, type, id }) => {
   return (
     <React.Fragment>
       <div>
         <label htmlFor={input.name}>{label}</label>
+        {!!info && <small className="input-info">{info}</small>}
         <input
           {...input}
           className="checkbox"
@@ -213,6 +218,7 @@ export const renderSelect = ({
   input,
   data,
   id,
+  info,
   meta: { asyncValidating, touched, error }
 }) => {
   return (
@@ -227,13 +233,14 @@ export const renderSelect = ({
         <label htmlFor={input.name} >
           {label}
         </label>
+        {!!info && <small className="input-info">{info}<br/></small>}
         <select
           {...input}
           className="select"
           required
           id={id}
         >
-          <option value="">— Select an option —</option>
+          <option value="">— Selecteer een optie —</option>
           {data.list.map((index, key) => {
             return (
               <option key={key} value={index.value} required>
@@ -254,6 +261,7 @@ export const renderTextarea = ({
   input,
   type,
   id,
+  info,
   placeholder,
   meta: { asyncValidating, touched, error }
 }) => {
@@ -269,6 +277,7 @@ export const renderTextarea = ({
         <label htmlFor={input.name}>
           {label}
         </label>
+        {!!info && <small className="input-info">{info}</small>}
         <textarea
           className="textarea"
           {...input}
@@ -320,6 +329,18 @@ export const validate = values => {
   }
   if (!values.description){
     errors.description = "Required";
+  }
+  if (!values.category) {
+    errors.title = "Required";
+  }
+  if (!values.difficulty) {
+    errors.title = "Required";
+  }
+  if (!values.contact) {
+    errors.title = "Required";
+  }
+  if (!values.website) {
+    errors.title = "Required";
   }
   if (!values.start_date){
     errors.start_date = "Required";

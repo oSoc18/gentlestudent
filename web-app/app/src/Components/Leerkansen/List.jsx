@@ -28,7 +28,7 @@ const LeerkansenList = ({ opportunities }) =>
 					<img src={`${opportunities[key].pinImageUrl}`} className="badge" alt="" />
 					<h2>{opportunities[key].title}</h2>
 					<div className="meta-data">
-					<small>{opportunities[key].beginDate + ' - ' + opportunities[key].endDate}</small>
+					<small>{opportunities[key].beginDate + ' tot ' + opportunities[key].endDate}</small>
 					{/* <small>{opportunities[key].street + ' ' + opportunities[key].house_number + ', ' + opportunities[key].postal_code + ' ' + opportunities[key].city}</small> */}
 					</div>
 					<p>{opportunities[key].shortDescription}</p>

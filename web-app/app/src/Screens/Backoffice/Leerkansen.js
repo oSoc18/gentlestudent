@@ -9,6 +9,7 @@ class BOLeerkansen extends Component {
     this.delete = this.delete.bind(this);
   }
   componentDidMount() {
+    window.scrollTo(0, 0);
 	  // this.props.fetchLeerkansen();
 	}
   delete(id) {

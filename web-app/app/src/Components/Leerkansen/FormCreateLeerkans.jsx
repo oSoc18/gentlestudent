@@ -48,6 +48,8 @@ class FormCreateLeerkans extends React.Component {
       description: "",
       synopsis: "",
       title: "",
+      moreInfo: "",
+      website: "",
       contact: "",
       image: "",
       imageUrl: "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Opportunityimages%2FNederlandse%20Les.jpg?alt=media&token=82cecaa7-4d6e-473d-b06a-a5eea35d8d4b",
@@ -85,6 +87,8 @@ class FormCreateLeerkans extends React.Component {
         street: this.props.initValues.street,
         synopsis: this.props.initValues.synopsis,
         title: this.props.initValues.title,
+        moreInfo: this.props.initValues.moreInfo,
+        website: this.props.initValues.website,
         contact: this.props.initValues.contact
       });
     }
@@ -221,11 +225,11 @@ class FormCreateLeerkans extends React.Component {
     opportunity["addressId"] = addressId;
     opportunity["badgeId"] = this.state.badgeId;
     opportunity["beaconId"] = "";
-    opportunity["beginDate"] = this.state.start_date;
+    opportunity["beginDate"] = this.checkDate(this.state.start_date);
     opportunity["authority"] = 0;
     opportunity["category"] = parseInt(this.state.category);
     opportunity["difficulty"] = parseInt(this.state.difficulty);
-    opportunity["endDate"] = this.state.end_date;
+    opportunity["endDate"] = this.checkDate(this.state.end_date);
     opportunity["international"] = false;
     opportunity["issuerId"] = auth.getUserId();
     opportunity["longDescription"] = this.state.description;
@@ -233,6 +237,8 @@ class FormCreateLeerkans extends React.Component {
     opportunity["pinImageUrl"] = this.state.pinImageUrl;
     opportunity["shortDescription"] = this.state.synopsis;
     opportunity["title"] = this.state.title;
+    opportunity["moreInfo"] = this.state.moreInfo;
+    opportunity["website"] = this.state.website;
     opportunity["contact"] = this.state.contact;
     opportunity["participations"] = 0;
 
@@ -244,6 +250,16 @@ class FormCreateLeerkans extends React.Component {
       console.error("Error adding document: ", error);
       console.error(JSON.stringify(opportunity));
     });
+  }
+
+  checkDate(s){
+    if(/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))$/.test(s)){
+      return s;
+    }
+    let day = s.split("-")[0];
+    let month = s.split("-")[1];
+    let year = s.split("-")[2];
+    return year+"-"+month+"-"+day;
   }
 
   redirect(id){
@@ -296,10 +312,86 @@ class FormCreateLeerkans extends React.Component {
             type="text"
             name="title"
             id="title"
+            info="Schrijf hier een motiverende en uitdagende titel voor jouw leerkans"
             component={renderInput}
             defaultValue="Titel"
             placeholder="Titel"
             value={this.state.title}
+            onChange={ this.handleChange }
+          />
+        </div>
+        <div className="form-group">
+          <Field
+            id="category"
+            name="category"
+            label="Domein"
+            info="Duid aan binnen welk domein je leerkans valt. Hier vind je een uitgebreide omschrijving van de verschillende categorieën."
+            data={{
+              list: Object.keys(Category).map(key => {
+                return {
+                  value: Category[`${key}`],
+                  display: key
+                };
+              })
+            }}
+            component={renderSelect}
+            onChange={this.handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <Field
+            label="Beschrijving"
+            id="description"
+            info="Vul hier de algemene beschrijving in over de leerkans die je als organisatie wil aanbieden. Geef in deze omschrijving ook wat achtergrondinformatie over je instelling mee om zo de leerkans te kunnen kaderen binnen de algemene werking van je organisatie."
+            name="description"
+            component={renderTextarea}
+            placeholder="Volledige beschrijving van de leerkans"
+            value={this.state.description}
+            onChange={ this.handleChange }
+          />
+        </div>
+        <div className="form-group">
+          <Field
+            label="Verwachtingen"
+            type="text"
+            name="synopsis"
+            id="synopsis"
+            info="In dit veld vul je in wat je verwacht dat de student voor jouw organisatie kan betekenen. Wat moet de student kennen, kunnen of doen om de leerkans tot een goed einde te brengen? Stem deze verwachtingen en criteria zeker goed af met het niveau (zie verder)."
+            component={renderTextarea}
+            placeholder="Korte beschrijving van wat er verwacht wordt"
+            value={this.state.synopsis}
+            onChange={ this.handleChange }
+          />
+        </div>
+        <div className="form-group">
+          <Field
+            id="difficulty"
+            info="Duid aan binnen welke moeilijkheidsgraad de leerkans valt. Hier vind je een uitgebreide omschrijving van de verschillende moeilijkheidsgraden."
+            name="difficulty"
+            label="Niveau"
+            data={{
+              list: Object.keys(Difficulty).map(key => {
+                return {
+                  value: Difficulty[`${key}`],
+                  display: key
+                };
+              })
+            }}
+            component={renderSelect}
+            onChange={this.handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <Field
+            label="Meer info"
+            type="text"
+            name="moreInfo"
+            id="moreInfo"
+            info="Indien je binnen je organisatie een weblink naar meer informatie hebt over dit initiatief dan kan je die link hier toevoegen (optioneel)"
+            component={renderInput}
+            defaultValue="Meer info"
+            placeholder="Meer info"
+            value={this.state.moreInfo}
             onChange={ this.handleChange }
           />
         </div>
@@ -318,24 +410,14 @@ class FormCreateLeerkans extends React.Component {
         </div>
         <div className="form-group">
           <Field
-            label="Verwachtingen"
+            label="Website"
             type="text"
-            name="synopsis"
-            id="synopsis"
-            component={renderTextarea}
-            placeholder="Korte beschrijving van wat er verwacht wordt"
-            value={this.state.synopsis}
-            onChange={ this.handleChange }
-          />
-        </div>
-        <div className="form-group">
-          <Field
-            label="Beschrijving"
-            id="description"
-            name="description"
-            component={renderTextarea}
-            placeholder="Volledige beschrijving van de leerkans"
-            value={this.state.description}
+            name="website"
+            id="website"
+            component={renderInput}
+            defaultValue="Website"
+            placeholder="Website"
+            value={this.state.website}
             onChange={ this.handleChange }
           />
         </div>
@@ -347,40 +429,6 @@ class FormCreateLeerkans extends React.Component {
         </div> */}
         <div className="form-group">
           <Field
-            id="category"
-            name="category"
-            label="Categorie"
-            data={{
-              list: Object.keys(Category).map(key => {
-                return {
-                  value: Category[`${key}`],
-                  display: key
-                };
-              })
-            }}
-            component={renderSelect}
-            onChange={this.handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <Field
-            id="difficulty"
-            name="difficulty"
-            label="Moeilijkheidsgraad"
-            data={{
-              list: Object.keys(Difficulty).map(key => {
-                return {
-                  value: Difficulty[`${key}`],
-                  display: key
-                };
-              })
-            }}
-            component={renderSelect}
-            onChange={this.handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <Field
             label="Start datum"
             id="start_date"
             name="start_date"
@@ -390,6 +438,7 @@ class FormCreateLeerkans extends React.Component {
             placeholder="DD/MM/JJJJ"
             value={this.state.start_date}
             onChange={ this.handleChange }
+            required
           />
         </div>
         <div className="form-group">

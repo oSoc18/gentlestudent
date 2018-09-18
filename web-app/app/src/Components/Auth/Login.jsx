@@ -7,8 +7,8 @@ import { auth } from '../Firebase';
 import * as routes from '../../routes/routes';
 
 const SignInPage = ({ history }) =>
-  <div className="content content-with-padding">
-    <h1>SignIn</h1>
+  <div className="content content-with-padding register-form-content">
+    {/* <h1>SignIn</h1> */}
     <SignInForm history={history} />
     <SignUpLink />
   </div>
@@ -64,25 +64,50 @@ class SignInForm extends Component {
       email === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          value={email}
-          onChange={event => this.setState(byPropKey('email', event.target.value))}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          value={password}
-          onChange={event => this.setState(byPropKey('password', event.target.value))}
-          type="password"
-          placeholder="Password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Sign In
-        </button>
+      <div className="register-form login-page">
+        <div class="cl-wh" id="f-mlb">Log in</div>
+        <br/>
+        <form onSubmit={this.onSubmit}>
+          <div className="form-group">
+            <label class="cl-wh f-lb">E-mailadres:</label>
+            <div class="f-i-bx b3 mrg3b">
+              <div class="tb">
+                <div class="td icon"><i class="fas fa-envelope"></i></div>
+                <div class="td prt">
+                  <input
+                    value={email}
+                    onChange={event => this.setState(byPropKey('email', event.target.value))}
+                    type="text"
+                    placeholder="Email Address"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="form-group">
+            <label class="cl-wh f-lb">Wachtwoord:</label>
+              <div class="f-i-bx b3 mrg3b">
+                <div class="tb">
+                  <div class="td icon"><i class="fas fa-lock"></i></div>
+                  <div class="td prt">
+                    <input
+                      value={password}
+                      onChange={event => this.setState(byPropKey('password', event.target.value))}
+                      type="password"
+                      placeholder="Password"
+                    />
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div id="s-btn" class="mrg25t"><input type="submit" value="Sign in" class="b3"/></div>
+          {/* <button disabled={isInvalid} type="submit"> */}
+            {/* Sign In
+          </button> */}
 
-        { error && <p>{error.message}</p> }
-      </form>
+          { error && <p>{error.message}</p> }
+        </form>
+      </div>
     );
   }
 }

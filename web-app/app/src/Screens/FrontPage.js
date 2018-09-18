@@ -8,7 +8,7 @@ import eyecather from './../assets/eyecatcher.jpg';
 import newImage from './../assets/wat-is-er-nieuw.png';
 
 const newStyle = {
-	width: '100vw',
+	width: '100%',
 	height: '100%',
 	minHeight: '300px',
 	backgroundImage: `url(${newImage})`,
@@ -18,8 +18,9 @@ const newStyle = {
 
 class FrontPage extends Component {
 	componentDidMount() {
-    // this.props.check();
-  }
+		// this.props.check();
+		window.scrollTo(0, 0);
+	}
 	render() {
 		return (
 			<div>
@@ -31,13 +32,17 @@ class FrontPage extends Component {
 						<div className="content">
 							<h1>Aan de slag met Gentlestudent</h1>
 							<h2>“Verken je stad, help je buren.”</h2>
-							<form action="">
+							{/* <form action="">
 								<div className="search-wrapper frontpage">
 									<i className="fas fa-search"></i>
 									<input type="text" placeholder="Probeer “Gent Korenmarkt”"/>
 									<button type="submit">Zoeken</button>
 								</div>
-							</form>
+							</form> */}
+							<div className="text">
+								<p>In de stad valt veel te leren, ontdek als <b>student</b> waar je je allemaal kunt verrijken. Vul je leven en geest en laat anderen meegenieten van je Gentle-talent.</p>
+								<p>Laat van je missie horen en betrek als <b>organisatie of buurt</b> studenten bij jullie projecten en geef ze de kans om ervaringen op te doen in een authentieke setting.</p>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -46,7 +51,7 @@ class FrontPage extends Component {
 					<div className="container">
 						<div>
 							<h2>Zie wat Gentlestudent heeft te bieden en wat je mag verwachten in de toekomst</h2>
-							<a href="/">Wat is er nieuw?</a>
+							<a href="/nieuws">Wat is er nieuw?</a>
 						</div>
 					</div>
 				</div>

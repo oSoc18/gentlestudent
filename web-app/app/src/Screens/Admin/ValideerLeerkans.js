@@ -22,6 +22,7 @@ class ValideerLeerkans extends Component {
     componentDidMount() {
         this.getOpportunities();
         this.getBeacons();
+        window.scrollTo(0, 0);
     }
     getOpportunities() {
         firestore.onceGetNonValidatedOpportunities().then(snapshot => {

@@ -10,6 +10,7 @@ export const RegistreerIssuer = '/word-issuer/registratie';
 export const Profiel = '/profiel';
 export const BOLeerkansen = '/backoffice/leerkansen';
 export const MaakLeerkans = '/issuer/maak-leerkans';
+export const BewerkLeerkans = '/issuer/bewerk-leerkans';
 export const IssueBadgeRecipient = '/issuer/issue-badge-recipient';
 export const ValideerIssuer = '/admin/valideer-issuer';
 export const ValideerLeerkans = '/admin/valideer-leerkans';

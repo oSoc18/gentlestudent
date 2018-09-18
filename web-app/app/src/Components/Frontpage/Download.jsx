@@ -15,11 +15,11 @@ class Download extends Component {
                         </div>
                         <div className="right">
                             <h1>Download de mobile app</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            <a href="/">
+                            <p>Om als student zicht te krijgen op waar de leerkansen zich in Gent situeren, kan je de Gentlestudent app downloaden. Deze app zal je melden wanneer je in de buurt bent van een leerkans. Via de app kan je ook het overzicht bewaren van de leerkansen waar je je voor hebt ingeschreven.</p>
+                            <a href="https://itunes.apple.com/us/app/gentlestudent/id1417851918?mt=8&ign-mpt=uo%3D4">
                                 <img src={downloadiOS} alt="download-button-ios" />
                             </a>
-                            <a href="/">
+                            <a href="http://play.google.com/store/apps/details?id=gent.gentlestudent">
                                 <img src={downloadAndroid} alt="download-button-android" />
                             </a>
                         </div>

@@ -79,7 +79,7 @@ class LeerkansenList extends Component {
 					<li class="list">
 						<div class="list__opportunity_title">
 							<div> <img src={opportunities[key].pinImageUrl ? `${opportunities[key].pinImageUrl}` : null}/> </div>
-							<div class="list__label">
+							<div class="list__label list__label__title">
 								{/* <div class="list__label--header"> Leerkans </div> */}
 								<div class="list__label--value"><h2> {opportunities[key].title}</h2> </div>
 							</div>
@@ -102,7 +102,7 @@ class LeerkansenList extends Component {
 						</div>
 						{/* <div class="filler"/> */}
 						<div class="icon-options">
-							{!!(opportunities[key].authority==0) && <a href="#"><div class="edit icon-container"><i class="fas fa-edit fa-lg"></i></div></a>}
+							{!!(opportunities[key].authority==0) && <a href={routes.BewerkLeerkans+"/"+key}><div class="edit icon-container"><i class="fas fa-edit fa-lg"></i></div></a>}
 							{!(opportunities[key].authority==0) && <div class="edit icon-container"><i class="fas fa-edit fa-lg" style={{visibility:'hidden'}}></i></div>}
 							<a href="#" onClick={this.confirmDelete}><div class="delete icon-container"><i class="fas fa-trash-alt fa-lg" id={key}></i></div></a>
 							<a href={routes.MaakLeerkans+"/"+key}><div class="copy icon-container"><i class="fas fa-plus fa-lg"></i></div></a>

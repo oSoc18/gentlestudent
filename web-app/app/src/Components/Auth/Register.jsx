@@ -9,8 +9,8 @@ import { auth, firebase, firestore } from '../Firebase';
 import * as routes from '../../routes/routes';
 
 const SignUpPage = ({ history }) =>
-  <div className="content content-with-padding">
-    <h1>SignUp</h1>
+  <div className="content content-with-padding register-form-content">
+    {/* <h1>SignUp</h1> */}
     <SignUpForm history={history} />
   </div>
 
@@ -43,7 +43,7 @@ class SignUpForm extends Component {
       lastname,
       email,
       // birthday,
-      education,
+      // education,
       institute,
       passwordOne,
       accepted
@@ -57,7 +57,7 @@ class SignUpForm extends Component {
     user["name"] = firstname+" "+lastname;
     user["email"] = email;
     // user["birthday"] = birthday;
-    user["education"] = education;
+    // user["education"] = education;
     user["institute"] = institute;
     user["favorites"] = [];
 
@@ -94,7 +94,7 @@ class SignUpForm extends Component {
       lastname,
       email,
       // birthday,
-      education,
+      // education,
       institute,
       passwordOne,
       passwordTwo,
@@ -109,97 +109,137 @@ class SignUpForm extends Component {
       || firstname === ''
       || lastname === ''
       // || ! /^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/.test(birthday)
-      || education === ''
+      // || education === ''
       || institute === ''
       || accepted == false
       ;
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <div className="form-group">
-          Email:
-          <input
-            value={email}
-            onChange={event => this.setState(byPropKey('email', event.target.value))}
-            type="text"
-            placeholder="Email"
-          />
-        </div>
-        <div className="form-group">
-          Voornaam:
-          <input
-            value={firstname}
-            onChange={event => this.setState(byPropKey('firstname', event.target.value))}
-            type="text"
-            placeholder="Voornaam"
-          />
-        </div>
-        <div className="form-group">
-          Achternaam:
-          <input
-            value={lastname}
-            onChange={event => this.setState(byPropKey('lastname', event.target.value))}
-            type="text"
-            placeholder="Achternaam"
-          />
-        </div>
-        {/* <div className="form-group">
-          Geboortedatum:
-          <input
-            value={birthday}
-            onChange={event => this.setState(byPropKey('birthday', event.target.value))}
-            type="date"
-            placeholder="YYYY-MM-DD"
-          />
-          </div> */}
-        <div className="form-group">
-          Educatie:
-          <input
-            value={education}
-            onChange={event => this.setState(byPropKey('education', event.target.value))}
-            type="text"
-            placeholder="Educatie"
-          />
+      <div className="register-form">
+        <div class="cl-wh" id="f-mlb">Maak een account</div>
+        <form onSubmit={this.onSubmit}>
+          <div className="form-group">
+            <label class="cl-wh f-lb">E-mailadres:</label>
+            <div class="f-i-bx b3 mrg3b">
+              <div class="tb">
+                  <div class="td icon"><i class="fas fa-envelope"></i></div>
+                  <div class="td prt">
+                    <input
+                      value={email}
+                      onChange={event => this.setState(byPropKey('email', event.target.value))}
+                      type="text"
+                      placeholder="Email"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          <div className="form-group">
+            <label class="cl-wh f-lb">Naam:</label>
+            <div class="f-i-bx b3 mrg3b">
+              <div class="tb">
+                  <div class="td icon"><i class="fas fa-user"></i></div>
+                  <div class="td prt">
+                  <input
+                    value={firstname}
+                    onChange={event => this.setState(byPropKey('firstname', event.target.value))}
+                    type="text"
+                    placeholder="Voornaam"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="f-i-bx b3 mrg3b">
+                <div class="tb">
+                    <div class="td icon"><i class="fas fa-user"></i></div>
+                    <div class="td prt">
+                    <input
+                      value={lastname}
+                      onChange={event => this.setState(byPropKey('lastname', event.target.value))}
+                      type="text"
+                      placeholder="Achternaam"
+                    />
+                  </div>
+              </div>
+            </div>
           </div>
-        <div className="form-group">
-          Universiteit/hogeschool:
-          <input
-            value={institute}
-            onChange={event => this.setState(byPropKey('institute', event.target.value))}
-            type="text"
-            placeholder="Instituut"
-          />
-        </div>
-        <div className="form-group">
-          Wachtwoord:
-          <input
-            value={passwordOne}
-            onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}
-            type="password"
-            placeholder="Wachtwoord"
-          />
-          <input
-            value={passwordTwo}
-            onChange={event => this.setState(byPropKey('passwordTwo', event.target.value))}
-            type="password"
-            placeholder="Herhaal Wachtwoord"
-          />
-        </div>
-        <div className="form-group">
-          Ik ga akkoord met het <a target="_blank" rel="noopener noreferrer" href="/privacy">privacybeleid</a>:
-          <input
-            value={accepted}
-            onChange={event => this.setState(byPropKey('accepted', event.target.value))}
-            type="checkbox"
-            placeholder="Instituut"
-          />
-        </div>
-        <button disabled={isInvalid} type="submit">
-          Sign Up
-        </button>
-
-        { error && <p>{error.message}</p> }
-      </form>
+          {/* <div className="form-group">
+            Geboortedatum:
+            <input
+              value={birthday}
+              onChange={event => this.setState(byPropKey('birthday', event.target.value))}
+              type="date"
+              placeholder="YYYY-MM-DD"
+            />
+            </div> */}
+          {/* <div className="form-group">
+            Educatie:
+            <input
+              value={education}
+              onChange={event => this.setState(byPropKey('education', event.target.value))}
+              type="text"
+              placeholder="Educatie"
+            />
+            </div> */}
+          <div className="form-group">
+            <label class="cl-wh f-lb">Organisatie/onderwijsinstelling:</label>
+            <div class="f-i-bx b3 mrg3b">
+              <div class="tb">
+                <div class="td icon"><i class="fas fa-building"></i></div>
+                <div class="td prt">
+                  <input
+                    value={institute}
+                    onChange={event => this.setState(byPropKey('institute', event.target.value))}
+                    type="text"
+                    placeholder="Organisatie/onderwijsinstelling"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="form-group">
+          <label class="cl-wh f-lb">Wachtwoord:</label>
+            <div class="f-i-bx b3 mrg3b">
+              <div class="tb">
+                <div class="td icon"><i class="fas fa-lock"></i></div>
+                <div class="td prt">
+                  <input
+                    value={passwordOne}
+                    onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}
+                    type="password"
+                    placeholder="Wachtwoord"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="f-i-bx b3 mrg3b">
+              <div class="tb">
+                <div class="td icon"><i class="fas fa-lock"></i></div>
+                <div class="td prt">
+                  <input
+                    value={passwordTwo}
+                    onChange={event => this.setState(byPropKey('passwordTwo', event.target.value))}
+                    type="password"
+                    placeholder="Herhaal wachtwoord"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* <div className="form-group">
+            Ik ga akkoord met het <a target="_blank" rel="noopener noreferrer" href="/privacy">privacybeleid</a>:
+            <input
+              value={accepted}
+              onChange={event => this.setState(byPropKey('accepted', event.target.value))}
+              type="checkbox"
+              placeholder="Instituut"
+            />
+          </div> */}
+          <div id="tc-bx">Je gaat akkoord met onze <a href={routes.Voorwaarden}>voorwaarden</a> &amp; <a href={routes.Privacy}>privacy beleid</a>.</div>
+          <div id="s-btn" class="mrg25t"><input type="submit" value="Sign up" class="b3"/></div>
+          { error && <p>{error.message}</p> }
+        </form>
+      </div>
     );
   }
 }

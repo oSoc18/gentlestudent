@@ -102,6 +102,9 @@ export const acceptParticipation = (id) =>
 export const rejectParticipation = (id) =>
   firestore.collection('Participations').doc(id).update({status: 2})
 
+export const completeParticipation = (id) =>
+  firestore.collection('Participations').doc(id).update({status: 3})
+
 export const onceGetAddress = (id) =>
   firestore.collection('Addresses').doc(id).get()
 
@@ -128,3 +131,21 @@ export const onceGetVoorwaarden = () =>
 
 export const onceGetLatestOpportunities = () =>
   firestore.collection('Opportunities').where('authority', '==', 1).limit(3).get()
+
+export const onceGetLatestExperiences = () =>
+  firestore.collection('Experiences').limit(3).get()
+
+export const onceGetOverOns = () =>
+  firestore.collection('OverOns').doc("OverOns").get()
+
+export const onceGetNewsItems = () =>
+  firestore.collection('News').get()
+
+export const onceGetNewsItem = (id) =>
+  firestore.collection('News').doc(id).get()
+
+export const onceGetExperiences = () =>
+  firestore.collection('Experiences').get()
+
+export const onceGetExperience = (id) =>
+  firestore.collection('Experiences').doc(id).get()

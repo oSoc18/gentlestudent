@@ -23,6 +23,7 @@ class CreateLeerkans extends Component {
 		};
   };
   componentDidMount() {
+    window.scrollTo(0, 0);
 		firestore.onceGetBadges().then(snapshot => {
 			var res = new Object();
 			snapshot.forEach(doc => {
@@ -46,6 +47,8 @@ class CreateLeerkans extends Component {
         var oppImageUrl= snapshot.data().oppImageUrl;
         var synopsis= snapshot.data().shortDescription;
         var title= snapshot.data().title;
+        var moreInfo= snapshot.data().moreInfo;
+        var website= snapshot.data().website;
         firestore.onceGetAddress(snapshot.data().addressId).then(snapshot => {
           self.setState({
             initValues: {
@@ -63,7 +66,9 @@ class CreateLeerkans extends Component {
               postal_code: snapshot.data().postalcode,
               street: snapshot.data().street,
               synopsis: synopsis,
-              title: title
+              title: title,
+              moreInfo: moreInfo,
+              website: website
             }
           });
         }).catch(function(error) {
