@@ -138,5 +138,11 @@ export const onceGetOverOns = () =>
 export const onceGetNewsItems = () =>
   firestore.collection('News').get()
 
+export const onceGetNewsItem = (id) =>
+  firestore.collection('News').doc(id).get()
+
 export const onceGetExperiences = () =>
   firestore.collection('Experiences').get()
+
+export const onceGetExperience = (id) =>
+  firestore.collection('Experiences').doc(id).get()

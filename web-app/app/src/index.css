@@ -863,6 +863,7 @@ ul li.list:hover .delete {
 
 .opportunity-detail{
   background: rgb(248, 248, 248);
+  min-height: 70.8vh;
   /* font-family:lato; */
 }
 
