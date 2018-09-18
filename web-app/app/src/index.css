@@ -145,7 +145,7 @@ button.primary {
       grid-template-columns: auto auto; } }
 @media screen and (min-width: 1600px) {
   .card-container {
-    grid-template-columns: auto auto auto auto; }
+    grid-template-columns: auto auto auto; }
     .card-container.leerkansen {
       grid-template-columns: auto auto auto; }
     .card-container.aangemaakte-leerkansen {
