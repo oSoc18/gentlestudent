@@ -119,7 +119,7 @@ button.primary {
   grid-row-gap: 15px; }
   .card-container .card-item {
     position: relative;
-    background-color: transparent;
+    background-color: white;
     max-height: 500px;
     padding: 15px;
     overflow: hidden; }
@@ -1498,3 +1498,9 @@ article.post small {
   bottom: 0; left: 0;
   background: linear-gradient(180deg,rgba(100,100,100,.03),rgb(100, 100, 100, 0.10));
 }
+#leerkansen{
+  background: rgb(248, 248, 248);
+}
+/* #recente-ervaringen{
+  background: rgb(248, 248, 248);
+} */
