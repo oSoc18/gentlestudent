@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 // import { columns, row } from 'glamor/ous';
 
-import Eyecatcher from './../Components/Issuer/Eyectacher';
+import Eyecatcher from './../Components/Issuer/Eyecatcher';
 import Info from './../Components/Issuer/Info';
 import StepsIssuer from './../Components/Issuer/Steps';
 

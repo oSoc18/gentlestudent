@@ -597,6 +597,9 @@ footer {
       height: 100%;
       width: auto;
       z-index: -1;
+      filter: blur(10px);
+      -webkit-filter: blur(10px);
+      transition: all 1000ms;
       /* opacity: .8;  */
     }
   #startpage .content {

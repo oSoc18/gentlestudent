@@ -20,6 +20,15 @@ class FrontPage extends Component {
 	componentDidMount() {
 		// this.props.check();
 		window.scrollTo(0, 0);
+		window.addEventListener('load', () => {
+			// console.log("loaded");
+			setTimeout( () => {
+				var img = document.getElementById("startpage").getElementsByTagName('img')[0]; 
+				// console.log(img);
+				img.style['filter'] = 'blur(0px)';
+				img.style['-webkit-filter'] = 'blur(0px)';
+			}, 1000 );
+		});
 	}
 	render() {
 		return (
