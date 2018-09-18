@@ -51,7 +51,7 @@ class FrontPage extends Component {
 					<div className="container">
 						<div>
 							<h2>Zie wat Gentlestudent heeft te bieden en wat je mag verwachten in de toekomst</h2>
-							<a href="/">Wat is er nieuw?</a>
+							<a href="/nieuws">Wat is er nieuw?</a>
 						</div>
 					</div>
 				</div>
