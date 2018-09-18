@@ -582,13 +582,15 @@ footer {
     max-height: 900px !important;
     overflow: hidden !important;
     contain: strict !important;
-    background-color: #0010144D; }
+    background-color: rgba(0, 41, 51, 0.31); 
+  }
     #startpage .eyecather-wrapper img {
       position: absolute;
       height: 100%;
       width: auto;
       z-index: -1;
-      opacity: .8; }
+      /* opacity: .8;  */
+    }
   #startpage .content {
     text-align: center;
     margin: calc(25vh - 30px) 0;
@@ -610,8 +612,13 @@ footer {
     #startpage .content p{
       font-size: 2.3vh;
       line-height: 2.5vh;
+    }
+    #startpage .text{
+      /* background-color: rgba(0, 16, 20, 0.473); */
       display: inline-block;
       max-width: 45vw;
+      padding: 10px;
+      /* padding: 10px; */
     }
     /* @media screen and (min-width: 960px) {
       #startpage .content h1 {

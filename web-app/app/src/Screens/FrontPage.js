@@ -39,8 +39,10 @@ class FrontPage extends Component {
 									<button type="submit">Zoeken</button>
 								</div>
 							</form> */}
-							<p>In de stad valt veel te leren, ontdek als <b>student</b> waar je je allemaal kunt verrijken. Vul je leven en geest en laat anderen meegenieten van je Gentle-talent.</p>
-							<p>Laat van je missie horen en betrek als <b>organisatie of buurt</b> studenten bij jullie projecten en geef ze de kans om ervaringen op te doen in een authentieke setting.</p>
+							<div className="text">
+								<p>In de stad valt veel te leren, ontdek als <b>student</b> waar je je allemaal kunt verrijken. Vul je leven en geest en laat anderen meegenieten van je Gentle-talent.</p>
+								<p>Laat van je missie horen en betrek als <b>organisatie of buurt</b> studenten bij jullie projecten en geef ze de kans om ervaringen op te doen in een authentieke setting.</p>
+							</div>
 						</div>
 					</div>
 				</div>
