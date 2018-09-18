@@ -582,7 +582,7 @@ footer {
     max-height: 900px !important;
     overflow: hidden !important;
     contain: strict !important;
-    background-color: rgba(0, 41, 51, 0.31); 
+    background-color: rgba(0, 41, 51, 0.41); 
   }
     #startpage .eyecather-wrapper img {
       position: absolute;
@@ -601,6 +601,7 @@ footer {
     contain: strict !important; }
     #startpage .content h1, #startpage .content h2, #startpage .content p {
       color: #FFFFFF;
+      /* mix-blend-mode: difference; */
       /* text-shadow: 0 0px 10px rgba(0, 0, 0, 0.26); */
     }
     #startpage .content h1 {
