@@ -84,18 +84,20 @@ class AangemaakteLeerkansen extends Component {
 
 		return (
 			<div className="leerkansen-content">
-				<div className="content content-with-padding">
-					{/* <SearchFilter /> */}
-					<div className="fixed opp-list-page">
-            			<h1>Aangemaakte leerkansen</h1>
-						<p> Deze leerkansen werden door jou aangemaakt:</p>
-					</div>
-					<div id="aangemaakte-leerkansen">
-						<Switch>
-							{/* <Route path={'/aangemaakte-leerkansen/:id'} render={({match}) => <Detail opportunities={opportunities}  match={match}/>} /> */}
-							{/* <Route path={'/aangemaakte-leerkansen/:id'} render={({match}) => <AangemaakteLeerkansDetail opportunities={opportunities}  match={match}/>} /> */}
-							<Route path={'/aangemaakte-leerkansen'} render={() => <List opportunities={opportunities} getOpportunities={this.getOpportunities}/>} />
-						</Switch>
+				<div className="container">
+					<div className="content content-with-padding">
+						{/* <SearchFilter /> */}
+						<div className="fixed opp-list-page">
+							<h1>Aangemaakte leerkansen</h1>
+							<p> Deze leerkansen werden door jou aangemaakt:</p>
+						</div>
+						<div id="aangemaakte-leerkansen">
+							<Switch>
+								{/* <Route path={'/aangemaakte-leerkansen/:id'} render={({match}) => <Detail opportunities={opportunities}  match={match}/>} /> */}
+								{/* <Route path={'/aangemaakte-leerkansen/:id'} render={({match}) => <AangemaakteLeerkansDetail opportunities={opportunities}  match={match}/>} /> */}
+								<Route path={'/aangemaakte-leerkansen'} render={() => <List opportunities={opportunities} getOpportunities={this.getOpportunities}/>} />
+							</Switch>
+						</div>
 					</div>
 				</div>
 			</div>
