@@ -898,12 +898,23 @@ ul li.list:hover .delete {
   z-index:1;
 }
 
-.opportunity-detail .titlehead{
+.opportunity-detail .titlehead-wrapper{
   width:100%;
   height:250px;
   background-size:cover;
   padding: 10px;
   background-position: center center;
+  position: relative;
+}
+.opportunity-detail .titlehead{
+  /* background-color: rgba(0, 0, 0, 0.15); */
+  background: linear-gradient(180deg,rgba(0,0,0,.01),rgba(0, 0, 0, 0.25));
+  position: absolute;
+  padding: 10px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 250px;
 }
 
 .opportunity-detail #page.opportunity-container{
