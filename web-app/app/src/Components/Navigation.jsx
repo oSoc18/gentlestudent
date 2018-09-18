@@ -20,18 +20,20 @@ const Navigation = ({ authUser }) =>
 			</NavLink>
 		</div>
 		<div className="nav">
-		<AuthUserContext.Consumer>
-			{authUser => authUser
-				? <NavigationAuth />
-				: <NavigationNonAuth />
-			}
-		</AuthUserContext.Consumer>
+			<input class="menu-btn" type="checkbox" id="menu-btn" />
+			<label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+			<AuthUserContext.Consumer>
+				{authUser => authUser
+					? <NavigationAuth />
+					: <NavigationNonAuth />
+				}
+			</AuthUserContext.Consumer>
 		</div>
 	</div>
 	</nav>
 
 const NavigationNonAuth = () =>
-	<ul id="gs-nav">
+	<ul id="gs-nav" className="menu">
 		<li className="nav_item">
 			<NavLink to={routes.Leerkansen} activeClassName="active">Leerkansen</NavLink>
 		</li>
@@ -140,7 +142,7 @@ class NavigationAuth extends Component{
 		const { isAdmin, isIssuer } = this.state;
 
 		return (
-			<ul id="gs-nav">
+			<ul id="gs-nav" className="menu">
 				<li className="nav_item">
 					<NavLink to={routes.Leerkansen} activeClassName="active">Leerkansen</NavLink>
 				</li>
