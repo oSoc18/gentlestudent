@@ -419,7 +419,11 @@ nav {
         border: 2px solid #00AACC;
       } */
       @media screen and (max-width: 1080px){
+        nav .dropdown{
+          display: none; 
+        }
         nav .nav ul#gs-nav {
+          /* max-height: none; */
           padding-left: 0px; 
           margin: 0;
           margin-top: 100px;
@@ -438,6 +442,9 @@ nav {
         nav .nav ul#gs-nav {
           flex-direction: column; } }
       @media screen and (min-width: 1080px) {
+        nav .dropdown_mobile{
+          display: none; 
+        }
         nav .logo img#gs-logo {
           height: 40px;
           padding: 35px 0; }
@@ -470,7 +477,7 @@ nav {
 .nav .menu {
   clear: both;
   max-height: 0;
-  transition: max-height .2s ease-out;
+  transition: max-height .1s ease-out;
 }
 .nav .menu-icon {
   cursor: pointer;
@@ -525,8 +532,11 @@ nav {
 .nav .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
   top: 0;
 }
-.nav .menu-btn:checked ~ ul#gs-nav {
-  border-top: 1px solid #ddd
+@media (max-width: 1080px) {
+  .nav .menu-btn:checked ~ ul#gs-nav {
+    border-top: 1px solid #ddd;
+    max-height: none;
+  }
 }
 @media (min-width: 1080px) {
   .nav li {

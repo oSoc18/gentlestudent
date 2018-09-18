@@ -156,7 +156,6 @@ class NavigationAuth extends Component{
 				<li className="nav_item">
 					<NavLink to={routes.OverOns}>Over ons</NavLink>
 				</li>
-				<React.Fragment>
 				<li className="nav_item dropdown">
 					<button className="nav_item primary" onClick={this.showMenu}>
 						Welkom {this.state.name}!
@@ -190,8 +189,32 @@ class NavigationAuth extends Component{
 							null
 						)
 					}
-					
 				</li>
+				<div className="dropdown_mobile">
+					<li className="nav_item">
+						<NavLink to={routes.Profiel}>Profiel</NavLink>
+					</li>
+					{ !! isIssuer && 
+						<li className="nav_item">
+							<NavLink to={routes.AangemaakteLeerkansen}>Aangemaakte leerkansen</NavLink>
+						</li>
+					}
+					{ !! isIssuer && 
+						<li className="nav_item">
+							<NavLink to={routes.MaakLeerkans}>Maak leerkans</NavLink>
+						</li>
+					}
+					{ !! isAdmin && 
+						<li className="nav_item">
+							<NavLink to={routes.ValideerIssuer}>Valideer issuer</NavLink>
+						</li>
+					}
+					{ !! isAdmin && 
+						<li className="nav_item">
+							<NavLink to={routes.MaakLeerkans}>Maak leerkans</NavLink>
+						</li>
+					}
+				</div>
 				<li className="nav_item primary">
 					<a className="primary" href={routes.Login}
 						onClick={auth.doSignOut}
@@ -199,7 +222,6 @@ class NavigationAuth extends Component{
 						Log uit
 					</a>
 				</li>
-				</React.Fragment>
 			</ul>
 		);
 	}
