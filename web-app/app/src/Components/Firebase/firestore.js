@@ -132,6 +132,9 @@ export const onceGetVoorwaarden = () =>
 export const onceGetLatestOpportunities = () =>
   firestore.collection('Opportunities').where('authority', '==', 1).limit(3).get()
 
+export const onceGetLatestExperiences = () =>
+  firestore.collection('Experiences').limit(3).get()
+
 export const onceGetOverOns = () =>
   firestore.collection('OverOns').doc("OverOns").get()
 
