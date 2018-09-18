@@ -59,7 +59,7 @@ class Leerkansen extends Component {
 									{Object.keys(opportunities).map(key =>
 										<a href={`${ routes.Leerkansen }/${ key }`} className={`card-item leerkans ${ opportunities[key].category }`}>
 											<div className="crop-opp-img">
-												<img src={opportunities[key].oppImageUrl} className="photo " alt="photoo" />
+												<img src={opportunities[key].oppImageUrl} className="photo" alt="photoo" />
 											</div>
 											<div style={{position: "relative"}}>
 												<img src={opportunities[key].pinImageUrl} className="badge" alt="badge" />

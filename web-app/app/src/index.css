@@ -1122,6 +1122,14 @@ ul li.list:hover .delete {
   max-height: 200px;
   overflow: hidden;
   margin: -15px -15px 0px -15px;
+  position: relative;
+}
+.crop-opp-img:after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  bottom: 0; left: 0;
+  background: linear-gradient(180deg,rgba(100,100,100,.03),rgb(100, 100, 100, 0.20));
 }
 .crop-opp-img img{
   width: 100%;
