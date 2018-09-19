@@ -213,7 +213,22 @@ button.primary {
       #create_leerkans form .form-group input:focus,
       #create_leerkans form .form-group textarea:focus {
         border: 1px solid turquoise; }
+@keyframes bounce {
+  0%, 20%, 60%, 100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
 
+  40% {
+    -webkit-transform: translateY(-20px);
+    transform: translateY(-20px);
+  }
+
+  80% {
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+}
 #leerkansen {
   display: flex;
   flex-direction: row;  }
@@ -233,6 +248,11 @@ button.primary {
     background-color: white;}
     #leerkansen .card-item.leerkans:hover {
       box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26); }
+    #leerkansen .card-item.leerkans:hover img.photo{
+      transform: scale(1.25);
+      transition: transform .2s; }
+    #leerkansen .card-item.leerkans:hover img.badge{
+      animation: bounce 1s; }
     #leerkansen .card-item.leerkans.digitale-geletterdheid:hover {
       border-color: #00AACC; }
     #leerkansen .card-item.leerkans.duurzaamheid:hover {
