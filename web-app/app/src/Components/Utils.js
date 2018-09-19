@@ -138,7 +138,7 @@ export const renderInput = ({
         <label htmlFor={input.name}>
           {label}
         </label>
-        {!!info && <small className="input-info">{info}</small>}
+        {!!info && <small className="input-info" dangerouslySetInnerHTML={{__html: info}}></small>}
         <input
           {...input}
           value={value}
@@ -178,7 +178,7 @@ export const renderAutomaticInput = ({
         <label htmlFor={input.name}>
           {label}
         </label>
-        {!!info && <small className="input-info">{info}</small>}
+        {!!info && <small className="input-info" dangerouslySetInnerHTML={{__html: info}}></small>}
         <input
           {...input}
           className="input"
@@ -201,7 +201,7 @@ export const renderCheckbox = ({ label, input, info, type, id }) => {
     <React.Fragment>
       <div>
         <label htmlFor={input.name}>{label}</label>
-        {!!info && <small className="input-info">{info}</small>}
+        {!!info && <small className="input-info" dangerouslySetInnerHTML={{__html: info}}></small>}
         <input
           {...input}
           className="checkbox"
@@ -233,7 +233,8 @@ export const renderSelect = ({
         <label htmlFor={input.name} >
           {label}
         </label>
-        {!!info && <small className="input-info">{info}<br/></small>}
+        {!!info && <small className="input-info" dangerouslySetInnerHTML={{__html: info}}></small>}
+        {!!info && <br/>}
         <select
           {...input}
           className="select"
@@ -277,7 +278,7 @@ export const renderTextarea = ({
         <label htmlFor={input.name}>
           {label}
         </label>
-        {!!info && <small className="input-info">{info}</small>}
+        {!!info && <small className="input-info" dangerouslySetInnerHTML={{__html: info}}></small>}
         <textarea
           className="textarea"
           {...input}

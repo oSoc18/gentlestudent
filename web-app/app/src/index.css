@@ -180,15 +180,27 @@ button.primary {
 #create_leerkans form {
   width: 100%; }
   #create_leerkans form .form-group {
-    width: 100%; }
+    width: 100%;
+    padding-bottom: 10px; }
     #create_leerkans form .form-group label {
       display: block;
       width: 100%;
       padding: 8px 0 0;
-      font-size: 14px;
+      font-size: 18px;
+      line-height: 24px;
       text-transform: uppercase;
       font-weight: bold;
-      color: #666; }
+      color: #707070;
+      padding-bottom: 2px; 
+    }
+    #create_leerkans form .form-group small {
+      font-style: italic;
+      color: #707070;
+    }
+    #create_leerkans form .form-group a {
+      /* text-decoration: underline; */
+      /* color: #707070;  */
+    }
     #create_leerkans form .form-group input,
     #create_leerkans form .form-group textarea {
       display: block;
@@ -716,7 +728,8 @@ footer {
     overflow: hidden !important;
     contain: strict !important;
     /* background-color: rgba(28, 111, 144, 0.5);  */
-    background: linear-gradient(to bottom, rgba(0, 180, 255, 0.04), rgba(0, 27, 39, 0.75));
+    background: webkit-linear-gradient(to bottom, #c4ecff33, rgba(20, 1, 5, 0.50));
+    background: linear-gradient(to bottom, #c4ecff33, rgba(20, 1, 5, 0.50));
   }
     #startpage .eyecather-wrapper img {
       position: absolute;
@@ -1640,3 +1653,28 @@ article.post small {
 /* #recente-ervaringen{
   background: rgb(248, 248, 248);
 } */
+.create_opportunity .content-left{
+  width: 60%;
+  padding-right: 20px;
+  margin-right: 80px;
+}
+.create_opportunity .content-right{
+  padding-left: 20px;
+  width: 40%;
+  color: #707070;
+  text-align: center;
+}
+.voorbeeld_leerkans_wrapper{
+  border-radius: 40px;
+  box-shadow: 0px 3px 10px 0px rgba(50, 50, 50, 0.5);
+  overflow: hidden;
+}
+.voorbeeld_leerkans img{
+  width:100%;
+  height:auto;
+  
+}
+.content-create-opp{
+  padding-left: 80px;
+  padding-right: 20px;
+}

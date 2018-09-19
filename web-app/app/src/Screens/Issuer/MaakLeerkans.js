@@ -125,19 +125,29 @@ class CreateLeerkans extends Component {
 
     return (
       <div>
-        <div className="container">
-          <div className="content">
+        {/* <div className="container"> */}
+          <div className="content content-create-opp">
             <Link to="/aangemaakte-leerkansen" className="back">&lt; Terug</Link>
             <h1>Maak Leerkans</h1>
-            <div className="form" id="create_leerkans">
-              {/* <FormCreateLeerkans onSubmit={this.submit} badges={badges}/> */}
-              {/* <FormCreateLeerkans badges={badges} history={history} opportunity={opportunity}/> */}
-              {/* {!initValues && <FormCreateLeerkans badges={badges} history={history}/>} */}
-              {/* {!!initValues && <FormCreateLeerkans badges={badges} history={history} initialValues={initValues}/>} */}
-              <FormCreateLeerkans badges={badges} history={history} initialValues={initValues} initValues={initValues}/>
+            <div className="content-flex create_opportunity">
+              <div className="content-left">
+                <div className="form" id="create_leerkans">
+                  {/* <FormCreateLeerkans onSubmit={this.submit} badges={badges}/> */}
+                  {/* <FormCreateLeerkans badges={badges} history={history} opportunity={opportunity}/> */}
+                  {/* {!initValues && <FormCreateLeerkans badges={badges} history={history}/>} */}
+                  {/* {!!initValues && <FormCreateLeerkans badges={badges} history={history} initialValues={initValues}/>} */}
+                  <FormCreateLeerkans badges={badges} history={history} initialValues={initValues} initValues={initValues}/>
+                </div>
+              </div>
+              <div className="content-right voorbeeld_leerkans">
+                <h3>Voorbeeld leerkans:</h3>
+                <div className="voorbeeld_leerkans_wrapper">
+                  <img src="https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Formopportunity%2FvoorbeeldLeerkans.png?alt=media"/>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        {/* </div> */}
     </div>
     );
   }
