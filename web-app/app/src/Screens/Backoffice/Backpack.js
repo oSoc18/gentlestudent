@@ -6,6 +6,9 @@ import AuthUserContext from './../../Components/AuthUserContext';
 import { auth, firestore } from './../../Components/Firebase';
 import firebase from 'firebase';
 
+import downloadAndroid from './../../assets/android.png';
+import downloadiOS from './../../assets/ios.png';
+
 import Spinner from '../../Components/Spinner';
 
 class Backpack extends Component {
@@ -13,7 +16,8 @@ class Backpack extends Component {
     super(props)
 
     this.state={
-        backpack: null
+        backpack: null,
+        isEmpty: false,
     }
 
     this.downloadBadge = this.downloadBadge.bind(this);
@@ -44,12 +48,13 @@ class Backpack extends Component {
                 });
             }
         });
+        this.setState({isEmpty: true});
     }
     downloadBadge(){
         console.log("Deze feature is nog niet geimplementeerd.");
     }
   render() {
-    const { backpack } = this.state;
+    const { backpack, isEmpty } = this.state;
     return (
       <React.Fragment>
           <div className="container">
@@ -63,9 +68,10 @@ class Backpack extends Component {
                             </div>
                         )}
                     </div>}
-                    {!backpack && 
-                        <LoadingList/>
-                    }
+                    {!backpack && <div className="backpack">
+                        {!!isEmpty && <EmptyList/>}
+                        {!isEmpty && <LoadingList/>}
+                    </div>}
                 </div>
             </div>
       </React.Fragment>
@@ -77,5 +83,16 @@ const LoadingList = () =>
 	<div>
 		<Spinner />
 	</div>
+
+const EmptyList = () =>
+    <div>
+        <p>Je hebt nog geen badges verdiend! Ga aan de slag door de mobile app te downloaden:</p>
+        <a href="https://itunes.apple.com/us/app/gentlestudent/id1417851918?mt=8&ign-mpt=uo%3D4" target="_blank">
+            <img src={downloadiOS} alt="download-button-ios" />
+        </a>
+        <a href="http://play.google.com/store/apps/details?id=gent.gentlestudent" target="_blank">
+            <img src={downloadAndroid} alt="download-button-android" />
+        </a>
+    </div>
 
 export default Backpack;
