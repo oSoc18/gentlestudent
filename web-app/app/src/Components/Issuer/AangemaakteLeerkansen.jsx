@@ -12,8 +12,6 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 class List extends Component {
 	constructor(props) {
         super(props);
-
-        this.state = {};
       };
 	render() {
 		const { opportunities, getOpportunities } = this.props;

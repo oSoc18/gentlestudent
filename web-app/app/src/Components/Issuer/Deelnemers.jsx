@@ -15,11 +15,13 @@ class List extends Component {
         this.undo = this.undo.bind(this);
 
         this.state ={
-			participants: null
+            participants: null,
+            isEmpty: false
         }
 	}
 	componentDidMount(){
-		this.loadParticipants();
+        this.loadParticipants();
+        this.setState({isEmpty: true});
 	}
 	loadParticipants(){
         var res = new Object();
@@ -123,7 +125,7 @@ class List extends Component {
         // self.loadParticipants();
     }
 	render() {
-		const { participants } = this.state;
+		const { participants, isEmpty } = this.state;
 
 		return (
 			<React.Fragment>
@@ -162,13 +164,13 @@ class List extends Component {
 						</div>
 					</div>
 				}
-				{ ! participants && <EmptyList/> }
+				{ ! participants && !isEmpty && <LoadingList/> }
 			</React.Fragment>
 		)
 	}
 }
 
-const EmptyList = () =>
+const LoadingList = () =>
 	<div>
 		<Spinner />
 	</div>
