@@ -1672,9 +1672,67 @@ article.post small {
 .voorbeeld_leerkans img{
   width:100%;
   height:auto;
-  
 }
 .content-create-opp{
   padding-left: 80px;
   padding-right: 20px;
 }
+.backpack-item{
+  width: 60vw;
+  padding: 10px;
+  text-align: center;
+}
+  @media screen and (min-width: 360px) {
+    .backpack-item{
+      width: 35vw;
+    }
+  }
+  @media screen and (min-width: 550px) {
+    .backpack-item{
+      width: 25vw;
+    }
+  }
+  @media screen and (min-width: 700px) {
+    .backpack-item{
+      width: 18vw;
+    }
+  }
+  @media screen and (min-width: 900px) {
+    .backpack-item{
+      width: 15vw;
+    }
+  }
+  @media screen and (min-width: 1080px) {
+    .backpack-item{
+      width: 10vw;
+    }
+  }
+.backpack-item img{
+  width: 100%;
+  height: auto;
+}
+.backpack{
+  display: flex;
+  flex-wrap: wrap;
+}
+.download-badge{
+  display: inline-block;
+  border-radius: 8px;
+  color: #FFFFFF !important;
+  border: 2px solid #00AACC;
+  background-color: #00AACC;
+  margin-bottom: 0px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  font-weight: 700;
+}
+.download-badge:hover {
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+  color: #00AACC !important;
+  background-color: white; }

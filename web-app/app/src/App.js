@@ -32,6 +32,7 @@ import Profiel from './Screens/Backoffice/Profiel';
 import Privacy from './Screens/Privacy';
 import Voorwaarden from './Screens/Voorwaarden';
 import NoMatch from './Screens/NoMatch';
+import Backpack from './Screens/Backoffice/Backpack';
 
 import Navigation from './Components/Navigation';
 import Footer from './Components/Footer';
@@ -69,9 +70,10 @@ class App extends Component {
 								<Route path={routes.ValideerLeerkans} exact render={() => <ValideerLeerkans />} />
 								<Route path={routes.AangemaakteLeerkansen} render={() => <AangemaakteLeerkansen />} />
 								<Route path={routes.BewerkLeerkans+'/:id'} render={() => <BewerkLeerkans />} />
-								<Route path={routes.Profiel} render={() => <Profiel />} />
-								<Route path={routes.Privacy} render={() => <Privacy />} />
-								<Route path={routes.Voorwaarden} render={() => <Voorwaarden />} />
+								<Route path={routes.Profiel} exact render={() => <Profiel />} />
+								<Route path={routes.Backpack} exact render={() => <Backpack />} />
+								<Route path={routes.Privacy} exact render={() => <Privacy />} />
+								<Route path={routes.Voorwaarden} exact render={() => <Voorwaarden />} />
 								<Route path="*" render={() => <NoMatch />} />
 								{/* </Auth> */}
 						</Switch>

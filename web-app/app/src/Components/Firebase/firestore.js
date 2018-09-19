@@ -45,6 +45,9 @@ export const onceGetBadges = () =>
   // db.ref('Opportunities').once('value');
   firestore.collection('Badges').get()
 
+export const onceGetBadge = (id) =>
+  firestore.collection('Badges').doc(id).get()
+
 export const onceGetNonValidatedIssuers = () =>
   firestore.collection('Issuers').where('validated', '==', false).get()
 
@@ -149,3 +152,6 @@ export const onceGetExperiences = () =>
 
 export const onceGetExperience = (id) =>
   firestore.collection('Experiences').doc(id).get()
+
+export const onceGetAssertions = (id) =>
+  firestore.collection('Assertions').where('recipientId', '==', id).get()

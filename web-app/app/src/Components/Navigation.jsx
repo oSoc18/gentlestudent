@@ -172,6 +172,7 @@ class NavigationAuth extends Component{
 								>
 								<div className="dropdown-menu-list">
 									<NavLink to={routes.Profiel}>Profiel</NavLink>
+									<NavLink to={routes.Backpack}>Backpack</NavLink>
 									{ !! isIssuer && 
 										<div class="nav-dropdown-ext">
 											<NavigationIssuer/>
@@ -193,6 +194,9 @@ class NavigationAuth extends Component{
 				<div className="dropdown_mobile">
 					<li className="nav_item">
 						<NavLink to={routes.Profiel}>Profiel</NavLink>
+					</li>
+					<li className="nav_item">
+						<NavLink to={routes.Backpack}>Backpack</NavLink>
 					</li>
 					{ !! isIssuer && 
 						<li className="nav_item">
