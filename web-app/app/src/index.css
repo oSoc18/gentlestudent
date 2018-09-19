@@ -1704,7 +1704,7 @@ article.post small {
   }
   @media screen and (min-width: 1080px) {
     .backpack-item{
-      width: 10vw;
+      width: 135px;
     }
   }
 .backpack-item img{
