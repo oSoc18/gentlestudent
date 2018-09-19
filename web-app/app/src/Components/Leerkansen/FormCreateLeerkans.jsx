@@ -521,10 +521,10 @@ class FormCreateLeerkans extends React.Component {
           <label htmlFor="LocationPicker">
             Pas locatie aan (Optioneel)
           </label>
-          <small>Verplaats de marker indien de locatie van het adres op google maps niet volledig overeenkomt met de beacon</small>
           <div>
             <BeaconLocationPicker changeLat={this.changeLat} changeLng={this.changeLng}/>
           </div>
+          <small>Verplaats de marker indien de locatie van het adres op google maps niet volledig overeenkomt met de beacon</small>
         </div>
         <div className="form-group">
           <Field
@@ -556,7 +556,6 @@ class FormCreateLeerkans extends React.Component {
           <label htmlFor="Image">
             Afbeelding uploaden
           </label>
-          <small>Gelieve een rechtenvrije afbeelding te kiezen met een hoge resolutie.</small>
           <input 
             type="file"
             label="Afbeelding uploaden"
@@ -564,9 +563,10 @@ class FormCreateLeerkans extends React.Component {
             id="image"
             onChange={ this.handleImage } 
           />
+          <small>Gelieve een rechtenvrije afbeelding te kiezen met een hoge resolutie.</small>
         </div>
         <div className="form-group">
-          <button type="submit" disabled={submitting || pristine}>
+          <button type="submit" className="opp-save" disabled={submitting || pristine}>
             Maak leerkans
           </button>
         </div>

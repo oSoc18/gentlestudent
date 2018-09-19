@@ -281,7 +281,7 @@ class FormBewerkLeerkans extends Component{
             </div>
             <br/>
             <div className="form-group">
-              <button className="opp-edit-save" type="submit" disabled={submitting || pristine}>
+              <button className="opp-save" type="submit" disabled={submitting || pristine}>
                 Bewaar
               </button>
             </div>

@@ -196,6 +196,18 @@ button.primary {
     #create_leerkans form .form-group small {
       font-style: italic;
       color: #707070;
+      visibility: hidden;
+    }
+    #create_leerkans form .form-group .input-info-wrapper{
+      padding-left: 10px;
+      padding-right: 10px;
+      max-height: 18px;
+    }
+    #create_leerkans form .form-group:hover small{
+      visibility: visible;
+    }
+    #create_leerkans form .form-group:hover .input-info-wrapper{
+      max-height: 200px;
     }
     #create_leerkans form .form-group a {
       /* text-decoration: underline; */
@@ -1779,7 +1791,7 @@ article.post small {
   color: white !important;
   background-color: #707070; }
 
-.opp-edit-save{
+.opp-save{
   display:block; /* change this from inline-block */
   /* width:20%; */
   margin:0 auto;
