@@ -26,7 +26,7 @@ const ExperiencesList = ({ experiences }) =>
                     <li class="news-item">
                     <article class="post">
                         <div className="crop-news-img">
-                            <img src={experiences[key].imageUrl ? `${experiences[key].imageUrl}` : null} alt="Article thumbnail" />
+                            <img className="news-img" src={experiences[key].imageUrl ? `${experiences[key].imageUrl}` : null} alt="Article thumbnail" />
                         </div>
                         <h1>{experiences[key].title}</h1>
                         {!!experiences[key].published && <small><time datetime={experiences[key].published}>{experiences[key].published}</time></small>}
