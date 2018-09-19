@@ -53,8 +53,10 @@ class FrontPage extends Component {
 								<p>Laat van je missie horen en betrek als <b>organisatie of buurt</b> studenten bij jullie projecten en geef ze de kans om ervaringen op te doen in een authentieke setting.</p>
 							</div>
 						</div>
+						<a className="scroll-down-arrow"href="#anchor"><span></span></a>
 					</div>
 				</div>
+				<div id="anchor"></div>
 				<Leerkansen />
 				<div id="new" style={newStyle}>
 					<div className="container">

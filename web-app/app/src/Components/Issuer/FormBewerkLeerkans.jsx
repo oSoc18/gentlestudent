@@ -73,6 +73,11 @@ class FormBewerkLeerkans extends Component{
       return (
         <React.Fragment>
           <form onSubmit={this.handleSubmit}>
+            {/* <div className="form-group">
+              <button className="opp-detail-option" type="submit" disabled={submitting || pristine}>
+                Bewaar
+              </button>
+            </div> */}
             <div className="content content-flex">
               <div className="content-left">
                 <div className="form-group">
@@ -276,7 +281,7 @@ class FormBewerkLeerkans extends Component{
             </div>
             <br/>
             <div className="form-group">
-              <button type="submit" disabled={submitting || pristine}>
+              <button className="opp-edit-save" type="submit" disabled={submitting || pristine}>
                 Bewaar
               </button>
             </div>

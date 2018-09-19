@@ -1734,5 +1734,91 @@ article.post small {
 .download-badge:hover {
   cursor: pointer;
   transition: all 200ms ease-in-out;
-  color: #00AACC !important;
+  color: #707070 !important;
   background-color: white; }
+.opp-detail-option{
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 8px;
+  color: #707070 !important;
+  border: 1px solid #707070;
+  background-color: white;
+  margin-bottom: 0px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  /* font-weight: 700; */
+}
+.opp-detail-option:hover{
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+  color: white !important;
+  background-color: #707070; }
+
+.opp-edit-save{
+  display:block; /* change this from inline-block */
+  /* width:20%; */
+  margin:0 auto;
+  padding: 10px;
+  width: 35vw;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgb(0, 200, 240)), to(rgb(0, 128, 153)));
+  background: linear-gradient(rgb(0, 200, 240), rgb(0, 128, 153));
+  background: -webkit-linear-gradient(rgb(0, 200, 240), rgb(0, 128, 153));
+  background: -o-linear-gradient(rgb(0, 200, 240), rgb(0, 128, 153));
+  background: -ms-linear-gradient(rgb(0, 200, 240), rgb(0, 128, 153));
+  box-shadow: 0px 4px 4px #3f3f3f;
+  -webkit-box-shadow: 0px 4px 4px #3f3f3f;
+  -moz-box-shadow: 0px 4px 4px #3f3f3f;
+  -o-box-shadow: 0px 4px 4px #3f3f3f;
+  -ms-box-shadow: 0px 4px 4px #3f3f3f;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-width: 0px;
+  outline: none;
+  font-weight: bold;
+}
+.scroll-down-arrow{
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  z-index: 2;
+  display: inline-block;
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  color: #fff;
+  font: normal 400 20px/1 'Josefin Sans', sans-serif;
+  letter-spacing: .1em;
+  text-decoration: none;
+  transition: opacity .3s;
+}
+.scroll-down-arrow:hover {
+  opacity: .5;
+}
+.scroll-down-arrow span{
+  padding: 15px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  border-left: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  box-sizing: border-box;
+}
+#anchor {
+  padding-top: 20vh;
+  margin-top: -20vh;
+}
