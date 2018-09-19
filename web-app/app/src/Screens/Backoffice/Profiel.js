@@ -85,7 +85,7 @@ class Profiel extends Component {
                     <i class="desc">{this.state.email}</i>
                     {/* <span class="title">Geboortedatum</span> */}
                     {/* <i class="desc">{this.state.birthdate}</i> */}
-                    <span class="title">Institutie</span>
+                    <span class="title">Organisatie/onderwijsinstelling</span>
                     <i class="desc">{this.state.institute}</i>
                     {/* <span class="title">Educatie</span> */}
                     {/* <i class="desc">{this.state.education}</i> */}
@@ -97,6 +97,8 @@ class Profiel extends Component {
                             {this.state.isAdmin && <i class="desc">Admin</i>}
                         </React.Fragment>
                     }
+                    <span class="title">Backpack</span>
+                    <i class="desc"><a href="/backpack">Ga naar backpack</a></i>
                     </div>
                 </div>
             </div>

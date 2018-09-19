@@ -325,7 +325,7 @@ class FormCreateLeerkans extends React.Component {
             id="category"
             name="category"
             label="Domein"
-            info="Duid aan binnen welk domein je leerkans valt. Hier vind je een uitgebreide omschrijving van de verschillende categorieën."
+            info="Duid aan binnen welk domein je leerkans valt. <a href='https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Formopportunity%2Fpdf%2FDomeinen.pdf?alt=media' target='_blank'>Hier</a> vind je een uitgebreide omschrijving van de verschillende categorieën."
             data={{
               list: Object.keys(Category).map(key => {
                 return {
@@ -366,7 +366,7 @@ class FormCreateLeerkans extends React.Component {
         <div className="form-group">
           <Field
             id="difficulty"
-            info="Duid aan binnen welke moeilijkheidsgraad de leerkans valt. Hier vind je een uitgebreide omschrijving van de verschillende moeilijkheidsgraden."
+            info="Duid aan binnen welke moeilijkheidsgraad de leerkans valt. <a href='https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Formopportunity%2Fpdf%2FNiveaus.pdf?alt=media' target='_blank'>Hier</a> vind je een uitgebreide omschrijving van de verschillende moeilijkheidsgraden."
             name="difficulty"
             label="Niveau"
             data={{
@@ -521,10 +521,10 @@ class FormCreateLeerkans extends React.Component {
           <label htmlFor="LocationPicker">
             Pas locatie aan (Optioneel)
           </label>
-          <p>Verplaats de marker indien de locatie van het adres op google maps niet volledig overeenkomt met de beacon</p>
           <div>
             <BeaconLocationPicker changeLat={this.changeLat} changeLng={this.changeLng}/>
           </div>
+          <small>Verplaats de marker indien de locatie van het adres op google maps niet volledig overeenkomt met de beacon</small>
         </div>
         <div className="form-group">
           <Field
@@ -563,9 +563,10 @@ class FormCreateLeerkans extends React.Component {
             id="image"
             onChange={ this.handleImage } 
           />
+          <small>Gelieve een rechtenvrije afbeelding te kiezen met een hoge resolutie.</small>
         </div>
         <div className="form-group">
-          <button type="submit" disabled={submitting || pristine}>
+          <button type="submit" className="opp-save" disabled={submitting || pristine}>
             Maak leerkans
           </button>
         </div>

@@ -20,6 +20,15 @@ class FrontPage extends Component {
 	componentDidMount() {
 		// this.props.check();
 		window.scrollTo(0, 0);
+		// window.addEventListener('load', () => {
+			// console.log("loaded");
+			setTimeout( () => {
+				var img = document.getElementById("startpage").getElementsByTagName('img')[0]; 
+				// console.log(img);
+				img.style['filter'] = 'blur(0px)';
+				img.style['-webkit-filter'] = 'blur(0px)';
+			}, 1000 );
+		// });
 	}
 	render() {
 		return (
@@ -44,8 +53,10 @@ class FrontPage extends Component {
 								<p>Laat van je missie horen en betrek als <b>organisatie of buurt</b> studenten bij jullie projecten en geef ze de kans om ervaringen op te doen in een authentieke setting.</p>
 							</div>
 						</div>
+						<a className="scroll-down-arrow"href="#anchor"><span></span></a>
 					</div>
 				</div>
+				<div id="anchor"></div>
 				<Leerkansen />
 				<div id="new" style={newStyle}>
 					<div className="container">

@@ -55,23 +55,22 @@ class LeerkansDetail extends Component {
       diff: "",
       issuer: null,
       userHasRights: false,
+      isAdmin: false
 		};
   }
   componentDidMount() {
     let userId= auth.getUserId();
     if(userId!=""){
       if(this.props.opportunity.issuerId == userId){this.setState(() => ({ userHasRights: true }));}
-      else{
-        firestore.onceGetAdmin(userId).then(doc => {
-          var res = new Object();
-          if(doc.data()){
-            this.setState(() => ({ userHasRights: true }));
-          }
-        })
-        .catch(err => {
-          console.log('User is not an admin', err);
-        });
-      }
+      firestore.onceGetAdmin(userId).then(doc => {
+        var res = new Object();
+        if(doc.data()){
+          this.setState(() => ({ userHasRights: true, isAdmin: true }));
+        }
+      })
+      .catch(err => {
+        console.log('User is not an admin', err);
+      });
     }    
     switch(this.props.opportunity.category){
       case 0: this.setState({cat: "Digitale Geletterdheid"}); break;
@@ -102,7 +101,7 @@ class LeerkansDetail extends Component {
   }
   render() {
     const { opportunity, id } = this.props;
-    const { address, cat, diff, issuer, userHasRights } = this.state;
+    const { address, cat, diff, issuer, userHasRights, isAdmin } = this.state;
 
     return (
       <div className="opportunity-detail">
@@ -122,7 +121,12 @@ class LeerkansDetail extends Component {
         </div>
         <div id="page" className="opportunity-container">
           {/* <a href="/leerkansen" className="back">&lt; Terug</a> */}
+          
           <img className="badge" src={opportunity.pinImageUrl}/>
+          {!!opportunity.authority==0 && <div style={{display: 'flex'}}>
+              {!!userHasRights && <a className="opp-detail-option" href={'/issuer/bewerk-leerkans/'+id}>Bewerken</a>}
+              {!!isAdmin && <a className="opp-detail-option" href="/admin/valideer-leerkans">Goedkeuren</a>}
+            </div>}
           <div className="content content-flex">
             <div className="content-left">
               <h3>Beschrijving</h3>

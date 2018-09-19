@@ -20,18 +20,20 @@ const Navigation = ({ authUser }) =>
 			</NavLink>
 		</div>
 		<div className="nav">
-		<AuthUserContext.Consumer>
-			{authUser => authUser
-				? <NavigationAuth />
-				: <NavigationNonAuth />
-			}
-		</AuthUserContext.Consumer>
+			<input class="menu-btn" type="checkbox" id="menu-btn" />
+			<label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+			<AuthUserContext.Consumer>
+				{authUser => authUser
+					? <NavigationAuth />
+					: <NavigationNonAuth />
+				}
+			</AuthUserContext.Consumer>
 		</div>
 	</div>
 	</nav>
 
 const NavigationNonAuth = () =>
-	<ul id="gs-nav">
+	<ul id="gs-nav" className="menu">
 		<li className="nav_item">
 			<NavLink to={routes.Leerkansen} activeClassName="active">Leerkansen</NavLink>
 		</li>
@@ -140,7 +142,7 @@ class NavigationAuth extends Component{
 		const { isAdmin, isIssuer } = this.state;
 
 		return (
-			<ul id="gs-nav">
+			<ul id="gs-nav" className="menu">
 				<li className="nav_item">
 					<NavLink to={routes.Leerkansen} activeClassName="active">Leerkansen</NavLink>
 				</li>
@@ -154,7 +156,6 @@ class NavigationAuth extends Component{
 				<li className="nav_item">
 					<NavLink to={routes.OverOns}>Over ons</NavLink>
 				</li>
-				<React.Fragment>
 				<li className="nav_item dropdown">
 					<button className="nav_item primary" onClick={this.showMenu}>
 						Welkom {this.state.name}!
@@ -171,6 +172,7 @@ class NavigationAuth extends Component{
 								>
 								<div className="dropdown-menu-list">
 									<NavLink to={routes.Profiel}>Profiel</NavLink>
+									<NavLink to={routes.Backpack}>Backpack</NavLink>
 									{ !! isIssuer && 
 										<div class="nav-dropdown-ext">
 											<NavigationIssuer/>
@@ -188,8 +190,35 @@ class NavigationAuth extends Component{
 							null
 						)
 					}
-					
 				</li>
+				<div className="dropdown_mobile">
+					<li className="nav_item">
+						<NavLink to={routes.Profiel}>Profiel</NavLink>
+					</li>
+					<li className="nav_item">
+						<NavLink to={routes.Backpack}>Backpack</NavLink>
+					</li>
+					{ !! isIssuer && 
+						<li className="nav_item">
+							<NavLink to={routes.AangemaakteLeerkansen}>Aangemaakte leerkansen</NavLink>
+						</li>
+					}
+					{ !! isIssuer && 
+						<li className="nav_item">
+							<NavLink to={routes.MaakLeerkans}>Maak leerkans</NavLink>
+						</li>
+					}
+					{ !! isAdmin && 
+						<li className="nav_item">
+							<NavLink to={routes.ValideerIssuer}>Valideer issuer</NavLink>
+						</li>
+					}
+					{ !! isAdmin && 
+						<li className="nav_item">
+							<NavLink to={routes.MaakLeerkans}>Maak leerkans</NavLink>
+						</li>
+					}
+				</div>
 				<li className="nav_item primary">
 					<a className="primary" href={routes.Login}
 						onClick={auth.doSignOut}
@@ -197,7 +226,6 @@ class NavigationAuth extends Component{
 						Log uit
 					</a>
 				</li>
-				</React.Fragment>
 			</ul>
 		);
 	}

@@ -138,7 +138,6 @@ export const renderInput = ({
         <label htmlFor={input.name}>
           {label}
         </label>
-        {!!info && <small className="input-info">{info}</small>}
         <input
           {...input}
           value={value}
@@ -149,6 +148,7 @@ export const renderInput = ({
           placeholder={placeholder}
           required
         />
+        {!!info && <div className="input-info-wrapper"><small className="input-info" dangerouslySetInnerHTML={{__html: info}}></small></div>}
         {touched && error && <span className="error">{error}</span>}
         {touched && !error && <span className="succes">✓</span>}
       </div>
@@ -178,7 +178,6 @@ export const renderAutomaticInput = ({
         <label htmlFor={input.name}>
           {label}
         </label>
-        {!!info && <small className="input-info">{info}</small>}
         <input
           {...input}
           className="input"
@@ -189,6 +188,7 @@ export const renderAutomaticInput = ({
           value={defaultValue}
           required
         />
+        {!!info && <div className="input-info-wrapper"><small className="input-info" dangerouslySetInnerHTML={{__html: info}}></small></div>}
         {touched && error && <span className="error">{error}</span>}
         {touched && !error && <span className="succes">✓</span>}
       </div>
@@ -201,13 +201,13 @@ export const renderCheckbox = ({ label, input, info, type, id }) => {
     <React.Fragment>
       <div>
         <label htmlFor={input.name}>{label}</label>
-        {!!info && <small className="input-info">{info}</small>}
         <input
           {...input}
           className="checkbox"
           type={type}
           id={id}
         />
+        {!!info && <div className="input-info-wrapper"><small className="input-info" dangerouslySetInnerHTML={{__html: info}}></small></div>}
       </div>
     </React.Fragment>
   );
@@ -233,7 +233,7 @@ export const renderSelect = ({
         <label htmlFor={input.name} >
           {label}
         </label>
-        {!!info && <small className="input-info">{info}<br/></small>}
+        {/* {!!info && <br/>} */}
         <select
           {...input}
           className="select"
@@ -250,6 +250,7 @@ export const renderSelect = ({
             );
           })}
         </select>
+        {!!info && <div className="input-info-wrapper"><small className="input-info" dangerouslySetInnerHTML={{__html: info}}></small></div>}
         {touched && error ? <span className="error">{error}</span> : null}
       </div>
     </React.Fragment>
@@ -277,7 +278,6 @@ export const renderTextarea = ({
         <label htmlFor={input.name}>
           {label}
         </label>
-        {!!info && <small className="input-info">{info}</small>}
         <textarea
           className="textarea"
           {...input}
@@ -289,6 +289,7 @@ export const renderTextarea = ({
           cols="50"
           required
         />
+        {!!info && <div className="input-info-wrapper"><small className="input-info" dangerouslySetInnerHTML={{__html: info}}></small></div>}
         {touched && error && <span className="error">{error}</span>}
         {touched && !error && <span className="succes">✓</span>}
       </div>
