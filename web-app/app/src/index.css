@@ -259,6 +259,10 @@ button.primary {
     border: 2px solid #F2F0ED;
     transition: all 200ms ease-in-out;
     background-color: white;}
+    @media screen and (min-width: 1080px){
+      #leerkansen .card-item.leerkans {
+        max-width: 26.5vw;}
+      }
     #leerkansen .card-item.leerkans:hover {
       box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26);
       transform: scale(1.03); }
@@ -1700,13 +1704,12 @@ article.post small {
   background: rgb(248, 248, 248);
 } */
 .create_opportunity .content-left{
-  width: 60%;
+  width: 55%;
   padding-right: 20px;
-  margin-right: 80px;
 }
 .create_opportunity .content-right{
   padding-left: 20px;
-  width: 40%;
+  width: 45%;
   color: #707070;
   text-align: center;
 }
