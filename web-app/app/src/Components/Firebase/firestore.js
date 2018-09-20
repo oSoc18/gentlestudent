@@ -155,3 +155,6 @@ export const onceGetExperience = (id) =>
 
 export const onceGetAssertions = (id) =>
   firestore.collection('Assertions').where('recipientId', '==', id).get()
+
+export const updateOpportunity = (id, field, data) =>
+  firestore.collection('Opportunities').doc(id).update({[field]: data})

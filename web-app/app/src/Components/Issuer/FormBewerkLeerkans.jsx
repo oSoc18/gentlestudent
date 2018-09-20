@@ -6,8 +6,12 @@ import { Field, reduxForm } from 'redux-form';
 import { renderInput, renderAutomaticInput, renderTextarea, renderSelect, RenderDropzoneInput, validate } from './../Utils';
 
 import { auth, firestore } from './../Firebase';
+import firebase from 'firebase';
+import 'firebase/storage';
 
 import { Category, Difficulty} from '../Leerkansen/Constants';
+
+import * as routes from '../../routes/routes';
 
 class FormBewerkLeerkans extends Component{
     constructor(props){
@@ -39,9 +43,15 @@ class FormBewerkLeerkans extends Component{
         imageUrl: "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Opportunityimages%2FNederlandse%20Les.jpg?alt=media&token=82cecaa7-4d6e-473d-b06a-a5eea35d8d4b",
         imageExtension: ""
       };
+
+      this.handleChange = this.handleChange.bind(this);
+      this.handleImage = this.handleImage.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.uploadImage = this.uploadImage.bind(this);
+      this.choosePin = this.choosePin.bind(this);
     }
     componentDidUpdate() {
-      if(!this.state.initialised && this.props.initValues){
+      if(!this.state.initialised && this.props.initValues && Object.keys(this.props.initValues).length>0){
         this.setState({
           initialised: true,
           address: this.props.initValues.street+" "+this.props.initValues.house_number+
@@ -66,6 +76,117 @@ class FormBewerkLeerkans extends Component{
           contact: this.props.initValues.contact
         });
       }
+    }
+    getEnumValue(enumTable, i){
+      var keys = Object.keys(enumTable).sort(function(a, b){
+        return enumTable[a] - enumTable[b];
+      }); //sorting is required since the order of keys is not guaranteed.
+      
+      var getEnum = function(ordinal) {
+        return keys[ordinal];
+      }
+  
+      return getEnum(i);
+    }
+    choosePin(){
+      let baseUrl = "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Pins%2F";
+      let url = baseUrl;
+      switch(parseInt(this.state.category)){
+        case 0: url += "pin_digitale-geletterdheid"; break;
+        case 1: url += "pin_duurzaamheid"; break;
+        case 2: url += "pin_ondernemingszin"; break;
+        case 3: url += "pin_onderzoekende-houding"; break;
+        case 4: url += "pin_wereldburgerschap"; break;
+      }
+      switch(parseInt(this.state.difficulty)){
+        case 0: url += "_1.png?alt=media"; break;
+        case 1: url += "_2.png?alt=media"; break;
+        case 2: url += "_3.png?alt=media"; break;
+      }
+      this.setState({pinImageUrl: url});
+    }
+    handleChange(event) {
+      this.setState({[event.target.id]: event.target.value});
+      // if(event.target.id=="street" 
+      //   || "house_number" 
+      //   || "city" 
+      //   || "postal_code" 
+      //   || "country" ){
+      //   this.changeAddress();
+    }
+    uploadImage(fileName){
+      console.log(fileName);
+      let path = "Opportunityimages/"+fileName;
+      let ref = firebase.storage().ref().child(path);
+      ref.put(this.state.image).then(function(snapshot) {
+        console.log('Uploaded file!');
+      }).catch(function(error) {
+        console.error("Error uploading file: ", error);
+      });
+    }
+    handleImage(event) {
+      this.setState({image: event.target.files[0]});
+      this.setState({imageExtension: event.target.value.split('.').pop()});
+    }
+    checkDate(s){
+      if(/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))$/.test(s)){
+        return s;
+      }
+      let day = s.split("-")[0];
+      let month = s.split("-")[1];
+      let year = s.split("-")[2];
+      return year+"-"+month+"-"+day;
+    }
+    handleSubmit(event) {
+      event.preventDefault();
+      if(this.state.image != ""){
+        let fileName = this.state.title+"."+this.state.imageExtension;
+        let baseUrl = "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Opportunityimages%2F";
+        this.setState({imageUrl: baseUrl + encodeURIComponent(fileName)+"?alt=media"});
+        this.uploadImage(fileName);
+      }
+      if(this.state.address != this.props.initValues.street+" "+this.props.initValues.house_number+
+      ", "+this.props.initValues.postal_code+" "+this.props.initValues.city){
+
+      }
+      if(this.state.start_date != this.props.initValues.start_date){
+        console.log(this.state.start_date);
+        console.log(this.props.initValues.start_date);
+        firestore.updateOpportunity(this.props.id, "beginDate", this.state.start_date);
+      }
+      if(this.state.category !=this.props.initValues.category){
+        firestore.updateOpportunity(this.props.id, "category", this.state.start_date);
+        this.choosePin();
+      }
+      if(this.state.difficulty != this.props.initValues.difficulty){
+        firestore.updateOpportunity(this.props.id, "difficulty", this.state.difficulty);
+        this.choosePin();
+      }
+      if(this.state.end_date != this.props.initValues.end_date){
+        firestore.updateOpportunity(this.props.id, "endDate", this.state.end_date);
+      }
+      if(this.state.description != this.props.initValues.description){
+        firestore.updateOpportunity(this.props.id, "longDescription", this.state.description);
+      }
+      if(this.state.oppImageUrl != this.props.initValues.oppImageUrl){
+        firestore.updateOpportunity(this.props.id, "oppImageUrl", this.state.imageUrl);
+      }
+      if(this.state.synopsis != this.props.initValues.synopsis){
+        firestore.updateOpportunity(this.props.id, "shortDescription", this.state.synopsis);
+      }
+      if(this.state.title != this.props.initValues.title){
+        firestore.updateOpportunity(this.props.id, "title", this.state.title);
+      }
+      if(this.state.moreInfo != this.props.initValues.moreInfo){
+        firestore.updateOpportunity(this.props.id, "moreInfo", this.state.moreInfo);
+      }
+      if(this.state.website != this.props.initValues.website){
+        firestore.updateOpportunity(this.props.id, "website", this.state.website);
+      }
+      if(this.state.contact != this.props.initValues.contact){
+        firestore.updateOpportunity(this.props.id, "contact", this.state.contact);
+      }
+      this.props.history.push(routes.Leerkansen+'/'+this.props.id);
     }
     render() {
       const { opportunity, address, issuer, submitting, pristine } = this.props;

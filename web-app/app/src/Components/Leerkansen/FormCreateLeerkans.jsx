@@ -69,7 +69,7 @@ class FormCreateLeerkans extends React.Component {
   }
 
   componentDidUpdate() {
-    if(!this.state.initialised && this.props.initValues){
+    if(!this.state.initialised && this.props.initValues && Object.keys(this.props.initValues).length>0){
       this.setState({
         initialised: true,
         start_date: this.props.initValues.start_date,
