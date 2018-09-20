@@ -1064,7 +1064,7 @@ ul li.list:hover .delete {
     font-size: 60px;
     color: #fff;
     text-align: center;
-    width: 100%;
+    width: calc(100% - 20px);
     /* text-shadow: -1px 0 #707070, 0 1px #707070, 0px 0 #707070, 0 -0px #707070; */
     text-shadow: 0 0px 10px rgba(0, 0, 0, 0.26);
     z-index: 1;
@@ -1089,7 +1089,7 @@ ul li.list:hover .delete {
 }
 
 .opportunity-detail .titlehead-wrapper{
-  width:100%;
+  width:calc(100% - 20px);
   height:250px;
   background-size:cover;
   padding: 10px;
@@ -1103,7 +1103,7 @@ ul li.list:hover .delete {
   padding: 10px;
   top: 0;
   left: 0;
-  width: 100%;
+  width: calc(100% - 20px);
   height: 250px;
 }
 
