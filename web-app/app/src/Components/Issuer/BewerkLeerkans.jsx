@@ -25,18 +25,19 @@ class BewerkLeerkans extends Component {
       firestore.onceGetOpportunity(this.state.id).then(doc => {
         if(doc.data() && doc.data().authority==0){
           this.setState(() => ({ opportunity: doc.data() }));
-          var start_date= doc.data().beginDate;
+          var start_date = doc.data().beginDate;
           // var category= self.getEnumValue(Category, doc.data().category);
-          var category= doc.data().category;
+          var category = doc.data().category;
           // var difficulty= self.getEnumValue(Difficulty, doc.data().difficulty);
           var difficulty = doc.data().difficulty;
-          var end_date= doc.data().endDate;
-          var description= doc.data().longDescription;
-          var oppImageUrl= doc.data().oppImageUrl;
-          var synopsis= doc.data().shortDescription;
-          var title= doc.data().title;
-          var moreInfo= doc.data().moreInfo;
-          var website= doc.data().website;
+          var end_date = doc.data().endDate;
+          var description = doc.data().longDescription;
+          var oppImageUrl = doc.data().oppImageUrl;
+          var synopsis = doc.data().shortDescription;
+          var title = doc.data().title;
+          var moreInfo = doc.data().moreInfo;
+          var website = doc.data().website;
+          var contact = doc.data().contact
           firestore.onceGetAddress(doc.data().addressId).then(snapshot => {
             self.setState({
               initValues: {
@@ -58,7 +59,8 @@ class BewerkLeerkans extends Component {
                 synopsis: synopsis,
                 title: title,
                 moreInfo: moreInfo,
-                website: website
+                website: website,
+                contact: contact
               }
             });
           }).catch(function(error) {
@@ -83,7 +85,7 @@ class BewerkLeerkans extends Component {
 
     return (
       <React.Fragment>
-        { !! opportunity && <LeerkansDetail opportunity={ opportunity } initValues={ initValues } /> }
+        { !! opportunity && <LeerkansDetail history={this.props.history} opportunity={ opportunity } id={this.props.match.params.id} initValues={ initValues } /> }
 				{ ! opportunity && <EmptyList/> }
 			</React.Fragment>
       
@@ -146,7 +148,7 @@ class LeerkansDetail extends Component {
 		});
   }
   render() {
-    const { opportunity, initValues } = this.props;
+    const { opportunity, initValues, id } = this.props;
     const { address, issuer } = this.state;
 
     return (
@@ -168,7 +170,7 @@ class LeerkansDetail extends Component {
         <div id="page" className="opportunity-container">
           {/* <a href="/leerkansen" className="back">&lt; Terug</a> */}
           <img className="badge" src={opportunity.pinImageUrl}/>
-          <FormBewerkLeerkans opportunity={opportunity} address={address} issuer={issuer} initialValues={ initValues} />
+          <FormBewerkLeerkans history={this.props.history} opportunity={opportunity} id={id} address={address} issuer={issuer} initialValues={ initValues} initValues={ initValues} />
           {/* {!!userHasRights && <List opportunity={ opportunity } id={ id }/>} */}
         </div>
         <br/>

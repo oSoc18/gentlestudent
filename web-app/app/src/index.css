@@ -173,7 +173,8 @@ button.primary {
     #recente-ervaringen .ervaring .data small {
       color: #FFFFFF; }
   #recente-ervaringen .ervaring:hover {
-    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26); }
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26);
+    transform: scale(1.05); }
     #recente-ervaringen .ervaring:hover .data {
       transform: translateY(-120px); }
 
@@ -194,7 +195,7 @@ button.primary {
       padding-bottom: 2px; 
     }
     #create_leerkans form .form-group small {
-      font-style: italic;
+      /* font-style: italic; */
       color: #707070;
       visibility: hidden;
     }
@@ -258,10 +259,15 @@ button.primary {
     border: 2px solid #F2F0ED;
     transition: all 200ms ease-in-out;
     background-color: white;}
+    @media screen and (min-width: 1080px){
+      #leerkansen .card-item.leerkans {
+        max-width: 26.5vw;}
+      }
     #leerkansen .card-item.leerkans:hover {
-      box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26); }
+      box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26);
+      transform: scale(1.03); }
     #leerkansen .card-item.leerkans:hover img.photo{
-      transform: scale(1.20);
+      transform: scale(1.10);
       transition: transform .2s; }
     #leerkansen .card-item.leerkans:hover img.badge{
       animation: bounce 1s; }
@@ -922,6 +928,7 @@ footer {
 .list:hover {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25), 0 5px 8px rgba(0, 0, 0, 0.22);
   cursor: pointer;
+  transform: scale(1.03);
 }
 .list:hover img.pin{
   animation: bounce 1s;
@@ -1057,9 +1064,11 @@ ul li.list:hover .delete {
 
 .opportunity-detail h1{
     position: absolute;
-    top: 90px;
+    top: 35px;
     font-size: 60px;
     color: #fff;
+    text-align: center;
+    width: calc(100% - 20px);
     /* text-shadow: -1px 0 #707070, 0 1px #707070, 0px 0 #707070, 0 -0px #707070; */
     text-shadow: 0 0px 10px rgba(0, 0, 0, 0.26);
     z-index: 1;
@@ -1084,7 +1093,7 @@ ul li.list:hover .delete {
 }
 
 .opportunity-detail .titlehead-wrapper{
-  width:100%;
+  width:calc(100% - 20px);
   height:250px;
   background-size:cover;
   padding: 10px;
@@ -1098,7 +1107,7 @@ ul li.list:hover .delete {
   padding: 10px;
   top: 0;
   left: 0;
-  width: 100%;
+  width: calc(100% - 20px);
   height: 250px;
 }
 
@@ -1666,15 +1675,17 @@ article.post small {
     -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     -o-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: transform .2s ease-in-out;
 }
 .news-item:hover {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25), 0 5px 8px rgba(0, 0, 0, 0.22);
   cursor: pointer;
+  transform: scale(1.03);
 }
-.news-item:hover img.news-img{
+/* .news-item:hover img.news-img{
   transform: scale(1.20);
   transition: transform .2s;
-}
+} */
 .news-items-content {
   background-color: rgb(248, 248, 248);
   width: 100%;
@@ -1693,13 +1704,12 @@ article.post small {
   background: rgb(248, 248, 248);
 } */
 .create_opportunity .content-left{
-  width: 60%;
+  width: 55%;
   padding-right: 20px;
-  margin-right: 80px;
 }
 .create_opportunity .content-right{
   padding-left: 20px;
-  width: 40%;
+  width: 45%;
   color: #707070;
   text-align: center;
 }
@@ -1860,4 +1870,23 @@ article.post small {
 #anchor {
   padding-top: 20vh;
   margin-top: -20vh;
+}
+#page{
+  max-width: 70vw;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+@media screen and (min-width: 1400px) {
+  #page{
+    max-width: 1140px;
+  }
+}
+.news-item-content p{
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.news-item-content small{
+  padding-left: 40px;
+  padding-right: 20px;
 }

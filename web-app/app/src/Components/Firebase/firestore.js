@@ -51,6 +51,9 @@ export const onceGetBadge = (id) =>
 export const onceGetNonValidatedIssuers = () =>
   firestore.collection('Issuers').where('validated', '==', false).get()
 
+export const onceGetValidatedIssuers = () =>
+  firestore.collection('Issuers').where('validated', '==', true).get()
+
 export const validateIssuer = (id) =>
   firestore.collection('Issuers').doc(id).update({ validated: true })
 
@@ -155,3 +158,9 @@ export const onceGetExperience = (id) =>
 
 export const onceGetAssertions = (id) =>
   firestore.collection('Assertions').where('recipientId', '==', id).get()
+
+export const updateOpportunity = (id, field, data) =>
+  firestore.collection('Opportunities').doc(id).update({[field]: data})
+
+export const updateAddress = (id, field, data) =>
+  firestore.collection('Addresses').doc(id).update({[field]: data})

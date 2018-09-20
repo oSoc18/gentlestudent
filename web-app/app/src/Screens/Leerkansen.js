@@ -16,8 +16,10 @@ class Leerkansen extends Component {
 	
 		this.state = {
 		  opportunities: null,
+		  initialOpportunities: null,
 		  addresses: null
 		};
+		this.filterOpportunities = this.filterOpportunities.bind(this);
 	  }
 	componentDidMount() {
 		window.scrollTo(0, 0);
@@ -27,6 +29,7 @@ class Leerkansen extends Component {
 				res[doc.id] = doc.data();
 			});
 			this.setState(() => ({ opportunities: res }))
+			this.setState(() => ({ initialOpportunities: res }))
 		})
 		.catch(err => {
 			console.log('Error getting documents', err);
@@ -42,9 +45,32 @@ class Leerkansen extends Component {
 			console.log('Error getting documents', err);
 		});
 	}
+	filterOpportunities(event){
+		var initialList = this.state.initialOpportunities;
+		var filteredArray = Object.keys(initialList).map(function(key) {
+			return [key, initialList[key]];
+		  });
+		// console.log(filteredArray);
+		filteredArray = filteredArray.filter(function(item){
+			let content = "";
+			Object.keys(item[1]).map(function(key) {
+				// console.log(key);
+				content += item[1][key];
+			});
+			// console.log(content);
+			return content.toLowerCase().search(event.target.value.toLowerCase()) !== -1;
+		});
+		// console.log(filteredArray);
+		var updatedList = new Object;
+		filteredArray.forEach((item, index)=>{
+			let key = item[0];
+			updatedList[key] = item[1];
+		});
+		// console.log(updatedList);
+		this.setState({opportunities: updatedList});
+	  }
 	render() {
-		const { opportunities } = this.state;
-		const { addresses } = this.state;
+		const { opportunities, addresses } = this.state;
 
 		return (
 			<Switch>
@@ -52,7 +78,7 @@ class Leerkansen extends Component {
 				<Route path={'/leerkansen'} render={() => 
 					<div className="leerkansen-content">
 						<div className="content">
-							<SearchFilter />
+							<SearchFilter filterFunction={this.filterOpportunities} />
 							<div id="leerkansen">
 								<div className="content-left">
 									<List opportunities={opportunities} />

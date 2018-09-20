@@ -68,7 +68,7 @@ class NewsDetail extends Component {
         </div>
         <div id="page" className="opportunity-container">
           {/* <a href="/leerkansen" className="back">&lt; Terug</a> */}
-          <div className="content content-flex">
+          {/* <div className="content content-flex">
             <div className="content-left">
               <h3>{newsItem.title}</h3>
               <p>{newsItem.longText}</p>
@@ -78,21 +78,9 @@ class NewsDetail extends Component {
               <div className="infobox">
                 <h3>Info:</h3>
                 <div className="infobox-content">
-                  {/* <div className="content-left">
-                    {!!issuer && <p><b>Eigenaar:</b><br/></p>}
-                    {!!address && <p><b>Locatie:</b><br/></p>}
-                    <p><b>Periode:</b><br/></p>
-                    <p><b>Aantal deelnemers:</b><br/></p>
-                  </div>
-                  <div className="content-right">
-                    {!!issuer && <p>{issuer.name}<br/></p>}
-                    {!!address && <p>{address.street} {address.housenumber}, {address.postalcode} {address["city"]}<br/></p>}
-                    <p>{newsItem.beginDate + ' tot en met ' + newsItem.endDate}<br/></p>
-                    <p>{newsItem.participations}<br/></p>
-                  </div> */}
                   <table>
                     {!!newsItem.author && <tr>
-                      <td><b>Autheur:</b></td>
+                      <td><b>Auteur:</b></td>
                       <td>{newsItem.author}</td>
                     </tr>}
                     <tr>
@@ -103,6 +91,13 @@ class NewsDetail extends Component {
                 </div>
               </div>
             </div>
+          </div> */}
+          <div className="content news-item-content">
+            <h3>{newsItem.title}</h3>
+            <small>{newsItem.author}</small><br/>
+            <small>{newsItem.published}</small>
+            <p>{newsItem.longText}</p>
+            <br/>
           </div>
         </div>
         <br/>

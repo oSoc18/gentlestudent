@@ -53,7 +53,10 @@ class FormCreateLeerkans extends React.Component {
       contact: "",
       image: "",
       imageUrl: "https://firebasestorage.googleapis.com/v0/b/gentle-student.appspot.com/o/Opportunityimages%2FNederlandse%20Les.jpg?alt=media&token=82cecaa7-4d6e-473d-b06a-a5eea35d8d4b",
-      imageExtension: ""
+      imageExtension: "",
+      isAdmin: false,
+      issuerId: "",
+      issuers: null
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -67,9 +70,34 @@ class FormCreateLeerkans extends React.Component {
     this.choosePin = this.choosePin.bind(this);
     // this.componentDidMount = this.componentDidMount.bind(this);
   }
-
+  componentDidMount() {
+    let userId= auth.getUserId();
+      this.setState({issuerId: userId});
+      if(userId!=""){
+        // console.log("is user "+userId+" an admin?");
+        firestore.onceGetAdmin(userId).then(doc => {
+          var res = new Object();
+          if(doc.data()){
+            // console.log("user is admin");
+            this.setState(() => ({ isAdmin: true }));
+            firestore.onceGetValidatedIssuers().then(snapshot => {
+              var res = new Object();
+              snapshot.forEach(issuer => {
+                res[issuer.id] = issuer.data();
+              });
+              this.setState(() => ({ issuers: res }));
+            }).catch(err => {
+              console.log('Error fetching issuers', err);
+            });
+          }
+        })
+        .catch(err => {
+          console.log('User is not an admin', err);
+        });
+      }
+  }
   componentDidUpdate() {
-    if(!this.state.initialised && this.props.initValues){
+    if(!this.state.initialised && this.props.initValues && Object.keys(this.props.initValues).length>0){
       this.setState({
         initialised: true,
         start_date: this.props.initValues.start_date,
@@ -152,7 +180,7 @@ class FormCreateLeerkans extends React.Component {
       case 1: url += "_2.png?alt=media"; break;
       case 2: url += "_3.png?alt=media"; break;
     }
-    this.setState({pinImageUrl: url});
+    this.state.pinImageUrl= url;
   }
 
   handleChange(event) {
@@ -231,7 +259,7 @@ class FormCreateLeerkans extends React.Component {
     opportunity["difficulty"] = parseInt(this.state.difficulty);
     opportunity["endDate"] = this.checkDate(this.state.end_date);
     opportunity["international"] = false;
-    opportunity["issuerId"] = auth.getUserId();
+    opportunity["issuerId"] = this.state.issuerId;
     opportunity["longDescription"] = this.state.description;
     opportunity["oppImageUrl"] = this.state.imageUrl;
     opportunity["pinImageUrl"] = this.state.pinImageUrl;
@@ -306,6 +334,23 @@ class FormCreateLeerkans extends React.Component {
       <form onSubmit={this.handleSubmit}>
         {/* <h2>(Loop all the fields before submitting -- will be fixed soon!)</h2> */}
         {/* {this.state.title} */}
+        {!!this.state.isAdmin && this.state.issuers && <div className="form-group">
+          <Field
+              id="issuerId"
+              name="issuerId"
+              label="Kies een issuer: "
+              data={{
+              list: Object.keys(this.state.issuers).map(key => {
+                  return {
+                  value: key,
+                  display: this.state.issuers[key].name
+                  };
+              })
+              }}
+              component={renderSelect}
+              onChange={this.handleChange}
+          />
+        </div>}
         <div className="form-group">
           <Field
             label="Titel"
