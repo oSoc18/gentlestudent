@@ -1872,7 +1872,21 @@ article.post small {
   margin-top: -20vh;
 }
 #page{
-  max-width: 1140px;
+  max-width: 70vw;
   margin-left: auto !important;
   margin-right: auto !important;
+}
+@media screen and (min-width: 1400px) {
+  #page{
+    max-width: 1140px;
+  }
+}
+.news-item-content p{
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.news-item-content small{
+  padding-left: 40px;
+  padding-right: 20px;
 }
