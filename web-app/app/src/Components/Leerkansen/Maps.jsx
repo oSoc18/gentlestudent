@@ -118,7 +118,9 @@ window.onload = function() {
 				box.style.top = "0px";
 			}
 			else {
-				if(scroll<=box.parentElement.clientHeight-400){
+				console.log(box.style.top);
+				console.log(box.parentElement.clientHeight-window.innerHeight+150);
+				if(scroll-200<=box.parentElement.clientHeight-window.innerHeight+150){
 					box.style.top = (scroll - 200) + "px";
 				}
 			}
