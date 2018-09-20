@@ -173,7 +173,8 @@ button.primary {
     #recente-ervaringen .ervaring .data small {
       color: #FFFFFF; }
   #recente-ervaringen .ervaring:hover {
-    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26); }
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26);
+    transform: scale(1.05); }
     #recente-ervaringen .ervaring:hover .data {
       transform: translateY(-120px); }
 
@@ -259,9 +260,10 @@ button.primary {
     transition: all 200ms ease-in-out;
     background-color: white;}
     #leerkansen .card-item.leerkans:hover {
-      box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26); }
+      box-shadow: 0 0px 10px rgba(0, 0, 0, 0.26);
+      transform: scale(1.03); }
     #leerkansen .card-item.leerkans:hover img.photo{
-      transform: scale(1.20);
+      transform: scale(1.10);
       transition: transform .2s; }
     #leerkansen .card-item.leerkans:hover img.badge{
       animation: bounce 1s; }
@@ -922,6 +924,7 @@ footer {
 .list:hover {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25), 0 5px 8px rgba(0, 0, 0, 0.22);
   cursor: pointer;
+  transform: scale(1.03);
 }
 .list:hover img.pin{
   animation: bounce 1s;
@@ -1666,15 +1669,17 @@ article.post small {
     -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     -o-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: transform .2s ease-in-out;
 }
 .news-item:hover {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25), 0 5px 8px rgba(0, 0, 0, 0.22);
   cursor: pointer;
+  transform: scale(1.03);
 }
-.news-item:hover img.news-img{
+/* .news-item:hover img.news-img{
   transform: scale(1.20);
   transition: transform .2s;
-}
+} */
 .news-items-content {
   background-color: rgb(248, 248, 248);
   width: 100%;
