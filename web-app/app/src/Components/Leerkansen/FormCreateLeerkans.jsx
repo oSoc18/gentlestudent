@@ -152,7 +152,7 @@ class FormCreateLeerkans extends React.Component {
       case 1: url += "_2.png?alt=media"; break;
       case 2: url += "_3.png?alt=media"; break;
     }
-    this.setState({pinImageUrl: url});
+    this.state.pinImageUrl= url;
   }
 
   handleChange(event) {

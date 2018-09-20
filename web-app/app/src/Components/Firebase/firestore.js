@@ -158,3 +158,6 @@ export const onceGetAssertions = (id) =>
 
 export const updateOpportunity = (id, field, data) =>
   firestore.collection('Opportunities').doc(id).update({[field]: data})
+
+export const updateAddress = (id, field, data) =>
+  firestore.collection('Addresses').doc(id).update({[field]: data})
