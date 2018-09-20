@@ -195,7 +195,7 @@ button.primary {
       padding-bottom: 2px; 
     }
     #create_leerkans form .form-group small {
-      font-style: italic;
+      /* font-style: italic; */
       color: #707070;
       visibility: hidden;
     }
