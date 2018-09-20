@@ -786,7 +786,8 @@ footer {
     min-height: 300px !important;
     max-height: 840px !important;
     overflow: hidden !important;
-    contain: strict !important; }
+    /* contain: strict !important; */
+   }
     #startpage .content h1, #startpage .content h2, #startpage .content p {
       color: #FFFFFF;
       /* mix-blend-mode: difference; */
