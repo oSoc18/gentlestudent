@@ -1063,6 +1063,7 @@ ul li.list:hover .delete {
     top: 90px;
     font-size: 60px;
     color: #fff;
+    padding-left: 25vw;
     /* text-shadow: -1px 0 #707070, 0 1px #707070, 0px 0 #707070, 0 -0px #707070; */
     text-shadow: 0 0px 10px rgba(0, 0, 0, 0.26);
     z-index: 1;
@@ -1865,4 +1866,9 @@ article.post small {
 #anchor {
   padding-top: 20vh;
   margin-top: -20vh;
+}
+#page{
+  max-width: 1140px;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
