@@ -46,8 +46,8 @@ class Profiel extends Component {
                 console.log('Error getting documents', err);
             });
             firestore.onceGetIssuer(id).then(doc => {
-                self.setState(() => ({ requestedIssuer: true }));
                 if(doc.data()){
+                    self.setState(() => ({ requestedIssuer: true }));
                     if(doc.data().validated){
                         self.setState(() => ({ isIssuer: true }));
                         self.setState(() => ({ requestedIssuer: false }));
