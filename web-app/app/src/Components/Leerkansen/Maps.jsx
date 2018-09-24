@@ -54,8 +54,8 @@ const MapComponent = compose(
 									options={{ closeBoxURL: ``, enableEventPropagation: true }}
 								>
 									<div style={{ backgroundColor: '#FFF', opacity: 0.95, padding: 15, width: 200 }}>
-										<span style={{ fontSize: 16 , fontWeight: 'bold', display: 'block' }}>{props.opportunities[key].title}</span>
-										<small>{props.opportunities[key].synopsis}</small>
+										<span style={{ fontSize: 16 , fontWeight: 'bold', display: 'block' }}>{props.issuers[props.opportunities[key].issuerId].name}</span>
+										{/* <small>{props.opportunities[key].synopsis}</small> */}
 									</div>
 								</InfoBox>
 							}
@@ -70,7 +70,7 @@ class Maps extends Component {
 	render() {
 		return (
 			<React.Fragment>
-				{!! this.props.opportunities &&
+				{!! this.props.opportunities && this.props.issuers && 
 					<MapComponent opportunities={this.props.opportunities} addresses={this.props.addresses} issuers={this.props.issuers}/>
 				}
 			</React.Fragment>
