@@ -40,7 +40,8 @@ class Leerkansen extends Component {
 			snapshot.forEach(doc => {
 				res[doc.id] = doc.data();
 			});
-			this.setState(() => ({ addresses: res }))
+			this.setState(() => ({ addresses: res }));
+			// console.log(this.state.addresses);
 		})
 		.catch(err => {
 			console.log('Error getting documents', err);
