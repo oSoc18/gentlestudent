@@ -40,7 +40,8 @@ class Leerkansen extends Component {
 			snapshot.forEach(doc => {
 				res[doc.id] = doc.data();
 			});
-			this.setState(() => ({ addresses: res }))
+			this.setState(() => ({ addresses: res }));
+			// console.log(this.state.addresses);
 		})
 		.catch(err => {
 			console.log('Error getting documents', err);
@@ -96,7 +97,7 @@ class Leerkansen extends Component {
 								</div>
 								<div className="content-right">
 									<div className="content map-container" id="stickybox">
-										{!!opportunities && !!addresses && <Maps opportunities={opportunities} addresses={addresses} issuers={issuers}/>}
+										{!!opportunities && !!addresses && !!issuers && <Maps opportunities={opportunities} addresses={addresses} issuers={issuers}/>}
 									</div>
 								</div>
 							</div>

@@ -41,28 +41,28 @@ const MapComponent = compose(
 			defaultCenter={{ lat: 51.0511164, lng: 3.7114566 }}
 			defaultOptions={{ styles: mapStyles }}
     >
-			{Object.keys(props.opportunities).map(key =>
-					<React.Fragment key={key}>
-						<Marker
-							position={{ lat: props.addresses[props.opportunities[key].addressId].latitude, lng:  props.addresses[props.opportunities[key].addressId].longitude }}
-							title={ props.issuers[props.opportunities[key].issuerId].name}
-							onClick={()=>{ props.showInfo(key)}}
-						>
-							{props.showInfoIndex === key &&
-								<InfoBox
-									onCloseClick={props.onToggleOpen}
-									options={{ closeBoxURL: ``, enableEventPropagation: true }}
-								>
-									<div style={{ backgroundColor: '#FFF', opacity: 0.95, padding: 15, width: 200 }}>
-										<span style={{ fontSize: 16 , fontWeight: 'bold', display: 'block' }}>{props.opportunities[key].title}</span>
-										<small>{props.opportunities[key].synopsis}</small>
-									</div>
-								</InfoBox>
-							}
-						</Marker>
-					</React.Fragment>
-				)
-			}
+		{Object.keys(props.opportunities).map(key =>
+				<React.Fragment key={key}>
+					<Marker
+						position={{ lat: props.addresses[props.opportunities[key].addressId].latitude, lng:  props.addresses[props.opportunities[key].addressId].longitude }}
+						title={ props.issuers[props.opportunities[key].issuerId].name}
+						onClick={()=>{ props.showInfo(key)}}
+					>
+						{props.showInfoIndex === key &&
+							<InfoBox
+								onCloseClick={props.onToggleOpen}
+								options={{ closeBoxURL: ``, enableEventPropagation: true }}
+							>
+								<div style={{ backgroundColor: '#FFF', opacity: 0.95, padding: 15, width: 200 }}>
+									<span style={{ fontSize: 16 , fontWeight: 'bold', display: 'block' }}>{props.issuers[props.opportunities[key].issuerId].name}</span>
+									{/* <small>{props.opportunities[key].synopsis}</small> */}
+								</div>
+							</InfoBox>
+						}
+					</Marker>
+				</React.Fragment>
+			)
+		}
     </GoogleMap>
 ));
 
@@ -70,7 +70,7 @@ class Maps extends Component {
 	render() {
 		return (
 			<React.Fragment>
-				{!! this.props.opportunities &&
+				{!! this.props.opportunities && this.props.issuers && 
 					<MapComponent opportunities={this.props.opportunities} addresses={this.props.addresses} issuers={this.props.issuers}/>
 				}
 			</React.Fragment>
@@ -118,8 +118,8 @@ window.onload = function() {
 				box.style.top = "0px";
 			}
 			else {
-				console.log(box.style.top);
-				console.log(box.parentElement.clientHeight-window.innerHeight+150);
+				// console.log(box.style.top);
+				// console.log(box.parentElement.clientHeight-window.innerHeight+150);
 				if(scroll-200<=box.parentElement.clientHeight-window.innerHeight+150){
 					box.style.top = (scroll - 200) + "px";
 				}

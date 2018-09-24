@@ -25,7 +25,7 @@ class Leerkansen extends Component {
 				res[doc.id] = doc.data();
 			});
 			this.setState(() => ({ opportunities: res }))
-			console.log(this.state.opportunities);
+			// console.log(this.state.opportunities);
 		  })
 		  .catch(err => {
 			console.log('Could not fetch opportunity data: ', err);
