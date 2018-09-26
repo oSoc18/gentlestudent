@@ -17,7 +17,8 @@ class Leerkansen extends Component {
 		this.state = {
 		  opportunities: null,
 		  initialOpportunities: null,
-		  addresses: null
+		  addresses: null,
+		  issuers: null
 		};
 		this.filterOpportunities = this.filterOpportunities.bind(this);
 	  }
@@ -39,7 +40,18 @@ class Leerkansen extends Component {
 			snapshot.forEach(doc => {
 				res[doc.id] = doc.data();
 			});
-			this.setState(() => ({ addresses: res }))
+			this.setState(() => ({ addresses: res }));
+			// console.log(this.state.addresses);
+		})
+		.catch(err => {
+			console.log('Error getting documents', err);
+		});
+		firestore.onceGetValidatedIssuers().then(snapshot => {
+			var res = new Object()
+			snapshot.forEach(doc => {
+				res[doc.id] = doc.data();
+			});
+			this.setState(() => ({ issuers: res }))
 		})
 		.catch(err => {
 			console.log('Error getting documents', err);
@@ -70,7 +82,7 @@ class Leerkansen extends Component {
 		this.setState({opportunities: updatedList});
 	  }
 	render() {
-		const { opportunities, addresses } = this.state;
+		const { opportunities, addresses, issuers } = this.state;
 
 		return (
 			<Switch>
@@ -85,7 +97,7 @@ class Leerkansen extends Component {
 								</div>
 								<div className="content-right">
 									<div className="content map-container" id="stickybox">
-										{!!opportunities && !!addresses && <Maps opportunities={opportunities} addresses={addresses}/>}
+										{!!opportunities && !!addresses && !!issuers && <Maps opportunities={opportunities} addresses={addresses} issuers={issuers}/>}
 									</div>
 								</div>
 							</div>

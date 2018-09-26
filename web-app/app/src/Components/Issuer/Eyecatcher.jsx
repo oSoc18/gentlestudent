@@ -14,6 +14,8 @@ class Eyecatcher extends Component {
     this.initialize = this.initialize.bind(this);
   }
   componentDidMount(){
+    this.initialize();
+    this.updateDimensions();
     window.addEventListener('load', this.initialize);
     window.addEventListener('load', this.updateDimensions);
     window.addEventListener("resize", this.updateDimensions);
