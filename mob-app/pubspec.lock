@@ -205,14 +205,14 @@ packages:
       name: flutter_local_notifications
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.7"
+    version: "0.3.8"
   flutter_map:
     dependency: "direct main"
     description:
       name: flutter_map
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.1"
+    version: "0.1.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -287,7 +287,7 @@ packages:
       name: intro_views_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.4"
+    version: "2.3.0"
   io:
     dependency: transitive
     description:
@@ -413,7 +413,7 @@ packages:
       name: petitparser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.2"
   platform:
     dependency: transitive
     description:
@@ -516,7 +516,7 @@ packages:
       name: sqflite
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.11.2+2"
+    version: "0.12.1"
   stack_trace:
     dependency: transitive
     description:
@@ -551,7 +551,7 @@ packages:
       name: synchronized
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.1+1"
+    version: "1.5.3"
   term_glyph:
     dependency: transitive
     description:
@@ -656,7 +656,7 @@ packages:
       name: xml
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.2.0"
+    version: "3.2.3"
   yaml:
     dependency: transitive
     description:
@@ -665,5 +665,5 @@ packages:
     source: hosted
     version: "2.1.15"
 sdks:
-  dart: ">=2.0.0 <=2.1.0-dev.1.0.flutter-ccb16f7282"
+  dart: ">=2.0.0 <=2.1.0-dev.3.1.flutter-760a9690c2"
   flutter: ">=0.2.5 <2.0.0"

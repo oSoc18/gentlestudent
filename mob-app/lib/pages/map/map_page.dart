@@ -37,7 +37,6 @@ class _MapPageState extends State<MapPage> {
     for (int i = 0; i < _opportunities.length; i++) {
       address = _addresses
           .firstWhere((a) => _opportunities[i].addressId == a.addressId);
-      print(_opportunities[i].pinImageUrl);
       _markers.add(
         new Marker(
           width: 100.0,
