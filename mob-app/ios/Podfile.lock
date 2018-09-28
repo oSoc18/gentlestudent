@@ -236,7 +236,7 @@ SPEC CHECKSUMS:
   path_provider: 09407919825bfe3c2deae39453b7a5b44f467873
   Protobuf: 0fc0ad8bec688b2a3017a139953e01374fedbd5f
   shared_preferences: 5a1d487c427ee18fcd3ea1f2a131569481834b53
-  sqflite: d1612813fa7db7c667bed9f1d1b508deffc56999
+  sqflite: 801b6b0983f722fa29baf00d1476e4556ada6de4
   streams_channel: 7e83cef39495e5007e3586e58b6ecb703c7c1fea
   url_launcher: 92b89c1029a0373879933c21642958c874539095
   video_player: 906796a841943c8d370ac7c13b18039aa9b56498

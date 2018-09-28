@@ -77,7 +77,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  //Android notification channel for sending notifications on Android 8.0 or higher
   static const AndroidNotificationChannel channel =
       const AndroidNotificationChannel(
           id: 'default_notification',
@@ -85,7 +84,6 @@ class _HomePageState extends State<HomePage> {
           description: 'Grant this app the ability to show notifications',
           importance: AndroidNotificationChannelImportance.DEFAULT);
 
-  //Declaration of the other variables
   List<String> _keyList = [];
   Set<String> _notifiedKeyList = new Set<String>();
   BeaconApi _beaconApi;
@@ -99,7 +97,6 @@ class _HomePageState extends State<HomePage> {
   List<Address> _addresses = [];
   HashMap<int, Opportunity> _notIdOpportunity = new HashMap();
 
-  //API call to load the beacons from the Firebase
   Future<Null> _loadBeacons() async {
     final beaconApi = new BeaconApi();
     final beacons = await beaconApi.getAllBeacons();
@@ -121,7 +118,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  //API call to get all opportunities from a certain beacon
   Future<Null> _getOpportunitiesFromBeacon(IBeacon beacon) async {
     Opportunity opportunity;
     for (int i = 0; i < beacon.opportunities.length; i++) {
@@ -134,8 +130,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  //When clicking on a notification, the app opens the corresponding opportunity detail page
-  _navigateToOpportunityDetails(String payload) async {
+  Future<Null> _navigateToOpportunityDetails(String payload) async {
     await LocalNotifications.removeNotification(int.parse(payload));
 
     Opportunity opportunity = _notIdOpportunity[int.parse(payload)];
@@ -178,8 +173,6 @@ class _HomePageState extends State<HomePage> {
               beacon = await _beaconApi.getBeaconById(
                   result.beacons.first.ids[1], result.beacons.first.ids[2]);
               await _getOpportunitiesFromBeacon(beacon);
-              print("Aantal opportunities van dit beacon: " + beacon.opportunities.keys.length.toString());
-              print("Aantal opportunities in totaal nu: " + _opportunities.length.toString());
 
               await LocalNotifications.createAndroidNotificationChannel(
                   channel: channel);
@@ -206,8 +199,6 @@ class _HomePageState extends State<HomePage> {
                     payload: _notificationId.toString(),
                   ),
                 );
-
-                print("Notificatie $_notificationId is verzonden");
 
                 _notIdOpportunity[_notificationId] = opportunity;
                 _notificationId++;
