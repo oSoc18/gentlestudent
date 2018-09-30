@@ -99,6 +99,8 @@ class OpportunityApi {
       pinImageUrl: data['pinImageUrl'],
       participations: data['participations'],
       authority: _dataToAuthority(data['authority']),
+      contact: data['contact'],
+      website: data['website'],
     );
   }
 

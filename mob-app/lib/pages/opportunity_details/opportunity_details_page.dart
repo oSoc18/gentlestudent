@@ -562,6 +562,58 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
                       ),
                     ],
                   ),
+                  new SizedBox(
+                    height: 6.0,
+                  ),
+
+                  //Contact
+                  new Row(
+                    children: <Widget>[
+                      new Text(
+                        "Contact:",
+                        style: new TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14.0,
+                          color: Colors.lightBlue,
+                        ),
+                      ),
+                      new Expanded(
+                        child: new Text(
+                          " " + opportunity.contact,
+                          style: new TextStyle(
+                            fontSize: 14.0,
+                            color: Colors.lightBlue,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  new SizedBox(
+                    height: 6.0,
+                  ),
+
+                  //Website
+                  new Row(
+                    children: <Widget>[
+                      new Text(
+                        "Website:",
+                        style: new TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14.0,
+                          color: Colors.lightBlue,
+                        ),
+                      ),
+                      new Expanded(
+                        child: new Text(
+                          " " + opportunity.website,
+                          style: new TextStyle(
+                            fontSize: 14.0,
+                            color: Colors.lightBlue,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

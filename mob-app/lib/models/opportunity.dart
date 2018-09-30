@@ -23,6 +23,8 @@ class Opportunity {
   final String pinImageUrl;
   final int participations;
   final Authority authority;
+  final String contact;
+  final String website;
 
   //Constructor
   Opportunity({
@@ -42,5 +44,7 @@ class Opportunity {
     @required this.pinImageUrl,
     @required this.participations,
     @required this.authority,
+    @required this.contact,
+    @required this.website,
   });
 }

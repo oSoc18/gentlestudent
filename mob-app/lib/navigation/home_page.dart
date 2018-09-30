@@ -164,14 +164,14 @@ class _HomePageState extends State<HomePage> {
       if (result.isSuccessful) {
         if (result.beacons.isNotEmpty) {
           String beaconKey =
-              result.beacons.first.ids[1] + result.beacons.first.ids[2];
+              result.beacons.first.ids[1].toString() + result.beacons.first.ids[2].toString();
           print("Found a beacon: $beaconKey");
           if (_keyList.contains(beaconKey) &&
               !_notifiedKeyList.contains(beaconKey)) {
             print("Beacon $beaconKey was found in the database!");
             _notifiedKeyList.add(beaconKey);
               beacon = await _beaconApi.getBeaconById(
-                  result.beacons.first.ids[1], result.beacons.first.ids[2]);
+                  result.beacons.first.ids[1].toString(), result.beacons.first.ids[2].toString());
               await _getOpportunitiesFromBeacon(beacon);
 
               await LocalNotifications.createAndroidNotificationChannel(
