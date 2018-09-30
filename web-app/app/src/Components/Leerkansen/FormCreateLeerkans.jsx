@@ -432,7 +432,7 @@ class FormCreateLeerkans extends React.Component {
             type="text"
             name="moreInfo"
             id="moreInfo"
-            info="Indien je binnen je organisatie een weblink naar meer informatie hebt over dit initiatief dan kan je die link hier toevoegen (optioneel)"
+            info="Indien je binnen je organisatie een weblink naar meer informatie hebt over dit initiatief dan kan je die link hier toevoegen"
             component={renderInput}
             defaultValue="Meer info"
             placeholder="Meer info"
