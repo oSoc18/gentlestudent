@@ -250,7 +250,7 @@ class FormBewerkLeerkans extends Component{
           console.error("Error updating field oppImageUrl: ", error);
         });
       }
-      if(this.state.pinImageUrl != this.props.initValues.pinImageUrl){
+      if(this.state.pinImageUrl != this.props.initValues.pinImageUrl && this.state.pinImageUrl != ""){
         firestore.updateOpportunity(this.props.id, "pinImageUrl", this.state.pinImageUrl).then(function(snapshot) {
         }).catch(function(error) {
           console.error("Error updating field pinImageUrl: ", error);
