@@ -56,6 +56,9 @@ class List extends Component {
     giveBadge(event) {
         event.preventDefault();
         let participantId = event.target.id;
+        console.log(participantId);
+        let participationId = this.state.participants[event.target.id]["participationId"];
+        console.log(participationId);
         let badgeId = this.props.opportunity.badgeId;
         let date = new Date();
         let month = ""+(date.getMonth()+1);
@@ -64,7 +67,7 @@ class List extends Component {
         }
         let day = ""+(date.getDate());
         if(day.length==1){
-            day="0"+month;
+            day="0"+day;
         }
         let today = date.getFullYear()+"-"+month+"-"+day;
         console.log(today);
@@ -77,14 +80,18 @@ class List extends Component {
         assertion["recipientId"] = participantId;
         assertion["type"] = "Assertion";
         assertion["verification"] = badgeId;
-		firestore.createNewAssertion(assertion);
+        console.log("posting assertion:");
+        console.log(JSON.stringify(assertion));
+		firestore.createNewAssertion(assertion).catch(err => {
+            console.log("failed creating assertion:"+err);
+        });;
 		var self = this;
-        firestore.completeParticipation(event.target.id)
+        firestore.completeParticipation(participationId)
 			.then( res =>{
 				self.loadParticipants();
 			})
 			.catch(err => {
-				console.log("failed accepting participation:"+err);
+				console.log("failed completing participation:"+err);
 			});
         // this.loadParticipants();
     }
