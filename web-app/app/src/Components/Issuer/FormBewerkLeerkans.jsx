@@ -414,7 +414,7 @@ class FormBewerkLeerkans extends Component{
                     </div> */}
                     <table>
                       {!!issuer && <tr>
-                        <td><b>Eigenaar:</b></td>
+                        <td><b>Organisatie:</b></td>
                         <td>{issuer.name}</td>
                       </tr>}
                       <tr>
