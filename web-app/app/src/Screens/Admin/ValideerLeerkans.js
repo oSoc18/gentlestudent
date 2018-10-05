@@ -215,7 +215,7 @@ class Opportunity extends Component{
         switch(opportunity.category){
             case 0: name = "Digitale Geletterdheid"; image += "badge_digital-literacy"; break;
             case 1: name = "Duurzaamheid"; image += "badge_sustainability"; break;
-            case 2: name = "Ondernemingszin"; image += " badge_entrepreneurial-spirit"; break;
+            case 2: name = "Ondernemingszin"; image += "badge_entre-spirit"; break;
             case 3: name = "Onderzoekende houding"; image += "badge_research"; break;
             case 4: name = "Wereldburgerschap"; image += "badge_global-citizenship"; break;
         }
