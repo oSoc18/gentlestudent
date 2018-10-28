@@ -55,17 +55,27 @@ class LeerkansDetail extends Component {
       diff: "",
       issuer: null,
       userHasRights: false,
-      isAdmin: false
+      isAdmin: false,
+      participations: 0
 		};
   }
   componentDidMount() {
     let userId= auth.getUserId();
+    let self = this;
     if(userId!=""){
       if(this.props.opportunity.issuerId == userId){this.setState(() => ({ userHasRights: true }));}
       firestore.onceGetAdmin(userId).then(doc => {
         var res = new Object();
         if(doc.data()){
-          this.setState(() => ({ userHasRights: true, isAdmin: true }));
+          self.setState(() => ({ userHasRights: true, isAdmin: true }));
+          firestore.onceGetAmountParticipations(self.props.id).then(participations => {
+            let amount = self.state.participations + participations.size;
+            self.setState(() => ({ participations: amount }));
+          });
+          firestore.onceGetAmountParticipationsRejected(self.props.id).then(participations => {
+            let amount = self.state.participations - participations.size;
+            self.setState(() => ({ participations: amount }));
+          });
         }
       })
       .catch(err => {
@@ -101,7 +111,7 @@ class LeerkansDetail extends Component {
   }
   render() {
     const { opportunity, id } = this.props;
-    const { address, cat, diff, issuer, userHasRights, isAdmin } = this.state;
+    const { address, cat, diff, issuer, userHasRights, isAdmin, participations } = this.state;
 
     return (
       <div className="opportunity-detail">
@@ -184,7 +194,7 @@ class LeerkansDetail extends Component {
                     </tr>}
                     {!!userHasRights && <tr>
                       <td><b>Aantal deelnemers:</b></td>
-                      <td>{opportunity.participations}</td>
+                      <td>{participations}</td>
                     </tr>}
                   </table>
                 </div>
