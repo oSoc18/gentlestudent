@@ -530,10 +530,10 @@ class FormBewerkLeerkans extends Component{
                         {!!opportunity.authority==1 && <td>Goedgekeurd</td>}
                         {!!opportunity.authority==2 && <td>Verwijderd</td>}
                       </tr>
-                      <tr>
+                      {/* <tr>
                         <td><b>Aantal deelnemers:</b></td>
                         <td>{opportunity.participations}</td>
-                      </tr>
+                      </tr> */}
                     </table>
                   </div>
                 </div>
