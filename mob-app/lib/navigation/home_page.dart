@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:collection';
-
 import 'package:Gentle_Student/models/address.dart';
 import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/models/beacon.dart';
@@ -152,7 +151,6 @@ class _HomePageState extends State<HomePage> {
 
   Future<Null> _beaconRanging() async {
     int _notificationId = 0;
-    bool notified = false;
     IBeacon beacon;
     Beacons.ranging(
       region: new BeaconRegionIBeacon(
@@ -163,59 +161,47 @@ class _HomePageState extends State<HomePage> {
     ).listen((result) async {
       if (result.isSuccessful) {
         if (result.beacons.isNotEmpty) {
-          String beaconKey =
-              result.beacons.first.ids[1].toString() + result.beacons.first.ids[2].toString();
+          String beaconKey = result.beacons.first.ids[1].toString() +
+              result.beacons.first.ids[2].toString();
           print("Found a beacon: $beaconKey");
           if (_keyList.contains(beaconKey) &&
               !_notifiedKeyList.contains(beaconKey)) {
             print("Beacon $beaconKey was found in the database!");
             _notifiedKeyList.add(beaconKey);
-              beacon = await _beaconApi.getBeaconById(
-                  result.beacons.first.ids[1].toString(), result.beacons.first.ids[2].toString());
-              await _getOpportunitiesFromBeacon(beacon);
+            beacon = await _beaconApi.getBeaconById(
+                result.beacons.first.ids[1].toString(),
+                result.beacons.first.ids[2].toString());
+            await _getOpportunitiesFromBeacon(beacon);
 
-              await LocalNotifications.createAndroidNotificationChannel(
-                  channel: channel);
-
-              for (int i = 0; i < beacon.opportunities.length; i++) {
-                Opportunity opportunity = _opportunities.firstWhere((o) =>
-                    o.opportunityId == beacon.opportunities.keys.toList()[i]);
-                Badge badge = _badges
-                    .firstWhere((b) => b.openBadgeId == opportunity.badgeId);
-                await LocalNotifications.createNotification(
-                  title: "Beacon gevonden",
-                  content: "Er is een leerkans in de buurt!",
-                  id: _notificationId,
-                  imageUrl: badge.image,
-                  androidSettings: new AndroidSettings(
-                    channel: channel,
-                  ),
-                  iOSSettings: new IOSSettings(
-                    presentWhileAppOpen: true,
-                  ),
-                  onNotificationClick: new NotificationAction(
-                    actionText: "Navigate to opportunity details",
-                    callback: _navigateToOpportunityDetails,
-                    payload: _notificationId.toString(),
-                  ),
-                );
-
-                _notIdOpportunity[_notificationId] = opportunity;
-                _notificationId++;
-                notified = true;
-            }
-          }
-        } else {
-          if (notified) {
-            LocalNotifications.createAndroidNotificationChannel(
+            await LocalNotifications.createAndroidNotificationChannel(
                 channel: channel);
-            LocalNotifications.createNotification(
-                title: "Beacon buiten bereik",
-                content: "De leerkans is niet langer in de buurt",
+
+            for (int i = 0; i < beacon.opportunities.length; i++) {
+              Opportunity opportunity = _opportunities.firstWhere((o) =>
+                  o.opportunityId == beacon.opportunities.keys.toList()[i]);
+              Badge badge = _badges
+                  .firstWhere((b) => b.openBadgeId == opportunity.badgeId);
+              await LocalNotifications.createNotification(
+                title: "Beacon gevonden",
+                content: "Er is een leerkans in de buurt!",
                 id: _notificationId,
-                androidSettings: new AndroidSettings(channel: channel));
-            _notificationId++;
-            notified = false;
+                imageUrl: badge.image,
+                androidSettings: new AndroidSettings(
+                  channel: channel,
+                ),
+                iOSSettings: new IOSSettings(
+                  presentWhileAppOpen: true,
+                ),
+                onNotificationClick: new NotificationAction(
+                  actionText: "Navigate to opportunity details",
+                  callback: _navigateToOpportunityDetails,
+                  payload: _notificationId.toString(),
+                ),
+              );
+
+              _notIdOpportunity[_notificationId] = opportunity;
+              _notificationId++;
+            }
           }
         }
       }

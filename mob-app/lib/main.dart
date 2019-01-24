@@ -7,14 +7,11 @@ import 'package:Gentle_Student/pages/information/news/news_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
-
 import 'pages/login/login_page.dart';
 import 'pages/register/register_page.dart';
 import 'pages/map/map_page.dart';
 import 'pages/opportunity_list/opportunity_list_page.dart';
 import 'pages/information/information_page.dart';
-import 'pages/information/privacy_policy/privacy_policy_page.dart';
-import 'pages/information/about_us/about_us_page.dart';
 import 'pages/user/user_page.dart';
 import 'pages/user/backpack/backpack_page.dart';
 import 'pages/user/profile/profile_page.dart';
@@ -57,8 +54,6 @@ final routes = <String, WidgetBuilder>{
   RegisterPage.tag: (context) => RegisterPage(),
   MapPage.tag: (context) => MapPage(),
   InformationPage.tag: (context) => InformationPage(),
-  PrivacyPolicyPage.tag: (context) => PrivacyPolicyPage(),
-  AboutUsPage.tag: (context) => AboutUsPage(),
   UserPage.tag: (context) => UserPage(),
   OpportunityListPage.tag: (context) => OpportunityListPage(),
   BackPackPage.tag: (context) => BackPackPage(),

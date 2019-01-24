@@ -9,12 +9,12 @@ dependencies:
     git:
       url: git://github.com/Norbert515/dynamic_theme.git
 
-  cupertino_icons: ^0.1.2
+  cupertino_icons: any
 
-  firebase_core: 0.2.4
-  firebase_auth: 0.5.12
-  cloud_firestore: 0.7.3
-  firebase_storage: 1.0.1
+  firebase_core: any
+  firebase_auth: any
+  cloud_firestore: any
+  firebase_storage: any
 
   image_picker: any
   local_notifications: any
@@ -33,7 +33,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   
-  flutter_launcher_icons: "^0.6.1"
+  flutter_launcher_icons: any
 
 flutter_icons:
   android: true 
@@ -49,9 +49,6 @@ flutter:
   assets:
     - assets/icon/app_logo.png
     - assets/icon/logo.png
-    - assets/PrivacyPolicy.txt
-    - assets/AboutUs.txt
-
     - assets/tutorial/beacon.png
     - assets/tutorial/bluetooth.png
     - assets/tutorial/challenge.png
