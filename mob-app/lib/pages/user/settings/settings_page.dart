@@ -53,7 +53,6 @@ class _SettingsPageState extends State<SettingsPage> {
   Future<Null> _signOut() async {
     try {
       await FirebaseAuth.instance.signOut();
-      await db.deleteUser();
     } catch (Error) {
       _showSnackBar("Er is een fout opgetreden tijdens het afmelden.");
     }
