@@ -1,6 +1,7 @@
 import 'package:Gentle_Student/data/secrets.dart';
+import 'package:Gentle_Student/models/issuer.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
-import 'package:Gentle_Student/models/user.dart';
+import 'package:Gentle_Student/models/participant.dart';
 import 'package:mailer2/mailer.dart';
 
 class EmailHelper {

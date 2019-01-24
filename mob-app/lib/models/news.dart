@@ -1,9 +1,4 @@
-import 'package:meta/meta.dart';
-
-//This model represents a news article
-class News{
-
-  //Declaration of the variables
+class News {
   final String newsId;
   final String title;
   final String shortText;
@@ -12,14 +7,13 @@ class News{
   final DateTime published;
   final String imageUrl;
 
-  //Constructor
   News({
-    @required this.newsId,
-    @required this.title,
-    @required this.shortText,
-    @required this.longText,
-    @required this.author,
-    @required this.published,
-    @required this.imageUrl,
+    this.newsId,
+    this.title,
+    this.shortText,
+    this.longText,
+    this.author,
+    this.published,
+    this.imageUrl,
   });
 }

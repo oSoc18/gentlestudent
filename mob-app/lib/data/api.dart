@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:collection';
-
 import 'package:Gentle_Student/models/address.dart';
 import 'package:Gentle_Student/models/assertion.dart';
 import 'package:Gentle_Student/models/authority.dart';
@@ -9,11 +8,12 @@ import 'package:Gentle_Student/models/beacon.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/experience.dart';
+import 'package:Gentle_Student/models/issuer.dart';
 import 'package:Gentle_Student/models/news.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
+import 'package:Gentle_Student/models/participant.dart';
 import 'package:Gentle_Student/models/participation.dart';
 import 'package:Gentle_Student/models/status.dart';
-import 'package:Gentle_Student/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

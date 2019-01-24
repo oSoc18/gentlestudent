@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:Gentle_Student/data/api.dart';
-import 'package:Gentle_Student/models/user.dart';
+import 'package:Gentle_Student/models/participant.dart';
 import 'package:Gentle_Student/pages/edit_profile/edit_profile_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

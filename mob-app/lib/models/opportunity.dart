@@ -1,12 +1,8 @@
 import 'package:Gentle_Student/models/authority.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
-import 'package:meta/meta.dart';
 
-//This model represents an opportunity
 class Opportunity {
-
-  //Declaration of the variables
   final String opportunityId;
   final String title;
   final Difficulty difficulty;
@@ -26,25 +22,24 @@ class Opportunity {
   final String contact;
   final String website;
 
-  //Constructor
   Opportunity({
-    @required this.opportunityId,
-    @required this.title,
-    @required this.difficulty,
-    @required this.category,
-    @required this.opportunityImageUrl,
-    @required this.shortDescription,
-    @required this.longDescription,
-    @required this.beginDate,
-    @required this.endDate,
-    @required this.international,
-    @required this.addressId,
-    @required this.badgeId,
-    @required this.issuerId,
-    @required this.pinImageUrl,
-    @required this.participations,
-    @required this.authority,
-    @required this.contact,
-    @required this.website,
+    this.opportunityId,
+    this.title,
+    this.difficulty,
+    this.category,
+    this.opportunityImageUrl,
+    this.shortDescription,
+    this.longDescription,
+    this.beginDate,
+    this.endDate,
+    this.international,
+    this.addressId,
+    this.badgeId,
+    this.issuerId,
+    this.pinImageUrl,
+    this.participations,
+    this.authority,
+    this.contact,
+    this.website,
   });
 }

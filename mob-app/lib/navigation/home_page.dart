@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:Gentle_Student/models/address.dart';
 import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/models/beacon.dart';
-import 'package:Gentle_Student/models/user.dart';
+import 'package:Gentle_Student/models/issuer.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:Gentle_Student/navigation/map_list_page.dart';
 import 'package:Gentle_Student/pages/information/information_page.dart';

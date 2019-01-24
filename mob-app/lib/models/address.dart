@@ -1,9 +1,4 @@
-import 'package:meta/meta.dart';
-
-//This model represents an address
-class Address{
-
-  //Declaration of the variables
+class Address {
   final String addressId;
   final String street;
   final int housenumber;
@@ -13,15 +8,14 @@ class Address{
   final double latitude;
   final double longitude;
 
-  //Constructor
   Address({
-    @required this.addressId,
-    @required this.street,
-    @required this.city,
-    @required this.postalcode,
-    @required this.housenumber,
-    @required this.bus,
-    @required this.latitude,
-    @required this.longitude,
+    this.addressId,
+    this.street,
+    this.city,
+    this.postalcode,
+    this.housenumber,
+    this.bus,
+    this.latitude,
+    this.longitude,
   });
 }
