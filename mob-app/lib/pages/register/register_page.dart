@@ -1,10 +1,10 @@
 import 'dart:async';
 
+import 'package:Gentle_Student/utils/firebase_utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart'
-    show FirebaseAuth, FirebaseUser, UserUpdateInfo;
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -20,7 +20,6 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   //Declaration of the variables
   final scaffoldKey = new GlobalKey<ScaffoldState>();
-  FirebaseUser firebaseUser;
   var firstnameController;
   var lastnameController;
   var instituteController;
@@ -50,15 +49,32 @@ class _RegisterPageState extends State<RegisterPage> {
   //Create account with Firebase
   void _register() async {
     try {
-      firebaseUser = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      FirebaseUtils.firebaseUser = FirebaseUtils.mAuth.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
-      UserUpdateInfo userUpdateInfo = new UserUpdateInfo();
-      userUpdateInfo.displayName = firstnameController.text + " " + lastnameController.text;
-      await FirebaseAuth.instance.updateProfile(userUpdateInfo);
-      await firebaseUser.sendEmailVerification();
-      _addUserToDatabase();
+      if (await FirebaseUtils.firebaseUser != null) {
+        FirebaseUser firebaseUser = await FirebaseUtils.firebaseUser;
+
+        UserUpdateInfo userUpdateInfo = new UserUpdateInfo();
+        userUpdateInfo.displayName = firstnameController.text + " " + lastnameController.text;
+        await FirebaseUtils.mAuth.updateProfile(userUpdateInfo);
+
+        firebaseUser.sendEmailVerification();
+
+        await _addUserToDatabase();
+
+        await FirebaseUtils.mAuth.signOut();
+        
+        Navigator.of(context).pop();
+      } else {
+        _showSnackBar("Er is iets fout gelopen tijdens het registeren.");
+      }
+
+      await (await FirebaseUtils.firebaseUser).sendEmailVerification();
+      await _addUserToDatabase();
+      await FirebaseUtils.mAuth.signOut();
+      FirebaseUtils.firebaseUser = null;
       Navigator.of(context).pop();
     } catch (Error) {
       _showSnackBar("Er is iets fout gelopen tijdens het registeren.");
@@ -66,7 +82,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   //Add user details (participant document) to Firebase
-  void _addUserToDatabase() {
+  Future _addUserToDatabase() async {
     Map<String, dynamic> data = <String, dynamic>{
       "name": firstnameController.text + " " + lastnameController.text,
       "institute": instituteController.text,
@@ -75,7 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
       "favorites": new List<String>(),
     };
     final DocumentReference documentReference =
-        Firestore.instance.document("Participants/" + firebaseUser.uid);
+        Firestore.instance.document("Participants/" + (await FirebaseUtils.firebaseUser).uid);
     documentReference.setData(data).whenComplete(() {
       print("User added");
     }).catchError((e) => print(e));

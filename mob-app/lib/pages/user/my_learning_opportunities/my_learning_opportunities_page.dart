@@ -10,8 +10,8 @@ import 'package:Gentle_Student/models/participation.dart';
 import 'package:Gentle_Student/models/status.dart';
 import 'package:Gentle_Student/models/issuer.dart';
 import 'package:Gentle_Student/pages/opportunity_details/opportunity_details_page.dart';
+import 'package:Gentle_Student/utils/firebase_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 //This page contains all participations of a user
@@ -29,7 +29,6 @@ class _MyLearningOpportunitiesPageState
     extends State<MyLearningOpportunitiesPage> {
 
   //Declartion of the variables
-  FirebaseUser firebaseUser;
   List<Participation> _participations = [];
   List<Opportunity> _opportunitiesApproved = [];
   List<Opportunity> _opportunitiesRequested = [];
@@ -49,10 +48,7 @@ class _MyLearningOpportunitiesPageState
   @override
   void initState() {
     super.initState();
-    FirebaseAuth.instance.onAuthStateChanged.listen((user) {
-      firebaseUser = user;
       _loadFromFirebase();
-    });
   }
 
   //Function to get all approved participations
@@ -87,7 +83,7 @@ class _MyLearningOpportunitiesPageState
     final issuerApi = new IssuerApi();
     final addressApi = new AddressApi();
     final participations =
-        await participationApi.getAllParticipationsFromUser(firebaseUser);
+        await participationApi.getAllParticipationsFromUser(await FirebaseUtils.firebaseUser);
     final badges = await badgeApi.getAllBadges();
     final issuers = await issuerApi.getAllIssuers();
     final addresses = await addressApi.getAllAddresses();
@@ -112,7 +108,7 @@ class _MyLearningOpportunitiesPageState
   _reloadParticipations() async {
     if (_participationApi != null && _opportunityApi != null) {
       final participations =
-          await _participationApi.getAllParticipationsFromUser(firebaseUser);
+          await _participationApi.getAllParticipationsFromUser(await FirebaseUtils.firebaseUser);
       final badges = await _badgeApi.getAllBadges();
       final issuers = await _issuerApi.getAllIssuers();
       final addresses = await _addressApi.getAllAddresses();

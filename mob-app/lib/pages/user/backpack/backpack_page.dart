@@ -7,9 +7,9 @@ import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:Gentle_Student/models/issuer.dart';
+import 'package:Gentle_Student/utils/firebase_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:date_format/date_format.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -24,7 +24,6 @@ class BackPackPage extends StatefulWidget {
 
 class _BackPackPageState extends State<BackPackPage> {
   //Declaration of the variables
-  FirebaseUser firebaseUser;
   List<Assertion> _assertions = [];
   List<Badge> _badges = [];
   List<Issuer> _issuers = [];
@@ -37,10 +36,7 @@ class _BackPackPageState extends State<BackPackPage> {
   @override
   void initState() {
     super.initState();
-    FirebaseAuth.instance.onAuthStateChanged.listen((user) {
-      firebaseUser = user;
-      _loadFromFirebase();
-    });
+    _loadFromFirebase();
   }
 
   //API call to get data from the Firebase
@@ -49,8 +45,8 @@ class _BackPackPageState extends State<BackPackPage> {
     final badgeApi = new BadgeApi();
     final issuerApi = new IssuerApi();
     final opportunityApi = new OpportunityApi();
-    final assertions =
-        await assertionApi.getAllAssertionsFromUser(firebaseUser.uid);
+    final assertions = await assertionApi
+        .getAllAssertionsFromUser((await FirebaseUtils.firebaseUser).uid);
     final badges = await badgeApi.getAllBadges();
     final issuers = await issuerApi.getAllIssuers();
     final opportunities = await opportunityApi.getAllOpportunities();

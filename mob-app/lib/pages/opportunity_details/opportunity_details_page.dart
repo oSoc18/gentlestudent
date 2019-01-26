@@ -10,9 +10,9 @@ import 'package:Gentle_Student/models/participant.dart';
 import 'package:Gentle_Student/models/participation.dart';
 import 'package:Gentle_Student/models/status.dart';
 import 'package:Gentle_Student/models/issuer.dart';
+import 'package:Gentle_Student/utils/firebase_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:date_format/date_format.dart';
 
@@ -49,7 +49,6 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
   Participant _participant;
   ParticipantApi _participantApi;
   OpportunityApi _opportunityApi;
-  FirebaseUser firebaseUser;
   bool _alreadyRegistered = false;
   TextEditingController controller;
   Icon heart = Icon(
@@ -115,7 +114,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
     Map<String, dynamic> data = <String, dynamic>{
       "badgeId": badge.openBadgeId,
       "issuedOn": "2000-01-01",
-      "recipientId": firebaseUser.uid,
+      "recipientId": (await FirebaseUtils.firebaseUser).uid,
     };
     final CollectionReference collection =
         Firestore.instance.collection("Assertions");
@@ -196,14 +195,15 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
   //Function to check whether the current user has
   //already been registered for the opportunity
   Future<Null> _hasAlreadyBeenRegistered() async {
-    bool value =
-        await _participationApi.participationExists(firebaseUser, opportunity);
+    bool value = await _participationApi.participationExists(
+        await FirebaseUtils.firebaseUser, opportunity);
     setState(() {
       _alreadyRegistered = value;
     });
     if (_alreadyRegistered) {
-      Participation participation = await _participationApi
-          .getParticipantByUserAndOpportunity(firebaseUser, opportunity);
+      Participation participation =
+          await _participationApi.getParticipantByUserAndOpportunity(
+              await FirebaseUtils.firebaseUser, opportunity);
       setState(() {
         _participation = participation;
       });
@@ -218,7 +218,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
       _showSnackBar("U bent al geregistreerd voor deze leerkans.");
     } else {
       Map<String, dynamic> data = <String, dynamic>{
-        "participantId": firebaseUser.uid,
+        "participantId": (await FirebaseUtils.firebaseUser).uid,
         "opportunityId": opportunity.opportunityId,
         "status": 0,
         "reason": "",
@@ -243,13 +243,15 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
   //Sends a mail to an issuer when a participant is registered for the opportunity
   _sendMailToIssuer() async {
     ParticipantApi participantApi = new ParticipantApi();
-    Participant participant = await participantApi.getParticipantById(firebaseUser.uid);
+    Participant participant = await participantApi
+        .getParticipantById((await FirebaseUtils.firebaseUser).uid);
     new EmailHelper(issuer, participant, opportunity);
   }
 
   //Function to check whether the current user has already favorited this opportunity
   _checkIfUserAlreadyFavorited() async {
-    _participant = await _participantApi.getParticipantById(firebaseUser.uid);
+    _participant = await _participantApi
+        .getParticipantById((await FirebaseUtils.firebaseUser).uid);
     if (_participant.favorites.contains(opportunity.opportunityId)) {
       setState(() {
         heart = Icon(
@@ -265,7 +267,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
     if (_participant.favorites.contains(opportunity.opportunityId)) {
       _participant.favorites.remove(opportunity.opportunityId);
       await _participantApi.changeFavorites(
-          firebaseUser.uid, _participant.favorites);
+          (await FirebaseUtils.firebaseUser).uid, _participant.favorites);
       setState(() {
         heart = Icon(
           Icons.favorite_border,
@@ -275,7 +277,7 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
     } else {
       _participant.favorites.add(opportunity.opportunityId);
       await _participantApi.changeFavorites(
-          firebaseUser.uid, _participant.favorites);
+          (await FirebaseUtils.firebaseUser).uid, _participant.favorites);
       setState(() {
         heart = Icon(
           Icons.favorite,
@@ -354,21 +356,18 @@ class _OpportunityDetailsPageState extends State<OpportunityDetailsPage> {
   @override
   void initState() {
     super.initState();
-    FirebaseAuth.instance.onAuthStateChanged.listen((user) {
-      firebaseUser = user;
-      final participationApi = new ParticipationApi();
-      final participantApi = new ParticipantApi();
-      final opportunityApi = new OpportunityApi();
-      if (this.mounted) {
-        setState(() {
-          _participationApi = participationApi;
-          _participantApi = participantApi;
-          _opportunityApi = opportunityApi;
-        });
-        _checkIfUserAlreadyFavorited();
-        _hasAlreadyBeenRegistered();
-      }
-    });
+    final participationApi = new ParticipationApi();
+    final participantApi = new ParticipantApi();
+    final opportunityApi = new OpportunityApi();
+    if (this.mounted) {
+      setState(() {
+        _participationApi = participationApi;
+        _participantApi = participantApi;
+        _opportunityApi = opportunityApi;
+      });
+      _checkIfUserAlreadyFavorited();
+      _hasAlreadyBeenRegistered();
+    }
   }
 
   @override

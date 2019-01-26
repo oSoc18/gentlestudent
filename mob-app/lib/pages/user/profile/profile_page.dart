@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:Gentle_Student/data/api.dart';
 import 'package:Gentle_Student/models/participant.dart';
 import 'package:Gentle_Student/pages/edit_profile/edit_profile_page.dart';
+import 'package:Gentle_Student/utils/firebase_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,7 +20,6 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   //Declaration of the variables
-  FirebaseUser firebaseUser;
   Participant _participant = new Participant(
       name: "",
       institute: "",
@@ -34,10 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
   // - Load data from the Firebase
   @override
   void initState() {
-    FirebaseAuth.instance.onAuthStateChanged.listen((user) {
-      firebaseUser = user;
-      _loadFromFirebase();
-    });
+    _loadFromFirebase();
     super.initState();
   }
 
@@ -45,7 +42,7 @@ class _ProfilePageState extends State<ProfilePage> {
   _loadFromFirebase() async {
     final participantApi = new ParticipantApi();
     final participant =
-        await participantApi.getParticipantById(firebaseUser.uid);
+        await participantApi.getParticipantById((await FirebaseUtils.firebaseUser).uid);
     if (this.mounted) {
       setState(() {
         _participant = participant;
@@ -61,7 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
     };
     await Firestore.instance
         .collection("Participants")
-        .document(firebaseUser.uid)
+        .document((await FirebaseUtils.firebaseUser).uid)
         .updateData(data)
         .whenComplete(() {
       print("Participant updated");

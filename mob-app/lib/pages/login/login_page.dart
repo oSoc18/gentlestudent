@@ -1,7 +1,7 @@
 import 'package:Gentle_Student/data/database_helper.dart';
 import 'package:Gentle_Student/pages/information/tutorial/tutorial_page.dart';
 import 'package:Gentle_Student/pages/register/register_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:Gentle_Student/utils/firebase_utils.dart';
 import 'package:flutter/material.dart';
 
 //This page is the first page the user will see after installing the app
@@ -32,12 +32,12 @@ class _LoginPageState extends State<LoginPage> {
     if (_allFieldsFilledIn()) {
       try {
         //Authentication via Firebase
-        FirebaseUser firebaseUser =
-            await FirebaseAuth.instance.signInWithEmailAndPassword(
+        FirebaseUtils.firebaseUser =
+            FirebaseUtils.mAuth.signInWithEmailAndPassword(
           email: emailController.text,
           password: passwordController.text,
         );
-        if (firebaseUser.isEmailVerified) {
+        if ((await FirebaseUtils.firebaseUser).isEmailVerified) {
           Navigator.pushReplacement(
             context,
             new MaterialPageRoute(
@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           );
         } else {
-          await FirebaseAuth.instance.signOut();
+          await FirebaseUtils.mAuth.signOut();
           _showSnackBar(
               "Gelieve uw e-mailadres te verifiëren via de verzonden e-mail.");
         }

@@ -9,8 +9,8 @@ import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:Gentle_Student/models/issuer.dart';
 import 'package:Gentle_Student/models/participant.dart';
 import 'package:Gentle_Student/pages/opportunity_details/opportunity_details_page.dart';
+import 'package:Gentle_Student/utils/firebase_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 //This page contains all favorites of a user
@@ -25,7 +25,6 @@ class FavoritesPage extends StatefulWidget {
 class _FavoritesPageState extends State<FavoritesPage> {
 
   //Declartation of the variables
-  FirebaseUser firebaseUser;
   List<Opportunity> _opportunities = [];
   List<Badge> _badges = [];
   List<Issuer> _issuers = [];
@@ -55,15 +54,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
   //API call to get data from the Firebase
   _loadFromFirebase() async {
-    FirebaseAuth.instance.onAuthStateChanged.listen((user) async {
-      firebaseUser = user;
       final participantApi = new ParticipantApi();
       final opportunityApi = new OpportunityApi();
       final badgeApi = new BadgeApi();
       final issuerApi = new IssuerApi();
       final addresApi = new AddressApi();
       final participant =
-          await participantApi.getParticipantById(firebaseUser.uid);
+          await participantApi.getParticipantById((await FirebaseUtils.firebaseUser).uid);
       final opportunities = await opportunityApi.getAllOpportunities();
       final badges = await badgeApi.getAllBadges();
       final issuers = await issuerApi.getAllIssuers();
@@ -82,7 +79,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
           _addresses = addresses;
         });
       }
-    });
   }
 
   //API call to load data from the Firebase
@@ -94,7 +90,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
         _addressApi != null &&
         _participantApi != null) {
       final participant =
-          await _participantApi.getParticipantById(firebaseUser.uid);
+          await _participantApi.getParticipantById((await FirebaseUtils.firebaseUser).uid);
       final opportunities = await _opportunityApi.getAllOpportunities();
       final badges = await _badgeApi.getAllBadges();
       final issuers = await _issuerApi.getAllIssuers();

@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:Gentle_Student/data/api.dart';
 import 'package:Gentle_Student/data/database_helper.dart';
 import 'package:Gentle_Student/pages/login/login_page.dart';
+import 'package:Gentle_Student/utils/firebase_utils.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,7 +25,6 @@ class _SettingsPageState extends State<SettingsPage> {
   final db = new DatabaseHelper();
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   bool _switchValue = false;
-  FirebaseUser firebaseUser;
   File _image;
   String _path;
 
@@ -52,7 +51,8 @@ class _SettingsPageState extends State<SettingsPage> {
   //Function for signing out
   Future<Null> _signOut() async {
     try {
-      await FirebaseAuth.instance.signOut();
+      await FirebaseUtils.mAuth.signOut();
+      FirebaseUtils.firebaseUser = null;
     } catch (Error) {
       _showSnackBar("Er is een fout opgetreden tijdens het afmelden.");
     }
@@ -168,13 +168,16 @@ class _SettingsPageState extends State<SettingsPage> {
   Future<Null> uploadFile() async {
     try {
       final StorageReference ref = FirebaseStorage.instance.ref().child(
-          "Profilepictures/" + firebaseUser.uid + "/profile_picture.jpg");
+          "Profilepictures/" +
+              (await FirebaseUtils.firebaseUser).uid +
+              "/profile_picture.jpg");
       final StorageUploadTask task = ref.putFile(_image);
       final Uri downloadUrl = (await task.future).downloadUrl;
       _path = downloadUrl.toString();
 
       final ParticipantApi participantApi = new ParticipantApi();
-      await participantApi.changeProfilePicture(firebaseUser.uid, _path);
+      await participantApi.changeProfilePicture(
+          (await FirebaseUtils.firebaseUser).uid, _path);
 
       _showSnackBar("Uw profielfoto werd succesvol bijgewerkt.");
     } catch (E) {
@@ -219,16 +222,10 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  //This method gets called when the page is initializing
-  //We overwrite it to:
-  // - Load the Firebase user
   @override
-  initState() {
-    super.initState();
-    FirebaseAuth.instance.onAuthStateChanged.listen((user) {
-      firebaseUser = user;
-      _setSwitchState();
-    });
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _setSwitchState();
   }
 
   @override
