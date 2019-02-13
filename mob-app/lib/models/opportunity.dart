@@ -1,6 +1,8 @@
 import 'package:Gentle_Student/models/authority.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
+import 'package:Gentle_Student/utils/firebase_utils.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Opportunity {
   final String opportunityId;
@@ -42,4 +44,29 @@ class Opportunity {
     this.contact,
     this.website,
   });
+
+  static Opportunity fromDocumentSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data;
+
+    return new Opportunity(
+      opportunityId: snapshot.documentID,
+      beginDate: DateTime.parse(data['beginDate']),
+      category: FirebaseUtils.dataToCategory(data['category']),
+      difficulty: FirebaseUtils.dataToDifficulty(data['difficulty']),
+      endDate: DateTime.parse(data['endDate']),
+      international: data['international'],
+      issuerId: data['issuerId'],
+      longDescription: data['longDescription'],
+      opportunityImageUrl: data['oppImageUrl'],
+      shortDescription: data['shortDescription'],
+      title: data['title'],
+      addressId: data['addressId'],
+      badgeId: data['badgeId'],
+      pinImageUrl: data['pinImageUrl'],
+      participations: data['participations'],
+      authority: FirebaseUtils.dataToAuthority(data['authority']),
+      contact: data['contact'],
+      website: data['website'],
+    );
+  }
 }

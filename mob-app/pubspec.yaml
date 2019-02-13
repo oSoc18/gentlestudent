@@ -28,6 +28,7 @@ dependencies:
   url_launcher: any
   sqflite: any
   mailer2: any
+  scoped_model: any
 
 dev_dependencies:
   flutter_test:

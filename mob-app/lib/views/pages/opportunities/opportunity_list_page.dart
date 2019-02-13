@@ -1,19 +1,16 @@
 import 'dart:async';
 import 'package:Gentle_Student/models/address.dart';
 import 'package:Gentle_Student/models/badge.dart';
-import 'package:Gentle_Student/models/category.dart';
-import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:Gentle_Student/models/issuer.dart';
-import 'package:Gentle_Student/network/api.dart';
+import 'package:Gentle_Student/network/network_api.dart';
+import 'package:Gentle_Student/utils/string_utils.dart';
 import 'package:Gentle_Student/views/pages/opportunities/filter_dialog.dart';
 import 'package:Gentle_Student/views/pages/opportunities/opportunity_details_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-//This page is a list of all the opportunities
 class OpportunityListPage extends StatefulWidget {
-  //This tag allows us to navigate to the OpportunityListPage
   static String tag = 'opportunity-list-page';
 
   @override
@@ -21,7 +18,6 @@ class OpportunityListPage extends StatefulWidget {
 }
 
 class _OpportunityListPageState extends State<OpportunityListPage> {
-  //Declaration of the variables
   List<Opportunity> _opportunities = [];
   List<Badge> _badges = [];
   List<Issuer> _issuers = [];
@@ -34,16 +30,12 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
   String categoryFilter = "Alles";
   String difficultyFilter = "Alles";
 
-  //This method gets called when the page is initializing
-  //We overwrite it to:
-  // - Load data from the Firebase
   @override
   void initState() {
     super.initState();
     _loadFromFirebase();
   }
 
-  //API call to load data from the Firebase
   _loadFromFirebase() async {
     final opportunityApi = new OpportunityApi();
     final badgeApi = new BadgeApi();
@@ -67,8 +59,6 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     }
   }
 
-  //API call to load data from the Firebase
-  //Used when a user refreshed the current page
   _reloadOpportunities() async {
     if (_opportunityApi != null &&
         _badgeApi != null &&
@@ -84,9 +74,11 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
               .where(
                 (o) =>
                     (categoryFilter == "Alles" ||
-                        o.category == _getCategoryEnum(categoryFilter)) &&
+                        o.category ==
+                            StringUtils.getCategoryEnum(categoryFilter)) &&
                     (difficultyFilter == "Alles" ||
-                        o.difficulty == _getDifficultyEnum(difficultyFilter)) &&
+                        o.difficulty ==
+                            StringUtils.getDifficultyEnum(difficultyFilter)) &&
                     _issuers.any(
                       (i) =>
                           i.issuerId == o.issuerId &&
@@ -104,19 +96,17 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     }
   }
 
-  //Used to navigate to the details page of an opportunity
-  _navigateToOpportunityDetails(Opportunity opportunity, Badge badge,
-      Issuer issuer, Address address) async {
+  _navigateToOpportunityDetails(Opportunity o, Badge b,
+      Issuer i, Address a) async {
     Navigator.push(
       context,
       new MaterialPageRoute(
         builder: (BuildContext context) =>
-            new OpportunityDetailsPage(opportunity, badge, issuer, address),
+            new OpportunityDetailsPage(o, b, i, a),
       ),
     );
   }
 
-  //Build an opportunity
   Widget _buildOpportunityItem(BuildContext context, int index) {
     Opportunity opportunity = _opportunities[index];
     Badge badge =
@@ -155,9 +145,9 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
                         : Colors.black54,
                     fontSize: 21.0),
               ),
-              subtitle: new Text(_getCategory(opportunity) +
+              subtitle: new Text(StringUtils.getCategory(opportunity) +
                   " - " +
-                  _getDifficulty(opportunity) +
+                  StringUtils.getDifficulty(opportunity) +
                   "\n" +
                   issuer.name),
               isThreeLine: true,
@@ -169,43 +159,11 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     );
   }
 
-  //Function to get the name of a difficulty in String form
-  String _getDifficulty(Opportunity opportunity) {
-    switch (opportunity.difficulty) {
-      case Difficulty.BEGINNER:
-        return "Niveau 1";
-      case Difficulty.INTERMEDIATE:
-        return "Niveau 2";
-      case Difficulty.EXPERT:
-        return "Niveau 3";
-    }
-    return "Niveau 0";
-  }
-
-  //Function to get the name of a category in String form
-  String _getCategory(Opportunity opportunity) {
-    switch (opportunity.category) {
-      case Category.DIGITALEGELETTERDHEID:
-        return "Digitale geletterdheid";
-      case Category.DUURZAAMHEID:
-        return "Duurzaamheid";
-      case Category.ONDERNEMINGSZIN:
-        return "Ondernemingszin";
-      case Category.ONDERZOEK:
-        return "Onderzoek";
-      case Category.WERELDBURGERSCHAP:
-        return "Wereldburgerschap";
-    }
-    return "Algemeen";
-  }
-
-  //Function that gets called when the page is being refreshed
   Future<Null> refresh() {
     _reloadOpportunities();
     return new Future<Null>.value();
   }
 
-  //Building all the opportunities
   Widget _getListViewWidget() {
     return new Flexible(
       child: new RefreshIndicator(
@@ -218,7 +176,6 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     );
   }
 
-  //Building the body of the page
   Widget _buildBody() {
     return new Container(
       margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
@@ -228,7 +185,6 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     );
   }
 
-  //Opening the filter menu
   Future _openFilterDialog() async {
     List<String> filter = await Navigator.of(context).push(
       new MaterialPageRoute<List<String>>(
@@ -246,46 +202,6 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
       });
       _reloadOpportunities();
     }
-  }
-
-  //Function to get the name of a category in enum form
-  Category _getCategoryEnum(String category) {
-    Category value;
-    switch (category) {
-      case "Digitale geletterdheid":
-        value = Category.DIGITALEGELETTERDHEID;
-        break;
-      case "Duurzaamheid":
-        value = Category.DUURZAAMHEID;
-        break;
-      case "Ondernemingszin":
-        value = Category.ONDERNEMINGSZIN;
-        break;
-      case "Onderzoek":
-        value = Category.ONDERZOEK;
-        break;
-      case "Wereldburgerschap":
-        value = Category.WERELDBURGERSCHAP;
-        break;
-    }
-    return value;
-  }
-
-  //Function to get the name of a difficulty in enum form
-  Difficulty _getDifficultyEnum(String difficulty) {
-    Difficulty value;
-    switch (difficulty) {
-      case "Beginner":
-        value = Difficulty.BEGINNER;
-        break;
-      case "Intermediate":
-        value = Difficulty.INTERMEDIATE;
-        break;
-      case "Expert":
-        value = Difficulty.EXPERT;
-        break;
-    }
-    return value;
   }
 
   @override

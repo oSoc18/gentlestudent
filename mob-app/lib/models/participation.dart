@@ -1,4 +1,6 @@
 import 'package:Gentle_Student/models/status.dart';
+import 'package:Gentle_Student/utils/firebase_utils.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Participation {
   final String participationId;
@@ -14,4 +16,16 @@ class Participation {
     this.reason,
     this.status,
   });
+
+  static Participation fromDocumentSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data;
+
+    return new Participation(
+      participationId: snapshot.documentID,
+      participantId: data['participantId'],
+      opportunityId: data['opportunityId'],
+      reason: data['reason'],
+      status: FirebaseUtils.dataToStatus(data['status']),
+    );
+  }
 }

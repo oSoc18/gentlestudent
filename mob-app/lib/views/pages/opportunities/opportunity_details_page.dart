@@ -8,7 +8,7 @@ import 'package:Gentle_Student/models/participant.dart';
 import 'package:Gentle_Student/models/participation.dart';
 import 'package:Gentle_Student/models/status.dart';
 import 'package:Gentle_Student/models/issuer.dart';
-import 'package:Gentle_Student/network/api.dart';
+import 'package:Gentle_Student/network/network_api.dart';
 import 'package:Gentle_Student/utils/email_helper.dart';
 import 'package:Gentle_Student/utils/firebase_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';

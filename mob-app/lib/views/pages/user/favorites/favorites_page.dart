@@ -7,7 +7,7 @@ import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:Gentle_Student/models/issuer.dart';
 import 'package:Gentle_Student/models/participant.dart';
-import 'package:Gentle_Student/network/api.dart';
+import 'package:Gentle_Student/network/network_api.dart';
 import 'package:Gentle_Student/utils/firebase_utils.dart';
 import 'package:Gentle_Student/views/pages/opportunities/opportunity_details_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';

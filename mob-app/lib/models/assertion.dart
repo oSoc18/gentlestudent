@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Assertion {
   final String assertionId;
   final String openBadgeId;
@@ -10,4 +12,15 @@ class Assertion {
     this.participantId,
     this.issuedOn,
   });
+
+  static Assertion fromDocumentSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data;
+
+    return new Assertion(
+      assertionId: snapshot.documentID,
+      openBadgeId: data['badgeId'],
+      participantId: data['recipientId'],
+      issuedOn: DateTime.parse(data['issuedOn']),
+    );
+  }
 }

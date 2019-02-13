@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:Gentle_Student/database/database_helper.dart';
-import 'package:Gentle_Student/network/api.dart';
+import 'package:Gentle_Student/network/network_api.dart';
 import 'package:Gentle_Student/utils/firebase_utils.dart';
 import 'package:Gentle_Student/views/pages/authentication/login_page.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';

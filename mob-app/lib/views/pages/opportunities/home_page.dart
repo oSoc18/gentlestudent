@@ -5,7 +5,7 @@ import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/models/beacon.dart';
 import 'package:Gentle_Student/models/issuer.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
-import 'package:Gentle_Student/network/api.dart';
+import 'package:Gentle_Student/network/network_api.dart';
 import 'package:Gentle_Student/views/pages/information/information_page.dart';
 import 'package:Gentle_Student/views/pages/opportunities/map_list_page.dart';
 import 'package:Gentle_Student/views/pages/opportunities/opportunity_details_page.dart';

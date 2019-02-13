@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:Gentle_Student/models/news.dart';
-import 'package:Gentle_Student/network/api.dart';
+import 'package:Gentle_Student/network/network_api.dart';
 import 'package:Gentle_Student/views/pages/information/news/news_detail/news_detail_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collection/collection.dart';

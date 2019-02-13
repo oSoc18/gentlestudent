@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:Gentle_Student/models/experience.dart';
-import 'package:Gentle_Student/network/api.dart';
+import 'package:Gentle_Student/network/network_api.dart';
 import 'package:Gentle_Student/views/pages/information/experiences/experiences_detail/experiences_detail_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collection/collection.dart';
