@@ -1,10 +1,10 @@
-import 'package:Gentle_Student/navigation/home_page.dart';
 import 'package:Gentle_Student/routes.dart';
 import 'package:Gentle_Student/utils/firebase_utils.dart';
+import 'package:Gentle_Student/views/pages/authentication/login_page.dart';
+import 'package:Gentle_Student/views/pages/opportunities/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
-import 'pages/login/login_page.dart';
 
 FirebaseUser firebaseUser;
 
