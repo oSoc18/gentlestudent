@@ -1,6 +1,9 @@
+import 'package:Gentle_Student/models/address.dart';
 import 'package:Gentle_Student/models/authority.dart';
+import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/models/category.dart';
 import 'package:Gentle_Student/models/difficulty.dart';
+import 'package:Gentle_Student/models/issuer.dart';
 import 'package:Gentle_Student/utils/firebase_utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -55,13 +58,13 @@ class Opportunity {
       difficulty: FirebaseUtils.dataToDifficulty(data['difficulty']),
       endDate: DateTime.parse(data['endDate']),
       international: data['international'],
-      issuerId: data['issuerId'],
       longDescription: data['longDescription'],
       opportunityImageUrl: data['oppImageUrl'],
       shortDescription: data['shortDescription'],
       title: data['title'],
       addressId: data['addressId'],
       badgeId: data['badgeId'],
+      issuerId: data['issuerId'],
       pinImageUrl: data['pinImageUrl'],
       participations: data['participations'],
       authority: FirebaseUtils.dataToAuthority(data['authority']),
@@ -69,4 +72,13 @@ class Opportunity {
       website: data['website'],
     );
   }
+}
+
+class Leerkansen {
+  final List<Opportunity> opportunities;
+  final List<Address> addresses;
+  final List<Badge> badges;
+  final List<Issuer> issuers;
+
+  Leerkansen({this.opportunities, this.addresses, this.badges, this.issuers});
 }

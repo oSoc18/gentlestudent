@@ -8,6 +8,21 @@ import 'package:meta/meta.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class OpportunityViewModel extends Model {
+  static final OpportunityViewModel opportunityViewModel =
+      new OpportunityViewModel._internal(
+          addressApi: AddressApi(),
+          badgeApi: BadgeApi(),
+          issuerApi: IssuerApi(),
+          opportunityApi: OpportunityApi());
+
+  factory OpportunityViewModel() => opportunityViewModel;
+
+  OpportunityViewModel._internal(
+      {@required this.opportunityApi,
+      @required this.badgeApi,
+      @required this.issuerApi,
+      @required this.addressApi});
+
   Future<List<Opportunity>> _opportunities;
   Future<List<Opportunity>> get opportunities => _opportunities;
   set opportunities(Future<List<Opportunity>> value) {
@@ -41,28 +56,22 @@ class OpportunityViewModel extends Model {
   final IssuerApi issuerApi;
   final AddressApi addressApi;
 
-  OpportunityViewModel(
-      {@required this.opportunityApi,
-      @required this.badgeApi,
-      @required this.issuerApi,
-      @required this.addressApi});
-
-  Future<bool> setOpportunities() async {
+  Future<bool> fetchOpportunities() async {
     opportunities = opportunityApi?.getAllOpportunities();
     return opportunities != null;
   }
 
-  Future<bool> setBadges() async {
+  Future<bool> fetchBadges() async {
     badges = badgeApi?.getAllBadges();
     return badges != null;
   }
 
-  Future<bool> setIssuers() async {
+  Future<bool> fetchIssuers() async {
     issuers = issuerApi?.getAllIssuers();
     return issuers != null;
   }
 
-  Future<bool> setAddresses() async {
+  Future<bool> fetchAddresses() async {
     addresses = addressApi?.getAllAddresses();
     return addresses != null;
   }

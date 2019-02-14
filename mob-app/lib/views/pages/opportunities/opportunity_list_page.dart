@@ -3,12 +3,14 @@ import 'package:Gentle_Student/models/address.dart';
 import 'package:Gentle_Student/models/badge.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
 import 'package:Gentle_Student/models/issuer.dart';
-import 'package:Gentle_Student/network/network_api.dart';
 import 'package:Gentle_Student/utils/string_utils.dart';
+import 'package:Gentle_Student/viewmodels/opportunity_viewmodel.dart';
 import 'package:Gentle_Student/views/pages/opportunities/filter_dialog.dart';
 import 'package:Gentle_Student/views/pages/opportunities/opportunity_details_page.dart';
+import 'package:Gentle_Student/views/widgets/no_internet_connection.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class OpportunityListPage extends StatefulWidget {
   static String tag = 'opportunity-list-page';
@@ -22,82 +24,13 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
   List<Badge> _badges = [];
   List<Issuer> _issuers = [];
   List<Address> _addresses = [];
-  OpportunityApi _opportunityApi;
-  BadgeApi _badgeApi;
-  IssuerApi _issuerApi;
-  AddressApi _addressApi;
+  List<Opportunity> _filteredOpportunities = [];
   String issuerNameFilter = "";
   String categoryFilter = "Alles";
   String difficultyFilter = "Alles";
 
-  @override
-  void initState() {
-    super.initState();
-    _loadFromFirebase();
-  }
-
-  _loadFromFirebase() async {
-    final opportunityApi = new OpportunityApi();
-    final badgeApi = new BadgeApi();
-    final issuerApi = new IssuerApi();
-    final addresApi = new AddressApi();
-    final opportunities = await opportunityApi.getAllOpportunities();
-    final badges = await badgeApi.getAllBadges();
-    final issuers = await issuerApi.getAllIssuers();
-    final addresses = await addresApi.getAllAddresses();
-    if (this.mounted) {
-      setState(() {
-        _opportunityApi = opportunityApi;
-        _badgeApi = badgeApi;
-        _issuerApi = issuerApi;
-        _addressApi = addresApi;
-        _opportunities = opportunities;
-        _badges = badges;
-        _issuers = issuers;
-        _addresses = addresses;
-      });
-    }
-  }
-
-  _reloadOpportunities() async {
-    if (_opportunityApi != null &&
-        _badgeApi != null &&
-        _issuerApi != null &&
-        _addressApi != null) {
-      final opportunities = await _opportunityApi.getAllOpportunities();
-      final badges = await _badgeApi.getAllBadges();
-      final issuers = await _issuerApi.getAllIssuers();
-      final addresses = await _addressApi.getAllAddresses();
-      if (this.mounted) {
-        setState(() {
-          _opportunities = opportunities
-              .where(
-                (o) =>
-                    (categoryFilter == "Alles" ||
-                        o.category ==
-                            StringUtils.getCategoryEnum(categoryFilter)) &&
-                    (difficultyFilter == "Alles" ||
-                        o.difficulty ==
-                            StringUtils.getDifficultyEnum(difficultyFilter)) &&
-                    _issuers.any(
-                      (i) =>
-                          i.issuerId == o.issuerId &&
-                          i.name.toLowerCase().contains(
-                                issuerNameFilter.toLowerCase(),
-                              ),
-                    ),
-              )
-              .toList();
-          _badges = badges;
-          _issuers = issuers;
-          _addresses = addresses;
-        });
-      }
-    }
-  }
-
-  _navigateToOpportunityDetails(Opportunity o, Badge b,
-      Issuer i, Address a) async {
+  Future _navigateToOpportunityDetails(
+      Opportunity o, Badge b, Issuer i, Address a) async {
     Navigator.push(
       context,
       new MaterialPageRoute(
@@ -107,14 +40,11 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     );
   }
 
-  Widget _buildOpportunityItem(BuildContext context, int index) {
-    Opportunity opportunity = _opportunities[index];
-    Badge badge =
-        _badges.firstWhere((b) => b.openBadgeId == opportunity.badgeId);
-    Issuer issuer =
-        _issuers.firstWhere((i) => i.issuerId == opportunity.issuerId);
-    Address address =
-        _addresses.firstWhere((a) => a.addressId == opportunity.addressId);
+  Widget _buildOpportunityItem(int index) {
+    var o = _filteredOpportunities[index];
+    var a = _addresses.firstWhere((a) => a.addressId == o.addressId);
+    var b = _badges.firstWhere((b) => b.openBadgeId == o.badgeId);
+    var i = _issuers.firstWhere((i) => i.issuerId == o.issuerId);
 
     return new Container(
       margin: const EdgeInsets.only(top: 3.0),
@@ -124,20 +54,19 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
           children: <Widget>[
             new ListTile(
               onTap: () {
-                _navigateToOpportunityDetails(
-                    opportunity, badge, issuer, address);
+                _navigateToOpportunityDetails(o, b, i, a);
               },
               leading: new Hero(
-                tag: "listitem " + index.toString(),
+                tag: "listitem " + o.title,
                 child: new CircleAvatar(
                   child: new Image(
-                    image: new CachedNetworkImageProvider(badge.image),
+                    image: new CachedNetworkImageProvider(b.image),
                   ),
                   radius: 40.0,
                 ),
               ),
               title: new Text(
-                opportunity.title,
+                o.title,
                 style: new TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).brightness == Brightness.dark
@@ -145,42 +74,16 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
                         : Colors.black54,
                     fontSize: 21.0),
               ),
-              subtitle: new Text(StringUtils.getCategory(opportunity) +
+              subtitle: new Text(StringUtils.getCategory(o) +
                   " - " +
-                  StringUtils.getDifficulty(opportunity) +
+                  StringUtils.getDifficulty(o) +
                   "\n" +
-                  issuer.name),
+                  i.name),
               isThreeLine: true,
               dense: false,
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Future<Null> refresh() {
-    _reloadOpportunities();
-    return new Future<Null>.value();
-  }
-
-  Widget _getListViewWidget() {
-    return new Flexible(
-      child: new RefreshIndicator(
-        onRefresh: refresh,
-        child: new ListView.builder(
-            physics: const AlwaysScrollableScrollPhysics(),
-            itemCount: _opportunities.length,
-            itemBuilder: _buildOpportunityItem),
-      ),
-    );
-  }
-
-  Widget _buildBody() {
-    return new Container(
-      margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
-      child: new Column(
-        children: <Widget>[_getListViewWidget()],
       ),
     );
   }
@@ -200,14 +103,96 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
         categoryFilter = filter[1];
         difficultyFilter = filter[2];
       });
-      _reloadOpportunities();
     }
+  }
+
+
+  _filterOpportunities() {
+    _filteredOpportunities = _opportunities
+        .where(
+          (o) =>
+              (categoryFilter == "Alles" ||
+                  o.category == StringUtils.getCategoryEnum(categoryFilter)) &&
+              (difficultyFilter == "Alles" ||
+                  o.difficulty ==
+                      StringUtils.getDifficultyEnum(difficultyFilter)) &&
+              _issuers.any(
+                (i) =>
+                    i.issuerId == o.issuerId &&
+                    i.name.toLowerCase().contains(
+                          issuerNameFilter.toLowerCase(),
+                        ),
+              ),
+        )
+        .toList();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildBody(),
+      body: Container(
+        margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
+        child: Column(
+          children: <Widget>[
+            Flexible(
+              child: ScopedModelDescendant<OpportunityViewModel>(
+                builder: (context, child, model) {
+                  return FutureBuilder<Leerkansen>(
+                    future: Future.wait([
+                      model.opportunities,
+                      model.addresses,
+                      model.badges,
+                      model.issuers
+                    ]).then(
+                      (response) => new Leerkansen(
+                          opportunities: response[0],
+                          addresses: response[1],
+                          badges: response[2],
+                          issuers: response[3]),
+                    ),
+                    builder: (_, AsyncSnapshot<Leerkansen> snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.none:
+                        case ConnectionState.active:
+                        case ConnectionState.waiting:
+                          return Center(
+                              child: const CircularProgressIndicator());
+                        case ConnectionState.done:
+                          if (snapshot.hasData) {
+                            var leerkansen = snapshot.data;
+                            _opportunities = leerkansen.opportunities;
+                            _addresses = leerkansen.addresses;
+                            _badges = leerkansen.badges;
+                            _issuers = leerkansen.issuers;
+                            _filterOpportunities();
+
+                            return ListView.builder(
+                              itemCount: _filteredOpportunities == null
+                                  ? 0
+                                  : _filteredOpportunities.length,
+                              itemBuilder: (_, int index) {
+                                return _buildOpportunityItem(index);
+                              },
+                            );
+                          } else if (snapshot.hasError) {
+                            return NoInternetConnection(
+                              action: () async {
+                                await model.fetchOpportunities();
+                                await model.fetchAddresses();
+                                await model.fetchBadges();
+                                await model.fetchIssuers();
+                              },
+                            );
+                          }
+                      }
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.lightBlue,
         child: Icon(

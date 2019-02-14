@@ -19,7 +19,7 @@ class OpportunityApi {
             .where("authority", isEqualTo: 1)
             .getDocuments())
         .documents
-        .map((snapshot) =>
+        .map((snapshot) => 
             Opportunity.fromDocumentSnapshot(snapshot))
         .toList();
   }
