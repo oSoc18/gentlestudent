@@ -106,7 +106,6 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     }
   }
 
-
   _filterOpportunities() {
     _filteredOpportunities = _opportunities
         .where(
@@ -130,68 +129,58 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
-        child: Column(
-          children: <Widget>[
-            Flexible(
-              child: ScopedModelDescendant<OpportunityViewModel>(
-                builder: (context, child, model) {
-                  return FutureBuilder<Leerkansen>(
-                    future: Future.wait([
-                      model.opportunities,
-                      model.addresses,
-                      model.badges,
-                      model.issuers
-                    ]).then(
-                      (response) => new Leerkansen(
-                          opportunities: response[0],
-                          addresses: response[1],
-                          badges: response[2],
-                          issuers: response[3]),
-                    ),
-                    builder: (_, AsyncSnapshot<Leerkansen> snapshot) {
-                      switch (snapshot.connectionState) {
-                        case ConnectionState.none:
-                        case ConnectionState.active:
-                        case ConnectionState.waiting:
-                          return Center(
-                              child: const CircularProgressIndicator());
-                        case ConnectionState.done:
-                          if (snapshot.hasData) {
-                            var leerkansen = snapshot.data;
-                            _opportunities = leerkansen.opportunities;
-                            _addresses = leerkansen.addresses;
-                            _badges = leerkansen.badges;
-                            _issuers = leerkansen.issuers;
-                            _filterOpportunities();
-
-                            return ListView.builder(
-                              itemCount: _filteredOpportunities == null
-                                  ? 0
-                                  : _filteredOpportunities.length,
-                              itemBuilder: (_, int index) {
-                                return _buildOpportunityItem(index);
-                              },
-                            );
-                          } else if (snapshot.hasError) {
-                            return NoInternetConnection(
-                              action: () async {
-                                await model.fetchOpportunities();
-                                await model.fetchAddresses();
-                                await model.fetchBadges();
-                                await model.fetchIssuers();
-                              },
-                            );
-                          }
-                      }
-                    },
-                  );
-                },
-              ),
+      body: ScopedModelDescendant<OpportunityViewModel>(
+        builder: (context, child, model) {
+          return FutureBuilder<Leerkansen>(
+            future: Future.wait([
+              model.opportunities,
+              model.addresses,
+              model.badges,
+              model.issuers
+            ]).then(
+              (response) => new Leerkansen(
+                  opportunities: response[0],
+                  addresses: response[1],
+                  badges: response[2],
+                  issuers: response[3]),
             ),
-          ],
-        ),
+            builder: (_, AsyncSnapshot<Leerkansen> snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                case ConnectionState.active:
+                case ConnectionState.waiting:
+                  return Center(child: const CircularProgressIndicator());
+                case ConnectionState.done:
+                  if (snapshot.hasData) {
+                    var leerkansen = snapshot.data;
+                    _opportunities = leerkansen.opportunities;
+                    _addresses = leerkansen.addresses;
+                    _badges = leerkansen.badges;
+                    _issuers = leerkansen.issuers;
+                    _filterOpportunities();
+
+                    return ListView.builder(
+                      itemCount: _filteredOpportunities == null
+                          ? 0
+                          : _filteredOpportunities.length,
+                      itemBuilder: (_, int index) {
+                        return _buildOpportunityItem(index);
+                      },
+                    );
+                  } else if (snapshot.hasError) {
+                    return NoInternetConnection(
+                      action: () async {
+                        await model.fetchOpportunities();
+                        await model.fetchAddresses();
+                        await model.fetchBadges();
+                        await model.fetchIssuers();
+                      },
+                    );
+                  }
+              }
+            },
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.lightBlue,

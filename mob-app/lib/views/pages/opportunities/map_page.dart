@@ -2,21 +2,20 @@ import 'dart:async';
 
 import 'package:Gentle_Student/models/address.dart';
 import 'package:Gentle_Student/models/badge.dart';
-import 'package:Gentle_Student/models/category.dart';
-import 'package:Gentle_Student/models/difficulty.dart';
 import 'package:Gentle_Student/models/issuer.dart';
 import 'package:Gentle_Student/models/opportunity.dart';
-import 'package:Gentle_Student/network/network_api.dart';
+import 'package:Gentle_Student/utils/string_utils.dart';
+import 'package:Gentle_Student/viewmodels/opportunity_viewmodel.dart';
 import 'package:Gentle_Student/views/pages/opportunities/opportunity_details_page.dart';
+import 'package:Gentle_Student/views/widgets/no_internet_connection.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+import 'package:scoped_model/scoped_model.dart';
 
-//This page represents the map with learning opportunities
 class MapPage extends StatefulWidget {
-  //This tag allows us to navigate to the MapPage
   static String tag = 'map-page';
 
   @override
@@ -24,14 +23,12 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-  //Declaration of the variables
   List<Marker> _markers = [];
   List<Opportunity> _opportunities = [];
   List<Badge> _badges = [];
   List<Issuer> _issuers = [];
   List<Address> _addresses = [];
 
-  //Function for placing the markers of the opportunities on the map
   setMarkers() {
     Address address;
     for (int i = 0; i < _opportunities.length; i++) {
@@ -58,30 +55,6 @@ class _MapPageState extends State<MapPage> {
     return _markers;
   }
 
-  //This method gets called when the page is initializing
-  //We overwrite it to:
-  // - Load data from the Firebase
-  _loadFromFirebase() async {
-    final opportunityApi = new OpportunityApi();
-    final badgeApi = new BadgeApi();
-    final issuerApi = new IssuerApi();
-    final addresApi = new AddressApi();
-    final opportunities = await opportunityApi.getAllOpportunities();
-    final badges = await badgeApi.getAllBadges();
-    final issuers = await issuerApi.getAllIssuers();
-    final addresses = await addresApi.getAllAddresses();
-    if (this.mounted) {
-      setState(() {
-        _opportunities = opportunities;
-        _badges = badges;
-        _issuers = issuers;
-        _addresses = addresses;
-      });
-    }
-  }
-
-  //Displays a message with details of an opportunity
-  //And a button to navigate to the details page of the opportunity
   Future<Null> _displayOpportunity(Opportunity opportunity) async {
     Badge badge =
         _badges.firstWhere((b) => b.openBadgeId == opportunity.badgeId);
@@ -125,9 +98,9 @@ class _MapPageState extends State<MapPage> {
                         fontSize: 16.0),
                   ),
                   subtitle: new Text(
-                    _getCategory(opportunity) +
+                    StringUtils.getCategory(opportunity) +
                         "\n" +
-                        _getDifficulty(opportunity) +
+                        StringUtils.getDifficulty(opportunity) +
                         "\n" +
                         issuer.name,
                     style: new TextStyle(fontSize: 12.0),
@@ -177,7 +150,6 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
-  //Used to navigate to the details page of an opportunity
   _navigateToOpportunityDetails(Opportunity opportunity, Badge badge,
       Issuer issuer, Address address) async {
     Navigator.push(
@@ -189,84 +161,132 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
-  //This method gets called when the page is initializing
-  //We overwrite it to:
-  // - Load data from the Firebase
-  @override
-  initState() {
-    super.initState();
-    _loadFromFirebase();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return new Stack(children: <Widget>[
-      Scaffold(
-        body: new FlutterMap(
-          options: new MapOptions(
-            center: new LatLng(51.052233, 3.723653),
-            zoom: 14.0,
-            maxZoom: 16.0,
-            minZoom: 12.0,
-          ),
-          layers: [
-            //OPENSTREETMAP (FREE, BUT REALLY SLOW)
-            //new TileLayerOptions(
-            //urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-            //subdomains: ['a', 'b', 'c'],
-            //),
+    // return Scaffold(
+    //   body: new FlutterMap(
+    //     options: new MapOptions(
+    //       center: new LatLng(51.052233, 3.723653),
+    //       zoom: 14.0,
+    //       maxZoom: 16.0,
+    //       minZoom: 12.0,
+    //     ),
+    //     layers: [
+    //       //OPENSTREETMAP (FREE, BUT REALLY SLOW)
+    //       //new TileLayerOptions(
+    //       //urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    //       //subdomains: ['a', 'b', 'c'],
+    //       //),
 
-            //MAPBOX (FREE IN THE BEGINNING)
-            new TileLayerOptions(
-              urlTemplate: "https://api.tiles.mapbox.com/v4/"
-                  "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
-              additionalOptions: {
-                //Our MapBox token
-                'accessToken':
-                    'pk.eyJ1IjoiZ2VudGxlc3R1ZGVudCIsImEiOiJjampxdGI5cGExMjh2M3FudTVkYnl3aDlzIn0.Z3OSj_o97M8_7L8P5s3xIA',
-                //If the dark mode is on, display a dark map
-                'id': Theme.of(context).brightness == Brightness.dark
-                    ? 'mapbox.dark'
-                    : 'mapbox.streets',
-              },
-            ),
-            //Placing our markers on the map
-            new MarkerLayerOptions(
-              markers: setMarkers(),
+    //       //MAPBOX (FREE, IN THE BEGINNING)
+    //       new TileLayerOptions(
+    //         urlTemplate: "https://api.tiles.mapbox.com/v4/"
+    //             "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
+    //         additionalOptions: {
+    //           'accessToken':
+    //               'pk.eyJ1IjoiZ2VudGxlc3R1ZGVudCIsImEiOiJjampxdGI5cGExMjh2M3FudTVkYnl3aDlzIn0.Z3OSj_o97M8_7L8P5s3xIA',
+    //           'id': Theme.of(context).brightness == Brightness.dark
+    //               ? 'mapbox.dark'
+    //               : 'mapbox.streets',
+    //         },
+    //       ),
+    //       new MarkerLayerOptions(
+    //         markers: setMarkers(),
+    //       ),
+    //     ],
+    //   ),
+    // );
+
+    return Scaffold(
+      body: Container(
+        margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
+        child: Column(
+          children: <Widget>[
+            Flexible(
+              child: ScopedModelDescendant<OpportunityViewModel>(
+                builder: (context, child, model) {
+                  return FutureBuilder<Leerkansen>(
+                    future: Future.wait([
+                      model.opportunities,
+                      model.addresses,
+                      model.badges,
+                      model.issuers
+                    ]).then(
+                      (response) => new Leerkansen(
+                          opportunities: response[0],
+                          addresses: response[1],
+                          badges: response[2],
+                          issuers: response[3]),
+                    ),
+                    builder: (_, AsyncSnapshot<Leerkansen> snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.none:
+                        case ConnectionState.active:
+                        case ConnectionState.waiting:
+                          return Center(
+                              child: const CircularProgressIndicator());
+                        case ConnectionState.done:
+                          if (snapshot.hasData) {
+                            var leerkansen = snapshot.data;
+                            _opportunities = leerkansen.opportunities;
+                            _addresses = leerkansen.addresses;
+                            _badges = leerkansen.badges;
+                            _issuers = leerkansen.issuers;
+
+                            return Container(
+                              child: FlutterMap(
+                                options: new MapOptions(
+                                  center: new LatLng(51.052233, 3.723653),
+                                  zoom: 14.0,
+                                  maxZoom: 16.0,
+                                  minZoom: 12.0,
+                                ),
+                                layers: [
+                                  //OPENSTREETMAP (FREE, BUT REALLY SLOW)
+                                  //new TileLayerOptions(
+                                  //urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                                  //subdomains: ['a', 'b', 'c'],
+                                  //),
+
+                                  //MAPBOX (FREE, IN THE BEGINNING)
+                                  new TileLayerOptions(
+                                    urlTemplate:
+                                        "https://api.tiles.mapbox.com/v4/"
+                                        "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
+                                    additionalOptions: {
+                                      'accessToken':
+                                          'pk.eyJ1IjoiZ2VudGxlc3R1ZGVudCIsImEiOiJjampxdGI5cGExMjh2M3FudTVkYnl3aDlzIn0.Z3OSj_o97M8_7L8P5s3xIA',
+                                      'id': Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? 'mapbox.dark'
+                                          : 'mapbox.streets',
+                                    },
+                                  ),
+                                  new MarkerLayerOptions(
+                                    markers: setMarkers(),
+                                  ),
+                                ],
+                              ),
+                            );
+                          } else if (snapshot.hasError) {
+                            return NoInternetConnection(
+                              action: () async {
+                                await model.fetchOpportunities();
+                                await model.fetchAddresses();
+                                await model.fetchBadges();
+                                await model.fetchIssuers();
+                              },
+                            );
+                          }
+                      }
+                    },
+                  );
+                },
+              ),
             ),
           ],
         ),
       ),
-    ]);
-  }
-
-  //Function to get the name of a difficulty in String form
-  String _getDifficulty(Opportunity opportunity) {
-    switch (opportunity.difficulty) {
-      case Difficulty.BEGINNER:
-        return "Niveau 1";
-      case Difficulty.INTERMEDIATE:
-        return "Niveau 2";
-      case Difficulty.EXPERT:
-        return "Niveau 3";
-    }
-    return "Niveau 0";
-  }
-
-  //Function to get the name of a category in String form
-  String _getCategory(Opportunity opportunity) {
-    switch (opportunity.category) {
-      case Category.DIGITALEGELETTERDHEID:
-        return "Digitale geletterdheid";
-      case Category.DUURZAAMHEID:
-        return "Duurzaamheid";
-      case Category.ONDERNEMINGSZIN:
-        return "Ondernemingszin";
-      case Category.ONDERZOEK:
-        return "Onderzoek";
-      case Category.WERELDBURGERSCHAP:
-        return "Wereldburgerschap";
-    }
-    return "Algemeen";
+    );
   }
 }
