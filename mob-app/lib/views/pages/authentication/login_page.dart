@@ -1,13 +1,12 @@
-import 'package:Gentle_Student/database/database_helper.dart';
+import 'package:Gentle_Student/constants/string_constants.dart';
 import 'package:Gentle_Student/utils/firebase_utils.dart';
+import 'package:Gentle_Student/utils/message_utils.dart';
+import 'package:Gentle_Student/utils/validation_utils.dart';
 import 'package:Gentle_Student/views/pages/authentication/register_page.dart';
 import 'package:Gentle_Student/views/pages/information/tutorial/tutorial_page.dart';
 import 'package:flutter/material.dart';
 
-//This page is the first page the user will see after installing the app
-//It handles everything that's login related
 class LoginPage extends StatefulWidget {
-  //This tag allows us to navigate to the LoginPage
   static String tag = 'login-page';
 
   @override
@@ -15,67 +14,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  //Declaration of the variables
   final scaffoldKey = new GlobalKey<ScaffoldState>();
-  var emailController;
-  var passwordController;
-  final db = new DatabaseHelper();
+  final emailController = new TextEditingController();
+  final passwordController = new TextEditingController();
 
-  //Constructor
-  _LoginPageState() {
-    emailController = new TextEditingController();
-    passwordController = new TextEditingController();
-  }
-
-  //Function for handling the login
-  void _login() async {
-    if (_allFieldsFilledIn()) {
-      try {
-        //Authentication via Firebase
-        FirebaseUtils.firebaseUser =
-            FirebaseUtils.mAuth.signInWithEmailAndPassword(
-          email: emailController.text,
-          password: passwordController.text,
-        );
-        if ((await FirebaseUtils.firebaseUser).isEmailVerified) {
-          Navigator.pushReplacement(
-            context,
-            new MaterialPageRoute(
-              builder: (BuildContext context) => new TutorialPage(true),
-            ),
-          );
-        } else {
-          await FirebaseUtils.mAuth.signOut();
-          _showSnackBar(
-              "Gelieve uw e-mailadres te verifiëren via de verzonden e-mail.");
-        }
-      } catch (Error) {
-        _showSnackBar("Er is iets fout gelopen tijdens het aanmelden.");
-      }
-    } else {
-      _showSnackBar("Gelieve alle velden in te vullen.");
-    }
-  }
-
-  //Custom form validation to check if all fields are filled in
-  bool _allFieldsFilledIn() {
-    return emailController.text != null &&
-        emailController.text != "" &&
-        passwordController.text != null &&
-        passwordController.text != "";
-  }
-
-  //Shows a given message at the bottom of the screen
-  void _showSnackBar(String text) {
-    scaffoldKey.currentState.showSnackBar(new SnackBar(
-      content: new Text(text),
-      duration: Duration(seconds: 4),
-    ));
-  }
-
-  //This method gets called when the page is disposing
-  //We overwrite it to:
-  // - Dispose of our controllers
   @override
   void dispose() {
     emailController.dispose();
@@ -83,17 +25,52 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
+  Future<void> _login() async {
+    if (!ValidationUtils.allFieldsFilledIn(
+        [emailController, passwordController]))
+      MessageUtils.showSnackBar(
+          scaffoldKey, StringConstants.validationErrorEmptyField);
+
+    try {
+      FirebaseUtils.firebaseUser =
+          FirebaseUtils.mAuth.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+
+      if (!(await FirebaseUtils.firebaseUser).isEmailVerified) {
+        FirebaseUtils.firebaseUser = null;
+        await FirebaseUtils.mAuth.signOut();
+        MessageUtils.showSnackBar(
+            scaffoldKey, StringConstants.errorLoginUnverifiedEmail);
+      }
+
+      _navigateToTutorialPage();
+    } catch (Error) {
+      MessageUtils.showSnackBar(scaffoldKey, StringConstants.errorLoginGeneral);
+    }
+  }
+
+  void _navigateToTutorialPage() {
+    Navigator.pushReplacement(
+      context,
+      new MaterialPageRoute(
+        builder: (BuildContext context) => new TutorialPage(true),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    //The logo displayed at the top of the page
     final logo = Hero(
-        tag: 'login hero',
-        child: CircleAvatar(
-            backgroundColor: Colors.transparent,
-            radius: 60.0,
-            child: Image.asset('assets/icon/logo.png')));
+      tag: 'login hero',
+      child: CircleAvatar(
+        backgroundColor: Colors.transparent,
+        radius: 60.0,
+        child: Image.asset('assets/icon/logo.png'),
+      ),
+    );
 
-    //The email textfield
     final email = TextField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
@@ -108,7 +85,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
 
-    //The password textfield
     final password = TextField(
       autofocus: false,
       obscureText: true,
@@ -124,7 +100,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
 
-    //The login button
     final loginButton = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Material(
@@ -140,7 +115,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
 
-    //The register button
     final registerLabel = FlatButton(
       child: Text('Geen account? Klik hier!',
           style: TextStyle(
@@ -159,7 +133,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
       key: scaffoldKey,
       body: Center(
-        //A list containing all previously declared widgets
         child: ListView(
           shrinkWrap: true,
           padding: EdgeInsets.only(left: 24.0, right: 24.0),
@@ -171,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
             password,
             SizedBox(height: 24.0),
             loginButton,
-            registerLabel
+            registerLabel,
           ],
         ),
       ),

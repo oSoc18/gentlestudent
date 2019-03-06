@@ -47,42 +47,33 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
     var i = _issuers.firstWhere((i) => i.issuerId == o.issuerId);
 
     return new Container(
-      margin: const EdgeInsets.only(top: 3.0),
       child: new Card(
-        child: new Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            new ListTile(
-              onTap: () {
-                _navigateToOpportunityDetails(o, b, i, a);
-              },
-              leading: new Hero(
-                tag: "listitem " + o.title,
-                child: new CircleAvatar(
-                  child: new Image(
-                    image: new CachedNetworkImageProvider(b.image),
-                  ),
-                  radius: 40.0,
-                ),
-              ),
-              title: new Text(
-                o.title,
-                style: new TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white
-                        : Colors.black54,
-                    fontSize: 21.0),
-              ),
-              subtitle: new Text(StringUtils.getCategory(o) +
-                  " - " +
-                  StringUtils.getDifficulty(o) +
-                  "\n" +
-                  i.name),
-              isThreeLine: true,
-              dense: false,
+        child: new ListTile(
+          onTap: () {
+            _navigateToOpportunityDetails(o, b, i, a);
+          },
+          leading: new CircleAvatar(
+            child: new Image(
+              image: new CachedNetworkImageProvider(b.image),
             ),
-          ],
+            radius: 36.0,
+          ),
+          title: new Text(
+            o.title,
+            style: new TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black54,
+                fontSize: 21.0),
+          ),
+          subtitle: new Text(StringUtils.getCategory(o) +
+              " - " +
+              StringUtils.getDifficulty(o) +
+              "\n" +
+              i.name),
+          isThreeLine: true,
+          dense: false,
         ),
       ),
     );
@@ -159,13 +150,17 @@ class _OpportunityListPageState extends State<OpportunityListPage> {
                     _issuers = leerkansen.issuers;
                     _filterOpportunities();
 
-                    return ListView.builder(
-                      itemCount: _filteredOpportunities == null
-                          ? 0
-                          : _filteredOpportunities.length,
-                      itemBuilder: (_, int index) {
-                        return _buildOpportunityItem(index);
-                      },
+                    return new Container(
+                      margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
+                      child: ListView.builder(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        itemCount: _filteredOpportunities == null
+                            ? 0
+                            : _filteredOpportunities.length,
+                        itemBuilder: (_, int index) {
+                          return _buildOpportunityItem(index);
+                        },
+                      ),
                     );
                   } else if (snapshot.hasError) {
                     return NoInternetConnection(

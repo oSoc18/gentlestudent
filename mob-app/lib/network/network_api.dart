@@ -19,22 +19,19 @@ class OpportunityApi {
             .where("authority", isEqualTo: 1)
             .getDocuments())
         .documents
-        .map((snapshot) => 
-            Opportunity.fromDocumentSnapshot(snapshot))
+        .map((snapshot) => Opportunity.fromDocumentSnapshot(snapshot))
         .toList();
   }
 
   Future<Opportunity> getOpportunityById(String opportunityId) async {
-    return Opportunity.fromDocumentSnapshot(await Firestore
-        .instance
+    return Opportunity.fromDocumentSnapshot(await Firestore.instance
         .collection("Opportunities")
         .document(opportunityId)
         .get());
   }
 
   Future<Opportunity> getOpportunityByBeaconId(String beaconId) async {
-    return Opportunity.fromDocumentSnapshot((await Firestore
-            .instance
+    return Opportunity.fromDocumentSnapshot((await Firestore.instance
             .collection("Opportunities")
             .where("beaconId", isEqualTo: beaconId)
             .getDocuments())
@@ -43,8 +40,7 @@ class OpportunityApi {
   }
 
   Future<Opportunity> getOpportunityByBadgeId(String badgeId) async {
-    return Opportunity.fromDocumentSnapshot((await Firestore
-            .instance
+    return Opportunity.fromDocumentSnapshot((await Firestore.instance
             .collection("Opportunities")
             .where("badgeId", isEqualTo: badgeId)
             .getDocuments())
@@ -75,8 +71,7 @@ class ParticipationApi {
             .where("participantId", isEqualTo: firebaseUser.uid)
             .getDocuments())
         .documents
-        .map((snapshot) =>
-            Participation.fromDocumentSnapshot(snapshot))
+        .map((snapshot) => Participation.fromDocumentSnapshot(snapshot))
         .toList();
   }
 
@@ -109,8 +104,7 @@ class ParticipationApi {
 
   Future<Participation> getParticipantByUserAndOpportunity(
       FirebaseUser firebaseUser, Opportunity opportunity) async {
-    return Participation.fromDocumentSnapshot((await Firestore
-            .instance
+    return Participation.fromDocumentSnapshot((await Firestore.instance
             .collection('Participations')
             .where("participantId", isEqualTo: firebaseUser.uid)
             .where("opportunityId", isEqualTo: opportunity.opportunityId)
@@ -124,14 +118,12 @@ class ParticipantApi {
   Future<List<Participant>> getAllParticipants() async {
     return (await Firestore.instance.collection('Participants').getDocuments())
         .documents
-        .map((snapshot) =>
-            Participant.fromDocumentSnapshot(snapshot))
+        .map((snapshot) => Participant.fromDocumentSnapshot(snapshot))
         .toList();
   }
 
   Future<Participant> getParticipantById(String participantId) async {
-    return Participant.fromDocumentSnapshot(await Firestore
-        .instance
+    return Participant.fromDocumentSnapshot(await Firestore.instance
         .collection("Participants")
         .document(participantId)
         .get());
@@ -178,7 +170,6 @@ class AddressApi {
         .document(addressId)
         .get());
   }
-
 }
 
 class IssuerApi {
@@ -195,7 +186,6 @@ class IssuerApi {
         .document(issuerId)
         .get());
   }
-
 }
 
 class BadgeApi {
@@ -259,6 +249,4 @@ class NewsApi {
         .map((snapshot) => News.fromDocumentSnapshot(snapshot))
         .toList();
   }
-
-  
 }

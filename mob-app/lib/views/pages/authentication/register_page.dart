@@ -1,16 +1,16 @@
 import 'dart:async';
 
+import 'package:Gentle_Student/constants/string_constants.dart';
 import 'package:Gentle_Student/utils/firebase_utils.dart';
+import 'package:Gentle_Student/utils/message_utils.dart';
+import 'package:Gentle_Student/utils/website_utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-//This page handles everything that's related to creating an account
 class RegisterPage extends StatefulWidget {
-  //This tag allows us to navigate to the RegisterPage
   static String tag = 'register-page';
 
   @override
@@ -18,71 +18,49 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  //Declaration of the variables
   final scaffoldKey = new GlobalKey<ScaffoldState>();
-  var firstnameController;
-  var lastnameController;
-  var instituteController;
-  var emailController;
-  var passwordController;
-  var repeatPasswordController;
+  final firstnameController = new TextEditingController();
+  final lastnameController = new TextEditingController();
+  final instituteController = new TextEditingController();
+  final emailController = new TextEditingController();
+  final passwordController = new TextEditingController();
+  final repeatPasswordController = new TextEditingController();
 
-  //Constructor
-  _RegisterPageState() {
-    firstnameController = new TextEditingController();
-    lastnameController = new TextEditingController();
-    instituteController = new TextEditingController();
-    emailController = new TextEditingController();
-    passwordController = new TextEditingController();
-    repeatPasswordController = new TextEditingController();
-  }
-
-  //Function for launching an url into a browser of a smartphone
-  Future<Null> _launchInBrowser(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  //Create account with Firebase
-  void _register() async {
+  Future<void> _register() async {
     try {
-      FirebaseUtils.firebaseUser = FirebaseUtils.mAuth.createUserWithEmailAndPassword(
+      FirebaseUtils.firebaseUser =
+          FirebaseUtils.mAuth.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
+
       if (await FirebaseUtils.firebaseUser != null) {
         FirebaseUser firebaseUser = await FirebaseUtils.firebaseUser;
 
         UserUpdateInfo userUpdateInfo = new UserUpdateInfo();
-        userUpdateInfo.displayName = firstnameController.text + " " + lastnameController.text;
+        userUpdateInfo.displayName =
+            "${firstnameController.text} ${lastnameController.text}";
         await FirebaseUtils.mAuth.updateProfile(userUpdateInfo);
 
         firebaseUser.sendEmailVerification();
 
-        await _addUserToDatabase();
+        await _addUserToFirestore();
 
+        FirebaseUtils.firebaseUser = null;
         await FirebaseUtils.mAuth.signOut();
-        
+
         Navigator.of(context).pop();
       } else {
-        _showSnackBar("Er is iets fout gelopen tijdens het registeren.");
+        MessageUtils.showSnackBar(
+            scaffoldKey, StringConstants.errorRegistrationGeneral);
       }
-
-      await (await FirebaseUtils.firebaseUser).sendEmailVerification();
-      await _addUserToDatabase();
-      await FirebaseUtils.mAuth.signOut();
-      FirebaseUtils.firebaseUser = null;
-      Navigator.of(context).pop();
     } catch (Error) {
-      _showSnackBar("Er is iets fout gelopen tijdens het registeren.");
+      MessageUtils.showSnackBar(
+          scaffoldKey, StringConstants.errorRegistrationGeneral);
     }
   }
 
-  //Add user details (participant document) to Firebase
-  Future _addUserToDatabase() async {
+  Future _addUserToFirestore() async {
     Map<String, dynamic> data = <String, dynamic>{
       "name": firstnameController.text + " " + lastnameController.text,
       "institute": instituteController.text,
@@ -90,8 +68,10 @@ class _RegisterPageState extends State<RegisterPage> {
       "profilePicture": "",
       "favorites": new List<String>(),
     };
-    final DocumentReference documentReference =
-        Firestore.instance.document("Participants/" + (await FirebaseUtils.firebaseUser).uid);
+
+    final DocumentReference documentReference = Firestore.instance
+        .document("Participants/" + (await FirebaseUtils.firebaseUser).uid);
+
     documentReference.setData(data).whenComplete(() {
       print("User added");
     }).catchError((e) => print(e));
@@ -113,9 +93,8 @@ class _RegisterPageState extends State<RegisterPage> {
         repeatPasswordController.text != "";
   }
 
-  //Dialog containing the privacy policy for GDPR reasons
-  Future<Null> _displayGDPRDialog() async {
-    return showDialog<Null>(
+  Future<void> _displayGDPRDialog() async {
+    return showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
@@ -138,7 +117,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   style: new TextStyle(color: Colors.blue),
                   recognizer: new TapGestureRecognizer()
                     ..onTap = () async {
-                      await _launchInBrowser(
+                      await WebsiteUtils.launchInBrowser(
                           "https://gentlestudent.gent/privacy");
                     },
                 ),
@@ -178,17 +157,6 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  //Shows a given message at the bottom of the screen
-  void _showSnackBar(String text) {
-    scaffoldKey.currentState.showSnackBar(new SnackBar(
-      content: new Text(text),
-      duration: Duration(seconds: 4),
-    ));
-  }
-
-  //This method gets called when the page is disposing
-  //We overwrite it to:
-  // - Dispose of our controllers
   @override
   void dispose() {
     firstnameController.dispose();
@@ -202,82 +170,87 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    //The firstname textfield
     final voornaam = TextField(
       controller: firstnameController,
       keyboardType: TextInputType.text,
       autofocus: false,
       decoration: InputDecoration(
-          labelText: 'Voornaam',
-          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+        labelText: 'Voornaam',
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
     );
 
-    //The lastname textfield
     final achternaam = TextField(
       controller: lastnameController,
       keyboardType: TextInputType.text,
       autofocus: false,
       decoration: InputDecoration(
-          labelText: 'Achternaam',
-          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+        labelText: 'Achternaam',
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
     );
 
-    //The institution textfield
     final onderwijsinstelling = TextField(
       controller: instituteController,
       keyboardType: TextInputType.text,
       autofocus: false,
       decoration: InputDecoration(
-          labelText: 'Onderwijsinstelling',
-          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+        labelText: 'Onderwijsinstelling',
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
     );
 
-    //The email textfield
     final email = TextField(
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
       decoration: InputDecoration(
-          labelText: 'E-mailadres',
-          hintText: 'naam@student.arteveldehs.be',
-          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+        labelText: 'E-mailadres',
+        hintText: 'naam@student.arteveldehs.be',
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
     );
 
-    //The password textfield
     final wachtwoord = TextField(
       controller: passwordController,
       autofocus: false,
       obscureText: true,
       decoration: InputDecoration(
-          labelText: 'Wachtwoord',
-          hintText: '**********',
-          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+        labelText: 'Wachtwoord',
+        hintText: '**********',
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
     );
 
-    //The repeat password textfield
     final herhaalWachtwoord = TextField(
       controller: repeatPasswordController,
       autofocus: false,
       obscureText: true,
       decoration: InputDecoration(
-          labelText: 'Herhaal wachtwoord',
-          hintText: '**********',
-          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+        labelText: 'Herhaal wachtwoord',
+        hintText: '**********',
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
     );
 
-    //The register button
     final registerButton = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Material(
@@ -287,22 +260,21 @@ class _RegisterPageState extends State<RegisterPage> {
           minWidth: 200.0,
           height: 42.0,
           onPressed: () {
-            //Form validation
             if (_allFieldsFilledIn()) {
               if (passwordController.text.toString().length >= 6) {
                 if (passwordController.text == repeatPasswordController.text) {
-                  //Display GDPR dialog
                   _displayGDPRDialog();
                 } else {
-                  _showSnackBar(
-                      "Wachtwoord en herhaal wachtwoord zijn niet gelijk aan elkaar.");
+                  MessageUtils.showSnackBar(scaffoldKey,
+                      StringConstants.validationPasswordsDoNotMatch);
                 }
               } else {
-                _showSnackBar(
-                    "Uw wachtwoord moet minstens 6 karakters lang zijn.");
+                MessageUtils.showSnackBar(
+                    scaffoldKey, StringConstants.validationInvalidPassword);
               }
             } else {
-              _showSnackBar("Gelieve alle velden in te vullen.");
+              MessageUtils.showSnackBar(
+                  scaffoldKey, StringConstants.validationErrorEmptyField);
             }
           },
           color: Colors.lightBlueAccent,
@@ -312,7 +284,6 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
 
-    //The login button
     final loginLabel = FlatButton(
       child: Text('Al een account? Log hier in!',
           style: TextStyle(
@@ -333,7 +304,6 @@ class _RegisterPageState extends State<RegisterPage> {
         iconTheme: new IconThemeData(color: Colors.white),
       ),
       body: Center(
-        //A list containing all previously declared widgets
         child: ListView(
           shrinkWrap: true,
           padding: EdgeInsets.only(left: 24.0, right: 24.0),

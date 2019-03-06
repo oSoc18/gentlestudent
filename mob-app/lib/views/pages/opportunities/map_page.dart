@@ -199,7 +199,6 @@ class _MapPageState extends State<MapPage> {
 
     return Scaffold(
       body: Container(
-        margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
         child: Column(
           children: <Widget>[
             Flexible(
