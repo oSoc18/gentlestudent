@@ -52,6 +52,14 @@ class FrontPage extends Component {
 								<p>In de stad valt veel te leren, ontdek als <b>student</b> waar je je allemaal kunt verrijken. Vul je leven en geest en laat anderen meegenieten van je Gentle-talent.</p>
 								<p>Laat van je missie horen en betrek als <b>organisatie of buurt</b> studenten bij jullie projecten en geef ze de kans om ervaringen op te doen in een authentieke setting.</p>
 							</div>
+							<div className="introductory-video">
+								<iframe src="https://arteveldehogeschool.cloud.panopto.eu/Panopto/Pages/Embed.aspx?id=dc47c1a8-68b9-413b-812a-aa1400a18754&v=1" 
+									width="720"
+									height="405"
+									frameborder="0"
+									allowfullscreen allow="autoplay">
+								</iframe>
+							</div>
 						</div>
 						<a className="scroll-down-arrow"href="#anchor"><span></span></a>
 					</div>
