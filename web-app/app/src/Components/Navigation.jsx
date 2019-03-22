@@ -40,9 +40,9 @@ const NavigationNonAuth = () =>
 		<li className="nav_item">
 			<NavLink to={routes.WordIssuer} activeClassName="active">Word Issuer</NavLink>
 		</li>
-		<li className="nav_item">
+		{/* <li className="nav_item">
 			<NavLink to={routes.Ervaringen}>Ervaringen</NavLink>
-		</li>
+		</li> */}
 		<li className="nav_item">
 			<NavLink to={routes.Nieuws}>Nieuws</NavLink>
 		</li>
@@ -147,9 +147,9 @@ class NavigationAuth extends Component{
 					<NavLink to={routes.Leerkansen} activeClassName="active">Leerkansen</NavLink>
 				</li>
 				{ ! isIssuer && <WordIssuer/> }
-				<li className="nav_item">
+				{/* <li className="nav_item">
 					<NavLink to={routes.Ervaringen}>Ervaringen</NavLink>
-				</li>
+				</li> */}
 				<li className="nav_item">
 					<NavLink to={routes.Nieuws}>Nieuws</NavLink>
 				</li>

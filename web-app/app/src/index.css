@@ -781,7 +781,7 @@ footer {
     }
   #startpage .content {
     text-align: center;
-    margin: calc(30vh - 30px) 0;
+    /* margin: calc(30vh - 30px) 0; */
     width: calc(100% - 30px) !important;
     min-height: 300px !important;
     max-height: 840px !important;
@@ -795,9 +795,11 @@ footer {
     }
     #startpage .content h1 {
       margin: 0;
+      margin-top: 10px;
       font-size: 6vh; }
     #startpage .content h2 {
       margin-top: 0;
+      margin-bottom: 0;
       font-size: 4vh; }
     #startpage .content p{
       font-size: 2.3vh;
@@ -807,8 +809,8 @@ footer {
       /* background-color: rgba(0, 16, 20, 0.473); */
       display: inline-block;
       max-width: 45vw;
-      padding: 10px;
       /* padding: 10px; */
+      margin-top: 0px;
     }
     /* @media screen and (min-width: 960px) {
       #startpage .content h1 {
@@ -1893,4 +1895,15 @@ article.post small {
 }
 .submit-padding{
   padding-bottom: 80px;
+}
+
+.introductory-video{
+  padding: 0px;
+  /* border: 1px solid #464646; */
+}
+
+@media screen and (max-width: 1080px) {
+  .introductory-video{
+    display: none;
+  }
 }

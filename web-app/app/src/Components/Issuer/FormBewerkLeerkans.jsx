@@ -177,13 +177,13 @@ class FormBewerkLeerkans extends Component{
         });
       }
       if(this.state.house_number != this.props.initValues.house_number){
-        firestore.updateAddress(this.props.opportunity.addressId, "housenumber", this.state.house_number).then(function(snapshot) {
+        firestore.updateAddress(this.props.opportunity.addressId, "housenumber", parseInt(this.state.house_number)).then(function(snapshot) {
         }).catch(function(error) {
           console.error("Error updating address: ", error);
         });
       }
       if(this.state.postal_code != this.props.initValues.postal_code){
-        firestore.updateAddress(this.props.opportunity.addressId, "postalcode", this.state.postal_code).then(function(snapshot) {
+        firestore.updateAddress(this.props.opportunity.addressId, "postalcode", parseInt(this.state.postal_code)).then(function(snapshot) {
         }).catch(function(error) {
           console.error("Error updating address: ", error);
         });
