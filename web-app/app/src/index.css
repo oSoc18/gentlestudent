@@ -795,11 +795,11 @@ footer {
     }
     #startpage .content h1 {
       margin: 0;
-      margin-top: 10px;
+      margin-top: 10vh;
       font-size: 6vh; }
     #startpage .content h2 {
       margin-top: 0;
-      margin-bottom: 0;
+      /* margin-bottom: 5vh; */
       font-size: 4vh; }
     #startpage .content p{
       font-size: 2.3vh;
@@ -1899,11 +1899,22 @@ article.post small {
 
 .introductory-video{
   padding: 0px;
+  margin-top: 5vh;
+  margin-bottom: 10px;
   /* border: 1px solid #464646; */
 }
 
-@media screen and (max-width: 1080px) {
-  .introductory-video{
+#startpage .text{
+  display: none;
+}
+
+/* @media screen and (min-width: 1080px) {
+  #startpage .text{
     display: none;
   }
 }
+@media screen and (max-width: 1080px) {
+  .introductory-video{
+    display: none;
+  } 
+} */
