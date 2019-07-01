@@ -9,35 +9,35 @@ import {
 
 import store from './store';
 
-import { firebase } from './Components/Firebase';
+import { firebase } from './Utils/Firebase';
 
-import FrontPage from './Screens/FrontPage';
-import Leerkansen from './Screens/Leerkansen';
-import WordIssuer from './Screens/WordIssuer';
-import Ervaringen from './Screens/Ervaringen';
-import Nieuws from './Screens/Nieuws';
-import OverOns from './Screens/OverOns';
-import Register from './Components/Auth/Register';
-import Login from './Components/Auth/Login';
+import FrontPage from './Components/Anonymous/Frontpage/FrontPage';
+import Leerkansen from './Components/SignedIn/Leerkansen/Leerkansen';
+import WordIssuer from './Components/Anonymous/WordIssuer';
+import Ervaringen from './Components/Anonymous/Ervaringen/Ervaringen';
+import Nieuws from './Components/Anonymous/Nieuws/Nieuws';
+import OverOns from './Components/Anonymous/OverOns';
+import Register from './Components/Anonymous/Auth/Register';
+import Login from './Components/Anonymous/Auth/Login';
 
-import BOLeerkansen from './Screens/Backoffice/Leerkansen';
-import MaakLeerkans from './Screens/Issuer/MaakLeerkans';
-import IssueBadgeRecipient from './Screens/Issuer/IssueBadgeRecipient';
-import RegistreerIssuer from './Screens/RegistreerIssuer';
-import ValideerIssuer from './Screens/Admin/ValideerIssuer';
-import ValideerLeerkans from './Screens/Admin/ValideerLeerkans';
-import AangemaakteLeerkansen from './Screens/Issuer/AangemaakteLeerkansen';
-import BewerkLeerkans from './Components/Issuer/BewerkLeerkans';
-import Profiel from './Screens/Backoffice/Profiel';
-import Privacy from './Screens/Privacy';
-import Voorwaarden from './Screens/Voorwaarden';
-import NoMatch from './Screens/NoMatch';
-import Backpack from './Screens/Backoffice/Backpack';
+import BOLeerkansen from './Components/SignedIn/Backoffice/Leerkansen';
+import MaakLeerkans from './Components/SignedIn/Issuer/MaakLeerkans';
+import IssueBadgeRecipient from './Components/SignedIn/Issuer/IssueBadgeRecipient';
+import RegistreerIssuer from './Components/Anonymous/Auth/RegistreerIssuer';
+import ValideerIssuer from './Components/SignedIn/Admin/ValideerIssuer';
+import ValideerLeerkans from './Components/SignedIn/Admin/ValideerLeerkans';
+import AangemaakteLeerkansen from './Components/SignedIn/Issuer/AangemaakteLeerkansen';
+import BewerkLeerkans from './Components/SignedIn/Issuer/BewerkLeerkans';
+import Profiel from './Components/SignedIn/Backoffice/Profiel';
+import Privacy from './Components/Anonymous/Privacy';
+import Voorwaarden from './Components/Anonymous/Voorwaarden';
+import NoMatch from './Shared/NoMatch';
+import Backpack from './Components/SignedIn/Backoffice/Backpack';
 
-import Navigation from './Components/Navigation';
-import Footer from './Components/Footer';
+import Navigation from './Shared/Navigation';
+import Footer from './Shared/Footer';
 
-import withAuthentication from './Components/withAuthentication';
+import withAuthentication from './Shared/withAuthentication';
 
 import * as routes from './routes/routes';
 

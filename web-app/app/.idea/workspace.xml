@@ -30,7 +30,7 @@
             </entry>
           </file>
           <file leaf-file-name="auth.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/Components/Firebase/auth.js">
+            <entry file="file://$PROJECT_DIR$/src/Utils/Firebase/auth.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="110">
                   <caret line="5" column="12" lean-forward="false" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
@@ -42,7 +42,7 @@
             </entry>
           </file>
           <file leaf-file-name="firestore.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/Components/Firebase/firestore.js">
+            <entry file="file://$PROJECT_DIR$/src/Utils/Firebase/firestore.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="396">
                   <caret line="18" column="26" lean-forward="true" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
@@ -64,7 +64,7 @@
             </entry>
           </file>
           <file leaf-file-name="firebase.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/Components/Firebase/firebase.js">
+            <entry file="file://$PROJECT_DIR$/src/Utils/Firebase/firebase.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="0">
                   <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -110,8 +110,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Components/Firebase/auth.js" />
-        <option value="$PROJECT_DIR$/src/Components/Firebase/firestore.js" />
+        <option value="$PROJECT_DIR$/src/Utils/Firebase/auth.js" />
+        <option value="$PROJECT_DIR$/src/Utils/Firebase/firestore.js" />
         <option value="$PROJECT_DIR$/src/Components/Auth/RegistreerIssuer.jsx" />
       </list>
     </option>
@@ -386,7 +386,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Firebase/firebase.js">
+    <entry file="file://$PROJECT_DIR$/src/Utils/Firebase/firebase.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -416,7 +416,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Firebase/firestore.js">
+    <entry file="file://$PROJECT_DIR$/src/Utils/Firebase/firestore.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="18" column="26" lean-forward="true" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
@@ -424,7 +424,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/Firebase/auth.js">
+    <entry file="file://$PROJECT_DIR$/src/Utils/Firebase/auth.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
           <caret line="5" column="12" lean-forward="false" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
